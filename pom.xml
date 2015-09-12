@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mybatis.spring.boot</groupId>
+  <artifactId>mybatis-spring-boot</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>mybatis-spring-boot</name>
+  <developers>
+    <developer>
+      <name>Eddú Meléndez</name>
+      <email>eddu.melendez@gmail.com</email>
+    </developer>
+  </developers>
+  <modules>
+    <module>mybatis-spring-boot-autoconfigure</module>
+    <module>mybatis-spring-boot-starter</module>
+    <module>mybatis-spring-boot-samples</module>
+  </modules>
+  <scm>
+    <connection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</connection>
+    <developerConnection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</developerConnection>
+    <url>https://github.com/mybatis/mybatis-spring-boot</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issue Management</system>
+    <url>https://github.com/mybatis/mybatis-spring-boot/issues</url>
+  </issueManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.6</java.version>
+    <mybatis.version>3.3.0</mybatis.version>
+    <mybatis-spring.version>1.2.3</mybatis-spring.version>
+    <spring-boot.version>1.2.6.RELEASE</spring-boot.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>http://repo.spring.io/snapshot</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>http://repo.spring.io/milestone</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>http://repo.spring.io/snapshot</url>
+    </pluginRepository>
+    <pluginRepository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>http://repo.spring.io/milestone</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
