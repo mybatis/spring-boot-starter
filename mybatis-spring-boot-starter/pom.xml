@@ -26,15 +26,5 @@
       <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
-    <!--<dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${mybatis-spring.version}</version>
-        </dependency>-->
   </dependencies>
 </project>
