@@ -16,13 +16,13 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
-import static org.junit.Assert.assertEquals;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
 import org.springframework.boot.test.EnvironmentTestUtils;
@@ -30,62 +30,84 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests for {@link MybatisAutoConfiguration}
  *
  * @author Eddú Meléndez
+ * @author <A href="mailto:starbuxman@gmail.com">Josh Long</A>
  */
 public class MybatisAutoConfigurationTest {
 
-	private AnnotationConfigApplicationContext context;
+    private AnnotationConfigApplicationContext context;
 
-	@Test
-	public void testNoDataSource() throws Exception {
-		this.context = new AnnotationConfigApplicationContext();
-		this.context.register(MybatisAutoConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertEquals(0, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-	}
+    @Test
+    public void testNoDataSource() throws Exception {
+        this.context = new AnnotationConfigApplicationContext();
+        this.context.register(MybatisAutoConfiguration.class,
+                PropertyPlaceholderAutoConfiguration.class);
+        this.context.refresh();
+        assertEquals(0, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+    }
 
-	@Test
-	public void testDefaultConfiguration() {
-		this.context = new AnnotationConfigApplicationContext();
-		this.context.register(EmbeddedDataSourceConfiguration.class,
-				MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-	}
+    @Test
+    public void testDefaultConfiguration() {
+        this.context = new AnnotationConfigApplicationContext();
+        this.context.register(EmbeddedDataSourceConfiguration.class,
+                MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
+                PropertyPlaceholderAutoConfiguration.class);
+        this.context.refresh();
+        assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+        assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+        assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+    }
 
-	@Test
-	public void testWithConfigFile() {
-		this.context = new AnnotationConfigApplicationContext();
-		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config.xml");
-		this.context.register(EmbeddedDataSourceConfiguration.class,
-				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
-	}
+    @Test
+    public void testWithConfigFile() {
+        this.context = new AnnotationConfigApplicationContext();
+        EnvironmentTestUtils.addEnvironment(this.context,
+                "mybatis.config:mybatis-config.xml");
+        this.context.register(EmbeddedDataSourceConfiguration.class,
+                MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+                PropertyPlaceholderAutoConfiguration.class);
+        this.context.refresh();
+        assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+        assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
+    }
 
-	@Configuration
-	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
-	static class MybatisScanMapperConfiguration {
+    @Test
+    public void testDefaultBootConfiguration() {
+        this.context = new AnnotationConfigApplicationContext();
+        this.context.register(EmbeddedDataSourceConfiguration.class,
+                MybatisBootMapperScanAutoConfiguration.class,
+                MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+        this.context.refresh();
+        assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+        assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+        assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+    }
 
-	}
+    @Configuration
+    @EnableAutoConfiguration
+    @MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
+    static class MybatisScanMapperConfiguration {
+    }
 
-	@Configuration
-	static class MybatisMapperConfiguration {
+    @Configuration
+    @EnableAutoConfiguration
+    static class MybatisBootMapperScanAutoConfiguration {
+    }
 
-		@Bean
-		public CityMapperImpl cityMapper() {
-			return new CityMapperImpl();
-		}
+    @Configuration
+    @EnableAutoConfiguration
+    static class MybatisMapperConfiguration {
 
-	}
+        @Bean
+        public CityMapperImpl cityMapper() {
+            return new CityMapperImpl();
+        }
+
+    }
 
 }
