@@ -26,6 +26,10 @@
     <system>GitHub Issue Management</system>
     <url>https://github.com/mybatis/mybatis-spring-boot/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/mybatis/mybatis-spring-boot</url>
+  </ciManagement>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.6</java.version>

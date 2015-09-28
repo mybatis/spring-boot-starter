@@ -1,4 +1,4 @@
-# mybatis-spring-boot
+# mybatis-spring-boot [![Build Status](https://travis-ci.org/mybatis/mybatis-spring-boot.svg)](https://travis-ci.org/mybatis/mybatis-spring-boot)
 MyBatis integration with Spring Boot
 
 ## Properties file configuration
