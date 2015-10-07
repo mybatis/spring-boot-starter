@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>mybatis-spring-boot</artifactId>
-    <groupId>org.mybatis.spring.boot</groupId>
+    <groupId>org.mybatis</groupId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <groupId>org.mybatis.spring.boot</groupId>
+  <groupId>org.mybatis</groupId>
   <artifactId>mybatis-spring-boot-starter</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>mybatis-spring-boot-starter</name>
@@ -22,7 +22,7 @@
       <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
+      <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
