@@ -28,22 +28,29 @@
   <artifactId>mybatis-spring-boot</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <name>mybatis-spring-boot</name>
+  <description>Spring Boot Support for Mybatis</description>
+  <url>http://github.com/mybatis/mybatis-spring-boot/</url>
+
   <developers>
     <developer>
       <name>Eddú Meléndez</name>
       <email>eddu.melendez@gmail.com</email>
     </developer>
   </developers>
+
   <modules>
     <module>mybatis-spring-boot-autoconfigure</module>
     <module>mybatis-spring-boot-starter</module>
     <module>mybatis-spring-boot-samples</module>
   </modules>
+
   <scm>
     <connection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</developerConnection>
     <url>https://github.com/mybatis/mybatis-spring-boot</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -53,13 +60,20 @@
     <system>Travis CI</system>
     <url>https://travis-ci.org/mybatis/mybatis-spring-boot</url>
   </ciManagement>
+  <distributionManagement>
+    <site>
+      <id>gh-pages</id>
+      <name>Mybatis GitHub Pages</name>
+      <url>git:ssh://git@github.com/mybatis/mybatis-spring-boot.git?gh-pages#</url>
+    </site>
+  </distributionManagement>
+
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.6</java.version>
     <mybatis.version>3.3.0</mybatis.version>
     <mybatis-spring.version>1.2.3</mybatis-spring.version>
     <spring-boot.version>1.2.6.RELEASE</spring-boot.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -71,6 +85,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <repositories>
     <repository>
       <snapshots>
@@ -89,6 +104,7 @@
       <url>http://repo.spring.io/milestone</url>
     </repository>
   </repositories>
+
   <pluginRepositories>
     <pluginRepository>
       <snapshots>
@@ -107,28 +123,4 @@
       <url>http://repo.spring.io/milestone</url>
     </pluginRepository>
   </pluginRepositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.4</version>
-        <executions>
-          <execution>
-            <id>enforce-java</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
