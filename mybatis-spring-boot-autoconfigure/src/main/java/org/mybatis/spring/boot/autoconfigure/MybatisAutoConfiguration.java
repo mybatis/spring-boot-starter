@@ -51,6 +51,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -100,6 +101,10 @@ public class MybatisAutoConfiguration {
 		if (StringUtils.hasText(this.properties.getConfig())) {
 			factory.setConfigLocation(
 					this.resourceLoader.getResource(this.properties.getConfig()));
+		} else {
+			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+			factory.setMapperLocations(this.properties.getMapperLocations());
 		}
 		return factory.getObject();
 	}

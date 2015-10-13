@@ -18,6 +18,9 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
+
+import java.util.List;
 
 /**
  * Configuration properties for Mybatis.
@@ -35,6 +38,21 @@ public class MybatisProperties {
 	private String config;
 
 	/**
+	 * Location of mybatis mapper files.
+	 */
+	private Resource[] mapperLocations;
+
+	/**
+	 * Package to scan domain objects.
+	 */
+	private String typeAliasesPackage;
+
+	/**
+	 * Package to scan handlers.
+	 */
+	private String typeHandlersPackage;
+
+	/**
 	 * Check the config file exists.
 	 */
 	private boolean checkConfigLocation = false;
@@ -50,6 +68,30 @@ public class MybatisProperties {
 
 	public void setConfig(String config) {
 		this.config = config;
+	}
+
+	public Resource[] getMapperLocations() {
+		return this.mapperLocations;
+	}
+
+	public void setMapperLocations(Resource[] mapperLocations) {
+		this.mapperLocations = mapperLocations;
+	}
+
+	public String getTypeHandlersPackage() {
+		return this.typeHandlersPackage;
+	}
+
+	public void setTypeHandlersPackage(String typeHandlersPackage) {
+		this.typeHandlersPackage = typeHandlersPackage;
+	}
+
+	public String getTypeAliasesPackage() {
+		return this.typeAliasesPackage;
+	}
+
+	public void setTypeAliasesPackage(String typeAliasesPackage) {
+		this.typeAliasesPackage = typeAliasesPackage;
 	}
 
 	public boolean isCheckConfigLocation() {

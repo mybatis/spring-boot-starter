@@ -5,6 +5,9 @@ MyBatis integration with Spring Boot
 
 ```
 mybatis.config= # mybatis config file
+mybatis.mapperLocations= # mappers file
+mybatis.typeAliasesPackage= # domain object's package 
+mybatis.typeHandlersPackage= # handler's package
 mybatis.check-config-location= # check the mybatis configuration exists
 mybatis.executorType= # mode of execution. Default is SIMPLE
 ```

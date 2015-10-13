@@ -16,7 +16,13 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigInteger;
+
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -29,8 +35,6 @@ import org.springframework.boot.test.EnvironmentTestUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}
@@ -75,6 +79,33 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
+	}
+
+	@Test
+	public void testWithTypeHandlersPackage() {
+		this.context = new AnnotationConfigApplicationContext();
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		TypeHandlerRegistry typeHandlerRegistry = this.context.getBean(SqlSessionFactory.class).getConfiguration().getTypeHandlerRegistry();
+		assertTrue(typeHandlerRegistry.hasTypeHandler(BigInteger.class));
+	}
+
+	@Test
+	public void testWithMapperLocation() {
+		this.context = new AnnotationConfigApplicationContext();
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain",
+				"mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(2, this.context.getBean(SqlSessionFactory.class).getConfiguration().getMappedStatementNames().size());
 	}
 
 	@Test
