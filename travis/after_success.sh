@@ -27,10 +27,9 @@ echo "Java detected: ${VER}"
 # 3. Use -q option to only display Maven errors and warnings.
 
 if [ "$mybatis_repo" == "https://github.com/mybatis/mybatis-spring-boot.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
-  if [ $VER == "16" ]; then
+  if [ $VER == "18" ]; then
     mvn clean deploy -q --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
-  elif [ $VER == "17" ]; then
     mvn clean test jacoco:report coveralls:report -q
     echo -e "Successfully ran coveralls under Travis job ${TRAVIS_JOB_NUMBER}"
 	# various issues exist currently in building this so comment for now
