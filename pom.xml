@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Copyright 2010-2015 The original author or authors.
 
@@ -26,7 +26,7 @@
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -50,7 +50,7 @@
     <connection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</developerConnection>
     <url>https://github.com/mybatis/mybatis-spring-boot</url>
-    <tag>HEAD</tag>
+    <tag>mybatis-spring-boot-1.0.0</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
