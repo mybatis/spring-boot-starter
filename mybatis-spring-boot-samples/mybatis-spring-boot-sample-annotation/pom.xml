@@ -4,18 +4,18 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-samples</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot-sample-annotation</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>mybatis-spring-boot-sample-annotation</name>
   <dependencies>
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

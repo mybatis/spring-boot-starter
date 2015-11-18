@@ -4,11 +4,11 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot-samples</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>mybatis-spring-boot-samples</name>
   <modules>
