@@ -16,13 +16,9 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -51,8 +47,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+import java.util.List;
 
 /**
  * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a
@@ -81,6 +80,9 @@ public class MybatisAutoConfiguration {
 	@Autowired
 	private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+	@Autowired(required=false)
+    private DatabaseIdProvider databaseIdProvider;
+
 	@PostConstruct
 	public void checkConfigFileExists() {
 		if (this.properties.isCheckConfigLocation()) {
@@ -106,6 +108,18 @@ public class MybatisAutoConfiguration {
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.getMapperLocations());
 		}
+
+		// Try to locate for VendorDatabaseIdProvider bean
+        if( databaseIdProvider != null )
+        {
+            log.info( "Bean with DatabaseIdProvider interface found. Setting up SqlSessionFactory with it.");
+            factory.setDatabaseIdProvider( this.databaseIdProvider );
+        }
+        else
+        {
+            log.info( "No bean with DatabaseIdProvider interface found.");
+        }
+
 		return factory.getObject();
 	}
 
