@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -85,15 +86,17 @@ public class MybatisAutoConfiguration {
 	@Autowired
 	private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+	@Autowired(required = false)
+	private DatabaseIdProvider databaseIdProvider;
+
 	@PostConstruct
 	public void checkConfigFileExists() {
 		if (this.properties.isCheckConfigLocation()) {
-			Resource resource = this.resourceLoader
-					.getResource(this.properties.getConfig());
-			Assert.state(resource.exists(),
-					"Cannot find config location: " + resource
-							+ " (please add config file or check your Mybatis "
-							+ "configuration)");
+			Resource resource = this.resourceLoader.getResource(this.properties
+					.getConfig());
+			Assert.state(resource.exists(), "Cannot find config location: " + resource
+					+ " (please add config file or check your Mybatis "
+					+ "configuration)");
 		}
 	}
 
@@ -103,9 +106,10 @@ public class MybatisAutoConfiguration {
 		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
 		factory.setDataSource(dataSource);
 		if (StringUtils.hasText(this.properties.getConfig())) {
-			factory.setConfigLocation(
-					this.resourceLoader.getResource(this.properties.getConfig()));
-		} else {
+			factory.setConfigLocation(this.resourceLoader.getResource(this.properties
+					.getConfig()));
+		}
+		else {
 			if (this.interceptors != null && this.interceptors.length > 0) {
 				factory.setPlugins(this.interceptors);
 			}
@@ -113,6 +117,16 @@ public class MybatisAutoConfiguration {
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.resolveMapperLocations());
 		}
+
+		// Try to locate for VendorDatabaseIdProvider bean
+		if (databaseIdProvider != null) {
+			log.info("Bean with DatabaseIdProvider interface found. Setting up SqlSessionFactory with it.");
+			factory.setDatabaseIdProvider(this.databaseIdProvider);
+		}
+		else {
+			log.info("No bean with DatabaseIdProvider interface found.");
+		}
+
 		return factory.getObject();
 	}
 
