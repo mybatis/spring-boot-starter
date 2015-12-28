@@ -23,11 +23,13 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -51,7 +53,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -78,6 +79,9 @@ public class MybatisAutoConfiguration {
 	@Autowired
 	private MybatisProperties properties;
 
+	@Autowired(required = false)
+	private Interceptor[] interceptors;
+
 	@Autowired
 	private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
@@ -102,6 +106,9 @@ public class MybatisAutoConfiguration {
 			factory.setConfigLocation(
 					this.resourceLoader.getResource(this.properties.getConfig()));
 		} else {
+			if (this.interceptors != null && this.interceptors.length > 0) {
+				factory.setPlugins(this.interceptors);
+			}
 			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.getMapperLocations());

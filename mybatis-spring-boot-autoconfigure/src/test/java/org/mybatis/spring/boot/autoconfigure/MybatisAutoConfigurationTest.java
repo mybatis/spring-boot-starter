@@ -20,7 +20,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
+import java.util.Map;
+import java.util.Properties;
 
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
+import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.Test;
@@ -28,6 +35,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
@@ -122,6 +130,20 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
 	}
 
+	@Test
+	public void testWithInterceptors() {
+		this.context = new AnnotationConfigApplicationContext();
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisInterceptorConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1,
+				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().size());
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -142,6 +164,38 @@ public class MybatisAutoConfigurationTest {
 			return new CityMapperImpl();
 		}
 
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	static class MybatisInterceptorConfiguration {
+
+		@Bean
+		public MyInterceptor myInterceptor() {
+			return new MyInterceptor();
+		}
+
+	}
+
+	@Intercepts(
+			@Signature(type = Map.class, method = "get", args = { Object.class })
+	)
+	static class MyInterceptor implements Interceptor {
+
+		@Override
+		public Object intercept(Invocation invocation) throws Throwable {
+			return "Test";
+		}
+
+		@Override
+		public Object plugin(Object target) {
+			return Plugin.wrap(target, this);
+		}
+
+		@Override
+		public void setProperties(Properties properties) {
+
+		}
 	}
 
 }
