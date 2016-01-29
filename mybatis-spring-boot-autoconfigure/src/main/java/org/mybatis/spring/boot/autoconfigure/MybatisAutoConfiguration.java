@@ -111,7 +111,7 @@ public class MybatisAutoConfiguration {
 			}
 			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-			factory.setMapperLocations(this.properties.getMapperLocations());
+			factory.setMapperLocations(this.properties.resolveMapperLocations());
 		}
 		return factory.getObject();
 	}

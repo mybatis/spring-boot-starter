@@ -18,8 +18,13 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +45,7 @@ public class MybatisProperties {
 	/**
 	 * Location of mybatis mapper files.
 	 */
-	private Resource[] mapperLocations;
+	private String[] mapperLocations;
 
 	/**
 	 * Package to scan domain objects.
@@ -70,11 +75,11 @@ public class MybatisProperties {
 		this.config = config;
 	}
 
-	public Resource[] getMapperLocations() {
+	public String[] getMapperLocations() {
 		return this.mapperLocations;
 	}
 
-	public void setMapperLocations(Resource[] mapperLocations) {
+	public void setMapperLocations(String[] mapperLocations) {
 		this.mapperLocations = mapperLocations;
 	}
 
@@ -108,5 +113,24 @@ public class MybatisProperties {
 
 	public void setExecutorType(ExecutorType executorType) {
 		this.executorType = executorType;
+	}
+
+	public Resource[] resolveMapperLocations() {
+		List<Resource> resources = new ArrayList<Resource>();
+		if (this.mapperLocations != null) {
+			for (String mapperLocation: this.mapperLocations) {
+				Resource[] mappers;
+				try {
+					mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);
+					resources.addAll(Arrays.asList(mappers));
+				} catch (IOException e) {
+
+				}
+			}
+		}
+
+		Resource[] mapperLocations = new Resource[resources.size()];
+		mapperLocations = resources.toArray(mapperLocations);
+		return mapperLocations;
 	}
 }
