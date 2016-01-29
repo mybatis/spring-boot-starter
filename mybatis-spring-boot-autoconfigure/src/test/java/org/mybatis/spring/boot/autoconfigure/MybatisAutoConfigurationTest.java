@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
@@ -36,6 +37,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
@@ -144,6 +146,17 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1, this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().size());
 	}
 
+	@Test
+	public void testWithDatabaseIdProvider() {
+		this.context = new AnnotationConfigApplicationContext();
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				DatabaseProvidersConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -196,6 +209,30 @@ public class MybatisAutoConfigurationTest {
 		public void setProperties(Properties properties) {
 
 		}
+	}
+
+	@Configuration
+	static class DatabaseProvidersConfiguration {
+
+		@Bean
+		public PropertiesFactoryBean vendorProperties() {
+			Properties properties = new Properties();
+			properties.put("SQL Server", "sqlserver");
+			properties.put("DB2", "db2");
+			properties.put("H2", "h2");
+
+			PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
+			propertiesFactoryBean.setProperties(properties);
+			return propertiesFactoryBean;
+		}
+
+		@Bean
+		public VendorDatabaseIdProvider vendorDatabaseIdProvider(Properties vendorProperties) {
+			VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
+			databaseIdProvider.setProperties(vendorProperties);
+			return databaseIdProvider;
+		}
+
 	}
 
 }
