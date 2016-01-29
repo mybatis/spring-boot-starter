@@ -113,18 +113,12 @@ public class MybatisAutoConfiguration {
 			if (this.interceptors != null && this.interceptors.length > 0) {
 				factory.setPlugins(this.interceptors);
 			}
+			if (this.databaseIdProvider != null) {
+				factory.setDatabaseIdProvider(this.databaseIdProvider);
+			}
 			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.resolveMapperLocations());
-		}
-
-		// Try to locate for VendorDatabaseIdProvider bean
-		if (databaseIdProvider != null) {
-			log.info("Bean with DatabaseIdProvider interface found. Setting up SqlSessionFactory with it.");
-			factory.setDatabaseIdProvider(this.databaseIdProvider);
-		}
-		else {
-			log.info("No bean with DatabaseIdProvider interface found.");
 		}
 
 		return factory.getObject();
