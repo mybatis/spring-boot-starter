@@ -31,6 +31,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -56,9 +58,20 @@ public class MybatisAutoConfigurationTest {
 
 	private AnnotationConfigApplicationContext context;
 
+	@Before
+	public void init() {
+		this.context = new AnnotationConfigApplicationContext();
+	}
+
+	@After
+	public void closeContext() {
+		if (this.context != null) {
+			this.context.close();
+		}
+	}
+
 	@Test
 	public void testNoDataSource() throws Exception {
-		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
@@ -67,7 +80,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testDefaultConfiguration() {
-		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
@@ -80,7 +92,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testWithConfigFile() {
-		this.context = new AnnotationConfigApplicationContext();
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.config:mybatis-config.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -93,7 +104,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testWithTypeHandlersPackage() {
-		this.context = new AnnotationConfigApplicationContext();
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -107,7 +117,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testWithMapperLocation() {
-		this.context = new AnnotationConfigApplicationContext();
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain",
 				"mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml");
@@ -120,7 +129,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testDefaultBootConfiguration() {
-		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class,
 				MybatisAutoConfiguration.class,
@@ -134,7 +142,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testWithInterceptors() {
-		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisInterceptorConfiguration.class,
 				MybatisAutoConfiguration.class,
@@ -148,7 +155,6 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testWithDatabaseIdProvider() {
-		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				DatabaseProvidersConfiguration.class,
 				MybatisAutoConfiguration.class,
