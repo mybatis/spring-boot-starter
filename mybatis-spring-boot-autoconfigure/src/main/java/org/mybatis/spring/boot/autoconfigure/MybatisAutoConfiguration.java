@@ -105,6 +105,7 @@ public class MybatisAutoConfiguration {
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
 		factory.setDataSource(dataSource);
+		factory.setVfs(SpringBootVFS.class);
 		if (StringUtils.hasText(this.properties.getConfig())) {
 			factory.setConfigLocation(this.resourceLoader.getResource(this.properties
 					.getConfig()));

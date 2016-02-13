@@ -151,6 +151,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1,
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().size());
+		this.context.close();
 	}
 
 	@Test
