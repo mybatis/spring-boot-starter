@@ -110,19 +110,15 @@ public class MybatisAutoConfiguration {
 			factory.setConfigLocation(this.resourceLoader.getResource(this.properties
 					.getConfig()));
 		}
-		if (this.interceptors != null && this.interceptors.length > 0) {
-			factory.setPlugins(this.interceptors);
-		}
-		if (this.databaseIdProvider != null) {
-			factory.setDatabaseIdProvider(this.databaseIdProvider);
-		}
-		if (this.properties.getTypeAliasesPackage() != null) {
+		else {
+			if (this.interceptors != null && this.interceptors.length > 0) {
+				factory.setPlugins(this.interceptors);
+			}
+			if (this.databaseIdProvider != null) {
+				factory.setDatabaseIdProvider(this.databaseIdProvider);
+			}
 			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-		}
-		if (this.properties.getTypeHandlersPackage() != null) {
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-		}
-		if (this.properties.getMapperLocations() != null) {
 			factory.setMapperLocations(this.properties.resolveMapperLocations());
 		}
 

@@ -164,20 +164,6 @@ public class MybatisAutoConfigurationTest {
 		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
 	}
 
-	@Test
-	public void testWithXmlConfigAndDatabaseProvider() {
-		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config.xml");
-		this.context.register(EmbeddedDataSourceConfiguration.class,
-				DatabaseProvidersConfiguration.class,
-				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
-		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
-	}
-
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
