@@ -43,6 +43,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
@@ -67,6 +68,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
@@ -74,7 +76,6 @@ import org.springframework.util.StringUtils;
 @EnableConfigurationProperties(MybatisProperties.class)
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisAutoConfiguration {
-
 	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
 
 	@Autowired
@@ -88,6 +89,9 @@ public class MybatisAutoConfiguration {
 
 	@Autowired(required = false)
 	private DatabaseIdProvider databaseIdProvider;
+
+	@Autowired
+	private org.apache.ibatis.session.Configuration configuration;
 
 	@PostConstruct
 	public void checkConfigFileExists() {
@@ -111,6 +115,7 @@ public class MybatisAutoConfiguration {
 					.getConfig()));
 		}
 		else {
+			factory.setConfiguration(configuration);
 			if (this.interceptors != null && this.interceptors.length > 0) {
 				factory.setPlugins(this.interceptors);
 			}
@@ -121,8 +126,17 @@ public class MybatisAutoConfiguration {
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.resolveMapperLocations());
 		}
-
 		return factory.getObject();
+	}
+
+	/**
+	 * @since 1.1.0
+	 */
+	@Bean
+	@ConditionalOnMissingBean
+	@ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX + ".configuration")
+	public org.apache.ibatis.session.Configuration myBatisConfiguration() {
+		return new org.apache.ibatis.session.Configuration();
 	}
 
 	@Bean

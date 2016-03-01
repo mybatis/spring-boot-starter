@@ -17,6 +17,7 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -53,6 +54,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 public class MybatisAutoConfigurationTest {
 
@@ -164,6 +166,27 @@ public class MybatisAutoConfigurationTest {
 		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
 	}
 
+	@Test
+	public void testMyBatisConfigurationUsingConfigurationProperties() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.mapUnderscoreToCamelCase:true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
+	}
+
+	@Test
+	public void testMyBatisConfigurationUsingCustomConfiguration() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisConfigurationCustomConfiguration.class,
+				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isCacheEnabled());
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -238,6 +261,18 @@ public class MybatisAutoConfigurationTest {
 			VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
 			databaseIdProvider.setProperties(vendorProperties);
 			return databaseIdProvider;
+		}
+
+	}
+
+	@Configuration
+	static class MybatisConfigurationCustomConfiguration {
+
+		@Bean
+		public org.apache.ibatis.session.Configuration customMyBatisConfiguration() {
+			org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+			configuration.setCacheEnabled(false);
+			return configuration;
 		}
 
 	}
