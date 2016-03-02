@@ -67,6 +67,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
@@ -129,7 +130,9 @@ public class MybatisAutoConfiguration {
 	@ConditionalOnMissingBean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory,
-				this.properties.getExecutorType());
+				this.properties.getExecutorType() != null ?
+						this.properties.getExecutorType() :
+						sqlSessionFactory.getConfiguration().getDefaultExecutorType());
 	}
 
 	/**

@@ -29,6 +29,7 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.After;
@@ -53,6 +54,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 public class MybatisAutoConfigurationTest {
 
@@ -88,6 +90,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1,
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertEquals(ExecutorType.SIMPLE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
 	}
 
 	@Test
@@ -125,6 +128,17 @@ public class MybatisAutoConfigurationTest {
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertEquals(2, this.context.getBean(SqlSessionFactory.class).getConfiguration().getMappedStatementNames().size());
+	}
+
+	@Test
+	public void testWithExecutorType() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.executorType:REUSE");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(ExecutorType.REUSE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
 	}
 
 	@Test
