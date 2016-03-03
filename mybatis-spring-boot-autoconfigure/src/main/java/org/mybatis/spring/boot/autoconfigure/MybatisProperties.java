@@ -16,6 +16,7 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.ClassPathResource;
@@ -31,6 +32,7 @@ import java.util.List;
  * Configuration properties for Mybatis.
  *
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
 @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
 public class MybatisProperties {
@@ -38,22 +40,22 @@ public class MybatisProperties {
 	public static final String MYBATIS_PREFIX = "mybatis";
 
 	/**
-	 * Config file path.
+	 * Config file path for create a Configuration object.
 	 */
 	private String config;
 
 	/**
-	 * Location of mybatis mapper files.
+	 * Location of mybatis mapper files. If {@link #config} is specified, this property is not used.
 	 */
 	private String[] mapperLocations;
 
 	/**
-	 * Package to scan domain objects.
+	 * Package to scan domain objects. If {@link #config} is specified, this property is not used.
 	 */
 	private String typeAliasesPackage;
 
 	/**
-	 * Package to scan handlers.
+	 * Package to scan handlers. If {@link #config} is specified, this property is not used.
 	 */
 	private String typeHandlersPackage;
 
@@ -66,6 +68,11 @@ public class MybatisProperties {
 	 * Execution mode.
 	 */
 	private ExecutorType executorType = ExecutorType.SIMPLE;
+
+	/**
+	 * A Configuration object for customize default settings. If {@link #config} is specified, this property is not used.
+	 */
+	private Configuration configuration;
 
 	public String getConfig() {
 		return this.config;
@@ -113,6 +120,14 @@ public class MybatisProperties {
 
 	public void setExecutorType(ExecutorType executorType) {
 		this.executorType = executorType;
+	}
+
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(Configuration configuration) {
+		this.configuration = configuration;
 	}
 
 	public Resource[] resolveMapperLocations() {

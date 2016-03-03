@@ -90,6 +90,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1,
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
 	@Test
@@ -167,7 +168,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMyBatisConfigurationUsingConfigurationProperties() {
+	public void testWithMyBatisConfiguration() {
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.configuration.mapUnderscoreToCamelCase:true");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -175,16 +176,6 @@ public class MybatisAutoConfigurationTest {
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
-	}
-
-	@Test
-	public void testMyBatisConfigurationUsingCustomConfiguration() {
-		this.context.register(EmbeddedDataSourceConfiguration.class,
-				MybatisConfigurationCustomConfiguration.class,
-				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isCacheEnabled());
 	}
 
 	@Configuration
@@ -261,18 +252,6 @@ public class MybatisAutoConfigurationTest {
 			VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
 			databaseIdProvider.setProperties(vendorProperties);
 			return databaseIdProvider;
-		}
-
-	}
-
-	@Configuration
-	static class MybatisConfigurationCustomConfiguration {
-
-		@Bean
-		public org.apache.ibatis.session.Configuration customMyBatisConfiguration() {
-			org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-			configuration.setCacheEnabled(false);
-			return configuration;
 		}
 
 	}
