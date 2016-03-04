@@ -31,3 +31,11 @@ mybatis.executorType= # mode of execution. Default is SIMPLE
 	<version>1.0.0</version>
 </dependency>
 ```
+
+## Gradle dependency
+
+```groovy
+dependencies {
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.0")
+}
+```
