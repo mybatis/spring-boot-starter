@@ -42,7 +42,7 @@ public class SpringBootVFS extends VFS {
     protected List<String> list(URL url, String path) throws IOException {
         ClassLoader cl = this.getClass().getClassLoader();
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
-        Resource[] resources = resolver.getResources(path + "/**/*.class");
+        Resource[] resources = resolver.getResources("classpath*:" + path + "/**/*.class");
         List<Resource> resources1 = Arrays.asList(resources);
         List<String> resourcePaths = new ArrayList<String>();
         for (Resource resource: resources1) {
