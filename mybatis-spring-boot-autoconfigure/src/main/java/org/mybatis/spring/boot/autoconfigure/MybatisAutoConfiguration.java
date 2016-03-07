@@ -67,6 +67,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
@@ -74,7 +75,6 @@ import org.springframework.util.StringUtils;
 @EnableConfigurationProperties(MybatisProperties.class)
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisAutoConfiguration {
-
 	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
 
 	@Autowired
@@ -111,6 +111,7 @@ public class MybatisAutoConfiguration {
 					.getConfig()));
 		}
 		else {
+			factory.setConfiguration(properties.getConfiguration());
 			if (this.interceptors != null && this.interceptors.length > 0) {
 				factory.setPlugins(this.interceptors);
 			}
@@ -121,7 +122,6 @@ public class MybatisAutoConfiguration {
 			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
 			factory.setMapperLocations(this.properties.resolveMapperLocations());
 		}
-
 		return factory.getObject();
 	}
 

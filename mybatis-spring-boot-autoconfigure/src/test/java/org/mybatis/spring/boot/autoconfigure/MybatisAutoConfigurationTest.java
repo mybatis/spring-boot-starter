@@ -17,6 +17,7 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -53,6 +54,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 public class MybatisAutoConfigurationTest {
 
@@ -88,6 +90,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1,
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
 	@Test
@@ -162,6 +165,17 @@ public class MybatisAutoConfigurationTest {
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
+	}
+
+	@Test
+	public void testWithMyBatisConfiguration() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.mapUnderscoreToCamelCase:true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
 	@Configuration
