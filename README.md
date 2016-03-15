@@ -28,7 +28,7 @@ mybatis.executorType= # mode of execution. Default is SIMPLE
 <dependency>
 	<groupId>org.mybatis.spring.boot</groupId>
 	<artifactId>mybatis-spring-boot-starter</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
@@ -36,6 +36,6 @@ mybatis.executorType= # mode of execution. Default is SIMPLE
 
 ```groovy
 dependencies {
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.0")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.1")
 }
 ```
