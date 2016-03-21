@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mybatis/mybatis-spring-boot.svg)](https://travis-ci.org/mybatis/mybatis-spring-boot)
 [![Coverage Status](https://coveralls.io/repos/mybatis/mybatis-spring-boot/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/mybatis-spring-boot?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/56ef48ed35630e0029dafdb0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56ef48ed35630e0029dafdb0)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot)
 [![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
