@@ -67,6 +67,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Eddú Meléndez
  * @author Josh Long
+ * @author Kazuki Shimizu
  */
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
@@ -110,17 +111,15 @@ public class MybatisAutoConfiguration {
 			factory.setConfigLocation(this.resourceLoader.getResource(this.properties
 					.getConfig()));
 		}
-		else {
-			if (this.interceptors != null && this.interceptors.length > 0) {
-				factory.setPlugins(this.interceptors);
-			}
-			if (this.databaseIdProvider != null) {
-				factory.setDatabaseIdProvider(this.databaseIdProvider);
-			}
-			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-			factory.setMapperLocations(this.properties.resolveMapperLocations());
+		if (this.interceptors != null && this.interceptors.length > 0) {
+			factory.setPlugins(this.interceptors);
 		}
+		if (this.databaseIdProvider != null) {
+			factory.setDatabaseIdProvider(this.databaseIdProvider);
+		}
+		factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+		factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+		factory.setMapperLocations(this.properties.resolveMapperLocations());
 
 		return factory.getObject();
 	}
