@@ -105,7 +105,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithTypeHandlersPackage() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler");
+				"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
@@ -118,8 +118,8 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithMapperLocation() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain",
-				"mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml");
+				"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
+				"mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
