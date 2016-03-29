@@ -38,3 +38,39 @@ dependencies {
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.1")
 }
 ```
+
+## Simple MyBatis Spring Boot application
+
+Having this mapper 
+
+```java
+public interface CityMapper {
+
+	@Select("SELECT * FROM CITY WHERE state = #{state}")
+	City findByState(@Param("state") String state);
+
+}
+```
+
+Just create a new Spring Boot Application and let the mapper be injected into it.
+
+```java
+@SpringBootApplication
+public class SampleMybatisApplication implements CommandLineRunner {
+
+	@Autowired
+	private CityMapper cityMapper;
+
+	public static void main(String[] args) {
+		SpringApplication.run(SampleMybatisApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(this.cityMapper.findByState("CA"));
+	}
+
+}
+```
+
+That is all!!
