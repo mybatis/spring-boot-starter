@@ -168,7 +168,89 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedConfigurations() {
+	public void testMixedWithConfigurationFileAndInterceptor() {
+		EnvironmentTestUtils.addEnvironment(this.context
+				, "mybatis.config:mybatis-config-settings-only.xml"
+		);
+		this.context.register(
+				EmbeddedDataSourceConfiguration.class
+				, MybatisInterceptorConfiguration.class
+		);
+		this.context.refresh();
+
+		org.apache.ibatis.session.Configuration configuration = this.context.getBean(SqlSessionFactory.class).getConfiguration();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
+		assertEquals(1, configuration.getInterceptors().size());
+		assertEquals(MyInterceptor.class, configuration.getInterceptors().get(0).getClass());
+	}
+
+	@Test
+	public void testMixedWithConfigurationFileAndDatabaseIdProvider() {
+		EnvironmentTestUtils.addEnvironment(this.context
+				, "mybatis.config:mybatis-config-settings-only.xml"
+		);
+		this.context.register(
+				EmbeddedDataSourceConfiguration.class
+				, MybatisBootMapperScanAutoConfiguration.class
+				, DatabaseProvidersConfiguration.class
+		);
+		this.context.refresh();
+
+		org.apache.ibatis.session.Configuration configuration = this.context.getBean(SqlSessionFactory.class).getConfiguration();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
+		assertEquals("h2", configuration.getDatabaseId());
+	}
+
+	@Test
+	public void testMixedWithConfigurationFileAndTypeHandlersPackage() {
+		EnvironmentTestUtils.addEnvironment(this.context
+				, "mybatis.config:mybatis-config-settings-only.xml"
+				, "mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler"
+		);
+		this.context.register(
+				EmbeddedDataSourceConfiguration.class
+				, MybatisBootMapperScanAutoConfiguration.class
+		);
+		this.context.refresh();
+
+		org.apache.ibatis.session.Configuration configuration = this.context.getBean(SqlSessionFactory.class).getConfiguration();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
+		assertEquals(DummyTypeHandler.class, configuration.getTypeHandlerRegistry().getTypeHandler(BigInteger.class).getClass());
+	}
+
+	@Test
+	public void testMixedWithConfigurationFileAndTypeAliasesPackageAndMapperLocations() {
+		EnvironmentTestUtils.addEnvironment(this.context
+				, "mybatis.config:mybatis-config-settings-only.xml"
+				, "mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain"
+				, "mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml"
+		);
+		this.context.register(
+				EmbeddedDataSourceConfiguration.class
+				, MybatisBootMapperScanAutoConfiguration.class
+		);
+		this.context.refresh();
+
+		org.apache.ibatis.session.Configuration configuration = this.context.getBean(SqlSessionFactory.class).getConfiguration();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
+		assertTrue(configuration.getMappedStatementNames().contains("selectCityById"));
+		assertTrue(configuration.getMappedStatementNames().contains("org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl.selectCityById"));
+	}
+
+	@Test
+	public void testMixedWithFullConfigurations() {
 		EnvironmentTestUtils.addEnvironment(this.context
 				, "mybatis.config:mybatis-config-settings-only.xml"
 				, "mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler"
