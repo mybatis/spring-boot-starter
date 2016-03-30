@@ -6,6 +6,11 @@ jdk:
   - oraclejdk7
   - openjdk7
 
+before_script:
+- mvn install -q -DskipTests=true
+
+script: mvn install -q
+
 after_success:
   - chmod -R 777 ./travis/after_success.sh
   - ./travis/after_success.sh
