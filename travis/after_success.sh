@@ -28,9 +28,9 @@ echo "Java detected: ${VER}"
 
 if [ "$mybatis_repo" == "https://github.com/mybatis/mybatis-spring-boot.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
   if [ $VER == "18" ]; then
-    mvn clean deploy -q --settings ./travis/settings.xml
+    mvn clean deploy -q -Dmaven.test.redirectTestOutputToFile=true --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
-    mvn clean test jacoco:report coveralls:report -q
+    mvn clean test jacoco:report coveralls:report -q -Dmaven.test.redirectTestOutputToFile=true
     echo -e "Successfully ran coveralls under Travis job ${TRAVIS_JOB_NUMBER}"
 	# various issues exist currently in building this so comment for now
 	# mvn site site:deploy -q
