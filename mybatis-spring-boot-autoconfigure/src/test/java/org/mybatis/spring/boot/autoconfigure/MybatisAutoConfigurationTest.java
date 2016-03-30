@@ -211,7 +211,7 @@ public class MybatisAutoConfigurationTest {
 	public void testMixedWithConfigurationFileAndTypeHandlersPackage() {
 		EnvironmentTestUtils.addEnvironment(this.context
 				, "mybatis.config:mybatis-config-settings-only.xml"
-				, "mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler"
+				, "mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler"
 		);
 		this.context.register(
 				EmbeddedDataSourceConfiguration.class
@@ -231,8 +231,8 @@ public class MybatisAutoConfigurationTest {
 	public void testMixedWithConfigurationFileAndTypeAliasesPackageAndMapperLocations() {
 		EnvironmentTestUtils.addEnvironment(this.context
 				, "mybatis.config:mybatis-config-settings-only.xml"
-				, "mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain"
-				, "mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml"
+				, "mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain"
+				, "mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml"
 		);
 		this.context.register(
 				EmbeddedDataSourceConfiguration.class
@@ -253,10 +253,10 @@ public class MybatisAutoConfigurationTest {
 	public void testMixedWithFullConfigurations() {
 		EnvironmentTestUtils.addEnvironment(this.context
 				, "mybatis.config:mybatis-config-settings-only.xml"
-				, "mybatis.typeHandlersPackage:org.mybatis.spring.boot.autoconfigure.handler"
-				, "mybatis.typeAliasesPackage:org.mybatis.spring.boot.autoconfigure.domain"
-				, "mybatis.mapperLocations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml"
-				, "mybatis.executorType=REUSE"
+				, "mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler"
+				, "mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain"
+				, "mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml"
+				, "mybatis.executor-type=REUSE"
 		);
 		this.context.register(
 				EmbeddedDataSourceConfiguration.class
