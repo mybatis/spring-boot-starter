@@ -16,6 +16,8 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -34,13 +36,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
-
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
@@ -58,6 +62,9 @@ import org.springframework.context.annotation.Configuration;
  * @author Kazuki Shimizu
  */
 public class MybatisAutoConfigurationTest {
+
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
 	private AnnotationConfigApplicationContext context;
 
@@ -103,6 +110,32 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
+	}
+
+	@Test
+	public void testWithCheckConfigLocationFileExists() {
+		EnvironmentTestUtils
+				.addEnvironment(this.context, "mybatis.config:mybatis-config.xml",
+						"mybatis.check-config-location=true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+	}
+
+	@Test
+	public void testWithCheckConfigLocationFileDoesNotExists() {
+
+		EnvironmentTestUtils.addEnvironment(this.context, "mybatis.config:foo.xml",
+				"mybatis.check-config-location=true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class);
+
+		expectedException.expect(isA(BeanCreationException.class));
+		expectedException
+				.expectMessage(is("Error creating bean with name 'mybatisAutoConfiguration': Invocation of init method failed; nested exception is java.lang.IllegalStateException: Cannot find config location: class path resource [foo.xml] (please add config file or check your Mybatis configuration)"));
+
+		this.context.refresh();
 	}
 
 	@Test
