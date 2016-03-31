@@ -30,6 +30,7 @@ import java.util.List;
 
 /**
  * @author Eddú Meléndez
+ * @author Hans Westerbeek
  */
 public class SpringBootVFS extends VFS {
 
