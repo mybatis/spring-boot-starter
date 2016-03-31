@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -129,10 +130,13 @@ public class MybatisAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory,
-				this.properties.getExecutorType() != null ?
-						this.properties.getExecutorType() :
-						sqlSessionFactory.getConfiguration().getDefaultExecutorType());
+		ExecutorType executorType = this.properties.getExecutorType();
+		if (executorType != null) {
+			return new SqlSessionTemplate(sqlSessionFactory, executorType);
+		}
+		else {
+			return new SqlSessionTemplate(sqlSessionFactory);
+		}
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1,
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(ExecutorType.SIMPLE, this.context.getBean(SqlSessionTemplate.class).getExecutorType()); // use a default executor type(SIMPLE)
+		assertEquals(ExecutorType.SIMPLE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
-		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType()); // use a executor type that specify on config file
+		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
 	}
 
 	@Test
@@ -134,14 +134,13 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithExecutorType() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config.xml");
-		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.executorType:REUSE"); // use a executor type that specify on spring's properties(or yaml)
+				"mybatis.config:mybatis-config.xml", "mybatis.executor-type:REUSE");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(ExecutorType.REUSE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertEquals(ExecutorType.REUSE, this.context.getBean(SqlSessionTemplate.class)
+				.getExecutorType());
 	}
 
 	@Test
