@@ -31,6 +31,7 @@ import java.util.List;
  * Configuration properties for Mybatis.
  *
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
 @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
 public class MybatisProperties {
@@ -63,9 +64,9 @@ public class MybatisProperties {
 	private boolean checkConfigLocation = false;
 
 	/**
-	 * Execution mode.
+	 * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
 	 */
-	private ExecutorType executorType = ExecutorType.SIMPLE;
+	private ExecutorType executorType;
 
 	public String getConfig() {
 		return this.config;
