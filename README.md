@@ -44,6 +44,8 @@ dependencies {
 Having this mapper 
 
 ```java
+package sample.mybatis.mapper;
+
 public interface CityMapper {
 
 	@Select("SELECT * FROM CITY WHERE state = #{state}")
