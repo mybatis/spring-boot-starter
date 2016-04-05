@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2010-2016 The MyBatis Team
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+  version: $Id$
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>MyBatis Sring-BootStarter | Reference Documentation</title>
+    <author email="eduardo.macarron@gmail.com">Eduardo Macarrón</author>
+  </properties>
+
+  <body>
+    <section name="Introduction">
+      <subsection name="What is MyBatis-Spring-Boot-Starter?">
+  
+        <p>MyBatis-Spring-Boot-Starter help you build MyBatis applications on top of the 
+        <a href="http://projects.spring.io/spring-boot/">Spring-Boot</a> framework</p>
+            
+        <p>By using this module you will achieve:</p>
+
+        <ul>
+          <li>Build stand alone applications.</li>
+	      <li>Reduce the boilerplate to almost zero.</li>
+	      <li>No longer xml configuration.</li>
+	    </ul>
+            
+    </subsection>
+       
+    <subsection name="Installation">
+      <p>
+        To use the MyBatis-Spring-Boot-Starter module, you just need to include the
+        <code>
+          mybatis-spring-${project.version}.jar
+        </code>
+        file and its dependencies in the classpath.
+      </p>
+      <p>
+        If you are using Maven just add the following dependency to your pom.xml:
+      </p>
+        <source><![CDATA[
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+  <version>${project.version}</version>
+</dependency>]]></source>
+
+      <p>
+        If using gradle add this to your build.gradle:
+      </p>
+        <source><![CDATA[
+dependencies {
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
+}]]></source>
+
+    </subsection>
+
+    <subsection name="Quick Setup">
+      <p>
+        As you may already know, to use MyBatis with Spring you need at least an <code>SqlSessionFactory</code>
+        and at least one mapper interface.
+      </p>
+
+      <p>
+        MyBatis-Spring-Boot-Starter will:
+      </p>
+      <ul>
+      <li>Autodetect an existing <code>DataSource</code></li>
+      <li>Will create and register an instance of a <code>SqlSessionFactoryBean</code></li>
+      <li>Autoscan your mappers and register them to Spring so they can be injected into your beans.</li>
+      </ul>
+
+      <p>
+        Suppose we have the following mapper:
+      </p>
+      
+<source><![CDATA[
+package sample.mybatis.mapper;
+
+public interface CityMapper {
+
+    @Select("SELECT * FROM CITY WHERE state = #{state}")
+    City findByState(@Param("state") String state);
+
+}]]></source>
+
+      <p>
+        You just need to create a normal Spring boot application and let the mapper be injected:
+      </p>
+      
+                  
+<source><![CDATA[
+@SpringBootApplication
+public class SampleMybatisApplication implements CommandLineRunner {
+
+    @Autowired
+    private CityMapper cityMapper;
+
+    public static void main(String[] args) {
+        SpringApplication.run(SampleMybatisApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println(this.cityMapper.findByState("CA"));
+    }
+
+}
+]]></source>
+
+            <p>This is all you have to do. You application can now be run as a normal Spring-Boot application.</p>
+          </subsection>
+
+    <subsection name="Advanced scanning">
+      <p>MyBatis-Boot-Starter will search for mappers inside any <code>**/mapper</code> or <code>**/mappers</code> packages.
+      So any interface found in a package called <code>sample.myapp.mapper</code> will be registered as a mapper both to Spring and
+      to MyBatis</p>
+      
+      <p>You may want to specify different parameters for scanning. If so, you will need to use a <code>@MapperScan</code> annotation.
+      See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
+      
+      <p>MyBatis-Boot-Starter will not start the scanning process if it finds one <code>MapperFactoryBean</code> in the spring context
+      so if you want to stop the scanning at all, you can setup a <code>@MapperScan</code> pointing to a dummy Mapper or register 
+      a dummy MapperFactoryBean by any other mean.</p>
+    </subsection>        
+    
+    <subsection name="Configuration">
+      <p>As any other Spring-Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the 
+      <code>application.properties</code></p>
+      
+      <p>MyBatis uses the prefix <code>mybatis</code> for its properties</p>
+      
+      <p>Available properties are:</p>
+      	<table>
+		<thead>
+		  <tr>
+		    <th>
+		      Property
+		    </th>
+		    <th>
+		      Description
+		    </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr> 
+		    <td>
+		      config
+		    </td>
+		    <td>
+		      MyBatis xml config file (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      mapper-locations
+		    </td>
+		    <td>
+		      Mapper xml config files (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      type-aliases-package
+		    </td>
+		    <td>
+		      Package to search for type aliases (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      type-handlers-package
+		    </td>
+		    <td>
+		      Package to search for type aliases (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      executor-type
+		    </td>
+		    <td>
+		      Executor type: SIMPLE, REUSE, BATCH (optional)
+		    </td>
+		  </tr>
+		</tbody>
+	  </table>
+      
+    </subsection>
+      
+    
+    </section>
+    </body>
+
+</document>
