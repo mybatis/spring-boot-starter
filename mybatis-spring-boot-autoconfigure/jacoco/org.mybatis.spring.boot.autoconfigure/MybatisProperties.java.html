@@ -16,21 +16,21 @@
 
 package org.mybatis.spring.boot.autoconfigure;
 
-import org.apache.ibatis.session.ExecutorType;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
 /**
  * Configuration properties for Mybatis.
  *
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
 @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
 <span class="fc" id="L36">public class MybatisProperties {</span>
@@ -63,9 +63,9 @@ import java.util.List;
 <span class="fc" id="L63">	private boolean checkConfigLocation = false;</span>
 
 	/**
-	 * Execution mode.
+	 * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
 	 */
-<span class="fc" id="L68">	private ExecutorType executorType = ExecutorType.SIMPLE;</span>
+	private ExecutorType executorType;
 
 	public String getConfig() {
 <span class="fc" id="L71">		return this.config;</span>
@@ -104,16 +104,16 @@ import java.util.List;
 	}
 
 	public void setCheckConfigLocation(boolean checkConfigLocation) {
-<span class="nc" id="L107">		this.checkConfigLocation = checkConfigLocation;</span>
-<span class="nc" id="L108">	}</span>
+<span class="fc" id="L107">		this.checkConfigLocation = checkConfigLocation;</span>
+<span class="fc" id="L108">	}</span>
 
 	public ExecutorType getExecutorType() {
 <span class="fc" id="L111">		return this.executorType;</span>
 	}
 
 	public void setExecutorType(ExecutorType executorType) {
-<span class="nc" id="L115">		this.executorType = executorType;</span>
-<span class="nc" id="L116">	}</span>
+<span class="fc" id="L115">		this.executorType = executorType;</span>
+<span class="fc" id="L116">	}</span>
 
 	public Resource[] resolveMapperLocations() {
 <span class="fc" id="L119">		List&lt;Resource&gt; resources = new ArrayList&lt;Resource&gt;();</span>
@@ -125,7 +125,7 @@ import java.util.List;
 <span class="fc" id="L125">					resources.addAll(Arrays.asList(mappers));</span>
 <span class="fc" id="L126">				} catch (IOException e) {</span>
 
-<span class="fc" id="L128">				}</span>
+				}
 			}
 		}
 

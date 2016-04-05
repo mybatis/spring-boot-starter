@@ -30,31 +30,32 @@ import java.util.List;
 
 /**
  * @author Eddú Meléndez
+ * @author Hans Westerbeek
  */
-<span class="nc" id="L34">public class SpringBootVFS extends VFS {</span>
+<span class="fc" id="L35">public class SpringBootVFS extends VFS {</span>
 
     @Override
     public boolean isValid() {
-<span class="nc" id="L38">        return true;</span>
+<span class="fc" id="L39">        return true;</span>
     }
 
     @Override
     protected List&lt;String&gt; list(URL url, String path) throws IOException {
-<span class="nc" id="L43">        ClassLoader cl = this.getClass().getClassLoader();</span>
-<span class="nc" id="L44">        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);</span>
-<span class="nc" id="L45">        Resource[] resources = resolver.getResources(&quot;classpath*:&quot; + path + &quot;/**/*.class&quot;);</span>
-<span class="nc" id="L46">        List&lt;Resource&gt; resources1 = Arrays.asList(resources);</span>
-<span class="nc" id="L47">        List&lt;String&gt; resourcePaths = new ArrayList&lt;String&gt;();</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (Resource resource: resources1) {</span>
-<span class="nc" id="L49">            resourcePaths.add(preserveSubpackageName(resource.getURI(), path));</span>
-<span class="nc" id="L50">        }</span>
-<span class="nc" id="L51">        return resourcePaths;</span>
+<span class="fc" id="L44">        ClassLoader cl = this.getClass().getClassLoader();</span>
+<span class="fc" id="L45">        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);</span>
+<span class="fc" id="L46">        Resource[] resources = resolver.getResources(&quot;classpath*:&quot; + path + &quot;/**/*.class&quot;);</span>
+<span class="fc" id="L47">        List&lt;Resource&gt; resources1 = Arrays.asList(resources);</span>
+<span class="fc" id="L48">        List&lt;String&gt; resourcePaths = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (Resource resource: resources1) {</span>
+<span class="fc" id="L50">            resourcePaths.add(preserveSubpackageName(resource.getURI(), path));</span>
+        }
+<span class="fc" id="L52">        return resourcePaths;</span>
     }
 
     private static String preserveSubpackageName(final URI uri, final String rootPath) {
-<span class="nc" id="L55">        final String uriStr = uri.toString();</span>
-<span class="nc" id="L56">        final int start = uriStr.indexOf(rootPath);</span>
-<span class="nc" id="L57">        return uriStr.substring(start, uriStr.length());</span>
+<span class="fc" id="L56">        final String uriStr = uri.toString();</span>
+<span class="fc" id="L57">        final int start = uriStr.indexOf(rootPath);</span>
+<span class="fc" id="L58">        return uriStr.substring(start, uriStr.length());</span>
     }
 
 }
