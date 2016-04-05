@@ -13,4 +13,4 @@ MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
 Essentials
 ----------
 
-* [See the docs](www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure)
+* [See the docs](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure)
