@@ -131,7 +131,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
     <subsection name="Advanced scanning">
       <p>MyBatis-Boot-Starter will search for mappers inside any <code>**/mapper</code> or <code>**/mappers</code> packages.
       So, for example, if you place your mapper interfaces inside a package called <code>sample.myapp.mapper</code> 
-      they all the interfaces inside that package will be automatically registered as a mappers both to Spring and to MyBatis</p>
+      then all the interfaces inside that package will be automatically registered as a mappers both to Spring and to MyBatis</p>
       
       <p>You may want to specify different parameters for scanning. If so, you will need to use a <code>@MapperScan</code> annotation.
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
