@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2009-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.autoconfigure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +31,6 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -55,6 +54,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -69,6 +69,7 @@ import org.springframework.util.StringUtils;
  * @author Eddú Meléndez
  * @author Josh Long
  * @author Kazuki Shimizu
+ * @author Eduardo Macarrón
  */
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
@@ -78,6 +79,8 @@ import org.springframework.util.StringUtils;
 public class MybatisAutoConfiguration {
 
 	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
+
+	private static final String[] defaultPackageSuffixes = { ".**.mapper", ".**.mappers" };
 
 	@Autowired
 	private MybatisProperties properties;
@@ -109,18 +112,23 @@ public class MybatisAutoConfiguration {
 		factory.setDataSource(dataSource);
 		factory.setVfs(SpringBootVFS.class);
 		if (StringUtils.hasText(this.properties.getConfig())) {
-			factory.setConfigLocation(this.resourceLoader.getResource(this.properties
-					.getConfig()));
+			factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfig()));
 		}
-		if (this.interceptors != null && this.interceptors.length > 0) {
+		if (!ObjectUtils.isEmpty(this.interceptors)) {
 			factory.setPlugins(this.interceptors);
 		}
 		if (this.databaseIdProvider != null) {
 			factory.setDatabaseIdProvider(this.databaseIdProvider);
 		}
-		factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-		factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-		factory.setMapperLocations(this.properties.resolveMapperLocations());
+		if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
+			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+		}
+		if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
+			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+		}
+		if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
+			factory.setMapperLocations(this.properties.resolveMapperLocations());
+		}
 
 		return factory.getObject();
 	}
@@ -131,8 +139,7 @@ public class MybatisAutoConfiguration {
 		ExecutorType executorType = this.properties.getExecutorType();
 		if (executorType != null) {
 			return new SqlSessionTemplate(sqlSessionFactory, executorType);
-		}
-		else {
+		} else {
 			return new SqlSessionTemplate(sqlSessionFactory);
 		}
 	}
@@ -151,16 +158,19 @@ public class MybatisAutoConfiguration {
 		private ResourceLoader resourceLoader;
 
 		@Override
-		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
-				BeanDefinitionRegistry registry) {
+		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
 			ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
 
-			List<String> pkgs;
 			try {
-				pkgs = AutoConfigurationPackages.get(this.beanFactory);
+				List<String> pkgs = AutoConfigurationPackages.get(this.beanFactory);
+				List<String> mapperPackages = new ArrayList<String>();
 				for (String pkg : pkgs) {
-					log.debug("Found MyBatis auto-configuration package '" + pkg + "'");
+					for (String sufix : defaultPackageSuffixes) {
+						String mapperPackage = pkg + sufix;
+						log.debug("Found MyBatis auto-configuration package '" + mapperPackage + "'");
+						mapperPackages.add(mapperPackage);
+					}
 				}
 
 				if (this.resourceLoader != null) {
@@ -168,10 +178,9 @@ public class MybatisAutoConfiguration {
 				}
 
 				scanner.registerFilters();
-				scanner.doScan(pkgs.toArray(new String[pkgs.size()]));
-			}
-			catch (IllegalStateException ex) {
-				log.debug("Could not determine auto-configuration "
+				scanner.doScan(StringUtils.toStringArray(mapperPackages));
+			} catch (IllegalStateException ex) {
+				log.debug("Could not determine auto-configuration " 
 						+ "package, automatic mapper scanning disabled.");
 			}
 		}
