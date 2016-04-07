@@ -22,12 +22,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import sample.mybatis.mapper.CityMapper;
+import sample.mybatis.mapper.IPersonOpt;
+
+import javax.annotation.Resource;
 
 @SpringBootApplication
 public class SampleMybatisApplication implements CommandLineRunner {
 
 	@Autowired
 	private CityMapper cityMapper;
+
+	@Resource
+	private IPersonOpt iPersonOpt;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SampleMybatisApplication.class, args);
@@ -36,6 +42,8 @@ public class SampleMybatisApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(this.cityMapper.selectCityById(1));
+
+		System.out.println(this.iPersonOpt.selectPersonById(1));
 	}
 
 }
