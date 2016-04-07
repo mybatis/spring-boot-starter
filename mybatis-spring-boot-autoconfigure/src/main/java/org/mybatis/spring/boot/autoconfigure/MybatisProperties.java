@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2009-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,19 +13,17 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.autoconfigure;
-
-import org.apache.ibatis.session.ExecutorType;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.ibatis.session.ExecutorType;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
  * Configuration properties for Mybatis.
@@ -119,7 +117,7 @@ public class MybatisProperties {
 	public Resource[] resolveMapperLocations() {
 		List<Resource> resources = new ArrayList<Resource>();
 		if (this.mapperLocations != null) {
-			for (String mapperLocation: this.mapperLocations) {
+			for (String mapperLocation : this.mapperLocations) {
 				Resource[] mappers;
 				try {
 					mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);

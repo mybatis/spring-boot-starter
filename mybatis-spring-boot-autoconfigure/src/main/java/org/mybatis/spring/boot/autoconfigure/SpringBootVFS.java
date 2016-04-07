@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2016 the original author or authors.
+/**
+ *    Copyright 2009-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.autoconfigure;
 
 import org.apache.ibatis.io.VFS;
@@ -29,33 +28,33 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Eddú Meléndez
  * @author Hans Westerbeek
+ * @author Eddú Meléndez
  */
 public class SpringBootVFS extends VFS {
 
-    @Override
-    public boolean isValid() {
-        return true;
-    }
+	@Override
+	public boolean isValid() {
+		return true;
+	}
 
-    @Override
-    protected List<String> list(URL url, String path) throws IOException {
-        ClassLoader cl = this.getClass().getClassLoader();
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
-        Resource[] resources = resolver.getResources("classpath*:" + path + "/**/*.class");
-        List<Resource> resources1 = Arrays.asList(resources);
-        List<String> resourcePaths = new ArrayList<String>();
-        for (Resource resource: resources1) {
-            resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
-        }
-        return resourcePaths;
-    }
+	@Override
+	protected List<String> list(URL url, String path) throws IOException {
+		ClassLoader cl = this.getClass().getClassLoader();
+		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
+		Resource[] resources = resolver.getResources("classpath*:" + path + "/**/*.class");
+		List<Resource> resources1 = Arrays.asList(resources);
+		List<String> resourcePaths = new ArrayList<String>();
+		for (Resource resource : resources1) {
+			resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
+		}
+		return resourcePaths;
+	}
 
-    private static String preserveSubpackageName(final URI uri, final String rootPath) {
-        final String uriStr = uri.toString();
-        final int start = uriStr.indexOf(rootPath);
-        return uriStr.substring(start, uriStr.length());
-    }
+	private static String preserveSubpackageName(final URI uri, final String rootPath) {
+		final String uriStr = uri.toString();
+		final int start = uriStr.indexOf(rootPath);
+		return uriStr.substring(start, uriStr.length());
+	}
 
 }
