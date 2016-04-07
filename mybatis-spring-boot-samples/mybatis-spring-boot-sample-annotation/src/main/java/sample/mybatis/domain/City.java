@@ -23,6 +23,8 @@ import java.io.Serializable;
  */
 public class City implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
 	private String name;
@@ -65,11 +67,7 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return "City{" +
-				"id=" + this.id +
-				", name='" + this.name + '\'' +
-				", state='" + this.state + '\'' +
-				", country='" + this.country + '\'' +
-				'}';
+		return getName() + "," + getState() + "," + getCountry();
 	}
+	
 }

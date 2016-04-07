@@ -14,19 +14,22 @@
  *    limitations under the License.
  */
 
-package sample.mybatis.mapper;
+package sample.mybatis.dao;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import sample.mybatis.domain.City;
 
-/**
- * @author Eddú Meléndez
- */
-public interface CityMapper {
+@Component
+public class CityDao {
 
-	@Select("select * from city where state = #{state}")
-	City findByState(@Param("state") String state);
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+
+	public City selectCityById(long id) {
+		return this.sqlSessionTemplate.selectOne("selectCityById", id);
+	}
 
 }

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sample.mybatis.mapper.CityMapper">
-    <select id="selectCityById" resultType="City">
-        select * from city where id = #{id}
+<mapper namespace="sample.mybatis.mapper.HotelMapper">
+    <select id="selectByCityId" resultType="Hotel">
+        select * from hotel where city = #{id}
     </select>
 </mapper>

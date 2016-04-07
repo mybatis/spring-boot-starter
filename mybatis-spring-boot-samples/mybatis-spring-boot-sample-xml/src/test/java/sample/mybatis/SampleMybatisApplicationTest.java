@@ -37,8 +37,9 @@ public class SampleMybatisApplicationTest {
 
 	@Test
 	public void test() {
-		String output = this.out.toString();
-		assertTrue("Wrong output: " + output, output.contains("SAN FRANCISCO"));
+		String output = out.toString();
+		assertTrue("Wrong output: " + output, output.contains("San Francisco,CA,US"));
+		assertTrue("Wrong output: " + output, output.contains("1,Conrad Treasury Place,William & George Streets,4001"));		
 	}
-
+	
 }
