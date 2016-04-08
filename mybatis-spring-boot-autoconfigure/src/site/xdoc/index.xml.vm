@@ -42,9 +42,9 @@
 	      <li>No longer xml configuration.</li>
 	    </ul>
             
-    </subsection>
+      </subsection>
        
-    <subsection name="Installation">
+      <subsection name="Installation">
       <p>
         To use the MyBatis-Spring-Boot-Starter module, you just need to include the
         <code>
@@ -131,13 +131,13 @@ public class SampleMybatisApplication implements CommandLineRunner {
     <subsection name="Advanced scanning">
       <p>MyBatis-Boot-Starter will search for mappers inside any <code>**/mapper</code> or <code>**/mappers</code> packages.
       So, for example, if you place your mapper interfaces inside a package called <code>sample.myapp.mapper</code> 
-      then all the interfaces inside that package will be automatically registered as a mappers both to Spring and to MyBatis</p>
+      then all the interfaces inside that package will be automatically registered both to Spring and to MyBatis</p>
       
-      <p>You may want to specify different parameters for scanning. If so, you will need to use a <code>@MapperScan</code> annotation.
+      <p>You may want to specify different parameters for scanning. If so, you will need to use the <code>@MapperScan</code> annotation.
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
       
-      <p>MyBatis-Boot-Starter will not start the scanning process if it finds one <code>MapperFactoryBean</code> in the Spring's context
-      so if you want to stop the scanning at all you should register your mappers explicitly with @Bean methods.</p>
+      <p>MyBatis-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the 
+      Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with @Bean methods.</p>
     </subsection>        
     
     <subsection name="Configuration">
@@ -201,11 +201,9 @@ public class SampleMybatisApplication implements CommandLineRunner {
 		  </tr>
 		</tbody>
 	  </table>
-      
-    </subsection>
-      
-    
+
+      </subsection>
     </section>
-    </body>
+  </body>
 
 </document>
