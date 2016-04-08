@@ -26,7 +26,7 @@ echo "Java detected: ${VER}"
 # 2. Deploy site
 # 3. Use -q option to only display Maven errors and warnings.
 
-if [ "$mybatis_repo" == "https://github.com/mybatis/mybatis-spring-boot.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$mybatis_repo" == "https://github.com/mybatis/spring-boot-starter.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
   if [ $VER == "18" ]; then
     mvn clean deploy -q -Dmaven.test.redirectTestOutputToFile=true --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
