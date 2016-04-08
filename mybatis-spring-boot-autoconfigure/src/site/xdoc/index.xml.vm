@@ -82,9 +82,10 @@ dependencies {
         MyBatis-Spring-Boot-Starter will:
       </p>
       <ul>
-      <li>Autodetect an existing <code>DataSource</code></li>
-      <li>Will create and register an instance of a <code>SqlSessionFactoryBean</code></li>
-      <li>Autoscan your mappers and register them to Spring so they can be injected into your beans.</li>
+      <li>Autodetect an existing <code>DataSource</code>.</li>
+      <li>Will create and register an instance of a <code>SqlSessionFactoryBean</code> passing that <code>DataSource</code> as an input.</li>
+      <li>Will create and register an instance of a <code>SqlSessionTemplate</code> got out of the <code>SqlSessionFactoryBean</code>.</li>
+      <li>Autoscan your mappers, link them to the <code>SqlSessionTemplate</code> and register them to Spring context so they can be injected into your beans.</li>
       </ul>
 
       <p>
@@ -140,6 +141,25 @@ public class SampleMybatisApplication implements CommandLineRunner {
       Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with @Bean methods.</p>
     </subsection>        
     
+    <subsection name="Using an SqlSession">
+      <p>An instance of a <code>SqlSessionTemplate</code> is created and added to the context, so you can use the MyBatis API
+      letting it be injected into your beans like follows</p>
+
+<source><![CDATA[
+@Component
+public class CityDao {
+
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+
+	public City selectCityById(long id) {
+		return this.sqlSessionTemplate.selectOne("selectCityById", id);
+	}
+
+}]]></source>
+       
+    </subsection>
+       
     <subsection name="Configuration">
       <p>As any other Spring-Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the 
       <code>application.properties</code></p>
@@ -203,6 +223,46 @@ public class SampleMybatisApplication implements CommandLineRunner {
 	  </table>
 
       </subsection>
+      
+      <subsection name="Running Samples">
+        <p>The project provides two samples so you play and experiment with them:</p>
+        
+      	<table>
+		<thead>
+		  <tr>
+		    <th>
+		      Sample
+		    </th>
+		    <th>
+		      Description
+		    </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr> 
+		    <td>
+		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+		      1st Sample
+		      </a>
+		    </td>
+		    <td>
+		      Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section.
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+		      2nd Sample
+		      </a>
+		    </td>
+		    <td>
+		      Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <code>SqlSesionTemplate</code>. 
+		    </td>
+		  </tr>
+		</tbody>
+	  </table>
+        
+      </subsection> 
     </section>
   </body>
 
