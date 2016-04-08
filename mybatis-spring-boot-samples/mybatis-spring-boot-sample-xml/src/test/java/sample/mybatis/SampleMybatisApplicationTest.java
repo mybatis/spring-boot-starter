@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Eddú Meléndez
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleMybatisApplication.class)
+@SpringApplicationConfiguration(classes = SampleXmlApplication.class)
 public class SampleMybatisApplicationTest {
 
 	@ClassRule
