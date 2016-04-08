@@ -261,7 +261,6 @@
 &lt;dependency&gt;
     &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
     &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
-  &lt;version&gt;${project.version}&lt;/version&gt;
 &lt;/dependency&gt;</pre></div>
 
       
@@ -271,7 +270,7 @@
         
 <div class="source"><pre class="prettyprint">
 dependencies {
-    compile(&quot;org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}&quot;)
+    compile(&quot;org.mybatis.spring.boot:mybatis-spring-boot-starter&quot;)
 }</pre></div>
 
     </div>
@@ -507,7 +506,7 @@ public class CityDao {
 		    </td>
 		    
 <td>
-		      The sample used in the getting started section. It is just a mapper and a bean where the mapper is injected into.
+		      Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section.
 		    </td>
 		  </tr>
 		  
@@ -520,7 +519,7 @@ public class CityDao {
 		    </td>
 		    
 <td>
-		      Sample to show how to use a Mapper that has its statements in an xml file and Dao that uses an <tt>SqlSesionTemplate</tt>. 
+		      Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <tt>SqlSesionTemplate</tt>. 
 		    </td>
 		  </tr>
 		</tbody>
