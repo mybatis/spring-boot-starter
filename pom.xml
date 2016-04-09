@@ -33,13 +33,6 @@
   <description>Spring Boot Support for Mybatis</description>
   <url>http://github.com/mybatis/mybatis-spring-boot/</url>
 
-  <developers>
-    <developer>
-      <name>Eddú Meléndez</name>
-      <email>eddu.melendez@gmail.com</email>
-    </developer>
-  </developers>
-
   <modules>
     <module>mybatis-spring-boot-autoconfigure</module>
     <module>mybatis-spring-boot-starter</module>
@@ -69,8 +62,8 @@
   </distributionManagement>
 
   <properties>
-    <mybatis.version>3.3.1</mybatis.version>
-    <mybatis-spring.version>1.2.5</mybatis-spring.version>
+    <mybatis.version>3.4.0-SNAPSHOT</mybatis.version>
+    <mybatis-spring.version>1.3.0-SNAPSHOT</mybatis-spring.version>
     <spring-boot.version>1.3.3.RELEASE</spring-boot.version>
   </properties>
 

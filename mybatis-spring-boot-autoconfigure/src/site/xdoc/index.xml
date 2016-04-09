@@ -92,8 +92,7 @@ dependencies {
       </p>
       
 <source><![CDATA[
-package sample.mybatis.mapper;
-
+@Mapper
 public interface CityMapper {
 
     @Select("SELECT * FROM CITY WHERE state = #{state}")
@@ -129,11 +128,9 @@ public class SampleMybatisApplication implements CommandLineRunner {
           </subsection>
 
     <subsection name="Advanced scanning">
-      <p>MyBatis-Boot-Starter will search for mappers inside any <code>**/mapper</code> or <code>**/mappers</code> packages.
-      So, for example, if you place your mapper interfaces inside a package called <code>sample.myapp.mapper</code> 
-      then all the interfaces inside that package will be automatically registered both to Spring and to MyBatis</p>
+      <p>MyBatis-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
       
-      <p>You may want to specify different parameters for scanning. If so, you will need to use the <code>@MapperScan</code> annotation.
+      <p>You may want to specify a custom annotation or a marker interface for scanning. If so, you must use the <code>@MapperScan</code> annotation. 
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
       
       <p>MyBatis-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the 
