@@ -80,8 +80,6 @@ public class MybatisAutoConfiguration {
 
 	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
 
-	private static final String[] defaultPackageSuffixes = { ".**.mapper", ".**.mappers" };
-
 	@Autowired
 	private MybatisProperties properties;
 
