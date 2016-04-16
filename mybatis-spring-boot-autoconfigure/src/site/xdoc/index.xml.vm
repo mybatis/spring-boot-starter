@@ -55,7 +55,7 @@
         <ul>
           <li>Build stand alone applications.</li>
 	      <li>Reduce the boilerplate to almost zero.</li>
-	      <li>No longer xml configuration.</li>
+	      <li>Less XML configuration.</li>
 	    </ul>
             
       </subsection>
@@ -163,10 +163,10 @@ public class SampleMybatisApplication implements CommandLineRunner {
 public class CityDao {
 
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
+	private SqlSession sqlSession;
 
 	public City selectCityById(long id) {
-		return this.sqlSessionTemplate.selectOne("selectCityById", id);
+		return this.sqlSession.selectOne("selectCityById", id);
 	}
 
 }]]></source>
