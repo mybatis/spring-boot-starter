@@ -151,7 +151,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
       
       <p>MyBatis-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the 
-      Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with @Bean methods.</p>
+      Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with <code>@Bean</code> methods.</p>
     </subsection>        
     
     <subsection name="Using an SqlSession">
