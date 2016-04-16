@@ -43,24 +43,24 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</connection>
-    <developerConnection>scm:git:git@github.com:mybatis/mybatis-spring-boot.git</developerConnection>
-    <url>https://github.com/mybatis/mybatis-spring-boot</url>
+    <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
+    <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
+    <url>https://github.com/mybatis/spring-boot-starter</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
-    <url>https://github.com/mybatis/mybatis-spring-boot/issues</url>
+    <url>https://github.com/mybatis/spring-boot-starter/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/mybatis-spring-boot</url>
+    <url>https://travis-ci.org/mybatis/spring-boot-starter</url>
   </ciManagement>
   <distributionManagement>
     <site>
       <id>gh-pages</id>
       <name>Mybatis GitHub Pages</name>
-      <url>git:ssh://git@github.com/mybatis/mybatis-spring-boot.git?gh-pages#</url>
+      <url>git:ssh://git@github.com/mybatis/spring-boot-starter.git?gh-pages#</url>
     </site>
   </distributionManagement>
 
