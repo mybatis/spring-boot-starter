@@ -194,7 +194,7 @@ public class CityDao {
 		<tbody>
 		  <tr> 
 		    <td>
-		      config
+		      config-location
 		    </td>
 		    <td>
 		      MyBatis xml config file (optional)
@@ -235,7 +235,22 @@ public class CityDao {
 		</tbody>
 	  </table>
 
-      </subsection>
+
+      <p>
+        In MyBatis-Spring-Boot-Starter 1.1.0 or later, you can configure the <code>org.apache.ibatis.session.Configuration</code> using the <code>application.properties</code>.
+        The property prefix is <code>mybatis.configuration</code>. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
+	  </p>
+      <p>Configuration Example:</p>
+
+<source>
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.default-statement-timeout=30
+mybatis.configuration.default-fetch-size=100
+</source>
+
+      <p><span class="label important">NOTE</span> This feature (<code>mybatis.configuration.*</code>) cannot use at the same time with the MyBatis xml config file (<code>mybatis.config-location</code>).</p>
+
+    </subsection>
       
       <subsection name="Running Samples">
         <p>The project provides two samples so you play and experiment with them:</p>
