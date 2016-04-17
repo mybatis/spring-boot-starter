@@ -37,11 +37,11 @@ public class MybatisProperties {
 
 	public static final String MYBATIS_PREFIX = "mybatis";
 
-	/**
-	 * Config file path.
-	 */
-	private String config;
-
+  /**
+   * Config file path.
+   */
+  private String configLocation;
+	
 	/**
 	 * Location of mybatis mapper files.
 	 */
@@ -72,12 +72,30 @@ public class MybatisProperties {
 	 */
 	private Configuration configuration;
 
+	/**
+	 * @since 1.1.0
+	 * @return
+	 */
+  public String getConfigLocation() {
+    return this.configLocation;
+  }
+
+  /**
+   * @since 1.1.0
+   * @return
+   */
+  public void setConfigLocation(String configLocation) {
+    this.configLocation = configLocation;
+  }
+	
+  @Deprecated
 	public String getConfig() {
-		return this.config;
+		return this.configLocation;
 	}
 
+  @Deprecated
 	public void setConfig(String config) {
-		this.config = config;
+		this.configLocation = config;
 	}
 
 	public String[] getMapperLocations() {

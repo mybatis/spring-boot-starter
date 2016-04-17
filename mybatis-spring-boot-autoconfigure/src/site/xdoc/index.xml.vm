@@ -194,7 +194,7 @@ public class CityDao {
 		<tbody>
 		  <tr> 
 		    <td>
-		      config
+		      config-location
 		    </td>
 		    <td>
 		      MyBatis xml config file (optional)
@@ -230,6 +230,14 @@ public class CityDao {
 		    </td>
 		    <td>
 		      Executor type: SIMPLE, REUSE, BATCH (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      configuration
+		    </td>
+		    <td>
+		      A MyBatis <code>Configuration</code> bean.
 		    </td>
 		  </tr>
 		</tbody>
