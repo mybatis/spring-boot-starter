@@ -237,13 +237,14 @@ public class CityDao {
 		      configuration
 		    </td>
 		    <td>
-		      A MyBatis <code>Configuration</code> bean.
+		      A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
+              <span class="label important">NOTE</span> This property cannot use at the same time with the <code>config-location</code>.
 		    </td>
 		  </tr>
 		</tbody>
 	  </table>
 
-      </subsection>
+    </subsection>
       
       <subsection name="Running Samples">
         <p>The project provides two samples so you play and experiment with them:</p>
