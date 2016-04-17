@@ -61,10 +61,10 @@ import org.springframework.util.StringUtils;
  * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a
  * {@link SqlSessionFactory} and a {@link SqlSessionTemplate}.
  *
- * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a configuration file is
- * specified as a property, those will be considered, otherwise this auto-configuration
- * will attempt to register mappers based on the interface definitions in or under the
- * root auto-configuration package.
+ * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a
+ * configuration file is specified as a property, those will be considered,
+ * otherwise this auto-configuration will attempt to register mappers based on
+ * the interface definitions in or under the root auto-configuration package.
  *
  * @author Eddú Meléndez
  * @author Josh Long
@@ -78,137 +78,136 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisAutoConfiguration {
 
-	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
+  private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
 
-	@Autowired
-	private MybatisProperties properties;
+  @Autowired
+  private MybatisProperties properties;
 
-	@Autowired(required = false)
-	private Interceptor[] interceptors;
+  @Autowired(required = false)
+  private Interceptor[] interceptors;
 
-	@Autowired
-	private ResourceLoader resourceLoader = new DefaultResourceLoader();
+  @Autowired
+  private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-	@Autowired(required = false)
-	private DatabaseIdProvider databaseIdProvider;
+  @Autowired(required = false)
+  private DatabaseIdProvider databaseIdProvider;
 
-	@PostConstruct
-	public void checkConfigFileExists() {
-		if (this.properties.isCheckConfigLocation()) {
-			Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
-			Assert.state(resource.exists(), "Cannot find config location: " + resource
-					+ " (please add config file or check your Mybatis "
-					+ "configuration)");
-		}
-	}
+  @PostConstruct
+  public void checkConfigFileExists() {
+    if (this.properties.isCheckConfigLocation()) {
+      Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
+      Assert.state(resource.exists(), "Cannot find config location: " + resource
+          + " (please add config file or check your Mybatis " + "configuration)");
+    }
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
-		factory.setDataSource(dataSource);
-		factory.setVfs(SpringBootVFS.class);
-		if (StringUtils.hasText(this.properties.getConfigLocation())) {
-			factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
-		}
-		factory.setConfiguration(properties.getConfiguration());
-		if (!ObjectUtils.isEmpty(this.interceptors)) {
-			factory.setPlugins(this.interceptors);
-		}
-		if (this.databaseIdProvider != null) {
-			factory.setDatabaseIdProvider(this.databaseIdProvider);
-		}
-		if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
-			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
-		}
-		if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
-			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
-		}
-		if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
-			factory.setMapperLocations(this.properties.resolveMapperLocations());
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
+    factory.setDataSource(dataSource);
+    factory.setVfs(SpringBootVFS.class);
+    if (StringUtils.hasText(this.properties.getConfigLocation())) {
+      factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
+    }
+    factory.setConfiguration(properties.getConfiguration());
+    if (!ObjectUtils.isEmpty(this.interceptors)) {
+      factory.setPlugins(this.interceptors);
+    }
+    if (this.databaseIdProvider != null) {
+      factory.setDatabaseIdProvider(this.databaseIdProvider);
+    }
+    if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
+      factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
+    }
+    if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
+      factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+    }
+    if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
+      factory.setMapperLocations(this.properties.resolveMapperLocations());
+    }
 
-		return factory.getObject();
-	}
+    return factory.getObject();
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		ExecutorType executorType = this.properties.getExecutorType();
-		if (executorType != null) {
-			return new SqlSessionTemplate(sqlSessionFactory, executorType);
-		} else {
-			return new SqlSessionTemplate(sqlSessionFactory);
-		}
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+    ExecutorType executorType = this.properties.getExecutorType();
+    if (executorType != null) {
+      return new SqlSessionTemplate(sqlSessionFactory, executorType);
+    } else {
+      return new SqlSessionTemplate(sqlSessionFactory);
+    }
+  }
 
-	/**
-	 * This will just scan the same base package as Spring Boot does. If you want more
-	 * power, you can explicitly use {@link org.mybatis.spring.annotation.MapperScan} but
-	 * this will get typed mappers working correctly, out-of-the-box, similar to using
-	 * Spring Data JPA repositories.
-	 */
-	public static class AutoConfiguredMapperScannerRegistrar implements BeanFactoryAware,
-			ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+  /**
+   * This will just scan the same base package as Spring Boot does. If you want
+   * more power, you can explicitly use
+   * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed
+   * mappers working correctly, out-of-the-box, similar to using Spring Data JPA
+   * repositories.
+   */
+  public static class AutoConfiguredMapperScannerRegistrar
+      implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
 
-		private BeanFactory beanFactory;
+    private BeanFactory beanFactory;
 
-		private ResourceLoader resourceLoader;
+    private ResourceLoader resourceLoader;
 
-		@Override
-		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    @Override
+    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
-			log.debug("Searching for mappers annotated with @Mapper'");
-			
-			ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
+      log.debug("Searching for mappers annotated with @Mapper'");
 
-			try {
-				if (this.resourceLoader != null) {
-					scanner.setResourceLoader(this.resourceLoader);
-				}
-				
-				List<String> pkgs = AutoConfigurationPackages.get(this.beanFactory);
-				for (String pkg : pkgs) {
-					log.debug("Using auto-configuration base package '" + pkg + "'");
-				}
+      ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
 
-				scanner.setAnnotationClass(Mapper.class);
-				scanner.registerFilters();
-				scanner.doScan(StringUtils.toStringArray(pkgs));
-			} catch (IllegalStateException ex) {
-				log.debug("Could not determine auto-configuration " 
-						+ "package, automatic mapper scanning disabled.");
-			}
-		}
+      try {
+        if (this.resourceLoader != null) {
+          scanner.setResourceLoader(this.resourceLoader);
+        }
 
-		@Override
-		public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-			this.beanFactory = beanFactory;
-		}
+        List<String> pkgs = AutoConfigurationPackages.get(this.beanFactory);
+        for (String pkg : pkgs) {
+          log.debug("Using auto-configuration base package '" + pkg + "'");
+        }
 
-		@Override
-		public void setResourceLoader(ResourceLoader resourceLoader) {
-			this.resourceLoader = resourceLoader;
-		}
-	}
+        scanner.setAnnotationClass(Mapper.class);
+        scanner.registerFilters();
+        scanner.doScan(StringUtils.toStringArray(pkgs));
+      } catch (IllegalStateException ex) {
+        log.debug("Could not determine auto-configuration " + "package, automatic mapper scanning disabled.");
+      }
+    }
 
-	/**
-	 * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up creating
-	 * instances of {@link MapperFactoryBean}. If
-	 * {@link org.mybatis.spring.annotation.MapperScan} is used then this
-	 * auto-configuration is not needed. If it is _not_ used, however, then this will
-	 * bring in a bean registrar and automatically register components based on the same
-	 * component-scanning path as Spring Boot itself.
-	 */
-	@Configuration
-	@Import({ AutoConfiguredMapperScannerRegistrar.class })
-	@ConditionalOnMissingBean(MapperFactoryBean.class)
-	public static class MapperScannerRegistrarNotFoundConfiguration {
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+      this.beanFactory = beanFactory;
+    }
 
-		@PostConstruct
-		public void afterPropertiesSet() {
-			log.debug(String.format("No %s found.", MapperFactoryBean.class.getName()));
-		}
-	}
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+      this.resourceLoader = resourceLoader;
+    }
+  }
+
+  /**
+   * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up
+   * creating instances of {@link MapperFactoryBean}. If
+   * {@link org.mybatis.spring.annotation.MapperScan} is used then this
+   * auto-configuration is not needed. If it is _not_ used, however, then this
+   * will bring in a bean registrar and automatically register components based
+   * on the same component-scanning path as Spring Boot itself.
+   */
+  @Configuration
+  @Import({ AutoConfiguredMapperScannerRegistrar.class })
+  @ConditionalOnMissingBean(MapperFactoryBean.class)
+  public static class MapperScannerRegistrarNotFoundConfiguration {
+
+    @PostConstruct
+    public void afterPropertiesSet() {
+      log.debug(String.format("No %s found.", MapperFactoryBean.class.getName()));
+    }
+  }
 
 }

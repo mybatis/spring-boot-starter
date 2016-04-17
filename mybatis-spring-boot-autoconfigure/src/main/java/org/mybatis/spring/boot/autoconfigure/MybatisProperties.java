@@ -35,47 +35,48 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
 public class MybatisProperties {
 
-	public static final String MYBATIS_PREFIX = "mybatis";
+  public static final String MYBATIS_PREFIX = "mybatis";
 
   /**
    * Config file path.
    */
   private String configLocation;
-	
-	/**
-	 * Location of mybatis mapper files.
-	 */
-	private String[] mapperLocations;
 
-	/**
-	 * Package to scan domain objects.
-	 */
-	private String typeAliasesPackage;
+  /**
+   * Location of mybatis mapper files.
+   */
+  private String[] mapperLocations;
 
-	/**
-	 * Package to scan handlers.
-	 */
-	private String typeHandlersPackage;
+  /**
+   * Package to scan domain objects.
+   */
+  private String typeAliasesPackage;
 
-	/**
-	 * Check the config file exists.
-	 */
-	private boolean checkConfigLocation = false;
+  /**
+   * Package to scan handlers.
+   */
+  private String typeHandlersPackage;
 
-	/**
-	 * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
-	 */
-	private ExecutorType executorType;
+  /**
+   * Check the config file exists.
+   */
+  private boolean checkConfigLocation = false;
 
-	/**
-	 * A Configuration object for customize default settings. If {@link #config} is specified, this property is not used.
-	 */
-	private Configuration configuration;
+  /**
+   * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
+   */
+  private ExecutorType executorType;
 
-	/**
-	 * @since 1.1.0
-	 * @return
-	 */
+  /**
+   * A Configuration object for customize default settings. If {@link #config}
+   * is specified, this property is not used.
+   */
+  private Configuration configuration;
+
+  /**
+   * @since 1.1.0
+   * @return
+   */
   public String getConfigLocation() {
     return this.configLocation;
   }
@@ -87,81 +88,81 @@ public class MybatisProperties {
   public void setConfigLocation(String configLocation) {
     this.configLocation = configLocation;
   }
-	
-  @Deprecated
-	public String getConfig() {
-		return this.configLocation;
-	}
 
   @Deprecated
-	public void setConfig(String config) {
-		this.configLocation = config;
-	}
+  public String getConfig() {
+    return this.configLocation;
+  }
 
-	public String[] getMapperLocations() {
-		return this.mapperLocations;
-	}
+  @Deprecated
+  public void setConfig(String config) {
+    this.configLocation = config;
+  }
 
-	public void setMapperLocations(String[] mapperLocations) {
-		this.mapperLocations = mapperLocations;
-	}
+  public String[] getMapperLocations() {
+    return this.mapperLocations;
+  }
 
-	public String getTypeHandlersPackage() {
-		return this.typeHandlersPackage;
-	}
+  public void setMapperLocations(String[] mapperLocations) {
+    this.mapperLocations = mapperLocations;
+  }
 
-	public void setTypeHandlersPackage(String typeHandlersPackage) {
-		this.typeHandlersPackage = typeHandlersPackage;
-	}
+  public String getTypeHandlersPackage() {
+    return this.typeHandlersPackage;
+  }
 
-	public String getTypeAliasesPackage() {
-		return this.typeAliasesPackage;
-	}
+  public void setTypeHandlersPackage(String typeHandlersPackage) {
+    this.typeHandlersPackage = typeHandlersPackage;
+  }
 
-	public void setTypeAliasesPackage(String typeAliasesPackage) {
-		this.typeAliasesPackage = typeAliasesPackage;
-	}
+  public String getTypeAliasesPackage() {
+    return this.typeAliasesPackage;
+  }
 
-	public boolean isCheckConfigLocation() {
-		return this.checkConfigLocation;
-	}
+  public void setTypeAliasesPackage(String typeAliasesPackage) {
+    this.typeAliasesPackage = typeAliasesPackage;
+  }
 
-	public void setCheckConfigLocation(boolean checkConfigLocation) {
-		this.checkConfigLocation = checkConfigLocation;
-	}
+  public boolean isCheckConfigLocation() {
+    return this.checkConfigLocation;
+  }
 
-	public ExecutorType getExecutorType() {
-		return this.executorType;
-	}
+  public void setCheckConfigLocation(boolean checkConfigLocation) {
+    this.checkConfigLocation = checkConfigLocation;
+  }
 
-	public void setExecutorType(ExecutorType executorType) {
-		this.executorType = executorType;
-	}
+  public ExecutorType getExecutorType() {
+    return this.executorType;
+  }
 
-	public Configuration getConfiguration() {
-		return configuration;
-	}
+  public void setExecutorType(ExecutorType executorType) {
+    this.executorType = executorType;
+  }
 
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
-	}
+  public Configuration getConfiguration() {
+    return configuration;
+  }
 
-	public Resource[] resolveMapperLocations() {
-		List<Resource> resources = new ArrayList<Resource>();
-		if (this.mapperLocations != null) {
-			for (String mapperLocation : this.mapperLocations) {
-				Resource[] mappers;
-				try {
-					mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);
-					resources.addAll(Arrays.asList(mappers));
-				} catch (IOException e) {
+  public void setConfiguration(Configuration configuration) {
+    this.configuration = configuration;
+  }
 
-				}
-			}
-		}
+  public Resource[] resolveMapperLocations() {
+    List<Resource> resources = new ArrayList<Resource>();
+    if (this.mapperLocations != null) {
+      for (String mapperLocation : this.mapperLocations) {
+        Resource[] mappers;
+        try {
+          mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);
+          resources.addAll(Arrays.asList(mappers));
+        } catch (IOException e) {
 
-		Resource[] mapperLocations = new Resource[resources.size()];
-		mapperLocations = resources.toArray(mapperLocations);
-		return mapperLocations;
-	}
+        }
+      }
+    }
+
+    Resource[] mapperLocations = new Resource[resources.size()];
+    mapperLocations = resources.toArray(mapperLocations);
+    return mapperLocations;
+  }
 }
