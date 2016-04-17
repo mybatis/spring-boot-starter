@@ -95,8 +95,7 @@ public class MybatisAutoConfiguration {
 	@PostConstruct
 	public void checkConfigFileExists() {
 		if (this.properties.isCheckConfigLocation()) {
-			Resource resource = this.resourceLoader.getResource(this.properties
-					.getConfig());
+			Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
 			Assert.state(resource.exists(), "Cannot find config location: " + resource
 					+ " (please add config file or check your Mybatis "
 					+ "configuration)");
@@ -109,8 +108,8 @@ public class MybatisAutoConfiguration {
 		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setVfs(SpringBootVFS.class);
-		if (StringUtils.hasText(this.properties.getConfig())) {
-			factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfig()));
+		if (StringUtils.hasText(this.properties.getConfigLocation())) {
+			factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
 		}
 		factory.setConfiguration(properties.getConfiguration());
 		if (!ObjectUtils.isEmpty(this.interceptors)) {
