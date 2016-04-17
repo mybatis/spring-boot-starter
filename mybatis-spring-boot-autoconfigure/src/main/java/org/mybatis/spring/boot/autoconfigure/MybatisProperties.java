@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
@@ -65,6 +66,11 @@ public class MybatisProperties {
 	 * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
 	 */
 	private ExecutorType executorType;
+
+	/**
+	 * A Configuration object for customize default settings. If {@link #config} is specified, this property is not used.
+	 */
+	private Configuration configuration;
 
 	public String getConfig() {
 		return this.config;
@@ -112,6 +118,14 @@ public class MybatisProperties {
 
 	public void setExecutorType(ExecutorType executorType) {
 		this.executorType = executorType;
+	}
+
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(Configuration configuration) {
+		this.configuration = configuration;
 	}
 
 	public Resource[] resolveMapperLocations() {

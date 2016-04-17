@@ -18,6 +18,7 @@ package org.mybatis.spring.boot.autoconfigure;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
@@ -44,6 +45,7 @@ import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
@@ -98,6 +100,7 @@ public class MybatisAutoConfigurationTest {
 				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
 		assertEquals(ExecutorType.SIMPLE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
 	@Test
@@ -111,6 +114,7 @@ public class MybatisAutoConfigurationTest {
 		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
 		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
 		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
 	@Test
@@ -336,6 +340,48 @@ public class MybatisAutoConfigurationTest {
 		assertEquals("h2", configuration.getDatabaseId());
 	}
 
+	@Test
+	public void testWithMyBatisConfiguration() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.map-underscore-to-camel-case:true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class);
+		this.context.refresh();
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration()
+				.isMapUnderscoreToCamelCase());
+	}
+
+	@Test
+	public void testWithMyBatisConfigurationCustomizeByJavaConfig() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.default-fetch-size:100");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				MybatisPropertiesConfigurationCustomizer.class);
+		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context
+				.getBean(SqlSessionFactory.class);
+		assertEquals(100, sqlSessionFactory.getConfiguration().getDefaultFetchSize()
+				.intValue());
+		assertEquals(DummyTypeHandler.class, sqlSessionFactory.getConfiguration()
+				.getTypeHandlerRegistry().getTypeHandler(BigInteger.class).getClass());
+	}
+
+	@Test
+	public void testConfigFileAndConfigurationWithTogether() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.config:mybatis-config.xml",
+				"mybatis.configuration.default-statement-timeout:30");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class);
+
+		expectedException.expect(isA(BeanCreationException.class));
+		expectedException
+				.expectMessage(is("Error creating bean with name 'sqlSessionFactory' defined in org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is java.lang.IllegalStateException: Property 'configuration' and 'configLocation' can not specified with together"));
+
+		this.context.refresh();
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -367,6 +413,16 @@ public class MybatisAutoConfigurationTest {
 			return new MyInterceptor();
 		}
 
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	static class MybatisPropertiesConfigurationCustomizer {
+		@Autowired
+		void customize(MybatisProperties properties) {
+			properties.getConfiguration().getTypeHandlerRegistry()
+					.register(new DummyTypeHandler());
+		}
 	}
 
 	@Intercepts(
