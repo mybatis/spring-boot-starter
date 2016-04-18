@@ -28,7 +28,7 @@
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -46,7 +46,7 @@
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
     <url>https://github.com/mybatis/spring-boot-starter</url>
-    <tag>HEAD</tag>
+    <tag>mybatis-spring-boot-1.1.0</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
