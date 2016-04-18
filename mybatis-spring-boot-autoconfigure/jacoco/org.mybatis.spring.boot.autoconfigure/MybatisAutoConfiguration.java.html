@@ -61,10 +61,10 @@ import org.springframework.util.StringUtils;
  * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a
  * {@link SqlSessionFactory} and a {@link SqlSessionTemplate}.
  *
- * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a configuration file is
- * specified as a property, those will be considered, otherwise this auto-configuration
- * will attempt to register mappers based on the interface definitions in or under the
- * root auto-configuration package.
+ * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a
+ * configuration file is specified as a property, those will be considered,
+ * otherwise this auto-configuration will attempt to register mappers based on
+ * the interface definitions in or under the root auto-configuration package.
  *
  * @author Eddú Meléndez
  * @author Josh Long
@@ -78,138 +78,137 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 <span class="fc" id="L79">public class MybatisAutoConfiguration {</span>
 
-<span class="fc" id="L81">	private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);</span>
+<span class="fc" id="L81">  private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);</span>
 
-	@Autowired
-	private MybatisProperties properties;
+  @Autowired
+  private MybatisProperties properties;
 
-	@Autowired(required = false)
-	private Interceptor[] interceptors;
+  @Autowired(required = false)
+  private Interceptor[] interceptors;
 
-	@Autowired
-<span class="fc" id="L90">	private ResourceLoader resourceLoader = new DefaultResourceLoader();</span>
+<span class="fc" id="L89">  @Autowired</span>
+  private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-	@Autowired(required = false)
-	private DatabaseIdProvider databaseIdProvider;
+  @Autowired(required = false)
+  private DatabaseIdProvider databaseIdProvider;
 
-	@PostConstruct
-	public void checkConfigFileExists() {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">		if (this.properties.isCheckConfigLocation()) {</span>
-<span class="fc" id="L98">			Resource resource = this.resourceLoader.getResource(this.properties</span>
-<span class="fc" id="L99">					.getConfig());</span>
-<span class="fc" id="L100">			Assert.state(resource.exists(), &quot;Cannot find config location: &quot; + resource</span>
-<span class="fc" id="L101">					+ &quot; (please add config file or check your Mybatis &quot;</span>
-<span class="fc" id="L102">					+ &quot;configuration)&quot;);</span>
-		}
-<span class="fc" id="L104">	}</span>
+  @PostConstruct
+  public void checkConfigFileExists() {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">    if (this.properties.isCheckConfigLocation()) {</span>
+<span class="fc" id="L98">      Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());</span>
+<span class="fc" id="L99">      Assert.state(resource.exists(), &quot;Cannot find config location: &quot; + resource</span>
+          + &quot; (please add config file or check your Mybatis &quot; + &quot;configuration)&quot;);
+    }
+<span class="fc" id="L102">  }</span>
 
-	@Bean
-	@ConditionalOnMissingBean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-<span class="fc" id="L109">		SqlSessionFactoryBean factory = new SqlSessionFactoryBean();</span>
-<span class="fc" id="L110">		factory.setDataSource(dataSource);</span>
-<span class="fc" id="L111">		factory.setVfs(SpringBootVFS.class);</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">		if (StringUtils.hasText(this.properties.getConfig())) {</span>
-<span class="fc" id="L113">			factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfig()));</span>
-		}
-<span class="fc bfc" id="L115" title="All 2 branches covered.">		if (!ObjectUtils.isEmpty(this.interceptors)) {</span>
-<span class="fc" id="L116">			factory.setPlugins(this.interceptors);</span>
-		}
-<span class="fc bfc" id="L118" title="All 2 branches covered.">		if (this.databaseIdProvider != null) {</span>
-<span class="fc" id="L119">			factory.setDatabaseIdProvider(this.databaseIdProvider);</span>
-		}
-<span class="fc bfc" id="L121" title="All 2 branches covered.">		if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {</span>
-<span class="fc" id="L122">			factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());</span>
-		}
-<span class="fc bfc" id="L124" title="All 2 branches covered.">		if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {</span>
-<span class="fc" id="L125">			factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());</span>
-		}
-<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {</span>
-<span class="fc" id="L128">			factory.setMapperLocations(this.properties.resolveMapperLocations());</span>
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+<span class="fc" id="L107">    SqlSessionFactoryBean factory = new SqlSessionFactoryBean();</span>
+<span class="fc" id="L108">    factory.setDataSource(dataSource);</span>
+<span class="fc" id="L109">    factory.setVfs(SpringBootVFS.class);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">    if (StringUtils.hasText(this.properties.getConfigLocation())) {</span>
+<span class="fc" id="L111">      factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));</span>
+    }
+<span class="fc" id="L113">    factory.setConfiguration(properties.getConfiguration());</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">    if (!ObjectUtils.isEmpty(this.interceptors)) {</span>
+<span class="fc" id="L115">      factory.setPlugins(this.interceptors);</span>
+    }
+<span class="fc bfc" id="L117" title="All 2 branches covered.">    if (this.databaseIdProvider != null) {</span>
+<span class="fc" id="L118">      factory.setDatabaseIdProvider(this.databaseIdProvider);</span>
+    }
+<span class="fc bfc" id="L120" title="All 2 branches covered.">    if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {</span>
+<span class="fc" id="L121">      factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());</span>
+    }
+<span class="fc bfc" id="L123" title="All 2 branches covered.">    if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {</span>
+<span class="fc" id="L124">      factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());</span>
+    }
+<span class="fc bfc" id="L126" title="All 2 branches covered.">    if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {</span>
+<span class="fc" id="L127">      factory.setMapperLocations(this.properties.resolveMapperLocations());</span>
+    }
 
-<span class="fc" id="L131">		return factory.getObject();</span>
-	}
+<span class="fc" id="L130">    return factory.getObject();</span>
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-<span class="fc" id="L137">		ExecutorType executorType = this.properties.getExecutorType();</span>
-<span class="fc bfc" id="L138" title="All 2 branches covered.">		if (executorType != null) {</span>
-<span class="fc" id="L139">			return new SqlSessionTemplate(sqlSessionFactory, executorType);</span>
-		} else {
-<span class="fc" id="L141">			return new SqlSessionTemplate(sqlSessionFactory);</span>
-		}
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+<span class="fc" id="L136">    ExecutorType executorType = this.properties.getExecutorType();</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    if (executorType != null) {</span>
+<span class="fc" id="L138">      return new SqlSessionTemplate(sqlSessionFactory, executorType);</span>
+    } else {
+<span class="fc" id="L140">      return new SqlSessionTemplate(sqlSessionFactory);</span>
+    }
+  }
 
-	/**
-	 * This will just scan the same base package as Spring Boot does. If you want more
-	 * power, you can explicitly use {@link org.mybatis.spring.annotation.MapperScan} but
-	 * this will get typed mappers working correctly, out-of-the-box, similar to using
-	 * Spring Data JPA repositories.
-	 */
-<span class="fc" id="L151">	public static class AutoConfiguredMapperScannerRegistrar implements BeanFactoryAware,</span>
-			ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+  /**
+   * This will just scan the same base package as Spring Boot does. If you want
+   * more power, you can explicitly use
+   * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed
+   * mappers working correctly, out-of-the-box, similar to using Spring Data JPA
+   * repositories.
+   */
+<span class="fc" id="L151">  public static class AutoConfiguredMapperScannerRegistrar</span>
+      implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
 
-		private BeanFactory beanFactory;
+    private BeanFactory beanFactory;
 
-		private ResourceLoader resourceLoader;
+    private ResourceLoader resourceLoader;
 
-		@Override
-		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    @Override
+    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
-<span class="fc" id="L161">			log.debug(&quot;Searching for mappers annotated with @Mapper'&quot;);</span>
-			
-<span class="fc" id="L163">			ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);</span>
+<span class="fc" id="L161">      log.debug(&quot;Searching for mappers annotated with @Mapper'&quot;);</span>
 
-			try {
-<span class="pc bpc" id="L166" title="1 of 2 branches missed.">				if (this.resourceLoader != null) {</span>
-<span class="fc" id="L167">					scanner.setResourceLoader(this.resourceLoader);</span>
-				}
-				
-<span class="fc" id="L170">				List&lt;String&gt; pkgs = AutoConfigurationPackages.get(this.beanFactory);</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">				for (String pkg : pkgs) {</span>
-<span class="fc" id="L172">					log.debug(&quot;Using auto-configuration base package '&quot; + pkg + &quot;'&quot;);</span>
-				}
+<span class="fc" id="L163">      ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);</span>
 
-<span class="fc" id="L175">				scanner.setAnnotationClass(Mapper.class);</span>
-<span class="fc" id="L176">				scanner.registerFilters();</span>
-<span class="fc" id="L177">				scanner.doScan(StringUtils.toStringArray(pkgs));</span>
-<span class="fc" id="L178">			} catch (IllegalStateException ex) {</span>
-<span class="fc" id="L179">				log.debug(&quot;Could not determine auto-configuration &quot; </span>
-						+ &quot;package, automatic mapper scanning disabled.&quot;);
-			}
-<span class="fc" id="L182">		}</span>
+      try {
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (this.resourceLoader != null) {</span>
+<span class="fc" id="L167">          scanner.setResourceLoader(this.resourceLoader);</span>
+        }
 
-		@Override
-		public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-<span class="fc" id="L186">			this.beanFactory = beanFactory;</span>
-<span class="fc" id="L187">		}</span>
+<span class="fc" id="L170">        List&lt;String&gt; pkgs = AutoConfigurationPackages.get(this.beanFactory);</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (String pkg : pkgs) {</span>
+<span class="fc" id="L172">          log.debug(&quot;Using auto-configuration base package '&quot; + pkg + &quot;'&quot;);</span>
+<span class="fc" id="L173">        }</span>
 
-		@Override
-		public void setResourceLoader(ResourceLoader resourceLoader) {
-<span class="fc" id="L191">			this.resourceLoader = resourceLoader;</span>
-<span class="fc" id="L192">		}</span>
-	}
+<span class="fc" id="L175">        scanner.setAnnotationClass(Mapper.class);</span>
+<span class="fc" id="L176">        scanner.registerFilters();</span>
+<span class="fc" id="L177">        scanner.doScan(StringUtils.toStringArray(pkgs));</span>
+<span class="fc" id="L178">      } catch (IllegalStateException ex) {</span>
+<span class="fc" id="L179">        log.debug(&quot;Could not determine auto-configuration &quot; + &quot;package, automatic mapper scanning disabled.&quot;);</span>
+<span class="fc" id="L180">      }</span>
+<span class="fc" id="L181">    }</span>
 
-	/**
-	 * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up creating
-	 * instances of {@link MapperFactoryBean}. If
-	 * {@link org.mybatis.spring.annotation.MapperScan} is used then this
-	 * auto-configuration is not needed. If it is _not_ used, however, then this will
-	 * bring in a bean registrar and automatically register components based on the same
-	 * component-scanning path as Spring Boot itself.
-	 */
-	@Configuration
-	@Import({ AutoConfiguredMapperScannerRegistrar.class })
-	@ConditionalOnMissingBean(MapperFactoryBean.class)
-<span class="fc" id="L206">	public static class MapperScannerRegistrarNotFoundConfiguration {</span>
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+<span class="fc" id="L185">      this.beanFactory = beanFactory;</span>
+<span class="fc" id="L186">    }</span>
 
-		@PostConstruct
-		public void afterPropertiesSet() {
-<span class="fc" id="L210">			log.debug(String.format(&quot;No %s found.&quot;, MapperFactoryBean.class.getName()));</span>
-<span class="fc" id="L211">		}</span>
-	}
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+<span class="fc" id="L190">      this.resourceLoader = resourceLoader;</span>
+<span class="fc" id="L191">    }</span>
+  }
+
+  /**
+   * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up
+   * creating instances of {@link MapperFactoryBean}. If
+   * {@link org.mybatis.spring.annotation.MapperScan} is used then this
+   * auto-configuration is not needed. If it is _not_ used, however, then this
+   * will bring in a bean registrar and automatically register components based
+   * on the same component-scanning path as Spring Boot itself.
+   */
+  @Configuration
+  @Import({ AutoConfiguredMapperScannerRegistrar.class })
+  @ConditionalOnMissingBean(MapperFactoryBean.class)
+<span class="fc" id="L205">  public static class MapperScannerRegistrarNotFoundConfiguration {</span>
+
+    @PostConstruct
+    public void afterPropertiesSet() {
+<span class="fc" id="L209">      log.debug(String.format(&quot;No %s found.&quot;, MapperFactoryBean.class.getName()));</span>
+<span class="fc" id="L210">    }</span>
+  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
