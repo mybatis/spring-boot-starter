@@ -68,7 +68,7 @@ public class MybatisProperties {
   private ExecutorType executorType;
 
   /**
-   * A Configuration object for customize default settings. If {@link #config}
+   * A Configuration object for customize default settings. If {@link #configLocation}
    * is specified, this property is not used.
    */
   private Configuration configuration;
