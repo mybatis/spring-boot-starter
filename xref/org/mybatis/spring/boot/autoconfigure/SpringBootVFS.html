@@ -41,29 +41,29 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/mybatis/spring/boot/autoconfigure/SpringBootVFS.html">SpringBootVFS</a> <strong class="jxr_keyword">extends</strong> VFS {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  	@Override
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isValid() {
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  	}
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    @Override
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isValid() {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    }
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  	@Override
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  	<strong class="jxr_keyword">protected</strong> List&lt;String&gt; list(URL url, String path) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  		ClassLoader cl = <strong class="jxr_keyword">this</strong>.getClass().getClassLoader();
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		ResourcePatternResolver resolver = <strong class="jxr_keyword">new</strong> PathMatchingResourcePatternResolver(cl);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  		Resource[] resources = resolver.getResources(<span class="jxr_string">"classpath*:"</span> + path + <span class="jxr_string">"/**/*.class"</span>);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  		List&lt;Resource&gt; resources1 = Arrays.asList(resources);
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  		List&lt;String&gt; resourcePaths = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  		<strong class="jxr_keyword">for</strong> (Resource resource : resources1) {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  			resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  		}
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  		<strong class="jxr_keyword">return</strong> resourcePaths;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  	}
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>    @Override
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">protected</strong> List&lt;String&gt; list(URL url, String path) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      ClassLoader cl = <strong class="jxr_keyword">this</strong>.getClass().getClassLoader();
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      ResourcePatternResolver resolver = <strong class="jxr_keyword">new</strong> PathMatchingResourcePatternResolver(cl);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      Resource[] resources = resolver.getResources(<span class="jxr_string">"classpath*:"</span> + path + <span class="jxr_string">"/**/*.class"</span>);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      List&lt;Resource&gt; resources1 = Arrays.asList(resources);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      List&lt;String&gt; resourcePaths = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">for</strong> (Resource resource : resources1) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>        resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">return</strong> resourcePaths;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String preserveSubpackageName(<strong class="jxr_keyword">final</strong> URI uri, <strong class="jxr_keyword">final</strong> String rootPath) {
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  		<strong class="jxr_keyword">final</strong> String uriStr = uri.toString();
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> start = uriStr.indexOf(rootPath);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		<strong class="jxr_keyword">return</strong> uriStr.substring(start, uriStr.length());
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  	}
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String preserveSubpackageName(<strong class="jxr_keyword">final</strong> URI uri, <strong class="jxr_keyword">final</strong> String rootPath) {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">final</strong> String uriStr = uri.toString();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> start = uriStr.indexOf(rootPath);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">return</strong> uriStr.substring(start, uriStr.length());
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>    }
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  }
 </pre>
