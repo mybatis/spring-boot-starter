@@ -94,7 +94,7 @@ public class MybatisAutoConfiguration {
 
   @PostConstruct
   public void checkConfigFileExists() {
-    if (this.properties.isCheckConfigLocation()) {
+    if (this.properties.isCheckConfigLocation() && StringUtils.hasText(this.properties.getConfigLocation())) {
       Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
       Assert.state(resource.exists(), "Cannot find config location: " + resource
           + " (please add config file or check your Mybatis " + "configuration)");
