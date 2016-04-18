@@ -377,7 +377,7 @@ public class MybatisAutoConfigurationTest {
 
 		expectedException.expect(isA(BeanCreationException.class));
 		expectedException
-				.expectMessage(is("Error creating bean with name 'sqlSessionFactory' defined in org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is java.lang.IllegalStateException: Property 'configuration' and 'configLocation' can not specified with together"));
+				.expectMessage("Property 'configuration' and 'configLocation' can not specified with together");
 
 		this.context.refresh();
 	}
