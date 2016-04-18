@@ -129,6 +129,16 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
+	public void testWithCheckConfigLocationFileNotSpecify() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.check-config-location=true");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+	}
+
+	@Test
 	public void testWithCheckConfigLocationFileDoesNotExists() {
 
 		EnvironmentTestUtils.addEnvironment(this.context, "mybatis.config:foo.xml",
