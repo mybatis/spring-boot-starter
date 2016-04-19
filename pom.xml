@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>28-SNAPSHOT</version>
+    <version>27</version>
     <relativePath />
   </parent>
 
@@ -81,5 +81,20 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <!-- TODO: Temporary until parent 28 released -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <mapping>
+            <xml.vm>XML_STYLE</xml.vm>
+          </mapping>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
