@@ -104,7 +104,22 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigFile() {
+	public void testWithConfigLocation() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.config-location:mybatis-config.xml");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
+		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
+	}
+
+	@Test
+	public void testWithConfig() {
+		// test for compatibility with 1.0.x
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.config:mybatis-config.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -120,7 +135,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithCheckConfigLocationFileExists() {
 		EnvironmentTestUtils
-				.addEnvironment(this.context, "mybatis.config:mybatis-config.xml",
+				.addEnvironment(this.context, "mybatis.config-location:mybatis-config.xml",
 						"mybatis.check-config-location=true");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
@@ -141,7 +156,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithCheckConfigLocationFileDoesNotExists() {
 
-		EnvironmentTestUtils.addEnvironment(this.context, "mybatis.config:foo.xml",
+		EnvironmentTestUtils.addEnvironment(this.context, "mybatis.config-location:foo.xml",
 				"mybatis.check-config-location=true");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
@@ -181,7 +196,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithExecutorType() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config.xml", "mybatis.executor-type:REUSE");
+				"mybatis.config-location:mybatis-config.xml", "mybatis.executor-type:REUSE");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
@@ -230,7 +245,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testMixedWithConfigurationFileAndInterceptor() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config-settings-only.xml");
+				"mybatis.config-location:mybatis-config-settings-only.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisInterceptorConfiguration.class);
 		this.context.refresh();
@@ -249,7 +264,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testMixedWithConfigurationFileAndDatabaseIdProvider() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config-settings-only.xml");
+				"mybatis.config-location:mybatis-config-settings-only.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class,
 				DatabaseProvidersConfiguration.class);
@@ -268,7 +283,7 @@ public class MybatisAutoConfigurationTest {
 	public void testMixedWithConfigurationFileAndTypeHandlersPackage() {
 		EnvironmentTestUtils
 				.addEnvironment(this.context,
-						"mybatis.config:mybatis-config-settings-only.xml",
+						"mybatis.config-location:mybatis-config-settings-only.xml",
 						"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class);
@@ -289,7 +304,7 @@ public class MybatisAutoConfigurationTest {
 		EnvironmentTestUtils
 				.addEnvironment(
 						this.context,
-						"mybatis.config:mybatis-config-settings-only.xml",
+						"mybatis.config-location:mybatis-config-settings-only.xml",
 						"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
 						"mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -314,7 +329,7 @@ public class MybatisAutoConfigurationTest {
 		EnvironmentTestUtils
 				.addEnvironment(
 						this.context,
-						"mybatis.config:mybatis-config-settings-only.xml",
+						"mybatis.config-location:mybatis-config-settings-only.xml",
 						"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler",
 						"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
 						"mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
@@ -380,7 +395,7 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testConfigFileAndConfigurationWithTogether() {
 		EnvironmentTestUtils.addEnvironment(this.context,
-				"mybatis.config:mybatis-config.xml",
+				"mybatis.config-location:mybatis-config.xml",
 				"mybatis.configuration.default-statement-timeout:30");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
