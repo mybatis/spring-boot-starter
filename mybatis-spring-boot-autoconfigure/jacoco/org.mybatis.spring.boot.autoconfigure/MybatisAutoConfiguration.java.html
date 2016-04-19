@@ -94,7 +94,7 @@ import org.springframework.util.StringUtils;
 
   @PostConstruct
   public void checkConfigFileExists() {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">    if (this.properties.isCheckConfigLocation()) {</span>
+<span class="fc bfc" id="L97" title="All 4 branches covered.">    if (this.properties.isCheckConfigLocation() &amp;&amp; StringUtils.hasText(this.properties.getConfigLocation())) {</span>
 <span class="fc" id="L98">      Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());</span>
 <span class="fc" id="L99">      Assert.state(resource.exists(), &quot;Cannot find config location: &quot; + resource</span>
           + &quot; (please add config file or check your Mybatis &quot; + &quot;configuration)&quot;);
