@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
   </parent>
   <artifactId>mybatis-spring-boot-samples</artifactId>
   <packaging>pom</packaging>
