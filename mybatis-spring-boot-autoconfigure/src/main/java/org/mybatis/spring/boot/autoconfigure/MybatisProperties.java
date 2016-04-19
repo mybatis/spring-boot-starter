@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -71,6 +72,7 @@ public class MybatisProperties {
    * A Configuration object for customize default settings. If {@link #configLocation}
    * is specified, this property is not used.
    */
+  @NestedConfigurationProperty
   private Configuration configuration;
 
   /**
