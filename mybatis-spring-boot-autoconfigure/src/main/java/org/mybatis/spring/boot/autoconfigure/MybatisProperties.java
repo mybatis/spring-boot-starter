@@ -26,6 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
  * Configuration properties for Mybatis.
@@ -150,21 +151,18 @@ public class MybatisProperties {
   }
 
   public Resource[] resolveMapperLocations() {
+    ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
     List<Resource> resources = new ArrayList<Resource>();
     if (this.mapperLocations != null) {
       for (String mapperLocation : this.mapperLocations) {
-        Resource[] mappers;
         try {
-          mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);
+          Resource[] mappers = resourceResolver.getResources(mapperLocation);
           resources.addAll(Arrays.asList(mappers));
         } catch (IOException e) {
-
+          // ignore
         }
       }
     }
-
-    Resource[] mapperLocations = new Resource[resources.size()];
-    mapperLocations = resources.toArray(mapperLocations);
-    return mapperLocations;
+    return resources.toArray(new Resource[resources.size()]);
   }
 }
