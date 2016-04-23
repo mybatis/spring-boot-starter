@@ -185,7 +185,15 @@ public class CityDao {
 		      MyBatis xml config file (optional)
 		    </td>
 		  </tr>
-		  <tr> 
+		  <tr>
+		    <td>
+		      check-config-location
+		    </td>
+		    <td>
+		      Indicates whether perform presence check of the MyBatis xml config file (optional)
+		    </td>
+		  </tr>
+		  <tr>
 		    <td>
 		      mapper-locations
 		    </td>
