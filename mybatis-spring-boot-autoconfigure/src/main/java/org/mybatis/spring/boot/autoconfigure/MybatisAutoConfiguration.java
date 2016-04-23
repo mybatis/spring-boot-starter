@@ -97,7 +97,7 @@ public class MybatisAutoConfiguration {
     if (this.properties.isCheckConfigLocation() && StringUtils.hasText(this.properties.getConfigLocation())) {
       Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
       Assert.state(resource.exists(), "Cannot find config location: " + resource
-          + " (please add config file or check your Mybatis " + "configuration)");
+          + " (please add config file or check your Mybatis configuration)");
     }
   }
 
@@ -167,16 +167,18 @@ public class MybatisAutoConfiguration {
           scanner.setResourceLoader(this.resourceLoader);
         }
 
-        List<String> pkgs = AutoConfigurationPackages.get(this.beanFactory);
-        for (String pkg : pkgs) {
-          log.debug("Using auto-configuration base package '" + pkg + "'");
+        List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
+        if (log.isDebugEnabled()) {
+          for (String pkg : packages) {
+            log.debug("Using auto-configuration base package '" + pkg + "'");
+          }
         }
 
         scanner.setAnnotationClass(Mapper.class);
         scanner.registerFilters();
-        scanner.doScan(StringUtils.toStringArray(pkgs));
+        scanner.doScan(StringUtils.toStringArray(packages));
       } catch (IllegalStateException ex) {
-        log.debug("Could not determine auto-configuration " + "package, automatic mapper scanning disabled.");
+        log.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
       }
     }
 
@@ -206,7 +208,9 @@ public class MybatisAutoConfiguration {
 
     @PostConstruct
     public void afterPropertiesSet() {
-      log.debug(String.format("No %s found.", MapperFactoryBean.class.getName()));
+      if (log.isDebugEnabled()) {
+        log.debug(String.format("No %s found.", MapperFactoryBean.class.getName()));
+      }
     }
   }
 
