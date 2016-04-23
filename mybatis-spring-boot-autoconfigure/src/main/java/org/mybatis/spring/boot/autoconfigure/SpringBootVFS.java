@@ -30,8 +30,15 @@ import java.util.List;
 /**
  * @author Hans Westerbeek
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
 public class SpringBootVFS extends VFS {
+
+  private final ResourcePatternResolver resourceResolver;
+
+  public SpringBootVFS() {
+    this.resourceResolver = new PathMatchingResourcePatternResolver(getClass().getClassLoader());
+  }
 
   @Override
   public boolean isValid() {
@@ -40,12 +47,9 @@ public class SpringBootVFS extends VFS {
 
   @Override
   protected List<String> list(URL url, String path) throws IOException {
-    ClassLoader cl = this.getClass().getClassLoader();
-    ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
-    Resource[] resources = resolver.getResources("classpath*:" + path + "/**/*.class");
-    List<Resource> resources1 = Arrays.asList(resources);
+    Resource[] resources = resourceResolver.getResources("classpath*:" + path + "/**/*.class");
     List<String> resourcePaths = new ArrayList<String>();
-    for (Resource resource : resources1) {
+    for (Resource resource : resources) {
       resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
     }
     return resourcePaths;
@@ -54,7 +58,7 @@ public class SpringBootVFS extends VFS {
   private static String preserveSubpackageName(final URI uri, final String rootPath) {
     final String uriStr = uri.toString();
     final int start = uriStr.indexOf(rootPath);
-    return uriStr.substring(start, uriStr.length());
+    return uriStr.substring(start);
   }
 
 }
