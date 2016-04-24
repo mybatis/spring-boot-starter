@@ -64,10 +64,6 @@ public class Hotel implements Serializable {
 		this.zip = zip;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public String toString() {
 		return getCity() + "," + getName() + "," + getAddress() + "," + getZip();
