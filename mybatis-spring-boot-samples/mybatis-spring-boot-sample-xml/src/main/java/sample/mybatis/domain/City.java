@@ -66,7 +66,7 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return getName() + "," + getState() + "," + getCountry();
+		return getId() + "," + getName() + "," + getState() + "," + getCountry();
 	}
 	
 }
