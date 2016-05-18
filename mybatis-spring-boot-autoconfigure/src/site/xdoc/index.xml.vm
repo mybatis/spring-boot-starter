@@ -263,7 +263,7 @@ public class CityDao {
 		  </tr>
 		  <tr> 
 		    <td>
-		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml">
 		      2nd Sample
 		      </a>
 		    </td>
