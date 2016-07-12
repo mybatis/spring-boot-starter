@@ -20,8 +20,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -31,6 +29,8 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -78,7 +78,7 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisAutoConfiguration {
 
-  private static Log log = LogFactory.getLog(MybatisAutoConfiguration.class);
+  private static Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
 
   @Autowired
   private MybatisProperties properties;
@@ -158,7 +158,7 @@ public class MybatisAutoConfiguration {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
-      log.debug("Searching for mappers annotated with @Mapper'");
+      logger.debug("Searching for mappers annotated with @Mapper'");
 
       ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
 
@@ -168,9 +168,9 @@ public class MybatisAutoConfiguration {
         }
 
         List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
-        if (log.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
           for (String pkg : packages) {
-            log.debug("Using auto-configuration base package '" + pkg + "'");
+            logger.debug("Using auto-configuration base package '{}'", pkg);
           }
         }
 
@@ -178,7 +178,7 @@ public class MybatisAutoConfiguration {
         scanner.registerFilters();
         scanner.doScan(StringUtils.toStringArray(packages));
       } catch (IllegalStateException ex) {
-        log.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
+        logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
       }
     }
 
@@ -208,9 +208,7 @@ public class MybatisAutoConfiguration {
 
     @PostConstruct
     public void afterPropertiesSet() {
-      if (log.isDebugEnabled()) {
-        log.debug(String.format("No %s found.", MapperFactoryBean.class.getName()));
-      }
+      logger.debug("No {} found.", MapperFactoryBean.class.getName());
     }
   }
 
