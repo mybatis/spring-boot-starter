@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -80,17 +80,23 @@ public class MybatisAutoConfiguration {
 
   private static Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
 
-  @Autowired
   private MybatisProperties properties;
 
-  @Autowired(required = false)
   private Interceptor[] interceptors;
 
-  @Autowired
-  private ResourceLoader resourceLoader = new DefaultResourceLoader();
+  private ResourceLoader resourceLoader;
 
-  @Autowired(required = false)
   private DatabaseIdProvider databaseIdProvider;
+
+  public MybatisAutoConfiguration(MybatisProperties properties,
+                                  ObjectProvider<Interceptor[]> interceptorsProvider,
+                                  ResourceLoader resourceLoader,
+                                  ObjectProvider<DatabaseIdProvider> databaseIdProvider) {
+    this.properties = properties;
+    this.interceptors = interceptorsProvider.getIfAvailable();
+    this.resourceLoader = resourceLoader;
+    this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+  }
 
   @PostConstruct
   public void checkConfigFileExists() {
