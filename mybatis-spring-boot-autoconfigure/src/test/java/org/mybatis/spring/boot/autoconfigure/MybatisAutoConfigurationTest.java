@@ -54,9 +54,14 @@ import org.springframework.boot.test.util.EnvironmentTestUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+
+import javax.sql.DataSource;
 
 /**
- * Tests for {@link MybatisAutoConfiguration}
+ * Tests for {@link MybatisAutoConfiguration} and {@link MybatisMapperAutoConfiguration}
  *
  * @author Eddú Meléndez
  * @author Josh Long
@@ -407,6 +412,38 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 	}
 
+	@Test
+	public void testMultiDataSourceConfiguration() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.config-location:mybatis-config.xml",
+				"spring.datasource.initialize:false");
+		this.context.register(MybatisBootMapperScanAutoConfiguration.class,
+				MultiDataSourceConfiguration.class);
+
+		this.context.refresh();
+
+		assertEquals(2, this.context.getBeanNamesForType(DataSource.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(MybatisProperties.class).length);
+		assertEquals(0, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(0, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(0, this.context.getBeanNamesForType(CityMapper.class).length);
+	}
+
+	@Test
+	public void testMultiDataSourceUsingPrimaryConfiguration() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.config-location:mybatis-config.xml");
+		this.context.register(MybatisBootMapperScanAutoConfiguration.class,
+				MultiDataSourceUsingPrimaryConfiguration.class);
+
+		this.context.refresh();
+
+		assertEquals(1, this.context.getBeanNamesForType(MybatisProperties.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -493,6 +530,31 @@ public class MybatisAutoConfigurationTest {
 			return databaseIdProvider;
 		}
 
+	}
+
+	@Configuration
+	static class MultiDataSourceConfiguration {
+		@Bean
+		public DataSource test1DataSource() {
+			return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).setName("test1").build();
+		}
+		@Bean
+		public DataSource test2DataSource() {
+			return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).setName("test2").build();
+		}
+	}
+
+	@Configuration
+	static class MultiDataSourceUsingPrimaryConfiguration {
+		@Bean
+		@Primary
+		public DataSource test1DataSource() {
+			return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).setName("test1").build();
+		}
+		@Bean
+		public DataSource test2DataSource() {
+			return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).setName("test2").build();
+		}
 	}
 
 }
