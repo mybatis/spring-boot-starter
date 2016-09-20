@@ -1,33 +1,16 @@
-# mybatis-spring-boot
+# MyBatis integration with Spring Boot
 
-[![Build Status](https://travis-ci.org/mybatis/mybatis-spring-boot.svg)](https://travis-ci.org/mybatis/mybatis-spring-boot)
-[![Coverage Status](https://coveralls.io/repos/mybatis/mybatis-spring-boot/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/mybatis-spring-boot?branch=master)
+[![Build Status](https://travis-ci.org/mybatis/spring-boot-starter.svg)](https://travis-ci.org/mybatis/spring-boot-starter)
+[![Coverage Status](https://coveralls.io/repos/github/mybatis/spring-boot-starter/badge.svg?branch=master)](https://coveralls.io/github/mybatis/spring-boot-starter?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/56ef48ed35630e0029dafdb0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56ef48ed35630e0029dafdb0)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot)
-[![Apache 2](http://img.shields.io/badge/license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-MyBatis integration with Spring Boot
+![mybatis-spring](http://mybatis.github.io/images/mybatis-logo.png)
 
-## Properties file configuration
+MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
 
-```
-mybatis.config= # mybatis config file
-mybatis.mapperLocations= # mappers file
-mybatis.typeAliasesPackage= # domain object's package 
-mybatis.typeHandlersPackage= # handler's package
-mybatis.check-config-location= # check the mybatis configuration exists
-mybatis.executorType= # mode of execution. Default is SIMPLE
-```
+Essentials
+----------
 
-## Issue Tracking
-
-[GitHub Issues](https://github.com/mybatis/mybatis-spring-boot/issues)
-
-## Maven dependency
-
-```xml
-<dependency>
-	<groupId>org.mybatis.spring.boot</groupId>
-	<artifactId>mybatis-spring-boot-starter</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-</dependency>
-```
+* [See the docs](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure)

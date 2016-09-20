@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package sample.mybatis.domain;
 
 import java.io.Serializable;
@@ -22,6 +21,8 @@ import java.io.Serializable;
  * @author Eddú Meléndez
  */
 public class City implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 
@@ -65,11 +66,7 @@ public class City implements Serializable {
 
 	@Override
 	public String toString() {
-		return "City{" +
-				"id=" + this.id +
-				", name='" + this.name + '\'' +
-				", state='" + this.state + '\'' +
-				", country='" + this.country + '\'' +
-				'}';
+		return getId() + "," + getName() + "," + getState() + "," + getCountry();
 	}
+	
 }

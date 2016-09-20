@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2015-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>MyBatis Sring-BootStarter | Reference Documentation</title>
+    <author email="eduardo.macarron@gmail.com">Eduardo Macarrón</author>
+  </properties>
+
+  <body>
+    <section name="Introduction">
+      <subsection name="What is MyBatis-Spring-Boot-Starter?">
+  
+        <p>MyBatis-Spring-Boot-Starter help you build MyBatis applications on top of the 
+        <a href="http://projects.spring.io/spring-boot/">Spring-Boot</a> framework</p>
+            
+        <p>By using this module you will achieve:</p>
+
+        <ul>
+          <li>Build stand alone applications.</li>
+	      <li>Reduce the boilerplate to almost zero.</li>
+	      <li>Less XML configuration.</li>
+	    </ul>
+            
+      </subsection>
+       
+      <subsection name="Installation">
+      <p>
+        To use the MyBatis-Spring-Boot-Starter module, you just need to include the
+        <code>
+          mybatis-spring-${project.version}.jar
+        </code>
+        file and its dependencies in the classpath.
+      </p>
+      <p>
+        If you are using Maven just add the following dependency to your pom.xml:
+      </p>
+        <source><![CDATA[
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>${project.version}</version>
+</dependency>]]></source>
+
+      <p>
+        If using gradle add this to your build.gradle:
+      </p>
+        <source><![CDATA[
+dependencies {
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
+}]]></source>
+
+    </subsection>
+
+    <subsection name="Quick Setup">
+      <p>
+        As you may already know, to use MyBatis with Spring you need at least an <code>SqlSessionFactory</code>
+        and at least one mapper interface.
+      </p>
+
+      <p>
+        MyBatis-Spring-Boot-Starter will:
+      </p>
+      <ul>
+      <li>Autodetect an existing <code>DataSource</code>.</li>
+      <li>Will create and register an instance of a <code>SqlSessionFactoryBean</code> passing that <code>DataSource</code> as an input.</li>
+      <li>Will create and register an instance of a <code>SqlSessionTemplate</code> got out of the <code>SqlSessionFactoryBean</code>.</li>
+      <li>Autoscan your mappers, link them to the <code>SqlSessionTemplate</code> and register them to Spring context so they can be injected into your beans.</li>
+      </ul>
+
+      <p>
+        Suppose we have the following mapper:
+      </p>
+      
+<source><![CDATA[
+@Mapper
+public interface CityMapper {
+
+    @Select("SELECT * FROM CITY WHERE state = #{state}")
+    City findByState(@Param("state") String state);
+
+}]]></source>
+
+      <p>
+        You just need to create a normal Spring boot application and let the mapper be injected:
+      </p>
+      
+                  
+<source><![CDATA[
+@SpringBootApplication
+public class SampleMybatisApplication implements CommandLineRunner {
+
+    @Autowired
+    private CityMapper cityMapper;
+
+    public static void main(String[] args) {
+        SpringApplication.run(SampleMybatisApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println(this.cityMapper.findByState("CA"));
+    }
+
+}
+]]></source>
+
+            <p>This is all you have to do. You application can now be run as a normal Spring-Boot application.</p>
+          </subsection>
+
+    <subsection name="Advanced scanning">
+      <p>MyBatis-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
+      
+      <p>You may want to specify a custom annotation or a marker interface for scanning. If so, you must use the <code>@MapperScan</code> annotation. 
+      See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
+      
+      <p>MyBatis-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the 
+      Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with <code>@Bean</code> methods.</p>
+    </subsection>        
+    
+    <subsection name="Using an SqlSession">
+      <p>An instance of a <code>SqlSessionTemplate</code> is created and added to the context, so you can use the MyBatis API
+      letting it be injected into your beans like follows</p>
+
+<source><![CDATA[
+@Component
+public class CityDao {
+
+	@Autowired
+	private SqlSession sqlSession;
+
+	public City selectCityById(long id) {
+		return this.sqlSession.selectOne("selectCityById", id);
+	}
+
+}]]></source>
+       
+    </subsection>
+       
+    <subsection name="Configuration">
+      <p>As any other Spring-Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the 
+      <code>application.properties</code></p>
+      
+      <p>MyBatis uses the prefix <code>mybatis</code> for its properties</p>
+      
+      <p>Available properties are:</p>
+      	<table>
+		<thead>
+		  <tr>
+		    <th>
+		      Property
+		    </th>
+		    <th>
+		      Description
+		    </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr> 
+		    <td>
+		      config-location
+		    </td>
+		    <td>
+		      MyBatis xml config file (optional)
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      check-config-location
+		    </td>
+		    <td>
+		      Indicates whether perform presence check of the MyBatis xml config file (optional)
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      mapper-locations
+		    </td>
+		    <td>
+		      Mapper xml config files (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      type-aliases-package
+		    </td>
+		    <td>
+		      Package to search for type aliases (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      type-handlers-package
+		    </td>
+		    <td>
+		      Package to search for type aliases (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      executor-type
+		    </td>
+		    <td>
+		      Executor type: SIMPLE, REUSE, BATCH (optional)
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      configuration
+		    </td>
+		    <td>
+		      A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
+		      <span class="label important">NOTE</span> This property cannot use at the same time with the <code>config-location</code>.
+		    </td>
+		  </tr>
+		</tbody>
+	  </table>
+
+      </subsection>
+
+      <subsection name="Running Samples">
+        <p>The project provides two samples so you play and experiment with them:</p>
+        
+      	<table>
+		<thead>
+		  <tr>
+		    <th>
+		      Sample
+		    </th>
+		    <th>
+		      Description
+		    </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr> 
+		    <td>
+		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+		      1st Sample
+		      </a>
+		    </td>
+		    <td>
+		      Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section.
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml">
+		      2nd Sample
+		      </a>
+		    </td>
+		    <td>
+		      Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <code>SqlSesionTemplate</code>. 
+		    </td>
+		  </tr>
+		</tbody>
+	  </table>
+        
+      </subsection> 
+    </section>
+  </body>
+
+</document>

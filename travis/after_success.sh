@@ -1,9 +1,29 @@
 #!/bin/bash
+#
+#    Copyright 2015-2016 the original author or authors.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+
 
 # Get Project Repo
 mybatis_repo=$(git config --get remote.origin.url 2>&1)
 echo "Repo detected: ${mybatis_repo}"
- 
+
+# Get Commit Message
+commit_message=$(git log --format=%B -n 1)
+echo "Current commit detected: ${commit_message}"
+
 # Get the Java version.
 # Java 1.5 will give 15.
 # Java 1.6 will give 16.
@@ -26,11 +46,11 @@ echo "Java detected: ${VER}"
 # 2. Deploy site
 # 3. Use -q option to only display Maven errors and warnings.
 
-if [ "$mybatis_repo" == "https://github.com/mybatis/mybatis-spring-boot.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$mybatis_repo" == "https://github.com/mybatis/spring-boot-starter.git" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
   if [ $VER == "18" ]; then
-    mvn clean deploy -q --settings ./travis/settings.xml
+    mvn clean deploy -q -Dmaven.test.redirectTestOutputToFile=true --settings ./travis/settings.xml
     echo -e "Successfully deployed SNAPSHOT artifacts to Sonatype under Travis job ${TRAVIS_JOB_NUMBER}"
-    mvn clean test jacoco:report coveralls:report -q
+    mvn clean test jacoco:report coveralls:report -q -Dmaven.test.redirectTestOutputToFile=true
     echo -e "Successfully ran coveralls under Travis job ${TRAVIS_JOB_NUMBER}"
 	# various issues exist currently in building this so comment for now
 	# mvn site site:deploy -q

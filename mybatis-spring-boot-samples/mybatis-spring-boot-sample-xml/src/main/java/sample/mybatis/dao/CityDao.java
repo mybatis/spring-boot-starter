@@ -13,27 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.spring.boot.autoconfigure.domain;
+package sample.mybatis.dao;
 
-public class City {
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-	private Long id;
+import sample.mybatis.domain.City;
 
-	private String name;
+/**
+ * @author Eddú Meléndez
+ */
+@Component
+public class CityDao {
 
-	public Long getId() {
-		return this.id;
+	@Autowired
+	private SqlSession sqlSession;
+
+	public City selectCityById(long id) {
+		return this.sqlSession.selectOne("selectCityById", id);
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 }

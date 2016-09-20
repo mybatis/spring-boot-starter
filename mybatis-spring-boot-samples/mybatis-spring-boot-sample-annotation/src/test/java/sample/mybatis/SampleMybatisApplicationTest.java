@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package sample.mybatis;
 
 import static org.junit.Assert.assertTrue;
@@ -21,12 +20,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.OutputCapture;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.rule.OutputCapture;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleMybatisApplication.class)
+/**
+ * @author Eddú Meléndez
+ * @author Kazuki Shimizu
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class SampleMybatisApplicationTest {
 
 	@ClassRule
@@ -34,8 +37,8 @@ public class SampleMybatisApplicationTest {
 
 	@Test
 	public void test() {
-		String output = this.out.toString();
-		assertTrue("Wrong output: " + output, output.contains("SAN FRANCISCO"));
+		String output = out.toString();
+		assertTrue("Wrong output: " + output, output.contains("1,San Francisco,CA,US"));
 	}
 
 }

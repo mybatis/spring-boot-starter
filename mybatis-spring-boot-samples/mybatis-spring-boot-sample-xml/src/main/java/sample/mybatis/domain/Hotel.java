@@ -13,27 +13,60 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.spring.boot.autoconfigure.domain;
+/**
+ * @author Eduardo Macarron
+ */
+package sample.mybatis.domain;
 
-public class City {
+import java.io.Serializable;
 
-	private Long id;
+public class Hotel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long city;
 
 	private String name;
 
-	public Long getId() {
-		return this.id;
+	private String address;
+
+	private String zip;
+
+	public Long getCity() {
+		return city;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCity(Long city) {
+		this.city = city;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	@Override
+	public String toString() {
+		return getCity() + "," + getName() + "," + getAddress() + "," + getZip();
+	}
+	
 }

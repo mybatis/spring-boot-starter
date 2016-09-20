@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.autoconfigure.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.boot.autoconfigure.domain.City;
 
+@Mapper
 public interface CityMapper {
 
 	@Select("SELECT * FROM city WHERE id = #{cityId}")

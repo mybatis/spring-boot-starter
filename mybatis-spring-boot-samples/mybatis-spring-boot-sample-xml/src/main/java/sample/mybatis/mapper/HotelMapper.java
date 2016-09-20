@@ -1,5 +1,5 @@
-/*
- *    Copyright 2010-2015 the original author or authors.
+/**
+ *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,23 +13,18 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package sample.mybatis.mapper;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
-import sample.mybatis.domain.City;
+import sample.mybatis.domain.Hotel;
 
-@Component
-public class CityMapper {
+/**
+ * @author Eduardo Macarron
+ */
+@Mapper
+public interface HotelMapper {
 
-	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
-
-	public City selectCityById(long id) {
-		return this.sqlSessionTemplate.selectOne("selectCityById", id);
-	}
+	Hotel selectByCityId(int city_id);
 
 }
