@@ -78,15 +78,15 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class MybatisAutoConfiguration {
 
-  private static Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
+  private static final Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
 
-  private MybatisProperties properties;
+  private final MybatisProperties properties;
 
-  private Interceptor[] interceptors;
+  private final Interceptor[] interceptors;
 
-  private ResourceLoader resourceLoader;
+  private final ResourceLoader resourceLoader;
 
-  private DatabaseIdProvider databaseIdProvider;
+  private final DatabaseIdProvider databaseIdProvider;
 
   public MybatisAutoConfiguration(MybatisProperties properties,
                                   ObjectProvider<Interceptor[]> interceptorsProvider,
@@ -164,7 +164,7 @@ public class MybatisAutoConfiguration {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
-      logger.debug("Searching for mappers annotated with @Mapper'");
+      logger.debug("Searching for mappers annotated with @Mapper");
 
       ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
 
@@ -184,7 +184,7 @@ public class MybatisAutoConfiguration {
         scanner.registerFilters();
         scanner.doScan(StringUtils.toStringArray(packages));
       } catch (IllegalStateException ex) {
-        logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
+        logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.", ex);
       }
     }
 
