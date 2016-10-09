@@ -234,6 +234,18 @@ public class CityDao {
 		</tbody>
 	  </table>
 
+		<p>For example:</p>
+<source><![CDATA[
+# application.properties
+mybatis.type-aliases-package=com.example.domain.model
+mybatis.type-handlers-package=com.example.typehandler
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.default-fetch-size=100
+mybatis.configuration.default-statement-timeout=30
+...
+]]></source>
+
+
       </subsection>
 
       <subsection name="Running Samples">
