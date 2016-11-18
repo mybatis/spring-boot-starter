@@ -29,13 +29,13 @@
     <section name="Introduction">
       <subsection name="What is MyBatis-Spring-Boot-Starter?">
   
-        <p>MyBatis-Spring-Boot-Starter help you build MyBatis applications on top of the 
-        <a href="http://projects.spring.io/spring-boot/">Spring-Boot</a> framework</p>
+        <p>MyBatis-Spring-Boot-Starter help you build quickly MyBatis applications on top of the
+        <a href="http://projects.spring.io/spring-boot/">Spring Boot</a>.</p>
             
         <p>By using this module you will achieve:</p>
 
         <ul>
-          <li>Build stand alone applications.</li>
+          <li>Build standalone applications.</li>
 	      <li>Reduce the boilerplate to almost zero.</li>
 	      <li>Less XML configuration.</li>
 	    </ul>
@@ -45,13 +45,10 @@
       <subsection name="Installation">
       <p>
         To use the MyBatis-Spring-Boot-Starter module, you just need to include the
-        <code>
-          mybatis-spring-${project.version}.jar
-        </code>
-        file and its dependencies in the classpath.
+        <code>${project.artifactId}.jar</code> file and its dependencies(<code>mybatis.jar</code>, <code>mybatis-spring.jar</code> and etc ...) in the classpath.
       </p>
       <p>
-        If you are using Maven just add the following dependency to your pom.xml:
+        If you are using Maven just add the following dependency to your <code>pom.xml</code>:
       </p>
         <source><![CDATA[
 <dependency>
@@ -61,7 +58,7 @@
 </dependency>]]></source>
 
       <p>
-        If using gradle add this to your build.gradle:
+        If using gradle add this to your <code>build.gradle</code>:
       </p>
         <source><![CDATA[
 dependencies {
@@ -123,22 +120,22 @@ public class SampleMybatisApplication implements CommandLineRunner {
 }
 ]]></source>
 
-            <p>This is all you have to do. You application can now be run as a normal Spring-Boot application.</p>
+            <p>This is all you have to do. You application can now be run as a normal Spring Boot application.</p>
           </subsection>
 
     <subsection name="Advanced scanning">
-      <p>MyBatis-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
+      <p>MyBatis-Spring-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
       
       <p>You may want to specify a custom annotation or a marker interface for scanning. If so, you must use the <code>@MapperScan</code> annotation. 
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
       
-      <p>MyBatis-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the 
+      <p>MyBatis-Spring-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the
       Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with <code>@Bean</code> methods.</p>
     </subsection>        
     
     <subsection name="Using an SqlSession">
-      <p>An instance of a <code>SqlSessionTemplate</code> is created and added to the context, so you can use the MyBatis API
-      letting it be injected into your beans like follows</p>
+      <p>An instance of a <code>SqlSessionTemplate</code> is created and added to the Spring context, so you can use the MyBatis API
+      letting it be injected into your beans like follows:</p>
 
 <source><![CDATA[
 @Component
@@ -156,8 +153,8 @@ public class CityDao {
     </subsection>
        
     <subsection name="Configuration">
-      <p>As any other Spring-Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the 
-      <code>application.properties</code></p>
+      <p>As any other Spring Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the
+      <code>application.properties</code>(or <code>application.yml</code>).</p>
       
       <p>MyBatis uses the prefix <code>mybatis</code> for its properties</p>
       
@@ -242,6 +239,17 @@ mybatis.type-handlers-package=com.example.typehandler
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.default-fetch-size=100
 mybatis.configuration.default-statement-timeout=30
+...
+]]></source>
+        <source><![CDATA[
+# application.yml
+mybatis:
+    type-aliases-package: com.example.domain.model
+    type-handlers-package: com.example.typehandler
+    configuration:
+        map-underscore-to-camel-case: true
+        default-fetch-size: 100
+        default-statement-timeout: 30
 ...
 ]]></source>
 
