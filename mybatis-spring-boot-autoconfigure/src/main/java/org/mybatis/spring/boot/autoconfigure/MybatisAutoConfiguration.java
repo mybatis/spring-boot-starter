@@ -117,6 +117,9 @@ public class MybatisAutoConfiguration {
       factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
     }
     factory.setConfiguration(properties.getConfiguration());
+    if (this.properties.getConfigurationProperties() != null) {
+      factory.setConfigurationProperties(this.properties.getConfigurationProperties());
+    }
     if (!ObjectUtils.isEmpty(this.interceptors)) {
       factory.setPlugins(this.interceptors);
     }

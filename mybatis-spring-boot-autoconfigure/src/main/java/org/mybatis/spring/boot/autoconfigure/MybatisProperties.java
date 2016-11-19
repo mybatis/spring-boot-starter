@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
@@ -68,6 +69,11 @@ public class MybatisProperties {
    * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
    */
   private ExecutorType executorType;
+
+  /**
+   * Global properties for configuration.
+   */
+  private Properties configurationProperties;
 
   /**
    * A Configuration object for customize default settings. If {@link #configLocation}
@@ -140,6 +146,14 @@ public class MybatisProperties {
 
   public void setExecutorType(ExecutorType executorType) {
     this.executorType = executorType;
+  }
+
+  public Properties getConfigurationProperties() {
+    return configurationProperties;
+  }
+
+  public void setConfigurationProperties(Properties configurationProperties) {
+    this.configurationProperties = configurationProperties;
   }
 
   public Configuration getConfiguration() {

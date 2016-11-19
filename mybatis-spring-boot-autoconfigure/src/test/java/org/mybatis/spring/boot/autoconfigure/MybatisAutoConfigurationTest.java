@@ -20,6 +20,7 @@ import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -405,6 +406,77 @@ public class MybatisAutoConfigurationTest {
 				.expectMessage("Property 'configuration' and 'configLocation' can not specified with together");
 
 		this.context.refresh();
+	}
+
+	@Test
+	public void testWithoutConfigurationVariablesAndProperties() {
+		EnvironmentTestUtils.addEnvironment(this.context);
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
+		assertNull(variables);
+	}
+
+	@Test
+	public void testWithConfigurationVariablesOnly() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.variables.key1:value1");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
+		assertEquals(1, variables.size());
+		assertEquals("value1", variables.get("key1"));
+	}
+
+	@Test
+	public void testWithConfigurationPropertiesOnly() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration-properties.key2:value2");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
+		assertEquals(1, variables.size());
+		assertEquals("value2", variables.get("key2"));
+	}
+
+	@Test
+	public void testWithConfigurationVariablesAndPropertiesOtherKey() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.variables.key1:value1",
+				"mybatis.configuration-properties.key2:value2");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
+		assertEquals(2, variables.size());
+		assertEquals("value1", variables.get("key1"));
+		assertEquals("value2", variables.get("key2"));
+	}
+
+	@Test
+	public void testWithConfigurationVariablesAndPropertiesSameKey() {
+		EnvironmentTestUtils.addEnvironment(this.context,
+				"mybatis.configuration.variables.key:value1",
+				"mybatis.configuration-properties.key:value2");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+
+		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
+		assertEquals(1, variables.size());
+		assertEquals("value2", variables.get("key"));
 	}
 
 	@Configuration
