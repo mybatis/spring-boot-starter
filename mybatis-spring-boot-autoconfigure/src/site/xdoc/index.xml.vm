@@ -219,7 +219,16 @@ public class CityDao {
 		      Executor type: SIMPLE, REUSE, BATCH (optional)
 		    </td>
 		  </tr>
-		  <tr> 
+		  <tr>
+		    <td>
+		      configuration-properties
+		    </td>
+		    <td>
+		      Externalized properties for MyBatis configuration (optional). Specified properties can use as placeholder on MyBatis config file and Mapper file.
+		      For detail see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#properties">MyBatis reference page</a>
+		    </td>
+		  </tr>
+		  <tr>
 		    <td>
 		      configuration
 		    </td>

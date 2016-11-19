@@ -71,7 +71,7 @@ public class MybatisProperties {
   private ExecutorType executorType;
 
   /**
-   * Global properties for configuration.
+   * Externalized properties for configuration.
    */
   private Properties configurationProperties;
 
@@ -84,7 +84,6 @@ public class MybatisProperties {
 
   /**
    * @since 1.1.0
-   * @return
    */
   public String getConfigLocation() {
     return this.configLocation;
@@ -92,7 +91,6 @@ public class MybatisProperties {
 
   /**
    * @since 1.1.0
-   * @return
    */
   public void setConfigLocation(String configLocation) {
     this.configLocation = configLocation;
@@ -148,10 +146,16 @@ public class MybatisProperties {
     this.executorType = executorType;
   }
 
+  /**
+   * @since 1.2.0
+   */
   public Properties getConfigurationProperties() {
     return configurationProperties;
   }
 
+  /**
+   * @since 1.2.0
+   */
   public void setConfigurationProperties(Properties configurationProperties) {
     this.configurationProperties = configurationProperties;
   }
