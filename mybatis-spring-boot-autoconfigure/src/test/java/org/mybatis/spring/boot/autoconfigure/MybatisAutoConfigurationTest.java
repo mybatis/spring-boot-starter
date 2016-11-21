@@ -26,6 +26,7 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
@@ -34,17 +35,20 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -55,6 +59,8 @@ import org.springframework.boot.test.util.EnvironmentTestUtils;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}
@@ -479,6 +485,46 @@ public class MybatisAutoConfigurationTest {
 		assertEquals("value2", variables.get("key"));
 	}
 
+	@Test
+	public void testCustomSqlSessionFactory() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, CustomSqlSessionFactoryConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertEquals(this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables().get("key"), "value");
+	}
+
+	@Test
+	public void testMySqlSessionFactory() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MySqlSessionFactoryConfiguration.class);
+		this.context.refresh();
+		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertTrue(this.context.getBean(SqlSessionFactory.class).getClass() == MySqlSessionFactory.class);
+	}
+
+	@Test
+	public void testCustomSqlSessionTemplate() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, CustomSqlSessionTemplateConfiguration.class);
+		this.context.refresh();
+		assertEquals(1,
+				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+
+		assertEquals(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), ExecutorType.BATCH);
+	}
+
+	@Test
+	public void testMySqlSessionTemplate() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisAutoConfiguration.class, MySqlSessionTemplateConfiguration.class);
+		this.context.refresh();
+		assertEquals(1,
+				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
+
+		assertTrue(this.context.getBean(SqlSessionTemplate.class).getClass() == MySqlSessionTemplate.class);
+	}
+
 	@Configuration
 	@EnableAutoConfiguration
 	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
@@ -565,6 +611,59 @@ public class MybatisAutoConfigurationTest {
 			return databaseIdProvider;
 		}
 
+	}
+
+	@Configuration
+	static class CustomSqlSessionFactoryConfiguration {
+		@Bean
+		public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+			SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+			sqlSessionFactoryBean.setDataSource(dataSource);
+			Properties props = new Properties();
+			props.setProperty("key", "value");
+			sqlSessionFactoryBean.setConfigurationProperties(props);
+			return sqlSessionFactoryBean.getObject();
+		}
+	}
+
+	@Configuration
+	static class MySqlSessionFactoryConfiguration {
+		@Bean
+		public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+			MySqlSessionFactory sqlSessionFactory = new MySqlSessionFactory(new org.apache.ibatis.session.Configuration());
+			sqlSessionFactory.getConfiguration().setEnvironment(new Environment("",new SpringManagedTransactionFactory(),dataSource));
+			return sqlSessionFactory;
+		}
+	}
+
+	@Configuration
+	static class CustomSqlSessionTemplateConfiguration {
+		@Bean
+		public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
+			SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
+			return sessionTemplate;
+		}
+	}
+
+	@Configuration
+	static class MySqlSessionTemplateConfiguration {
+		@Bean
+		public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
+			MySqlSessionTemplate sessionTemplate = new MySqlSessionTemplate(sqlSessionFactory);
+			return sessionTemplate;
+		}
+	}
+
+	static class MySqlSessionFactory extends DefaultSqlSessionFactory {
+		public MySqlSessionFactory(org.apache.ibatis.session.Configuration configuration) {
+			super(configuration);
+		}
+	}
+
+	static class MySqlSessionTemplate extends SqlSessionTemplate {
+		public MySqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+			super(sqlSessionFactory);
+		}
 	}
 
 }
