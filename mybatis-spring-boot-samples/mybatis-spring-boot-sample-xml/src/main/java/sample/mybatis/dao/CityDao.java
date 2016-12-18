@@ -16,7 +16,6 @@
 package sample.mybatis.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import sample.mybatis.domain.City;
@@ -27,8 +26,11 @@ import sample.mybatis.domain.City;
 @Component
 public class CityDao {
 
-	@Autowired
-	private SqlSession sqlSession;
+	private final SqlSession sqlSession;
+
+	public CityDao(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
 	public City selectCityById(long id) {
 		return this.sqlSession.selectOne("selectCityById", id);
