@@ -25,6 +25,9 @@
 	</parent>
 	<artifactId>mybatis-spring-boot-autoconfigure</artifactId>
 	<name>mybatis-spring-boot-autoconfigure</name>
+	<scm>
+		<url>https://github.com/mybatis/spring-boot-starter</url>
+	</scm>
 	
 	<contributors>
 		<contributor>
