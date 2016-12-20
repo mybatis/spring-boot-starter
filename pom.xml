@@ -45,7 +45,7 @@
   <scm>
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
-    <url>https://github.com/mybatis/spring-boot-starter</url>
+    <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
