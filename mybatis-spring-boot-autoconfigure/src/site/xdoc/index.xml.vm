@@ -97,7 +97,7 @@ public interface CityMapper {
 }]]></source>
 
       <p>
-        You just need to create a normal Spring boot application and let the mapper be injected:
+        You just need to create a normal Spring boot application and let the mapper be injected like follows(available on Spring 4.3+):
       </p>
       
                   
@@ -105,8 +105,11 @@ public interface CityMapper {
 @SpringBootApplication
 public class SampleMybatisApplication implements CommandLineRunner {
 
-    @Autowired
-    private CityMapper cityMapper;
+    private final CityMapper cityMapper;
+
+    public SampleMybatisApplication(CityMapper cityMapper) {
+        this.cityMapper = cityMapper;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SampleMybatisApplication.class, args);
@@ -135,14 +138,17 @@ public class SampleMybatisApplication implements CommandLineRunner {
     
     <subsection name="Using an SqlSession">
       <p>An instance of a <code>SqlSessionTemplate</code> is created and added to the Spring context, so you can use the MyBatis API
-      letting it be injected into your beans like follows:</p>
+      letting it be injected into your beans like follows(available on Spring 4.3+):</p>
 
 <source><![CDATA[
 @Component
 public class CityDao {
 
-	@Autowired
-	private SqlSession sqlSession;
+	private final SqlSession sqlSession;
+
+	public CityDao(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
 	public City selectCityById(long id) {
 		return this.sqlSession.selectOne("selectCityById", id);
