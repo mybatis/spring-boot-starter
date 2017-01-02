@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MybatisProperties.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.spring.boot.autoconfigure</a> &gt; <span class="el_source">MybatisProperties.java</span></div><h1>MybatisProperties.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MybatisProperties.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mybatis-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.spring.boot.autoconfigure</a> &gt; <span class="el_source">MybatisProperties.java</span></div><h1>MybatisProperties.java</h1><pre class="source lang-java linenums">/**
  *    Copyright 2015-2016 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -19,12 +19,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
  * Configuration properties for Mybatis.
@@ -33,7 +36,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  * @author Kazuki Shimizu
  */
 @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
-<span class="fc" id="L36">public class MybatisProperties {</span>
+<span class="fc" id="L39">public class MybatisProperties {</span>
 
   public static final String MYBATIS_PREFIX = &quot;mybatis&quot;;
 
@@ -60,7 +63,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
   /**
    * Check the config file exists.
    */
-<span class="fc" id="L63">  private boolean checkConfigLocation = false;</span>
+<span class="fc" id="L66">  private boolean checkConfigLocation = false;</span>
 
   /**
    * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
@@ -68,102 +71,117 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
   private ExecutorType executorType;
 
   /**
+   * Externalized properties for configuration.
+   */
+  private Properties configurationProperties;
+
+  /**
    * A Configuration object for customize default settings. If {@link #configLocation}
    * is specified, this property is not used.
    */
+  @NestedConfigurationProperty
   private Configuration configuration;
 
   /**
    * @since 1.1.0
-   * @return
    */
   public String getConfigLocation() {
-<span class="fc" id="L81">    return this.configLocation;</span>
+<span class="fc" id="L89">    return this.configLocation;</span>
   }
 
   /**
    * @since 1.1.0
-   * @return
    */
   public void setConfigLocation(String configLocation) {
-<span class="fc" id="L89">    this.configLocation = configLocation;</span>
-<span class="fc" id="L90">  }</span>
+<span class="fc" id="L96">    this.configLocation = configLocation;</span>
+<span class="fc" id="L97">  }</span>
 
   @Deprecated
   public String getConfig() {
-<span class="fc" id="L94">    return this.configLocation;</span>
+<span class="fc" id="L101">    return this.configLocation;</span>
   }
 
   @Deprecated
   public void setConfig(String config) {
-<span class="fc" id="L99">    this.configLocation = config;</span>
-<span class="fc" id="L100">  }</span>
+<span class="fc" id="L106">    this.configLocation = config;</span>
+<span class="fc" id="L107">  }</span>
 
   public String[] getMapperLocations() {
-<span class="fc" id="L103">    return this.mapperLocations;</span>
+<span class="fc" id="L110">    return this.mapperLocations;</span>
   }
 
   public void setMapperLocations(String[] mapperLocations) {
-<span class="fc" id="L107">    this.mapperLocations = mapperLocations;</span>
-<span class="fc" id="L108">  }</span>
+<span class="fc" id="L114">    this.mapperLocations = mapperLocations;</span>
+<span class="fc" id="L115">  }</span>
 
   public String getTypeHandlersPackage() {
-<span class="fc" id="L111">    return this.typeHandlersPackage;</span>
+<span class="fc" id="L118">    return this.typeHandlersPackage;</span>
   }
 
   public void setTypeHandlersPackage(String typeHandlersPackage) {
-<span class="fc" id="L115">    this.typeHandlersPackage = typeHandlersPackage;</span>
-<span class="fc" id="L116">  }</span>
+<span class="fc" id="L122">    this.typeHandlersPackage = typeHandlersPackage;</span>
+<span class="fc" id="L123">  }</span>
 
   public String getTypeAliasesPackage() {
-<span class="fc" id="L119">    return this.typeAliasesPackage;</span>
+<span class="fc" id="L126">    return this.typeAliasesPackage;</span>
   }
 
   public void setTypeAliasesPackage(String typeAliasesPackage) {
-<span class="fc" id="L123">    this.typeAliasesPackage = typeAliasesPackage;</span>
-<span class="fc" id="L124">  }</span>
+<span class="fc" id="L130">    this.typeAliasesPackage = typeAliasesPackage;</span>
+<span class="fc" id="L131">  }</span>
 
   public boolean isCheckConfigLocation() {
-<span class="fc" id="L127">    return this.checkConfigLocation;</span>
+<span class="fc" id="L134">    return this.checkConfigLocation;</span>
   }
 
   public void setCheckConfigLocation(boolean checkConfigLocation) {
-<span class="fc" id="L131">    this.checkConfigLocation = checkConfigLocation;</span>
-<span class="fc" id="L132">  }</span>
+<span class="fc" id="L138">    this.checkConfigLocation = checkConfigLocation;</span>
+<span class="fc" id="L139">  }</span>
 
   public ExecutorType getExecutorType() {
-<span class="fc" id="L135">    return this.executorType;</span>
+<span class="fc" id="L142">    return this.executorType;</span>
   }
 
   public void setExecutorType(ExecutorType executorType) {
-<span class="fc" id="L139">    this.executorType = executorType;</span>
-<span class="fc" id="L140">  }</span>
+<span class="fc" id="L146">    this.executorType = executorType;</span>
+<span class="fc" id="L147">  }</span>
+
+  /**
+   * @since 1.2.0
+   */
+  public Properties getConfigurationProperties() {
+<span class="fc" id="L153">    return configurationProperties;</span>
+  }
+
+  /**
+   * @since 1.2.0
+   */
+  public void setConfigurationProperties(Properties configurationProperties) {
+<span class="fc" id="L160">    this.configurationProperties = configurationProperties;</span>
+<span class="fc" id="L161">  }</span>
 
   public Configuration getConfiguration() {
-<span class="fc" id="L143">    return configuration;</span>
+<span class="fc" id="L164">    return configuration;</span>
   }
 
   public void setConfiguration(Configuration configuration) {
-<span class="fc" id="L147">    this.configuration = configuration;</span>
-<span class="fc" id="L148">  }</span>
+<span class="fc" id="L168">    this.configuration = configuration;</span>
+<span class="fc" id="L169">  }</span>
 
   public Resource[] resolveMapperLocations() {
-<span class="fc" id="L151">    List&lt;Resource&gt; resources = new ArrayList&lt;Resource&gt;();</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">    if (this.mapperLocations != null) {</span>
-<span class="fc bfc" id="L153" title="All 2 branches covered.">      for (String mapperLocation : this.mapperLocations) {</span>
-        Resource[] mappers;
+<span class="fc" id="L172">    ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();</span>
+<span class="fc" id="L173">    List&lt;Resource&gt; resources = new ArrayList&lt;Resource&gt;();</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">    if (this.mapperLocations != null) {</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">      for (String mapperLocation : this.mapperLocations) {</span>
         try {
-<span class="fc" id="L156">          mappers = new PathMatchingResourcePatternResolver().getResources(mapperLocation);</span>
-<span class="fc" id="L157">          resources.addAll(Arrays.asList(mappers));</span>
-<span class="fc" id="L158">        } catch (IOException e) {</span>
-
-<span class="fc" id="L160">        }</span>
+<span class="fc" id="L177">          Resource[] mappers = resourceResolver.getResources(mapperLocation);</span>
+<span class="fc" id="L178">          resources.addAll(Arrays.asList(mappers));</span>
+<span class="fc" id="L179">        } catch (IOException e) {</span>
+          // ignore
+<span class="fc" id="L181">        }</span>
       }
     }
-
-<span class="fc" id="L164">    Resource[] mapperLocations = new Resource[resources.size()];</span>
-<span class="fc" id="L165">    mapperLocations = resources.toArray(mapperLocations);</span>
-<span class="fc" id="L166">    return mapperLocations;</span>
+<span class="fc" id="L184">    return resources.toArray(new Resource[resources.size()]);</span>
   }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
