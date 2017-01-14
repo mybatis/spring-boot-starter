@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2016 the original author or authors.
+ *    Copyright 2015-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -47,13 +48,13 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -71,7 +72,7 @@ import org.springframework.util.StringUtils;
  * @author Kazuki Shimizu
  * @author Eduardo Macarrón
  */
-@Configuration
+@org.springframework.context.annotation.Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
 @ConditionalOnBean(DataSource.class)
 @EnableConfigurationProperties(MybatisProperties.class)
@@ -88,14 +89,18 @@ public class MybatisAutoConfiguration {
 
   private final DatabaseIdProvider databaseIdProvider;
 
+  private final List<ConfigurationCustomizer> configurationCustomizers;
+
   public MybatisAutoConfiguration(MybatisProperties properties,
                                   ObjectProvider<Interceptor[]> interceptorsProvider,
                                   ResourceLoader resourceLoader,
-                                  ObjectProvider<DatabaseIdProvider> databaseIdProvider) {
+                                  ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+                                  ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
     this.properties = properties;
     this.interceptors = interceptorsProvider.getIfAvailable();
     this.resourceLoader = resourceLoader;
     this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+    this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
   }
 
   @PostConstruct
@@ -116,7 +121,16 @@ public class MybatisAutoConfiguration {
     if (StringUtils.hasText(this.properties.getConfigLocation())) {
       factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
     }
-    factory.setConfiguration(properties.getConfiguration());
+    Configuration configuration = this.properties.getConfiguration();
+    if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
+      configuration = new Configuration();
+    }
+    if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
+      for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
+        customizer.customize(configuration);
+      }
+    }
+    factory.setConfiguration(configuration);
     if (this.properties.getConfigurationProperties() != null) {
       factory.setConfigurationProperties(this.properties.getConfigurationProperties());
     }
@@ -210,7 +224,7 @@ public class MybatisAutoConfiguration {
    * will bring in a bean registrar and automatically register components based
    * on the same component-scanning path as Spring Boot itself.
    */
-  @Configuration
+  @org.springframework.context.annotation.Configuration
   @Import({ AutoConfiguredMapperScannerRegistrar.class })
   @ConditionalOnMissingBean(MapperFactoryBean.class)
   public static class MapperScannerRegistrarNotFoundConfiguration {

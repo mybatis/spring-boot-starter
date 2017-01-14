@@ -20,12 +20,13 @@ import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.ibatis.cache.impl.PerpetualCache;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -400,6 +401,19 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
+	public void testWithMyBatisConfigurationCustomizer() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+			MybatisAutoConfiguration.class,
+			MyBatisConfigurationCustomizerConfiguration.class);
+		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context
+			.getBean(SqlSessionFactory.class);
+		assertEquals(DummyTypeHandler.class, sqlSessionFactory.getConfiguration()
+			.getTypeHandlerRegistry().getTypeHandler(BigInteger.class).getClass());
+		assertNotNull(sqlSessionFactory.getConfiguration().getCache("test"));
+	}
+
+	@Test
 	public void testConfigFileAndConfigurationWithTogether() {
 		EnvironmentTestUtils.addEnvironment(this.context,
 				"mybatis.config-location:mybatis-config.xml",
@@ -565,6 +579,30 @@ public class MybatisAutoConfigurationTest {
 		void customize(MybatisProperties properties) {
 			properties.getConfiguration().getTypeHandlerRegistry()
 					.register(new DummyTypeHandler());
+		}
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	static class MyBatisConfigurationCustomizerConfiguration {
+		@Bean
+		ConfigurationCustomizer typeHandlerConfigurationCustomizer() {
+			return new ConfigurationCustomizer() {
+				@Override
+				public void customize(org.apache.ibatis.session.Configuration configuration) {
+					configuration.getTypeHandlerRegistry()
+						.register(new DummyTypeHandler());
+				}
+			};
+		}
+		@Bean
+		ConfigurationCustomizer cacheConfigurationCustomizer() {
+			return new ConfigurationCustomizer() {
+				@Override
+				public void customize(org.apache.ibatis.session.Configuration configuration) {
+					configuration.addCache(new PerpetualCache("test"));
+				}
+			};
 		}
 	}
 
