@@ -29,7 +29,7 @@
     <section name="Introduction">
       <subsection name="What is MyBatis-Spring-Boot-Starter?">
   
-        <p>MyBatis-Spring-Boot-Starter help you build quickly MyBatis applications on top of the
+        <p>The MyBatis-Spring-Boot-Starter help you build quickly MyBatis applications on top of the
         <a href="http://projects.spring.io/spring-boot/">Spring Boot</a>.</p>
             
         <p>By using this module you will achieve:</p>
@@ -78,8 +78,8 @@ dependencies {
       </p>
       <ul>
       <li>Autodetect an existing <code>DataSource</code>.</li>
-      <li>Will create and register an instance of a <code>SqlSessionFactoryBean</code> passing that <code>DataSource</code> as an input.</li>
-      <li>Will create and register an instance of a <code>SqlSessionTemplate</code> got out of the <code>SqlSessionFactoryBean</code>.</li>
+      <li>Will create and register an instance of a <code>SqlSessionFactory</code> passing that <code>DataSource</code> as an input using the <code>SqlSessionFactoryBean</code>.</li>
+      <li>Will create and register an instance of a <code>SqlSessionTemplate</code> got out of the <code>SqlSessionFactory</code>.</li>
       <li>Autoscan your mappers, link them to the <code>SqlSessionTemplate</code> and register them to Spring context so they can be injected into your beans.</li>
       </ul>
 
@@ -127,12 +127,12 @@ public class SampleMybatisApplication implements CommandLineRunner {
           </subsection>
 
     <subsection name="Advanced scanning">
-      <p>MyBatis-Spring-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
+      <p>The MyBatis-Spring-Boot-Starter will search, by default, for mappers marked with the <code>@Mapper</code> annotation.</p>
       
       <p>You may want to specify a custom annotation or a marker interface for scanning. If so, you must use the <code>@MapperScan</code> annotation. 
       See more about it in the <a href="http://www.mybatis.org/spring/mappers.html#scan">MyBatis-Spring reference page.</a></p>
       
-      <p>MyBatis-Spring-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the
+      <p>The MyBatis-Spring-Boot-Starter will not start the scanning process if it finds at least one <code>MapperFactoryBean</code> in the
       Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with <code>@Bean</code> methods.</p>
     </subsection>        
     
