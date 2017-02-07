@@ -179,64 +179,64 @@ public class CityDao {
 		<tbody>
 		  <tr> 
 		    <td>
-		      config-location
+		      <code>config-location</code>
 		    </td>
 		    <td>
-		      MyBatis xml config file (optional)
-		    </td>
-		  </tr>
-		  <tr>
-		    <td>
-		      check-config-location
-		    </td>
-		    <td>
-		      Indicates whether perform presence check of the MyBatis xml config file (optional)
+		      Location of MyBatis xml config file.
 		    </td>
 		  </tr>
 		  <tr>
 		    <td>
-		      mapper-locations
+		      <code>check-config-location</code>
 		    </td>
 		    <td>
-		      Mapper xml config files (optional)
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      type-aliases-package
-		    </td>
-		    <td>
-		      Package to search for type aliases (optional)
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      type-handlers-package
-		    </td>
-		    <td>
-		      Package to search for type aliases (optional)
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      executor-type
-		    </td>
-		    <td>
-		      Executor type: SIMPLE, REUSE, BATCH (optional)
+		      Indicates whether perform presence check of the MyBatis xml config file.
 		    </td>
 		  </tr>
 		  <tr>
 		    <td>
-		      configuration-properties
+		      <code>mapper-locations</code>
 		    </td>
 		    <td>
-		      Externalized properties for MyBatis configuration (optional). Specified properties can be used as placeholder on MyBatis config file and Mapper file.
+		      Locations of Mapper xml config file.
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      <code>type-aliases-package</code>
+		    </td>
+		    <td>
+		      Packages to search for type aliases. (Package delimiters are "<code>,; \t\n</code>")
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      <code>type-handlers-package</code>
+		    </td>
+		    <td>
+		      Packages to search for type handlers. (Package delimiters are "<code>,; \t\n</code>")
+		    </td>
+		  </tr>
+		  <tr> 
+		    <td>
+		      <code>executor-type</code>
+		    </td>
+		    <td>
+		      Executor type: <code>SIMPLE</code>, <code>REUSE</code>, <code>BATCH</code>.
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      <code>configuration-properties</code>
+		    </td>
+		    <td>
+		      Externalized properties for MyBatis configuration. Specified properties can be used as placeholder on MyBatis config file and Mapper file.
 		      For detail see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#properties">MyBatis reference page</a>
 		    </td>
 		  </tr>
 		  <tr>
 		    <td>
-		      configuration
+		      <code>configuration</code>
 		    </td>
 		    <td>
 		      A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
