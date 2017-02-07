@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2016 the original author or authors.
+ *    Copyright 2015-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
- * Configuration properties for Mybatis.
+ * Configuration properties for MyBatis.
  *
  * @author Eddú Meléndez
  * @author Kazuki Shimizu
@@ -41,27 +41,27 @@ public class MybatisProperties {
   public static final String MYBATIS_PREFIX = "mybatis";
 
   /**
-   * Config file path.
+   * Location of MyBatis xml config file.
    */
   private String configLocation;
 
   /**
-   * Location of mybatis mapper files.
+   * Locations of MyBatis mapper files.
    */
   private String[] mapperLocations;
 
   /**
-   * Package to scan domain objects.
+   * Packages to search type aliases. (Package delimiters are ",; \t\n")
    */
   private String typeAliasesPackage;
 
   /**
-   * Package to scan handlers.
+   * Packages to search for type handlers. (Package delimiters are ",; \t\n")
    */
   private String typeHandlersPackage;
 
   /**
-   * Check the config file exists.
+   * Indicates whether perform presence check of the MyBatis xml config file.
    */
   private boolean checkConfigLocation = false;
 
@@ -71,7 +71,7 @@ public class MybatisProperties {
   private ExecutorType executorType;
 
   /**
-   * Externalized properties for configuration.
+   * Externalized properties for MyBatis configuration.
    */
   private Properties configurationProperties;
 
