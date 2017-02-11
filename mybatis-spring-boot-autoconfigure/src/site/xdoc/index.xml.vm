@@ -41,7 +41,39 @@
 	    </ul>
             
       </subsection>
-       
+
+      <subsection name="Requirements">
+        <p>
+          The MyBatis-Spring-Boot-Starter requires Java 6 or higher and the following MyBatis-Spring and Spring Boot versions:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>MyBatis-Spring-Boot-Starter</th>
+              <th><a href="http://www.mybatis.org/spring/index.html#Requirements">MyBatis-Spring</a></th>
+              <th>Spring Boot</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>1.2.x (1.2.0)</b></td>
+              <td>1.3 or higher</td>
+              <td>1.4 or higher</td>
+            </tr>
+            <tr>
+              <td><b>1.1.x (1.1.1)</b></td>
+              <td>1.3 or higher</td>
+              <td>1.3 or higher</td>
+            </tr>
+            <tr>
+              <td><b>1.0.x (1.0.2)</b></td>
+              <td>1.2 or higher</td>
+              <td>1.3 or higher</td>
+            </tr>
+          </tbody>
+        </table>
+      </subsection>
+
       <subsection name="Installation">
       <p>
         To use the MyBatis-Spring-Boot-Starter module, you just need to include the
