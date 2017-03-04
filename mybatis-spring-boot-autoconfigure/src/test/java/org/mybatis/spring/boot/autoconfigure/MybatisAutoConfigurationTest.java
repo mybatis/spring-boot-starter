@@ -17,9 +17,10 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigInteger;
@@ -94,7 +95,7 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(0, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(0));
 	}
 
 	@Test
@@ -103,11 +104,10 @@ public class MybatisAutoConfigurationTest {
 				MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1,
-				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(ExecutorType.SIMPLE, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.SIMPLE));
 		assertFalse(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
@@ -119,9 +119,9 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
-		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapperImpl.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.BATCH));
 		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
@@ -134,9 +134,9 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapperImpl.class).length);
-		assertEquals(ExecutorType.BATCH, this.context.getBean(SqlSessionTemplate.class).getExecutorType());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapperImpl.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.BATCH));
 		assertTrue(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase());
 	}
 
@@ -148,7 +148,7 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
 	}
 
 	@Test
@@ -158,7 +158,7 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
 	}
 
 	@Test
@@ -198,7 +198,7 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(2, this.context.getBean(SqlSessionFactory.class).getConfiguration().getMappedStatementNames().size());
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getMappedStatementNames().size(), is(2));
 	}
 
 	@Test
@@ -209,8 +209,7 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(ExecutorType.REUSE, this.context.getBean(SqlSessionTemplate.class)
-				.getExecutorType());
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.REUSE));
 	}
 
 	@Test
@@ -220,10 +219,9 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1,
-				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
 	}
 
 	@Test
@@ -233,10 +231,9 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1,
-				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().size());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().size(), is(1));
 		this.context.close();
 	}
 
@@ -247,7 +244,7 @@ public class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
-		assertEquals("h2", this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId());
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId(), is("h2"));
 	}
 
 	@Test
@@ -260,13 +257,12 @@ public class MybatisAutoConfigurationTest {
 
 		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
 				SqlSessionFactory.class).getConfiguration();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
-		assertEquals(1, configuration.getInterceptors().size());
-		assertEquals(MyInterceptor.class, configuration.getInterceptors().get(0)
-				.getClass());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(configuration.getDefaultFetchSize(), is(1000));
+		assertThat(configuration.getInterceptors().size(), is(1));
+		assertThat(configuration.getInterceptors().get(0), is(instanceOf(MyInterceptor.class)));
 	}
 
 	@Test
@@ -280,11 +276,11 @@ public class MybatisAutoConfigurationTest {
 
 		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
 				SqlSessionFactory.class).getConfiguration();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
-		assertEquals("h2", configuration.getDatabaseId());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(configuration.getDefaultFetchSize(), is(1000));
+		assertThat(configuration.getDatabaseId(), is("h2"));
 	}
 
 	@Test
@@ -299,12 +295,11 @@ public class MybatisAutoConfigurationTest {
 
 		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
 				SqlSessionFactory.class).getConfiguration();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
-		assertEquals(DummyTypeHandler.class, configuration.getTypeHandlerRegistry()
-				.getTypeHandler(BigInteger.class).getClass());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(configuration.getDefaultFetchSize(), is(1000));
+		assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(BigInteger.class), is(instanceOf(DummyTypeHandler.class)));
 	}
 
 	@Test
@@ -321,10 +316,10 @@ public class MybatisAutoConfigurationTest {
 
 		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
 				SqlSessionFactory.class).getConfiguration();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(configuration.getDefaultFetchSize(), is(1000));
 		assertTrue(configuration.getMappedStatementNames().contains("selectCityById"));
 		assertTrue(configuration
 				.getMappedStatementNames()
@@ -350,13 +345,12 @@ public class MybatisAutoConfigurationTest {
 
 		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
 				SqlSessionFactory.class).getConfiguration();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-		assertEquals(1, this.context.getBeanNamesForType(CityMapper.class).length);
-		assertEquals(Integer.valueOf(1000), configuration.getDefaultFetchSize());
-		assertEquals(DummyTypeHandler.class, configuration.getTypeHandlerRegistry()
-				.getTypeHandler(BigInteger.class).getClass());
-		assertEquals(4, configuration.getMappedStatementNames().size());
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBeanNamesForType(CityMapper.class).length, is(1));
+		assertThat(configuration.getDefaultFetchSize(), is(1000));
+		assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(BigInteger.class), is(instanceOf(DummyTypeHandler.class)));
+		assertThat(configuration.getMappedStatementNames().size(), is(4));
 		assertTrue(configuration.getMappedStatementNames().contains("selectCityById"));
 		assertTrue(configuration
 				.getMappedStatementNames()
@@ -365,12 +359,10 @@ public class MybatisAutoConfigurationTest {
 		assertTrue(configuration.getMappedStatementNames().contains("findById"));
 		assertTrue(configuration.getMappedStatementNames().contains(
 				"org.mybatis.spring.boot.autoconfigure.mapper.CityMapper.findById"));
-		assertEquals(ExecutorType.REUSE, this.context.getBean(SqlSessionTemplate.class)
-				.getExecutorType());
-		assertEquals(1, configuration.getInterceptors().size());
-		assertEquals(MyInterceptor.class, configuration.getInterceptors().get(0)
-				.getClass());
-		assertEquals("h2", configuration.getDatabaseId());
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.REUSE));
+		assertThat(configuration.getInterceptors().size(), is(1));
+		assertThat(configuration.getInterceptors().get(0), is(instanceOf(MyInterceptor.class)));
+		assertThat(configuration.getDatabaseId(), is("h2"));
 	}
 
 	@Test
@@ -394,10 +386,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		SqlSessionFactory sqlSessionFactory = this.context
 				.getBean(SqlSessionFactory.class);
-		assertEquals(100, sqlSessionFactory.getConfiguration().getDefaultFetchSize()
-				.intValue());
-		assertEquals(DummyTypeHandler.class, sqlSessionFactory.getConfiguration()
-				.getTypeHandlerRegistry().getTypeHandler(BigInteger.class).getClass());
+		assertThat(sqlSessionFactory.getConfiguration().getDefaultFetchSize(), is(100));
+		assertThat(sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().getTypeHandler(BigInteger.class), is(instanceOf(DummyTypeHandler.class)));
 	}
 
 	@Test
@@ -408,8 +398,7 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		SqlSessionFactory sqlSessionFactory = this.context
 			.getBean(SqlSessionFactory.class);
-		assertEquals(DummyTypeHandler.class, sqlSessionFactory.getConfiguration()
-			.getTypeHandlerRegistry().getTypeHandler(BigInteger.class).getClass());
+		assertThat(sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().getTypeHandler(BigInteger.class), is(instanceOf(DummyTypeHandler.class)));
 		assertNotNull(sqlSessionFactory.getConfiguration().getCache("test"));
 	}
 
@@ -450,8 +439,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 
 		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
-		assertEquals(1, variables.size());
-		assertEquals("value1", variables.get("key1"));
+		assertThat(variables.size(), is(1));
+		assertThat(variables.getProperty("key1"), is("value1"));
 	}
 
 	@Test
@@ -464,8 +453,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 
 		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
-		assertEquals(1, variables.size());
-		assertEquals("value2", variables.get("key2"));
+		assertThat(variables.size(), is(1));
+		assertThat(variables.getProperty("key2"), is("value2"));
 	}
 
 	@Test
@@ -479,9 +468,9 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 
 		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
-		assertEquals(2, variables.size());
-		assertEquals("value1", variables.get("key1"));
-		assertEquals("value2", variables.get("key2"));
+		assertThat(variables.size(), is(2));
+		assertThat(variables.getProperty("key1"), is("value1"));
+		assertThat(variables.getProperty("key2"), is("value2"));
 	}
 
 	@Test
@@ -495,8 +484,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 
 		Properties variables = this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables();
-		assertEquals(1, variables.size());
-		assertEquals("value2", variables.get("key"));
+		assertThat(variables.size(), is(1));
+		assertThat(variables.getProperty("key"), is("value2"));
 	}
 
 	@Test
@@ -504,8 +493,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, CustomSqlSessionFactoryConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertEquals(this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables().get("key"), "value");
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables().getProperty("key"), is("value"));
 	}
 
 	@Test
@@ -513,8 +502,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MySqlSessionFactoryConfiguration.class);
 		this.context.refresh();
-		assertEquals(1, this.context.getBeanNamesForType(SqlSessionFactory.class).length);
-		assertTrue(this.context.getBean(SqlSessionFactory.class).getClass() == MySqlSessionFactory.class);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionFactory.class), is(instanceOf(MySqlSessionFactory.class)));
 	}
 
 	@Test
@@ -522,10 +511,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, CustomSqlSessionTemplateConfiguration.class);
 		this.context.refresh();
-		assertEquals(1,
-				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-
-		assertEquals(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), ExecutorType.BATCH);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType(), is(ExecutorType.BATCH));
 	}
 
 	@Test
@@ -533,10 +520,8 @@ public class MybatisAutoConfigurationTest {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MySqlSessionTemplateConfiguration.class);
 		this.context.refresh();
-		assertEquals(1,
-				this.context.getBeanNamesForType(SqlSessionTemplate.class).length);
-
-		assertTrue(this.context.getBean(SqlSessionTemplate.class).getClass() == MySqlSessionTemplate.class);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class).length, is(1));
+		assertThat(this.context.getBean(SqlSessionTemplate.class), is(instanceOf(MySqlSessionTemplate.class)));
 	}
 
 	@Configuration
