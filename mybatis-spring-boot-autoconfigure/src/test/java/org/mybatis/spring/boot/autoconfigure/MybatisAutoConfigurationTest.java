@@ -663,8 +663,7 @@ public class MybatisAutoConfigurationTest {
 	static class CustomSqlSessionTemplateConfiguration {
 		@Bean
 		public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
-			SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
-			return sessionTemplate;
+			return new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
 		}
 	}
 
@@ -672,8 +671,7 @@ public class MybatisAutoConfigurationTest {
 	static class MySqlSessionTemplateConfiguration {
 		@Bean
 		public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
-			MySqlSessionTemplate sessionTemplate = new MySqlSessionTemplate(sqlSessionFactory);
-			return sessionTemplate;
+			return new MySqlSessionTemplate(sqlSessionFactory);
 		}
 	}
 
