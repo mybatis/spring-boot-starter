@@ -40,6 +40,8 @@
     <module>mybatis-spring-boot-autoconfigure</module>
     <module>mybatis-spring-boot-starter</module>
     <module>mybatis-spring-boot-samples</module>
+    <module>mybatis-spring-boot-starter-test</module>
+    <module>mybatis-spring-boot-test-autoconfigure</module>
   </modules>
 
   <scm>
@@ -90,6 +92,16 @@
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>1.2.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-test-autoconfigure</artifactId>
+        <version>1.2.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter-test</artifactId>
         <version>1.2.1-SNAPSHOT</version>
       </dependency>
       <dependency>
