@@ -25,17 +25,16 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * {@link TypeExcludeFilter} for {@link DataMybatisTest @DataMybatisTest}.
- * note : Spring boot 1.5 add method getComponentIncludes()
+ * {@link TypeExcludeFilter} for {@link MybatisTest @MybatisTest}.
  * @author wonwoo
  * @since 1.2.1
  */
-class DataMybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
-  private final DataMybatisTest annotation;
+class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
+  private final MybatisTest annotation;
 
-  DataMybatisTypeExcludeFilter(Class<?> testClass) {
+  MybatisTypeExcludeFilter(Class<?> testClass) {
     this.annotation = AnnotatedElementUtils.getMergedAnnotation(testClass,
-      DataMybatisTest.class);
+      MybatisTest.class);
   }
 
   @Override

@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.2.1
  */
 @RunWith(SpringRunner.class)
-@DataMybatisTest
+@MybatisTest
 @TestPropertySource(properties = {
   "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
   "mybatis.mapper-locations=org/mybatis/spring/boot/test/autoconfigure/*.xml",

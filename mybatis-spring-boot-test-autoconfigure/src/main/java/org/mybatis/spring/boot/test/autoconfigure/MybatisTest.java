@@ -30,8 +30,7 @@ import java.lang.annotation.*;
 /**
  *
  * @author wonwoo
- * note : spring boot 1.5 add method excludeAutoConfiguration()
- * @see AutoConfigureDataMybatis
+ * @see AutoConfigureMybatis
  * @since 1.2.1
  */
 @Target(ElementType.TYPE)
@@ -40,11 +39,11 @@ import java.lang.annotation.*;
 @Inherited
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @OverrideAutoConfiguration(enabled = false)
-@TypeExcludeFilters(DataMybatisTypeExcludeFilter.class)
+@TypeExcludeFilters(MybatisTypeExcludeFilter.class)
 @AutoConfigureCache
 @Transactional
-@AutoConfigureDataMybatis
-public @interface DataMybatisTest {
+@AutoConfigureMybatis
+public @interface MybatisTest {
 
   /**
    * Determines if default filtering should be used with

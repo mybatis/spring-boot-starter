@@ -30,5 +30,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @ImportAutoConfiguration
-public @interface AutoConfigureDataMybatis {
+public @interface AutoConfigureMybatis {
 }
