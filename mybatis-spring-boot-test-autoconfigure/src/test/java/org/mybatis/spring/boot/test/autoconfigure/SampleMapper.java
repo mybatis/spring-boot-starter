@@ -19,6 +19,7 @@ package org.mybatis.spring.boot.test.autoconfigure;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
+ * Example mapper used with {@link MybatisTest} tests.
  *
  * @author wonwoo
  * @since 1.2.1

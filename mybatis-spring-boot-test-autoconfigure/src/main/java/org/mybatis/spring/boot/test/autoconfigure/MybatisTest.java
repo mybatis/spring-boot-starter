@@ -16,10 +16,13 @@
 
 package org.mybatis.spring.boot.test.autoconfigure;
 
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.test.context.BootstrapWith;
@@ -33,6 +36,22 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Annotation that can be used in combination with {@code @RunWith(SpringRunner.class)}
+ * for a typical mybatis test. Can be used when a test focuses <strong>only</strong> on
+ * mybatis-based components.
+ * <p>
+ * Using this annotation will disable full auto-configuration and instead apply only
+ * configuration relevant to mybatis tests.
+ * <p>
+ * By default, tests annotated with {@code @JdbcTest} will use an embedded in-memory
+ * database (replacing any explicit or usually auto-configured DataSource). The
+ * {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} annotation can be used to
+ * override these settings.
+ * <p>
+ * If you are looking to load your full application configuration, but use an embedded
+ * database, you should consider {@link SpringBootTest @SpringBootTest} combined with
+ * {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} rather than this
+ * annotation.
  *
  * @author wonwoo
  * @see AutoConfigureMybatis
@@ -45,9 +64,11 @@ import java.lang.annotation.Target;
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @OverrideAutoConfiguration(enabled = false)
 @TypeExcludeFilters(MybatisTypeExcludeFilter.class)
-@AutoConfigureCache
 @Transactional
+@AutoConfigureCache
 @AutoConfigureMybatis
+@AutoConfigureTestDatabase
+@ImportAutoConfiguration
 public @interface MybatisTest {
 
   /**
@@ -77,12 +98,4 @@ public @interface MybatisTest {
    */
   Filter[] excludeFilters() default {};
 
-  /**
-   * spring boot 1.5 start
-   * Auto-configuration exclusions that should be applied for this test.
-   *
-   * @return auto-configuration exclusions to apply
-   */
-//  @AliasFor(annotation = ImportAutoConfiguration.class, attribute = "exclude")
-//  Class<?>[] excludeAutoConfiguration() default {};
 }

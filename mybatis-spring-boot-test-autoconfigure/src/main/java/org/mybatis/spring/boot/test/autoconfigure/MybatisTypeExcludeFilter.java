@@ -26,6 +26,7 @@ import java.util.Set;
 
 /**
  * {@link TypeExcludeFilter} for {@link MybatisTest @MybatisTest}.
+ *
  * @author wonwoo
  * @since 1.2.1
  */
@@ -63,10 +64,4 @@ class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
     return Collections.emptySet();
   }
 
-
-  //spring boot 1.5 start
-//  @Override
-//  protected Set<Class<?>> getComponentIncludes() {
-//    return Collections.emptySet();
-//  }
 }

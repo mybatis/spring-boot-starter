@@ -33,6 +33,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * Integration tests for {@link MybatisTest}.
  *
  * @author wonwoo
  * @since 1.2.1
@@ -44,7 +45,7 @@ import static org.assertj.core.api.Assertions.assertThat;
   "mybatis.mapper-locations=org/mybatis/spring/boot/test/autoconfigure/*.xml",
   "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql"
 })
-public class DataMybatisTestIntegrationTests {
+public class MybatisTestIntegrationTests {
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();

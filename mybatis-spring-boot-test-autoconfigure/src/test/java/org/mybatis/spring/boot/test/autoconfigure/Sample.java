@@ -17,6 +17,7 @@
 package org.mybatis.spring.boot.test.autoconfigure;
 
 /**
+ * Example entity used with {@link MybatisTest} tests.
  *
  * @author wonwoo
  * @since 1.2.1

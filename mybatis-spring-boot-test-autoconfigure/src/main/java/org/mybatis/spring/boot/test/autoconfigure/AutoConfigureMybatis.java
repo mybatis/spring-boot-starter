@@ -26,6 +26,9 @@ import java.lang.annotation.Target;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 
 /**
+ * {@link ImportAutoConfiguration Auto-configuration imports} for typical Mybatis tests.
+ * Most tests should consider using {@link MybatisTest @MybatisTest} rather than using
+ * this annotation directly.
  *
  * @author wonwoo
  * @since 1.2.1
@@ -36,4 +39,5 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 @Inherited
 @ImportAutoConfiguration
 public @interface AutoConfigureMybatis {
+
 }
