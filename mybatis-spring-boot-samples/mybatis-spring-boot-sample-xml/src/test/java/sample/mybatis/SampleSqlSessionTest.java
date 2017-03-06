@@ -13,40 +13,51 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package sample.mybatis;
 
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
+import sample.mybatis.dao.CityDao;
 import sample.mybatis.domain.City;
-import sample.mybatis.mapper.CityMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- *
  * @author wonwoo
  * @since 1.2.1
  */
 @RunWith(SpringRunner.class)
 @MybatisTest
-public class SampleMapperTests {
+public class SampleSqlSessionTest {
 
   @Autowired
-  private CityMapper cityMapper;
+  private SqlSession sqlSession;
 
   @Test
-  public void mapperIsNotNullTest() {
-    assertThat(cityMapper).isNotNull();
+  public void sqlSessionIsNotNullTest() {
+    assertThat(sqlSession).isNotNull();
   }
 
   @Test
-  public void findByStateTest() {
-    City city = cityMapper.findByState("CA");
+  public void selectCityByIdTest() {
+    City city = sqlSession.selectOne("selectCityById", 1);
     assertThat(city.getName()).isEqualTo("San Francisco");
     assertThat(city.getState()).isEqualTo("CA");
     assertThat(city.getCountry()).isEqualTo("US");
+  }
+
+  @TestConfiguration
+  public static class Config {
+    @Bean
+    public CityDao cityDao(SqlSession sqlSession) {
+      return new CityDao(sqlSession);
+    }
   }
 }
