@@ -1,0 +1,7 @@
+# AutoConfigureMybatis auto-configuration imports
+org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis=\
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,\
+org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration,\
+org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration,\
+org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
