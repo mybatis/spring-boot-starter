@@ -29,6 +29,10 @@
   <name>mybatis-spring-boot-starter-test</name>
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-test-autoconfigure</artifactId>
     </dependency>
