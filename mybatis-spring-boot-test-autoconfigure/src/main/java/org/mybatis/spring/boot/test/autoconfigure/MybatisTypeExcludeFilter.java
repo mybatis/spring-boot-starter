@@ -16,13 +16,13 @@
 
 package org.mybatis.spring.boot.test.autoconfigure;
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.boot.test.autoconfigure.filter.AnnotationCustomizableTypeExcludeFilter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-
-import java.util.Collections;
-import java.util.Set;
 
 /**
  * {@link TypeExcludeFilter} for {@link MybatisTest @MybatisTest}.

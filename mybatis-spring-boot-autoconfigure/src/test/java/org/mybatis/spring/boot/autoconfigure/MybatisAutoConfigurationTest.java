@@ -15,17 +15,11 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.Is.isA;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertNotNull;
-
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.Properties;
+
+import javax.sql.DataSource;
 
 import org.apache.ibatis.cache.impl.PerpetualCache;
 import org.apache.ibatis.mapping.Environment;
@@ -51,6 +45,7 @@ import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -62,7 +57,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}

@@ -16,9 +16,9 @@
 package sample.mybatis.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
-
 import sample.mybatis.domain.City;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @author Eddú Meléndez

@@ -18,7 +18,6 @@ package sample.mybatis.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
 import sample.mybatis.domain.City;
 
 /**

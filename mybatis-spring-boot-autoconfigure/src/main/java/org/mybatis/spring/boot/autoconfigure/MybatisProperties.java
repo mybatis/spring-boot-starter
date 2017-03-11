@@ -23,6 +23,7 @@ import java.util.Properties;
 
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.core.io.Resource;
