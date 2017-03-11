@@ -28,4 +28,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SampleMapper {
 
   Sample findByname(String name);
+
 }

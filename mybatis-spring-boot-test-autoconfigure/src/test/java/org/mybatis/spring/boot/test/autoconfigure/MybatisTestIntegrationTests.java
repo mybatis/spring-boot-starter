@@ -97,4 +97,5 @@ public class MybatisTestIntegrationTests {
     this.thrown.expect(NoSuchBeanDefinitionException.class);
     this.applicationContext.getBean(ExampleComponent.class);
   }
+
 }

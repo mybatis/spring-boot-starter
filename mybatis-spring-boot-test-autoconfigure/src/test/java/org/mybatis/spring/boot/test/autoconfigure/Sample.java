@@ -42,4 +42,5 @@ public class Sample {
   public void setName(String name) {
     this.name = name;
   }
+
 }
