@@ -23,17 +23,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SampleXmlApplication implements CommandLineRunner {
+public class SampleMybatisApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SampleXmlApplication.class, args);
+		SpringApplication.run(SampleMybatisApplication.class, args);
 	}
 
 	private final CityDao cityDao;
 
 	private final HotelMapper hotelMapper;
 
-	public SampleXmlApplication(CityDao cityDao, HotelMapper hotelMapper) {
+	public SampleMybatisApplication(CityDao cityDao, HotelMapper hotelMapper) {
 		this.cityDao = cityDao;
 		this.hotelMapper = hotelMapper;
 	}
