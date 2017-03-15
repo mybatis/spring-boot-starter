@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2015-2017 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>MyBatis Sring-Boot-Starter-Test | Reference Documentation</title>
+    <author email="kazuki43zoo@gmail.com">Kazuki Shimizu</author>
+  </properties>
+
+  <body>
+    <section name="Introduction">
+      <subsection name="What is MyBatis-Spring-Boot-Starter-Test?">
+
+        <p>The MyBatis-Spring-Boot-Starter-Test help creating a test cases for MyBatis component using the <a
+            href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/">
+          MyBatis-Spring-Boot-Starter</a>.
+        </p>
+
+        <p>By using this module you will can be:</p>
+
+        <ul>
+          <li>Can use the <code>@MybatisTest</code> that setup test components for testing pure MyBatis
+            component
+          </li>
+          <li>Can import dependency artifacts for performing tests for pure MyBatis component</li>
+        </ul>
+
+      </subsection>
+
+      <subsection name="Requirements">
+        <p>
+          The MyBatis-Spring-Boot-Starter-Test requirements refer to <a
+            href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#Requirements">
+          here</a>.
+        </p>
+      </subsection>
+
+      <subsection name="Installation">
+        <p>
+          If you are using Maven just add the following dependency to your <code>pom.xml</code>:
+        </p>
+        <source><![CDATA[
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter-test</artifactId>
+    <version>${project.version}</version>
+</dependency>]]></source>
+
+        <p>
+          If using gradle add this to your <code>build.gradle</code>:
+        </p>
+        <source><![CDATA[
+dependencies {
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
+}]]></source>
+
+      </subsection>
+
+      <subsection name="Using @MybatisTest">
+        <p>
+          The <code>@MybatisTest</code> can be used if you want to test MyBatis components(Mapper interface
+          and <code>SqlSession</code>).
+          By default it will configure MyBatis(MyBatis-Spring) components(<code>SqlSessionFactory
+        </code> and <code>SqlSessionTemplate</code>), configure MyBatis mapper interfaces and configure an
+          in-memory embedded database.
+          MyBatis tests are transactional and rollback at the end of each test by default, for more details
+          refer to the <a
+            href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#testcontext-tx-enabling-transactions">
+          relevant section in the Spring Reference Documentation</a>.
+          Also regular <code>@Component</code> beans will not be loaded into the <code>
+          ApplicationContext</code>.
+        </p>
+
+        <h4>Test for Mapper interface:</h4>
+
+        <p>
+          if you create a test case for following mapper interface, you add just <code>@MybatisTest</code> on
+          your test case class.
+        </p>
+
+        <p>
+          Mapper interface :
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import sample.mybatis.domain.City;
+
+@Mapper
+public interface CityMapper {
+
+    @Select("SELECT * FROM CITY WHERE state = #{state}")
+    City findByState(@Param("state") String state);
+
+}]]></source>
+
+        <p>
+          TestCase class :
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.mapper;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import sample.mybatis.domain.City;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@MybatisTest
+public class CityMapperTest {
+
+    @Autowired
+    private CityMapper cityMapper;
+
+    @Test
+    public void findByStateTest() {
+        City city = cityMapper.findByState("CA");
+        assertThat(city.getName()).isEqualTo("San Francisco");
+        assertThat(city.getState()).isEqualTo("CA");
+        assertThat(city.getCountry()).isEqualTo("US");
+    }
+
+}]]></source>
+
+        <h4>Test for DAO pattern:</h4>
+
+        <p>
+          if you create a test case for following DAO class, you add just <code>@MybatisTest</code> and <code>@Import</code> on your test case class.
+        </p>
+
+        <p>
+          DAO class :
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.dao;
+
+import org.apache.ibatis.session.SqlSession;
+import sample.mybatis.domain.City;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class CityDao {
+
+    private final SqlSession sqlSession;
+
+    public CityDao(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+
+    public City selectCityById(long id) {
+        return this.sqlSession.selectOne("selectCityById", id);
+    }
+
+}]]></source>
+
+        <p>
+          TestCase class :
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.dao;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
+import sample.mybatis.domain.City;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@MybatisTest
+@Import(CityDao.class)
+public class CityDaoTest {
+
+    @Autowired
+    private CityDao cityDao;
+
+    @Test
+    public void selectCityByIdTest() {
+        City city = cityDao.selectCityById(1);
+        assertThat(city.getName()).isEqualTo("San Francisco");
+        assertThat(city.getState()).isEqualTo("CA");
+        assertThat(city.getCountry()).isEqualTo("US");
+    }
+
+}]]></source>
+
+      </subsection>
+
+      <subsection name="Using a real database">
+        <p>
+          The In-memory embedded databases generally work well for tests since they are fast and don’t require
+          any developer installation.
+          However if you prefer to run tests against a real database, you can use the <code>@AutoConfigureTestDatabase</code> as follow:
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.mapper;
+// ...
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+
+@RunWith(SpringRunner.class)
+@MybatisTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class CityMapperTest {
+    // ...
+}]]></source>
+
+      </subsection>
+
+      <subsection name="Prevent detecting a real @SpringBootApplication">
+        <p>
+          The <code>@MybatisTest</code> will detect a class that annotated <code>@SpringBootApplication</code> by
+          default.
+          Therefore by depend on bean definition methods, there is case that an unexpected error is occurred
+          or unnecessary components are loaded into <code>ApplicationContext</code>.
+          This behavior can prevent by creating a <code>@SpringBootApplication</code> class into same package
+          as test class as follow:
+        </p>
+
+        <source><![CDATA[
+package sample.mybatis.mapper;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+class MapperTestApplication {
+
+}]]></source>
+      </subsection>
+
+      <subsection name="Appendix A. Imported auto-configuration">
+
+        <p>
+          The <code>@MybatisTest</code> will import following auto-configuration classes.
+        </p>
+
+        <ul>
+          <li>
+            <code>org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration</code>
+          </li>
+          <li>
+            <code>org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration</code>
+          </li>
+          <li>
+            <code>
+              org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+            </code>
+          </li>
+          <li>
+            <code>org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration</code>
+          </li>
+          <li>
+            <code>org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration</code>
+          </li>
+          <li>
+            <code>org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration</code>
+          </li>
+        </ul>
+
+      </subsection>
+
+      <subsection name="Appendix B. Running Samples">
+        <p>
+          The project provides two samples so you play and experiment with them.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Sample
+              </th>
+              <th>
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+                  1st Sample
+                </a>
+              </td>
+              <td>
+                Show the simplest scenario with just a mapper and a bean where the mapper is injected
+                into. This is the sample we saw in the Quick Setup section.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml">
+                  2nd Sample
+                </a>
+              </td>
+              <td>
+                Shows how to use a Mapper that has its statements in an xml file and DAO that uses
+                an <code>SqlSesionTemplate</code>.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </subsection>
+    </section>
+  </body>
+
+</document>
