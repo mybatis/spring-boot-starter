@@ -229,7 +229,7 @@ public class CityDaoTest {
         <source><![CDATA[
 package sample.mybatis.mapper;
 // ...
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
