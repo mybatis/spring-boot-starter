@@ -47,10 +47,26 @@
 
       <subsection name="Requirements">
         <p>
-          The MyBatis-Spring-Boot-Starter-Test requirements refer to <a
-            href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#Requirements">
-          here</a>.
+          The MyBatis-Spring-Boot-Starter-Test requires Java 6 or higher and the following Spring Boot version:
         </p>
+        <table>
+          <thead>
+            <tr>
+              <th>MyBatis-Spring-Boot-Starter-Test</th>
+              <th>Spring Boot</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>1.3.x (1.3.0)</b></td>
+              <td>1.5 or higher</td>
+            </tr>
+            <tr>
+              <td><b>1.2.x (1.2.1)</b></td>
+              <td>1.4</td>
+            </tr>
+          </tbody>
+        </table>
       </subsection>
 
       <subsection name="Installation">
