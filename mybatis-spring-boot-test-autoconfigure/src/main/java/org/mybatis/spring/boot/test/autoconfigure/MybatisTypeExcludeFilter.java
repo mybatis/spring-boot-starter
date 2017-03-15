@@ -64,4 +64,9 @@ class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
     return Collections.emptySet();
   }
 
+  @Override
+  protected Set<Class<?>> getComponentIncludes() {
+    return Collections.emptySet();
+  }
+
 }
