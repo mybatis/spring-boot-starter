@@ -284,6 +284,9 @@ class MapperTestApplication {
             <code>org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration</code>
           </li>
           <li>
+            <code>org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration</code>
+          </li>
+          <li>
             <code>org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration</code>
           </li>
           <li>
@@ -293,6 +296,9 @@ class MapperTestApplication {
           </li>
           <li>
             <code>org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration</code>
+          </li>
+          <li>
+            <code>org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration</code>
           </li>
           <li>
             <code>org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration</code>
