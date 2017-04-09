@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.3.0</version>
   </parent>
   <artifactId>mybatis-spring-boot-samples</artifactId>
   <packaging>pom</packaging>
