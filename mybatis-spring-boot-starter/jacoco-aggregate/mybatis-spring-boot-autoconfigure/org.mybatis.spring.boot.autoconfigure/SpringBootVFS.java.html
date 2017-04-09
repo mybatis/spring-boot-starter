@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SpringBootVFS.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">mybatis-spring-boot-starter</a> &gt; <a href="../index.html" class="el_bundle">mybatis-spring-boot-autoconfigure</a> &gt; <a href="index.source.html" class="el_package">org.mybatis.spring.boot.autoconfigure</a> &gt; <span class="el_source">SpringBootVFS.java</span></div><h1>SpringBootVFS.java</h1><pre class="source lang-java linenums">/**
- *    Copyright 2015-2016 the original author or authors.
+ *    Copyright 2015-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  *    you may not use this file except in compliance with the License.
@@ -15,16 +15,17 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
-import org.apache.ibatis.io.VFS;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.io.VFS;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
  * @author Hans Westerbeek
@@ -35,29 +36,29 @@ public class SpringBootVFS extends VFS {
 
   private final ResourcePatternResolver resourceResolver;
 
-<span class="fc" id="L38">  public SpringBootVFS() {</span>
-<span class="fc" id="L39">    this.resourceResolver = new PathMatchingResourcePatternResolver(getClass().getClassLoader());</span>
-<span class="fc" id="L40">  }</span>
+<span class="fc" id="L39">  public SpringBootVFS() {</span>
+<span class="fc" id="L40">    this.resourceResolver = new PathMatchingResourcePatternResolver(getClass().getClassLoader());</span>
+<span class="fc" id="L41">  }</span>
 
   @Override
   public boolean isValid() {
-<span class="fc" id="L44">    return true;</span>
+<span class="fc" id="L45">    return true;</span>
   }
 
   @Override
   protected List&lt;String&gt; list(URL url, String path) throws IOException {
-<span class="fc" id="L49">    Resource[] resources = resourceResolver.getResources(&quot;classpath*:&quot; + path + &quot;/**/*.class&quot;);</span>
-<span class="fc" id="L50">    List&lt;String&gt; resourcePaths = new ArrayList&lt;String&gt;();</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">    for (Resource resource : resources) {</span>
-<span class="fc" id="L52">      resourcePaths.add(preserveSubpackageName(resource.getURI(), path));</span>
+<span class="fc" id="L50">    Resource[] resources = resourceResolver.getResources(&quot;classpath*:&quot; + path + &quot;/**/*.class&quot;);</span>
+<span class="fc" id="L51">    List&lt;String&gt; resourcePaths = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">    for (Resource resource : resources) {</span>
+<span class="fc" id="L53">      resourcePaths.add(preserveSubpackageName(resource.getURI(), path));</span>
     }
-<span class="fc" id="L54">    return resourcePaths;</span>
+<span class="fc" id="L55">    return resourcePaths;</span>
   }
 
   private static String preserveSubpackageName(final URI uri, final String rootPath) {
-<span class="fc" id="L58">    final String uriStr = uri.toString();</span>
-<span class="fc" id="L59">    final int start = uriStr.indexOf(rootPath);</span>
-<span class="fc" id="L60">    return uriStr.substring(start);</span>
+<span class="fc" id="L59">    final String uriStr = uri.toString();</span>
+<span class="fc" id="L60">    final int start = uriStr.indexOf(rootPath);</span>
+<span class="fc" id="L61">    return uriStr.substring(start);</span>
   }
 
 }
