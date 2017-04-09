@@ -28,7 +28,7 @@
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -48,7 +48,7 @@
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
     <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
-    <tag>mybatis-spring-boot-1.2.1</tag>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -87,22 +87,22 @@
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-test-autoconfigure</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter-test</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
