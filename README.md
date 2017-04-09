@@ -14,3 +14,4 @@ Essentials
 ----------
 
 * [See the docs](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure)
+* [See the docs for testing](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure)
