@@ -15,17 +15,19 @@
  */
 package org.mybatis.spring.boot.test.autoconfigure;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Service;
 
 /**
- * Example mapper used with {@link MybatisTest} tests.
+ * Example component that annotated {@link Service @Service} used with {@link MybatisTest} tests.
  *
- * @author wonwoo
+ * @author Kazuki Shimizu
  * @since 1.2.1
  */
-@Mapper
-public interface SampleMapper {
+@Service
+public class ExampleService {
 
-  Sample findByName(String name);
+  public String getMessage() {
+    return "Goodbye!";
+  }
 
 }

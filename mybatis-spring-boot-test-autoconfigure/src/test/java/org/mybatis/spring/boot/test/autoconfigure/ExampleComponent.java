@@ -13,18 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.test.autoconfigure;
 
 import org.springframework.stereotype.Component;
 
 /**
- * Example component used with {@link MybatisTest} tests.
+ * Example component that annotated {@link Component @Component} used with {@link MybatisTest} tests.
  *
  * @author wonwoo
  * @since 1.2.1
  */
 @Component
 public class ExampleComponent {
+
+  public String getMessage() {
+    return "Hello!";
+  }
 
 }

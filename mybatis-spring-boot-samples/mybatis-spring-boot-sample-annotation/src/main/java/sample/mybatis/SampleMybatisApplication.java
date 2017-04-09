@@ -13,19 +13,30 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.spring.boot.test.autoconfigure;
+package sample.mybatis;
 
+import sample.mybatis.mapper.CityMapper;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
-/**
- * Example {@link SpringBootApplication} used with {@link MybatisTest} tests.
- *
- * @author wonwoo
- * @since 1.2.1
- */
 @SpringBootApplication
-@EnableCaching
-class ExampleMybatisApplication {
+public class SampleMybatisApplication implements CommandLineRunner {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SampleMybatisApplication.class, args);
+	}
+
+	final private CityMapper cityMapper;
+
+	public SampleMybatisApplication(CityMapper cityMapper) {
+		this.cityMapper = cityMapper;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(this.cityMapper.findByState("CA"));
+	}
 
 }
