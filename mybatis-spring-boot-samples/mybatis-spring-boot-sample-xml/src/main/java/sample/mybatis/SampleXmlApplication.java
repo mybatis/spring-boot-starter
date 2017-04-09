@@ -15,28 +15,33 @@
  */
 package sample.mybatis;
 
-import sample.mybatis.mapper.CityMapper;
+import sample.mybatis.dao.CityDao;
+import sample.mybatis.mapper.HotelMapper;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SampleMybatisApplication implements CommandLineRunner {
+public class SampleXmlApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SampleMybatisApplication.class, args);
+		SpringApplication.run(SampleXmlApplication.class, args);
 	}
 
-	final private CityMapper cityMapper;
+	private final CityDao cityDao;
 
-	public SampleMybatisApplication(CityMapper cityMapper) {
-		this.cityMapper = cityMapper;
+	private final HotelMapper hotelMapper;
+
+	public SampleXmlApplication(CityDao cityDao, HotelMapper hotelMapper) {
+		this.cityDao = cityDao;
+		this.hotelMapper = hotelMapper;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(this.cityMapper.findByState("CA"));
+		System.out.println(this.cityDao.selectCityById(1));
+		System.out.println(this.hotelMapper.selectByCityId(1));
 	}
 
 }
