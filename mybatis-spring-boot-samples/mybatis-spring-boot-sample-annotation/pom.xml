@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.mybatis.spring.boot</groupId>
 		<artifactId>mybatis-spring-boot-samples</artifactId>
-		<version>1.2.1-SNAPSHOT</version>
+		<version>1.2.1</version>
 	</parent>
 	<artifactId>mybatis-spring-boot-sample-annotation</artifactId>
 	<packaging>jar</packaging>
