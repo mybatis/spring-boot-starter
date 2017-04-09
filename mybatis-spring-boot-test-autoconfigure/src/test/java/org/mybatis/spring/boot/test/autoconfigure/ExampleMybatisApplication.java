@@ -13,10 +13,10 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
 package org.mybatis.spring.boot.test.autoconfigure;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * Example {@link SpringBootApplication} used with {@link MybatisTest} tests.
@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.2.1
  */
 @SpringBootApplication
+@EnableCaching
 class ExampleMybatisApplication {
 
 }
