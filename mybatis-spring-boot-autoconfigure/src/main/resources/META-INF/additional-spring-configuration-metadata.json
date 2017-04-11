@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "sourceType": "org.apache.ibatis.session.Configuration",
+      "defaultValue": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+      "name": "mybatis.configuration.default-scripting-language",
+      "description": "A default LanguageDriver class.",
+      "type": "java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>"
+    }
+  ]
+}
