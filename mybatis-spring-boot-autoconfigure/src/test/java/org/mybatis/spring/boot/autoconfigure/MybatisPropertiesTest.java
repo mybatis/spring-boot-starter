@@ -17,8 +17,7 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Eddú Meléndez
@@ -28,7 +27,7 @@ public class MybatisPropertiesTest {
     @Test
     public void emptyMapperLocations() {
         MybatisProperties properties = new MybatisProperties();
-        assertThat(properties.resolveMapperLocations().length, is(0));
+        assertThat(properties.resolveMapperLocations()).isEmpty();
     }
 
     @Test
@@ -38,7 +37,7 @@ public class MybatisPropertiesTest {
                 .setMapperLocations(new String[] {
                         "classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
                         "classpath:org/mybatis/spring/boot/autoconfigure/repository/*Mapper.xml" });
-        assertThat(properties.resolveMapperLocations().length, is(2));
+        assertThat(properties.resolveMapperLocations()).hasSize(2);
     }
 
 	@Test
@@ -48,7 +47,7 @@ public class MybatisPropertiesTest {
 				.setMapperLocations(new String[] {
 						"classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
 						"classpath:org/mybatis/spring/boot/autoconfigure/repositoy/*Mapper.xml" });
-		assertThat(properties.resolveMapperLocations().length, is(1));
+		assertThat(properties.resolveMapperLocations()).hasSize(1);
 	}
 
 }
