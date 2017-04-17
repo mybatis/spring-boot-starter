@@ -23,7 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Eddú Meléndez
@@ -39,7 +39,7 @@ public class SampleMybatisApplicationTest {
 	@Test
 	public void test() {
 		String output = out.toString();
-		assertTrue("Wrong output: " + output, output.contains("1,San Francisco,CA,US"));
+		assertThat(output).contains("1,San Francisco,CA,US");
 	}
 
 }
