@@ -7,9 +7,9 @@ jdk:
   - openjdk7
 
 before_script:
-- mvn install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+- ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
 
-script: mvn install -q -Dmaven.test.redirectTestOutputToFile=true
+script: ./mvnw install -q -Dmaven.test.redirectTestOutputToFile=true
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
