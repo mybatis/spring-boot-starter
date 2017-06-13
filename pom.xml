@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>28</version>
+    <version>29-SNAPSHOT</version>
     <relativePath />
   </parent>
 
@@ -113,16 +113,5 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <build>
-    <plugins>
-      <!-- workaround for https://github.com/mybatis/spring-boot-starter/issues/127 -->
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>3.2.0</version>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>
