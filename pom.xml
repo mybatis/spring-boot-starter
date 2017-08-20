@@ -68,7 +68,7 @@
 
   <properties>
     <mybatis.version>3.4.5</mybatis.version>
-    <mybatis-spring.version>1.3.1</mybatis-spring.version>
+    <mybatis-spring.version>2.0.0-SNAPSHOT</mybatis-spring.version>
     <spring-boot.version>2.0.0.M3</spring-boot.version>
   </properties>
 
@@ -129,6 +129,14 @@
       <url>https://repo.spring.io/milestone</url>
       <snapshots>
         <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>sonatype-oss-snapshots</id>
+      <name>Sonatype OSS Snapshots Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
