@@ -45,7 +45,7 @@ public class AdditionalConfigurationMetadataTest {
 
 		List<Map<String, String>> properties = documentContext.read("$.properties");
 
-		assertThat(properties.size(), is(1));
+		assertThat(properties.size(), is(2));
 
 		// assert for default-scripting-language
 		{
@@ -54,6 +54,15 @@ public class AdditionalConfigurationMetadataTest {
 			assertThat(element.get("defaultValue"), is("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"));
 			assertThat(element.get("name"), is("mybatis.configuration.default-scripting-language"));
 			assertThat(element.get("type"), is("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>"));
+		}
+
+		// assert for default-enum-type-handler
+		{
+		  Map<String, String> element = properties.get(1);
+		  assertThat(element.get("sourceType"), is("org.apache.ibatis.session.Configuration"));
+		  assertThat(element.get("defaultValue"), is("org.apache.ibatis.type.EnumTypeHandler"));
+		  assertThat(element.get("name"), is("mybatis.configuration.default-enum-type-handler"));
+		  assertThat(element.get("type"), is("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"));
 		}
 
 	}
