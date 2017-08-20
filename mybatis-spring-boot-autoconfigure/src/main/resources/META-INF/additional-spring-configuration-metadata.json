@@ -6,6 +6,13 @@
       "name": "mybatis.configuration.default-scripting-language",
       "description": "A default LanguageDriver class.",
       "type": "java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>"
+    },
+    {
+      "sourceType": "org.apache.ibatis.session.Configuration",
+      "defaultValue": "org.apache.ibatis.type.EnumTypeHandler",
+      "name": "mybatis.configuration.default-enum-type-handler",
+      "description": "A default TypeHandler class for Enum.",
+      "type": "java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"
     }
   ]
 }
