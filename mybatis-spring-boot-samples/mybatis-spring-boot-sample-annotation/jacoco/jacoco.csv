@@ -1,3 +1,3 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-mybatis-spring-boot-sample-annotation,sample.mybatis,SampleMybatisApplication,5,13,0,0,2,5,1,2,1,2
+mybatis-spring-boot-sample-annotation,sample.mybatis,SampleAnnotationApplication,5,13,0,0,2,5,1,2,1,2
 mybatis-spring-boot-sample-annotation,sample.mybatis.domain,City,0,54,0,0,0,14,0,10,0,10
