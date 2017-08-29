@@ -50,7 +50,6 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
-import org.springframework.boot.test.util.EnvironmentTestUtils;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -106,20 +105,6 @@ public class MybatisAutoConfigurationTest {
 	@Test
 	public void testWithConfigLocation() {
 		TestPropertyValues.of("mybatis.config-location:mybatis-config.xml").applyTo(this.context);
-		this.context.register(EmbeddedDataSourceConfiguration.class,
-				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
-		this.context.refresh();
-		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
-		assertThat(this.context.getBeanNamesForType(CityMapperImpl.class)).hasSize(1);
-		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.BATCH);
-		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isTrue();
-	}
-
-	@Test
-	public void testWithConfig() {
-		// test for compatibility with 1.0.x
-		TestPropertyValues.of("mybatis.config:mybatis-config.xml").applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
