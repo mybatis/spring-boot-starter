@@ -97,16 +97,6 @@ public class MybatisProperties {
     this.configLocation = configLocation;
   }
 
-  @Deprecated
-  public String getConfig() {
-    return this.configLocation;
-  }
-
-  @Deprecated
-  public void setConfig(String config) {
-    this.configLocation = config;
-  }
-
   public String[] getMapperLocations() {
     return this.mapperLocations;
   }
