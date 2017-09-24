@@ -3,7 +3,7 @@ sudo: false
 
 jdk:
   - oraclejdk8
-  - openjdk7
+  - openjdk8
 
 before_script:
 - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
