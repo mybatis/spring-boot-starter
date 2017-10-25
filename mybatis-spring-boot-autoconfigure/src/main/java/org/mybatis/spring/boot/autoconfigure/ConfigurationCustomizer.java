@@ -23,6 +23,7 @@ import org.apache.ibatis.session.Configuration;
  * @author Kazuki Shimizu
  * @since 1.2.1
  */
+@FunctionalInterface
 public interface ConfigurationCustomizer {
 
   /**

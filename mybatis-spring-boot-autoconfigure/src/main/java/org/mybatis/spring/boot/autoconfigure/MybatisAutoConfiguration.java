@@ -192,9 +192,7 @@ public class MybatisAutoConfiguration {
 
         List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
         if (logger.isDebugEnabled()) {
-          for (String pkg : packages) {
-            logger.debug("Using auto-configuration base package '{}'", pkg);
-          }
+          packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
         }
 
         scanner.setAnnotationClass(Mapper.class);
