@@ -36,9 +36,9 @@
 
         <ul>
           <li>Build standalone applications.</li>
-	      <li>Reduce the boilerplate to almost zero.</li>
-	      <li>Less XML configuration.</li>
-	    </ul>
+          <li>Reduce the boilerplate to almost zero.</li>
+          <li>Less XML configuration.</li>
+        </ul>
             
       </subsection>
 
@@ -329,6 +329,32 @@ ConfigurationCustomizer mybatisConfigurationCustomizer() {
     };
 }]]></source>
 
+      </subsection>
+
+      <subsection name="Using the SpringBootVFS">
+        <p>
+          The MyBatis-Spring-Boot-Starter provides the <code>SpringBootVFS</code> as an implementation class of <code>VFS</code>.
+          The <code>VFS</code> is used for searching classes (e.g. target class of type alias, type handler class) from an application (or application server).
+          If you run a Spring Boot application using the executable jar, you need to use the <code>SpringBootVFS</code>.
+          The auto-configuration feature provided by the MyBatis-Spring-Boot-Starter used it automatically,
+          but it does not use automatically by a manual configuration (e.g. when uses multiple <code>DataSource</code>).
+        </p>
+
+        <p>
+          How to use the <code>SpringBootVFS</code> on manual configuration:
+        </p>
+
+        <source><![CDATA[
+// @Configuration class
+@Bean
+public SqlSessionFactory masterSqlSessionFactory() throws Exception {
+    SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+    factoryBean.setDataSource(masterDataSource());
+    factoryBean.setVfs(SpringBootVFS.class); // Sets the SpringBootVFS class into SqlSessionFactoryBean
+    // ...
+    return factoryBean.getObject();
+}
+]]></source>
       </subsection>
 
       <subsection name="Detecting MyBatis components">
