@@ -47,23 +47,30 @@
 
       <subsection name="Requirements">
         <p>
-          The MyBatis-Spring-Boot-Starter-Test requires Java 6 or higher and the following Spring Boot version:
+          The MyBatis-Spring-Boot-Starter-Test requires following versions:
         </p>
         <table>
           <thead>
             <tr>
               <th>MyBatis-Spring-Boot-Starter-Test</th>
               <th>Spring Boot</th>
+              <th>Java</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>1.3.x (1.3.1)</b></td>
-              <td>1.5 or higher</td>
+              <td><b>2.0</b></td>
+              <td>2.0 or higher</td>
+              <td>8 or higher</td>
             </tr>
             <tr>
-              <td><b>1.2.x (1.2.1)</b></td>
+              <td><b>1.3</b></td>
+              <td>6 or higher</td>
+            </tr>
+            <tr>
+              <td><b>1.2</b></td>
               <td>1.4</td>
+              <td>6 or higher</td>
             </tr>
           </tbody>
         </table>
@@ -99,7 +106,7 @@ dependencies {
           in-memory embedded database.
           MyBatis tests are transactional and rollback at the end of each test by default, for more details
           refer to the <a
-            href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#testcontext-tx-enabling-transactions">
+            href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testcontext-tx-enabling-transactions">
           relevant section in the Spring Reference Documentation</a>.
           Also regular <code>@Component</code> beans will not be loaded into the <code>
           ApplicationContext</code>.
