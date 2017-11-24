@@ -99,7 +99,7 @@
       </p>
         <source><![CDATA[
 dependencies {
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
+  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
 }]]></source>
 
     </subsection>
@@ -128,8 +128,8 @@ dependencies {
 @Mapper
 public interface CityMapper {
 
-    @Select("SELECT * FROM CITY WHERE state = #{state}")
-    City findByState(@Param("state") String state);
+  @Select("SELECT * FROM CITY WHERE state = #{state}")
+  City findByState(@Param("state") String state);
 
 }]]></source>
 
@@ -142,20 +142,20 @@ public interface CityMapper {
 @SpringBootApplication
 public class SampleMybatisApplication implements CommandLineRunner {
 
-    private final CityMapper cityMapper;
+  private final CityMapper cityMapper;
 
-    public SampleMybatisApplication(CityMapper cityMapper) {
-        this.cityMapper = cityMapper;
-    }
+  public SampleMybatisApplication(CityMapper cityMapper) {
+    this.cityMapper = cityMapper;
+  }
 
-    public static void main(String[] args) {
-        SpringApplication.run(SampleMybatisApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(SampleMybatisApplication.class, args);
+  }
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println(this.cityMapper.findByState("CA"));
-    }
+  @Override
+  public void run(String... args) throws Exception {
+    System.out.println(this.cityMapper.findByState("CA"));
+  }
 
 }
 ]]></source>
@@ -181,15 +181,15 @@ public class SampleMybatisApplication implements CommandLineRunner {
 @Component
 public class CityDao {
 
-	private final SqlSession sqlSession;
+  private final SqlSession sqlSession;
 
-	public CityDao(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+  public CityDao(SqlSession sqlSession) {
+    this.sqlSession = sqlSession;
+  }
 
-	public City selectCityById(long id) {
-		return this.sqlSession.selectOne("selectCityById", id);
-	}
+  public City selectCityById(long id) {
+    return this.sqlSession.selectOne("selectCityById", id);
+  }
 
 }]]></source>
        
@@ -200,90 +200,90 @@ public class CityDao {
       <code>application.properties</code>(or <code>application.yml</code>).</p>
       
       <p>MyBatis uses the prefix <code>mybatis</code> for its properties</p>
-      
-      <p>Available properties are:</p>
-      	<table>
-		<thead>
-		  <tr>
-		    <th>
-		      Property
-		    </th>
-		    <th>
-		      Description
-		    </th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr> 
-		    <td>
-		      <code>config-location</code>
-		    </td>
-		    <td>
-		      Location of MyBatis xml config file.
-		    </td>
-		  </tr>
-		  <tr>
-		    <td>
-		      <code>check-config-location</code>
-		    </td>
-		    <td>
-		      Indicates whether perform presence check of the MyBatis xml config file.
-		    </td>
-		  </tr>
-		  <tr>
-		    <td>
-		      <code>mapper-locations</code>
-		    </td>
-		    <td>
-		      Locations of Mapper xml config file.
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      <code>type-aliases-package</code>
-		    </td>
-		    <td>
-		      Packages to search for type aliases. (Package delimiters are "<code>,; \t\n</code>")
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      <code>type-handlers-package</code>
-		    </td>
-		    <td>
-		      Packages to search for type handlers. (Package delimiters are "<code>,; \t\n</code>")
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      <code>executor-type</code>
-		    </td>
-		    <td>
-		      Executor type: <code>SIMPLE</code>, <code>REUSE</code>, <code>BATCH</code>.
-		    </td>
-		  </tr>
-		  <tr>
-		    <td>
-		      <code>configuration-properties</code>
-		    </td>
-		    <td>
-		      Externalized properties for MyBatis configuration. Specified properties can be used as placeholder on MyBatis config file and Mapper file.
-		      For detail see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#properties">MyBatis reference page</a>
-		    </td>
-		  </tr>
-		  <tr>
-		    <td>
-		      <code>configuration</code>
-		    </td>
-		    <td>
-		      A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
-		      <span class="label important">NOTE</span> This property cannot be used at the same time with the <code>config-location</code>.
-		    </td>
-		  </tr>
-		</tbody>
-	  </table>
 
-		<p>For example:</p>
+      <p>Available properties are:</p>
+        <table>
+    <thead>
+      <tr>
+        <th>
+          Property
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code>config-location</code>
+        </td>
+        <td>
+          Location of MyBatis xml config file.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>check-config-location</code>
+        </td>
+        <td>
+          Indicates whether perform presence check of the MyBatis xml config file.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>mapper-locations</code>
+        </td>
+        <td>
+          Locations of Mapper xml config file.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>type-aliases-package</code>
+        </td>
+        <td>
+          Packages to search for type aliases. (Package delimiters are "<code>,; \t\n</code>")
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>type-handlers-package</code>
+        </td>
+        <td>
+          Packages to search for type handlers. (Package delimiters are "<code>,; \t\n</code>")
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>executor-type</code>
+        </td>
+        <td>
+          Executor type: <code>SIMPLE</code>, <code>REUSE</code>, <code>BATCH</code>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>configuration-properties</code>
+        </td>
+        <td>
+          Externalized properties for MyBatis configuration. Specified properties can be used as placeholder on MyBatis config file and Mapper file.
+          For detail see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#properties">MyBatis reference page</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>configuration</code>
+        </td>
+        <td>
+          A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
+          <span class="label important">NOTE</span> This property cannot be used at the same time with the <code>config-location</code>.
+        </td>
+      </tr>
+    </tbody>
+    </table>
+
+    <p>For example:</p>
 <source><![CDATA[
 # application.properties
 mybatis.type-aliases-package=com.example.domain.model
@@ -321,12 +321,12 @@ mybatis:
 // @Configuration class
 @Bean
 ConfigurationCustomizer mybatisConfigurationCustomizer() {
-    return new ConfigurationCustomizer() {
-        @Override
-        public void customize(Configuration configuration) {
-            // customize ...
-        }
-    };
+  return new ConfigurationCustomizer() {
+    @Override
+    public void customize(Configuration configuration) {
+      // customize ...
+    }
+  };
 }]]></source>
 
       </subsection>
@@ -348,11 +348,11 @@ ConfigurationCustomizer mybatisConfigurationCustomizer() {
 // @Configuration class
 @Bean
 public SqlSessionFactory masterSqlSessionFactory() throws Exception {
-    SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-    factoryBean.setDataSource(masterDataSource());
-    factoryBean.setVfs(SpringBootVFS.class); // Sets the SpringBootVFS class into SqlSessionFactoryBean
-    // ...
-    return factoryBean.getObject();
+  SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+  factoryBean.setDataSource(masterDataSource());
+  factoryBean.setVfs(SpringBootVFS.class); // Sets the SpringBootVFS class into SqlSessionFactoryBean
+  // ...
+  return factoryBean.getObject();
 }
 ]]></source>
       </subsection>
@@ -371,40 +371,40 @@ public SqlSessionFactory masterSqlSessionFactory() throws Exception {
       <subsection name="Running Samples">
         <p>The project provides two samples so you play and experiment with them:</p>
         
-      	<table>
-		<thead>
-		  <tr>
-		    <th>
-		      Sample
-		    </th>
-		    <th>
-		      Description
-		    </th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr> 
-		    <td>
-		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
-		      1st Sample
-		      </a>
-		    </td>
-		    <td>
-		      Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section.
-		    </td>
-		  </tr>
-		  <tr> 
-		    <td>
-		      <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml">
-		      2nd Sample
-		      </a>
-		    </td>
-		    <td>
-		      Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <code>SqlSesionTemplate</code>. 
-		    </td>
-		  </tr>
-		</tbody>
-	  </table>
+        <table>
+    <thead>
+      <tr>
+        <th>
+          Sample
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation">
+          1st Sample
+          </a>
+        </td>
+        <td>
+          Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml">
+          2nd Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <code>SqlSesionTemplate</code>.
+        </td>
+      </tr>
+    </tbody>
+    </table>
         
       </subsection> 
     </section>
