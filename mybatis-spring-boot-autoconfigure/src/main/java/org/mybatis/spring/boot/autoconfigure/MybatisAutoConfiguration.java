@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -92,10 +92,10 @@ public class MybatisAutoConfiguration {
   private final List<ConfigurationCustomizer> configurationCustomizers;
 
   public MybatisAutoConfiguration(MybatisProperties properties,
-                                  ObjectProvider<Interceptor[]> interceptorsProvider,
-                                  ResourceLoader resourceLoader,
-                                  ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-                                  ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
+      ObjectProvider<Interceptor[]> interceptorsProvider,
+      ResourceLoader resourceLoader,
+      ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+      ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
     this.properties = properties;
     this.interceptors = interceptorsProvider.getIfAvailable();
     this.resourceLoader = resourceLoader;
@@ -121,16 +121,7 @@ public class MybatisAutoConfiguration {
     if (StringUtils.hasText(this.properties.getConfigLocation())) {
       factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
     }
-    Configuration configuration = this.properties.getConfiguration();
-    if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
-      configuration = new Configuration();
-    }
-    if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
-      for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
-        customizer.customize(configuration);
-      }
-    }
-    factory.setConfiguration(configuration);
+    applyConfiguration(factory);
     if (this.properties.getConfigurationProperties() != null) {
       factory.setConfigurationProperties(this.properties.getConfigurationProperties());
     }
@@ -151,6 +142,19 @@ public class MybatisAutoConfiguration {
     }
 
     return factory.getObject();
+  }
+
+  private void applyConfiguration(SqlSessionFactoryBean factory) {
+    Configuration configuration = this.properties.getConfiguration();
+    if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
+      configuration = new Configuration();
+    }
+    if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
+      for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
+        customizer.customize(configuration);
+      }
+    }
+    factory.setConfiguration(configuration);
   }
 
   @Bean
