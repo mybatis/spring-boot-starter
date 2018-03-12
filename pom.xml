@@ -67,7 +67,7 @@
   </distributionManagement>
 
   <properties>
-    <mybatis.version>3.4.5</mybatis.version>
+    <mybatis.version>3.4.6</mybatis.version>
     <mybatis-spring.version>2.0.0-SNAPSHOT</mybatis-spring.version>
     <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
 
