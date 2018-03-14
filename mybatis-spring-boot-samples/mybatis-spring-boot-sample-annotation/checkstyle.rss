@@ -23,9 +23,9 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation/</link>
     <description>mybatis-spring-boot-sample-annotation - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
     <item>
-      <title>File: 6,
+      <title>File: 5,
              Errors: 0,
              Warnings: 99,
              Infos: 0
@@ -75,20 +75,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation//checkstyle.html#target.classes.application.properties">target/classes/application.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation//checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
                 </td>
                 <td>
                   0
