@@ -23,9 +23,9 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure/</link>
     <description>mybatis-spring-boot-test-autoconfigure - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
     <item>
-      <title>File: 4,
+      <title>File: 3,
              Errors: 0,
              Warnings: 7,
              Infos: 0
@@ -61,20 +61,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis.java">org/mybatis/spring/boot/test/autoconfigure/AutoConfigureMybatis.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
                 </td>
                 <td>
                   0
