@@ -23,7 +23,7 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/</link>
     <description>mybatis-spring-boot-samples - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
     <item>
       <title>File: 6,
              Errors: 0,
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples//checkstyle.html#mybatis-spring-boot-sample-annotation.src.main.resources.application.properties">mybatis-spring-boot-sample-annotation/src/main/resources/application.properties</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples//checkstyle.html#mybatis-spring-boot-sample-annotation.target.maven-archiver.pom.properties">mybatis-spring-boot-sample-annotation/target/maven-archiver/pom.properties</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples//checkstyle.html#mybatis-spring-boot-sample-annotation.target.maven-archiver.pom.properties">mybatis-spring-boot-sample-annotation/target/maven-archiver/pom.properties</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples//checkstyle.html#mybatis-spring-boot-sample-annotation.src.main.resources.application.properties">mybatis-spring-boot-sample-annotation/src/main/resources/application.properties</a>
                 </td>
                 <td>
                   0
