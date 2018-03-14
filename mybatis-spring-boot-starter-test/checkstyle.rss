@@ -23,9 +23,9 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-starter-test/</link>
     <description>mybatis-spring-boot-starter-test - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
     <item>
-      <title>File: 1,
+      <title>File: 0,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -44,20 +44,6 @@ under the License.
             </tr>
           </thead>
           <tbody>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-starter-test//checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
                       </tbody>
         </table>
         
