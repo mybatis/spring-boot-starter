@@ -23,7 +23,7 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/</link>
     <description>mybatis-spring-boot - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
     <item>
       <title>File: 28,
              Errors: 0,
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-autoconfigure.target.maven-archiver.pom.properties">mybatis-spring-boot-autoconfigure/target/maven-archiver/pom.properties</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#release.properties">release.properties</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#release.properties">release.properties</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-autoconfigure.target.maven-archiver.pom.properties">mybatis-spring-boot-autoconfigure/target/maven-archiver/pom.properties</a>
                 </td>
                 <td>
                   0
