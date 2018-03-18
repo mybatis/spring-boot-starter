@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -54,6 +55,7 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -82,11 +84,33 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testNoDataSource() throws Exception {
+	public void testNoDataSource() {
 		this.context.register(MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).isEmpty();
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).isEmpty();
+		assertThat(this.context.getBeanNamesForType(MybatisProperties.class)).isEmpty();
+	}
+
+	@Test
+	public void testMultipleDataSource() {
+		this.context.register(MultipleDataSourceConfiguration.class, MybatisAutoConfiguration.class,
+			PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).isEmpty();
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).isEmpty();
+		assertThat(this.context.getBeanNamesForType(MybatisProperties.class)).isEmpty();
+	}
+
+	@Test
+	public void testSingleCandidateDataSource() {
+		this.context.register(SingleCandidateDataSourceConfiguration.class, MybatisAutoConfiguration.class,
+			PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(MybatisProperties.class)).hasSize(1);
 	}
 
 	@Test
@@ -498,6 +522,31 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
 		assertThat(this.context.getBean(SqlSessionTemplate.class)).isInstanceOf(MySqlSessionTemplate.class);
+	}
+
+	@Configuration
+	static class MultipleDataSourceConfiguration {
+		@Bean
+		DataSource dataSourceMaster() {
+			return Mockito.mock(DataSource.class);
+		}
+		@Bean
+		DataSource dataSourceSlave() {
+			return Mockito.mock(DataSource.class);
+		}
+	}
+
+	@Configuration
+	static class SingleCandidateDataSourceConfiguration {
+		@Bean
+		@Primary
+		DataSource dataSourceMaster() {
+			return Mockito.mock(DataSource.class);
+		}
+		@Bean
+		DataSource dataSourceSlave() {
+			return Mockito.mock(DataSource.class);
+		}
 	}
 
 	@Configuration
