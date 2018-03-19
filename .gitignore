@@ -8,3 +8,4 @@ target/
 .idea
 
 .factorypath
+.mvn/wrapper/maven-wrapper.jar
