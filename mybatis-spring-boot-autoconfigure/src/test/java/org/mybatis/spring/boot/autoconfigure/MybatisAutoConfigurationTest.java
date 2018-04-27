@@ -528,11 +528,10 @@ public class MybatisAutoConfigurationTest {
 
 	@Test
 	public void testTypeAliasesSuperTypeIsSpecify() {
-		EnvironmentTestUtils
-			.addEnvironment(
-				this.context,
-				"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
-				"mybatis.type-aliases-super-type:org.mybatis.spring.boot.autoconfigure.domain.Domain");
+		TestPropertyValues.of(
+			"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
+			"mybatis.type-aliases-super-type:org.mybatis.spring.boot.autoconfigure.domain.Domain")
+			.applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 			MybatisBootMapperScanAutoConfiguration.class);
 		this.context.refresh();
