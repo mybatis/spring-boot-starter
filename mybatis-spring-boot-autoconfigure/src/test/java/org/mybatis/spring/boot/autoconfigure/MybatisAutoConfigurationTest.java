@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -314,6 +314,8 @@ public class MybatisAutoConfigurationTest {
 		assertThat(configuration.getDefaultFetchSize()).isEqualTo(1000);
 		assertThat(configuration.getMappedStatementNames()).contains("selectCityById");
 		assertThat(configuration.getMappedStatementNames()).contains("org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl.selectCityById");
+		assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).containsKey("city");
+		assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).containsKey("name");
 	}
 
 	@Test
@@ -507,6 +509,23 @@ public class MybatisAutoConfigurationTest {
 		this.context.refresh();
 		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
 		assertThat(this.context.getBean(SqlSessionTemplate.class)).isInstanceOf(MySqlSessionTemplate.class);
+	}
+
+	@Test
+	public void testTypeAliasesSuperTypeIsSpecify() {
+		EnvironmentTestUtils
+			.addEnvironment(
+				this.context,
+				"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
+				"mybatis.type-aliases-super-type:org.mybatis.spring.boot.autoconfigure.domain.Domain");
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+			MybatisBootMapperScanAutoConfiguration.class);
+		this.context.refresh();
+
+		org.apache.ibatis.session.Configuration configuration = this.context.getBean(
+			SqlSessionFactory.class).getConfiguration();
+		assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).containsKey("city");
+		assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).doesNotContainKey("name");
 	}
 
 	@Configuration
