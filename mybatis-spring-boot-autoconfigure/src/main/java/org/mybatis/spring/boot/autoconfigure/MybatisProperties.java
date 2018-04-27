@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -56,6 +56,12 @@ public class MybatisProperties {
    * Packages to search type aliases. (Package delimiters are ",; \t\n")
    */
   private String typeAliasesPackage;
+
+  /**
+   * The super class for filtering type alias.
+   * If this not specifies, the MyBatis deal as type alias all classes that searched from typeAliasesPackage.
+   */
+  private Class<?> typeAliasesSuperType;
 
   /**
    * Packages to search for type handlers. (Package delimiters are ",; \t\n")
@@ -120,6 +126,20 @@ public class MybatisProperties {
 
   public void setTypeAliasesPackage(String typeAliasesPackage) {
     this.typeAliasesPackage = typeAliasesPackage;
+  }
+
+  /**
+   * @since 1.3.3
+   */
+  public Class<?> getTypeAliasesSuperType() {
+    return typeAliasesSuperType;
+  }
+
+  /**
+   * @since 1.3.3
+   */
+  public void setTypeAliasesSuperType(Class<?> typeAliasesSuperType) {
+    this.typeAliasesSuperType = typeAliasesSuperType;
   }
 
   public boolean isCheckConfigLocation() {

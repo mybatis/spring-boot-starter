@@ -134,6 +134,9 @@ public class MybatisAutoConfiguration {
     if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
       factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
     }
+    if (this.properties.getTypeAliasesSuperType() != null) {
+      factory.setTypeAliasesSuperType(this.properties.getTypeAliasesSuperType());
+    }
     if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
       factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
     }
