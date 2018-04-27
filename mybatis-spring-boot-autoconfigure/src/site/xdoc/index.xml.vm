@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2015-2017 the original author or authors.
+       Copyright 2015-2018 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -255,6 +255,15 @@ public class CityDao {
         </td>
         <td>
           Packages to search for type aliases. (Package delimiters are "<code>,; \t\n</code>")
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>type-aliases-super-type</code>
+        </td>
+        <td>
+          The super class for filtering type alias.
+          If this not specifies, the MyBatis deal as type alias all classes that searched from <code>type-aliases-package</code>.
         </td>
       </tr>
       <tr>
