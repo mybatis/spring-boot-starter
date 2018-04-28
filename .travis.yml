@@ -1,15 +1,33 @@
 language: java
 sudo: false
 
-jdk:
-  - oraclejdk9
-  - oraclejdk8
-  - openjdk8
+matrix:
+  include:
+# 10
+    - env: JDK='Oracle JDK 10'
+      jdk: openjdk8
+      install:
+        - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+        - . ./install-jdk.sh -F 10 -L BCL
+    - env: JDK='OpenJDK 10'
+      jdk: openjdk8
+      install:
+        - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+        - . ./install-jdk.sh -F 10 -L GPL
+# 9
+    - env: JDK='Oracle JDK 9'
+      jdk: oraclejdk9
+# 8
+    - env: JDK='Oracle JDK 8'
+      jdk: oraclejdk8
+    - env: JDK='OpenJDK 8'
+      jdk: openjdk8
 
-before_script:
-- ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+before_install: wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
 
-script: ./mvnw install -q -Dmaven.test.redirectTestOutputToFile=true
+install: ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+
+script: ./mvnw clean verify -q -Dmaven.test.redirectTestOutputToFile=true
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
