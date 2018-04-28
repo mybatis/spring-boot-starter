@@ -5,15 +5,9 @@ matrix:
   include:
 # 10
     - env: JDK='Oracle JDK 10'
-      jdk: openjdk8
-      install:
-        - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
-        - . ./install-jdk.sh -F 10 -L BCL
+      install: . ./install-jdk.sh -F 10 -L BCL
     - env: JDK='OpenJDK 10'
-      jdk: openjdk8
-      install:
-        - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
-        - . ./install-jdk.sh -F 10 -L GPL
+      install: . ./install-jdk.sh -F 10 -L GPL
 # 9
     - env: JDK='Oracle JDK 9'
       jdk: oraclejdk9
@@ -23,9 +17,11 @@ matrix:
     - env: JDK='OpenJDK 8'
       jdk: openjdk8
 
-before_install: wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
+before_install:
+  - wget https://raw.githubusercontent.com/sormuras/bach/master/install-jdk.sh
+  - ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
 
-install: ./mvnw install -q -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+install: true
 
 script: ./mvnw clean verify -q -Dmaven.test.redirectTestOutputToFile=true
 
