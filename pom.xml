@@ -70,16 +70,6 @@
     <mybatis.version>3.5.0-SNAPSHOT</mybatis.version>
     <mybatis-spring.version>2.0.0-SNAPSHOT</mybatis-spring.version>
     <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
-
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.testSource>1.8</maven.compiler.testSource>
-    <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-
-    <!-- Override: Animal Sniffer Signature -->
-    <signature.group>org.codehaus.mojo.signature</signature.group>
-    <signature.artifact>java18</signature.artifact>
-    <signature.version>1.0</signature.version>
   </properties>
 
   <dependencyManagement>
