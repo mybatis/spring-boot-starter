@@ -86,6 +86,7 @@
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-starter-test</artifactId>
     <version>${project.version}</version>
+    <scope>test</scope>
 </dependency>]]></source>
 
         <p>
@@ -93,7 +94,7 @@
         </p>
         <source><![CDATA[
 dependencies {
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
+    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
 }]]></source>
 
       </subsection>
