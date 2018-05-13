@@ -93,7 +93,7 @@
         </p>
         <source><![CDATA[
 dependencies {
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
+    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
 }]]></source>
 
       </subsection>
