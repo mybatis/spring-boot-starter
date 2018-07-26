@@ -30,6 +30,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -223,15 +224,19 @@ public class MybatisAutoConfiguration {
 
   /**
    * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up
-   * creating instances of {@link MapperFactoryBean}. If
-   * {@link org.mybatis.spring.annotation.MapperScan} is used then this
+   * creating instances of {@link MapperFactoryBean}.
+   * {@link org.mybatis.spring.mapper.MapperScannerConfigurer} is also a way
+   * to register components and it create instances of {@link MapperFactoryBean}
+   * by {@link MapperScannerConfigurer#postProcessBeanDefinitionRegistry} that after this bean create.
+   * If {@link org.mybatis.spring.annotation.MapperScan} or
+   * {@link org.mybatis.spring.mapper.MapperScannerConfigurer} is used then this
    * auto-configuration is not needed. If it is _not_ used, however, then this
    * will bring in a bean registrar and automatically register components based
    * on the same component-scanning path as Spring Boot itself.
    */
   @org.springframework.context.annotation.Configuration
   @Import({ AutoConfiguredMapperScannerRegistrar.class })
-  @ConditionalOnMissingBean(MapperFactoryBean.class)
+  @ConditionalOnMissingBean({MapperFactoryBean.class, MapperScannerConfigurer.class})
   public static class MapperScannerRegistrarNotFoundConfiguration {
 
     @PostConstruct
