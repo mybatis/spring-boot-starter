@@ -69,7 +69,7 @@
   <properties>
     <mybatis.version>3.5.0-SNAPSHOT</mybatis.version>
     <mybatis-spring.version>2.0.0-SNAPSHOT</mybatis-spring.version>
-    <spring-boot.version>2.0.2.RELEASE</spring-boot.version>
+    <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
   </properties>
 
   <dependencyManagement>
