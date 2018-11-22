@@ -3,9 +3,12 @@ sudo: false
 
 matrix:
   include:
+# 11
+    - env: JDK='Oracle JDK 11'
+      jdk: oraclejdk11
+    - env: JDK='OpenJDK 11'
+      jdk: openjdk11
 # 10
-    - env: JDK='Oracle JDK 10'
-      install: . ./install-jdk.sh -F 10 -L BCL
     - env: JDK='OpenJDK 10'
       install: . ./install-jdk.sh -F 10 -L GPL
 # 9

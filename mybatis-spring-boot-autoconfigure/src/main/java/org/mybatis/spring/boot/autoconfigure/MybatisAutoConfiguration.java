@@ -17,7 +17,6 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -37,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
@@ -78,7 +78,7 @@ import org.springframework.util.StringUtils;
 @ConditionalOnSingleCandidate(DataSource.class)
 @EnableConfigurationProperties(MybatisProperties.class)
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
-public class MybatisAutoConfiguration {
+public class MybatisAutoConfiguration implements InitializingBean {
 
   private static final Logger logger = LoggerFactory.getLogger(MybatisAutoConfiguration.class);
 
@@ -104,8 +104,12 @@ public class MybatisAutoConfiguration {
     this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
   }
 
-  @PostConstruct
-  public void checkConfigFileExists() {
+  @Override
+  public void afterPropertiesSet() {
+    checkConfigFileExists();
+  }
+
+  private void checkConfigFileExists() {
     if (this.properties.isCheckConfigLocation() && StringUtils.hasText(this.properties.getConfigLocation())) {
       Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
       Assert.state(resource.exists(), "Cannot find config location: " + resource
@@ -237,11 +241,11 @@ public class MybatisAutoConfiguration {
   @org.springframework.context.annotation.Configuration
   @Import({ AutoConfiguredMapperScannerRegistrar.class })
   @ConditionalOnMissingBean({MapperFactoryBean.class, MapperScannerConfigurer.class})
-  public static class MapperScannerRegistrarNotFoundConfiguration {
+  public static class MapperScannerRegistrarNotFoundConfiguration implements InitializingBean {
 
-    @PostConstruct
+    @Override
     public void afterPropertiesSet() {
-      logger.debug("No {} found.", MapperFactoryBean.class.getName());
+      logger.debug("No {} and {} found.", MapperFactoryBean.class.getName(), MapperScannerConfigurer.class.getName());
     }
   }
 
