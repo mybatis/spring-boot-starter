@@ -37,6 +37,10 @@
 		</contributor>
 	</contributors>
 
+	<properties>
+		<module.name>org.mybatis.spring.boot.autoconfigure</module.name>
+	</properties>
+
 	<dependencies>
 		<!-- Compile dependencies -->
 		<dependency>

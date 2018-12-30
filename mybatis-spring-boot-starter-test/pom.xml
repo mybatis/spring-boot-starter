@@ -25,6 +25,9 @@
   </parent>
   <artifactId>mybatis-spring-boot-starter-test</artifactId>
   <name>mybatis-spring-boot-starter-test</name>
+  <properties>
+    <module.name>org.mybatis.spring.boot.starter.test</module.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

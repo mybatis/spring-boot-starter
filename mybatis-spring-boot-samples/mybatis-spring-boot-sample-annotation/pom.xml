@@ -26,6 +26,9 @@
   <artifactId>mybatis-spring-boot-sample-annotation</artifactId>
   <packaging>jar</packaging>
   <name>mybatis-spring-boot-sample-annotation</name>
+  <properties>
+    <module.name>org.mybatis.spring.boot.sample.annotation</module.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>

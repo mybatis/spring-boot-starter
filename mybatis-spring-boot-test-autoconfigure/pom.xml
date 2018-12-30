@@ -26,6 +26,9 @@
   </parent>
   <artifactId>mybatis-spring-boot-test-autoconfigure</artifactId>
   <name>mybatis-spring-boot-test-autoconfigure</name>
+  <properties>
+    <module.name>org.mybatis.spring.boot.test.autoconfigure</module.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

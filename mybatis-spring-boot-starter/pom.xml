@@ -25,6 +25,9 @@
   </parent>
   <artifactId>mybatis-spring-boot-starter</artifactId>
   <name>mybatis-spring-boot-starter</name>
+  <properties>
+    <module.name>org.mybatis.spring.boot.starter</module.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
