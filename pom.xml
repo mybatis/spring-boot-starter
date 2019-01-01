@@ -107,7 +107,7 @@
       <dependency> <!-- override version managed by spring-boot-dependencies for build on JDK 11 (Can remove when update to spring boot 2.1.x) -->
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>2.23.0</version>
+        <version>2.23.4</version>
       </dependency>
       <dependency> <!-- override version managed by spring-boot-dependencies for build on JDK 11 (Can remove when update to spring boot 2.1.x) -->
         <groupId>net.bytebuddy</groupId>
