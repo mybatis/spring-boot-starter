@@ -148,7 +148,7 @@ public interface CityMapper {
         <source><![CDATA[
 package sample.mybatis.mapper;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import sample.mybatis.domain.City;
@@ -214,7 +214,7 @@ public class CityDao {
         <source><![CDATA[
 package sample.mybatis.dao;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
