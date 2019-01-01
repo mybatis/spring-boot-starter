@@ -112,12 +112,12 @@
       <dependency> <!-- override version managed by spring-boot-dependencies for build on JDK 11 (Can remove when update to spring boot 2.1.x) -->
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy</artifactId>
-        <version>1.9.2</version>
+        <version>1.9.6</version>
       </dependency>
       <dependency> <!-- override version managed by spring-boot-dependencies for build on JDK 11 (Can remove when update to spring boot 2.1.x) -->
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy-agent</artifactId>
-        <version>1.9.2</version>
+        <version>1.9.6</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
