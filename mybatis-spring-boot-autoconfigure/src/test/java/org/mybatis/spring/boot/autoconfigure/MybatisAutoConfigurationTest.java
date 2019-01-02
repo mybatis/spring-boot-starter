@@ -33,8 +33,9 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -67,16 +68,17 @@ import static org.assertj.core.api.Assertions.fail;
  * @author Josh Long
  * @author Kazuki Shimizu
  */
+@Disabled
 public class MybatisAutoConfigurationTest {
 
 	private AnnotationConfigApplicationContext context;
 
-	@Before
+	@BeforeEach
 	public void init() {
 		this.context = new AnnotationConfigApplicationContext();
 	}
 
-	@After
+	@AfterEach
 	public void closeContext() {
 		if (this.context != null) {
 			this.context.close();
