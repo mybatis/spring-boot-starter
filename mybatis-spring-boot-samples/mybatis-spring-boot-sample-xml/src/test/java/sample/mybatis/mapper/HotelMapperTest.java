@@ -16,10 +16,10 @@
 package sample.mybatis.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sample.mybatis.domain.Hotel;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author wonwoo
  * @since 1.2.1
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @MybatisTest
 public class HotelMapperTest {
 

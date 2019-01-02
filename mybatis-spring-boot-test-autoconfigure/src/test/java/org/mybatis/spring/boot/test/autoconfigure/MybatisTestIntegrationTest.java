@@ -15,15 +15,15 @@
  */
 package org.mybatis.spring.boot.test.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -33,10 +33,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration tests for {@link MybatisTest}.
@@ -44,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author wonwoo
  * @since 1.2.1
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @MybatisTest
 @TestPropertySource(properties = {
   "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
@@ -52,9 +50,6 @@ import static org.assertj.core.api.Assertions.assertThat;
   "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql"
 })
 public class MybatisTestIntegrationTest {
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   @Autowired
   private SampleMapper sampleMapper;
@@ -101,8 +96,9 @@ public class MybatisTestIntegrationTest {
 
   @Test
   public void didNotInjectExampleComponent() {
-    this.thrown.expect(NoSuchBeanDefinitionException.class);
-    this.applicationContext.getBean(ExampleComponent.class);
+    Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> {
+      this.applicationContext.getBean(ExampleComponent.class);
+    });
   }
 
 }
