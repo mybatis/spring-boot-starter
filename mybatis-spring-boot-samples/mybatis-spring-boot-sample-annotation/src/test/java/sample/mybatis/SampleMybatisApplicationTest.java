@@ -15,7 +15,6 @@
  */
 package sample.mybatis;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Eddú Meléndez
  * @author Kazuki Shimizu
  */
-@Disabled
 @CaptureSystemOutput
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

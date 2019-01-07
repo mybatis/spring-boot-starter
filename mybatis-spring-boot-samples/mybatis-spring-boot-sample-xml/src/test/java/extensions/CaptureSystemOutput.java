@@ -31,8 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matcher;
+import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
@@ -73,6 +74,9 @@ import org.junit.platform.commons.support.ReflectionSupport;
  * <p>Borrowing source from Sam Brannen as listed online at spring and stackoverflow from here
  * <a href="https://github.com/sbrannen/junit5-demo/blob/master/src/test/java/extensions/CaptureSystemOutput.java">CaptureSystemOutput</a>
  * 
+ * <p>Additional changes to Sam Brannen logic supplied by kazuki43zoo from here
+ * <a href="https://github.com/kazuki43zoo/mybatis-spring-boot/commit/317c9809326baba1f6ee0a0f8c2c471cd75993b3">enhancement capture</a>
+ *
  * @author Sam Brannen
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -82,13 +86,17 @@ import org.junit.platform.commons.support.ReflectionSupport;
 @ExtendWith(CaptureSystemOutput.Extension.class)
 public @interface CaptureSystemOutput {
 
-    class Extension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
+    class Extension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
 
         @Override
-        public void beforeEach(ExtensionContext context) throws Exception {
+        public void beforeAll(ExtensionContext context) throws Exception {
             getOutputCapture(context).captureOutput();
         }
 
+        public void afterAll(ExtensionContext context) throws Exception {
+            getOutputCapture(context).releaseOutput();
+        }
+        
         @Override
         public void afterEach(ExtensionContext context) throws Exception {
             OutputCapture outputCapture = getOutputCapture(context);
@@ -99,7 +107,7 @@ public @interface CaptureSystemOutput {
                 }
             }
             finally {
-                outputCapture.releaseOutput();
+                outputCapture.reset();
             }
         }
 
@@ -124,7 +132,7 @@ public @interface CaptureSystemOutput {
         }
 
         private Store getStore(ExtensionContext context) {
-            return context.getStore(Namespace.create(getClass(), context.getRequiredTestMethod()));
+            return context.getStore(Namespace.create(getClass()));
         }
 
     }
@@ -198,6 +206,11 @@ public @interface CaptureSystemOutput {
         public String toString() {
             flush();
             return this.copy.toString();
+        }
+
+        void reset() {
+            this.matchers.clear();
+            this.copy.reset();
         }
 
         private static class CaptureOutputStream extends OutputStream {
