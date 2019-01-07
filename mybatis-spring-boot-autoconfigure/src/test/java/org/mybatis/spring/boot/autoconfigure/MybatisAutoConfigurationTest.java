@@ -67,24 +67,24 @@ import static org.assertj.core.api.Assertions.fail;
  * @author Josh Long
  * @author Kazuki Shimizu
  */
-public class MybatisAutoConfigurationTest {
+class MybatisAutoConfigurationTest {
 
 	private AnnotationConfigApplicationContext context;
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		this.context = new AnnotationConfigApplicationContext();
 	}
 
 	@AfterEach
-	public void closeContext() {
+	void closeContext() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
 	@Test
-	public void testNoDataSource() {
+	void testNoDataSource() {
 		this.context.register(MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
@@ -94,7 +94,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMultipleDataSource() {
+	void testMultipleDataSource() {
 		this.context.register(MultipleDataSourceConfiguration.class, MybatisAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
@@ -104,7 +104,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testSingleCandidateDataSource() {
+	void testSingleCandidateDataSource() {
 		this.context.register(SingleCandidateDataSourceConfiguration.class, MybatisAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
@@ -114,7 +114,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testDefaultConfiguration() {
+	void testDefaultConfiguration() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
@@ -127,7 +127,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigLocation() {
+	void testWithConfigLocation() {
 		TestPropertyValues.of("mybatis.config-location:mybatis-config.xml").applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MybatisMapperConfiguration.class,
@@ -140,7 +140,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithCheckConfigLocationFileExists() {
+	void testWithCheckConfigLocationFileExists() {
 		TestPropertyValues.of("mybatis.config-location:mybatis-config.xml",
 				"mybatis.check-config-location=true").applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -150,7 +150,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithCheckConfigLocationFileNotSpecify() {
+	void testWithCheckConfigLocationFileNotSpecify() {
 		TestPropertyValues.of("mybatis.check-config-location=true").applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class);
@@ -159,7 +159,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithCheckConfigLocationFileDoesNotExists() {
+	void testWithCheckConfigLocationFileDoesNotExists() {
 
 		TestPropertyValues.of("mybatis.config-location:foo.xml",
 				"mybatis.check-config-location=true")
@@ -176,7 +176,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithTypeHandlersPackage() {
+	void testWithTypeHandlersPackage() {
 		TestPropertyValues.of("mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler")
 				.applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
@@ -189,7 +189,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithMapperLocation() {
+	void testWithMapperLocation() {
 		TestPropertyValues.of(
 				"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
 				"mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml")
@@ -202,7 +202,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithExecutorType() {
+	void testWithExecutorType() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config.xml", "mybatis.executor-type:REUSE")
 				.applyTo(this.context);
@@ -214,7 +214,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testDefaultBootConfiguration() {
+	void testDefaultBootConfiguration() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class,
 				MybatisAutoConfiguration.class,
@@ -226,7 +226,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithInterceptors() {
+	void testWithInterceptors() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisInterceptorConfiguration.class,
 				MybatisAutoConfiguration.class,
@@ -239,7 +239,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithDatabaseIdProvider() {
+	void testWithDatabaseIdProvider() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				DatabaseProvidersConfiguration.class,
 				MybatisAutoConfiguration.class,
@@ -249,7 +249,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedWithConfigurationFileAndInterceptor() {
+	void testMixedWithConfigurationFileAndInterceptor() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml")
 				.applyTo(this.context);
@@ -268,7 +268,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedWithConfigurationFileAndDatabaseIdProvider() {
+	void testMixedWithConfigurationFileAndDatabaseIdProvider() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml")
 				.applyTo(this.context);
@@ -287,7 +287,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedWithConfigurationFileAndTypeHandlersPackage() {
+	void testMixedWithConfigurationFileAndTypeHandlersPackage() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml",
 				"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler")
@@ -306,7 +306,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedWithConfigurationFileAndTypeAliasesPackageAndMapperLocations() {
+	void testMixedWithConfigurationFileAndTypeAliasesPackageAndMapperLocations() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml",
 				"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
@@ -329,7 +329,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMixedWithFullConfigurations() {
+	void testMixedWithFullConfigurations() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml",
 				"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler",
@@ -362,7 +362,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithMyBatisConfiguration() {
+	void testWithMyBatisConfiguration() {
 		TestPropertyValues.of(
 				"mybatis.configuration.map-underscore-to-camel-case:true")
 				.applyTo(this.context);
@@ -373,7 +373,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithMyBatisConfigurationCustomizeByJavaConfig() {
+	void testWithMyBatisConfigurationCustomizeByJavaConfig() {
 		TestPropertyValues.of(
 				"mybatis.configuration.default-fetch-size:100")
 				.applyTo(this.context);
@@ -388,7 +388,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithMyBatisConfigurationCustomizer() {
+	void testWithMyBatisConfigurationCustomizer() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 			MybatisAutoConfiguration.class,
 			MyBatisConfigurationCustomizerConfiguration.class);
@@ -400,7 +400,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testConfigFileAndConfigurationWithTogether() {
+	void testConfigFileAndConfigurationWithTogether() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config.xml",
 				"mybatis.configuration.default-statement-timeout:30")
@@ -417,7 +417,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithoutConfigurationVariablesAndProperties() {
+	void testWithoutConfigurationVariablesAndProperties() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
@@ -428,7 +428,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigurationVariablesOnly() {
+	void testWithConfigurationVariablesOnly() {
 		TestPropertyValues.of(
 				"mybatis.configuration.variables.key1:value1")
 				.applyTo(this.context);
@@ -443,7 +443,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigurationPropertiesOnly() {
+	void testWithConfigurationPropertiesOnly() {
 		TestPropertyValues.of(
 				"mybatis.configuration-properties.key2:value2")
 				.applyTo(this.context);
@@ -458,7 +458,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigurationVariablesAndPropertiesOtherKey() {
+	void testWithConfigurationVariablesAndPropertiesOtherKey() {
 		TestPropertyValues.of(
 				"mybatis.configuration.variables.key1:value1",
 				"mybatis.configuration-properties.key2:value2")
@@ -475,7 +475,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testWithConfigurationVariablesAndPropertiesSameKey() {
+	void testWithConfigurationVariablesAndPropertiesSameKey() {
 		TestPropertyValues.of(
 				"mybatis.configuration.variables.key:value1",
 				"mybatis.configuration-properties.key:value2")
@@ -491,7 +491,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testCustomSqlSessionFactory() {
+	void testCustomSqlSessionFactory() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, CustomSqlSessionFactoryConfiguration.class);
 		this.context.refresh();
@@ -500,7 +500,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMySqlSessionFactory() {
+	void testMySqlSessionFactory() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MySqlSessionFactoryConfiguration.class);
 		this.context.refresh();
@@ -509,7 +509,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testCustomSqlSessionTemplate() {
+	void testCustomSqlSessionTemplate() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, CustomSqlSessionTemplateConfiguration.class);
 		this.context.refresh();
@@ -518,7 +518,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testMySqlSessionTemplate() {
+	void testMySqlSessionTemplate() {
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisAutoConfiguration.class, MySqlSessionTemplateConfiguration.class);
 		this.context.refresh();
@@ -527,7 +527,7 @@ public class MybatisAutoConfigurationTest {
 	}
 
 	@Test
-	public void testTypeAliasesSuperTypeIsSpecify() {
+	void testTypeAliasesSuperTypeIsSpecify() {
 		TestPropertyValues.of(
 			"mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
 			"mybatis.type-aliases-super-type:org.mybatis.spring.boot.autoconfigure.domain.Domain")

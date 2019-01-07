@@ -22,16 +22,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Eddú Meléndez
  */
-public class MybatisPropertiesTest {
+class MybatisPropertiesTest {
 
     @Test
-    public void emptyMapperLocations() {
+    void emptyMapperLocations() {
         MybatisProperties properties = new MybatisProperties();
         assertThat(properties.resolveMapperLocations()).isEmpty();
     }
 
     @Test
-    public void twoLocations() {
+    void twoLocations() {
         MybatisProperties properties = new MybatisProperties();
         properties
                 .setMapperLocations(new String[] {
@@ -41,7 +41,7 @@ public class MybatisPropertiesTest {
     }
 
 	@Test
-	public void twoLocationsWithOneIncorrectLocation() {
+	void twoLocationsWithOneIncorrectLocation() {
 		MybatisProperties properties = new MybatisProperties();
 		properties
 				.setMapperLocations(new String[] {

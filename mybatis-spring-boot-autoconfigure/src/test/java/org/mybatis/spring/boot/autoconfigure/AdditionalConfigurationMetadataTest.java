@@ -33,10 +33,10 @@ import org.springframework.core.io.FileSystemResource;
  * @author Kazuki Shimizu
  * @since 1.3.1
  */
-public class AdditionalConfigurationMetadataTest {
+class AdditionalConfigurationMetadataTest {
 
 	@Test
-	public void testProperties() throws IOException {
+	void testProperties() throws IOException {
 
 		DocumentContext documentContext = JsonPath
 				.parse(new FileSystemResource("src/main/resources/META-INF/additional-spring-configuration-metadata.json")

@@ -31,13 +31,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @MybatisTest
-public class HotelMapperTest {
+class HotelMapperTest {
 
   @Autowired
   private HotelMapper hotelMapper;
 
   @Test
-  public void selectByCityIdTest() {
+  void selectByCityIdTest() {
     Hotel hotel = hotelMapper.selectByCityId(1);
     assertThat(hotel.getName()).isEqualTo("Conrad Treasury Place");
     assertThat(hotel.getAddress()).isEqualTo("William & George Streets");

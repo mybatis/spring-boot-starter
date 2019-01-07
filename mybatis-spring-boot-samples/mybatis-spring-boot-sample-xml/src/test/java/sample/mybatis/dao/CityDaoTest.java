@@ -33,13 +33,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @MybatisTest
 @Import(CityDao.class)
-public class CityDaoTest {
+class CityDaoTest {
 
   @Autowired
   private CityDao cityDao;
 
   @Test
-  public void selectCityByIdTest() {
+  void selectCityByIdTest() {
     City city = cityDao.selectCityById(1);
     assertThat(city.getName()).isEqualTo("San Francisco");
     assertThat(city.getState()).isEqualTo("CA");

@@ -49,7 +49,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
   "logging.level.org.springframework.jdbc=debug",
   "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql"
 })
-public class MybatisTestIntegrationTest {
+class MybatisTestIntegrationTest {
 
   @Autowired
   private SampleMapper sampleMapper;
@@ -61,7 +61,7 @@ public class MybatisTestIntegrationTest {
   private ApplicationContext applicationContext;
 
   @Test
-  public void testSqlSession() {
+  void testSqlSession() {
     Map<String, Object> parameters = new HashMap<String, Object>();
     parameters.put("id", 1);
     parameters.put("name", "wonwoo");
@@ -72,7 +72,7 @@ public class MybatisTestIntegrationTest {
   }
 
   @Test
-  public void testMapper() {
+  void testMapper() {
     Map<String, Object> parameters = new HashMap<String, Object>();
     parameters.put("id", 1);
     parameters.put("name", "wonwoo");
@@ -83,7 +83,7 @@ public class MybatisTestIntegrationTest {
   }
 
   @Test
-  public void testAutoConfigureComponents() {
+  void testAutoConfigureComponents() {
     // @AutoConfigureMybatis
     this.applicationContext.getBean(JdbcTemplate.class);
     this.applicationContext.getBean(NamedParameterJdbcTemplate.class);
@@ -95,7 +95,7 @@ public class MybatisTestIntegrationTest {
   }
 
   @Test
-  public void didNotInjectExampleComponent() {
+  void didNotInjectExampleComponent() {
     Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> {
       this.applicationContext.getBean(ExampleComponent.class);
     });

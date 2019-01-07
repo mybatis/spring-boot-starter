@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @CaptureSystemOutput
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class SampleMybatisApplicationTest {
+class SampleMybatisApplicationTest {
 
 	@Test
 	void test(OutputCapture outputCapture) {

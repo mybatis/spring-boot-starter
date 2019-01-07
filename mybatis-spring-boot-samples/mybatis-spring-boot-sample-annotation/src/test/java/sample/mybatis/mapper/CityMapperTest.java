@@ -32,13 +32,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @MybatisTest
-public class CityMapperTest {
+class CityMapperTest {
 
   @Autowired
   private CityMapper cityMapper;
 
   @Test
-  public void findByStateTest() {
+  void findByStateTest() {
     City city = cityMapper.findByState("CA");
     assertThat(city.getName()).isEqualTo("San Francisco");
     assertThat(city.getState()).isEqualTo("CA");
