@@ -615,22 +615,11 @@ class MybatisAutoConfigurationTest {
 	static class MyBatisConfigurationCustomizerConfiguration {
 		@Bean
 		ConfigurationCustomizer typeHandlerConfigurationCustomizer() {
-			return new ConfigurationCustomizer() {
-				@Override
-				public void customize(org.apache.ibatis.session.Configuration configuration) {
-					configuration.getTypeHandlerRegistry()
-						.register(new DummyTypeHandler());
-				}
-			};
+			return configuration -> configuration.getTypeHandlerRegistry().register(new DummyTypeHandler());
 		}
 		@Bean
 		ConfigurationCustomizer cacheConfigurationCustomizer() {
-			return new ConfigurationCustomizer() {
-				@Override
-				public void customize(org.apache.ibatis.session.Configuration configuration) {
-					configuration.addCache(new PerpetualCache("test"));
-				}
-			};
+			return configuration -> configuration.addCache(new PerpetualCache("test"));
 		}
 	}
 
@@ -640,7 +629,7 @@ class MybatisAutoConfigurationTest {
 	static class MyInterceptor implements Interceptor {
 
 		@Override
-		public Object intercept(Invocation invocation) throws Throwable {
+		public Object intercept(Invocation invocation) {
 			return "Test";
 		}
 
@@ -719,13 +708,13 @@ class MybatisAutoConfigurationTest {
 	}
 
 	static class MySqlSessionFactory extends DefaultSqlSessionFactory {
-		public MySqlSessionFactory(org.apache.ibatis.session.Configuration configuration) {
+		MySqlSessionFactory(org.apache.ibatis.session.Configuration configuration) {
 			super(configuration);
 		}
 	}
 
 	static class MySqlSessionTemplate extends SqlSessionTemplate {
-		public MySqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		MySqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 			super(sqlSessionFactory);
 		}
 	}

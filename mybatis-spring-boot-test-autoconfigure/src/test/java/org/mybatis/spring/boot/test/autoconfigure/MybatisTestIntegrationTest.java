@@ -62,7 +62,7 @@ class MybatisTestIntegrationTest {
 
   @Test
   void testSqlSession() {
-    Map<String, Object> parameters = new HashMap<String, Object>();
+    Map<String, Object> parameters = new HashMap<>();
     parameters.put("id", 1);
     parameters.put("name", "wonwoo");
     sqlSession.insert("saveSample", parameters);
@@ -73,7 +73,7 @@ class MybatisTestIntegrationTest {
 
   @Test
   void testMapper() {
-    Map<String, Object> parameters = new HashMap<String, Object>();
+    Map<String, Object> parameters = new HashMap<>();
     parameters.put("id", 1);
     parameters.put("name", "wonwoo");
     sqlSession.insert("saveSample", parameters);
@@ -96,9 +96,9 @@ class MybatisTestIntegrationTest {
 
   @Test
   void didNotInjectExampleComponent() {
-    Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> {
-      this.applicationContext.getBean(ExampleComponent.class);
-    });
+    Assertions.assertThrows(NoSuchBeanDefinitionException.class, () ->
+      this.applicationContext.getBean(ExampleComponent.class)
+    );
   }
 
 }
