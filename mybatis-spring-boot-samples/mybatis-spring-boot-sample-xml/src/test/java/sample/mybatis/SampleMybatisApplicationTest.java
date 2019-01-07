@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2018 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 package sample.mybatis;
 
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.rule.OutputCapture;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import extensions.CaptureSystemOutput;
+import extensions.CaptureSystemOutput.OutputCapture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,16 +29,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Eddú Meléndez
  * @author Kazuki Shimizu
  */
-@RunWith(SpringRunner.class)
+@CaptureSystemOutput
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class SampleMybatisApplicationTest {
 
-	@ClassRule
-	public static OutputCapture out = new OutputCapture();
-
 	@Test
-	public void test() {
-		String output = out.toString();
+	void test(OutputCapture outputCapture) {
+		String output = outputCapture.toString();
 		assertThat(output).contains("1,San Francisco,CA,US");
 		assertThat(output).contains("1,Conrad Treasury Place,William & George Streets,4001");
 	}

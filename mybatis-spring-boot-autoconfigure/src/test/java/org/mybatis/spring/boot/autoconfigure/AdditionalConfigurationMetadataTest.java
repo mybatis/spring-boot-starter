@@ -15,18 +15,17 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
-
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * Tests for definition of additional-spring-configuration-metadata.json.
@@ -45,24 +44,24 @@ public class AdditionalConfigurationMetadataTest {
 
 		List<Map<String, String>> properties = documentContext.read("$.properties");
 
-		assertThat(properties.size(), is(2));
+		assertThat(properties.size()).isEqualTo(2);
 
 		// assert for default-scripting-language
 		{
 			Map<String, String> element = properties.get(0);
-			assertThat(element.get("sourceType"), is("org.apache.ibatis.session.Configuration"));
-			assertThat(element.get("defaultValue"), is("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"));
-			assertThat(element.get("name"), is("mybatis.configuration.default-scripting-language"));
-			assertThat(element.get("type"), is("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>"));
+			assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
+			assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver");
+			assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-scripting-language");
+			assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>");
 		}
 
 		// assert for default-enum-type-handler
 		{
 		  Map<String, String> element = properties.get(1);
-		  assertThat(element.get("sourceType"), is("org.apache.ibatis.session.Configuration"));
-		  assertThat(element.get("defaultValue"), is("org.apache.ibatis.type.EnumTypeHandler"));
-		  assertThat(element.get("name"), is("mybatis.configuration.default-enum-type-handler"));
-		  assertThat(element.get("type"), is("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"));
+		  assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
+		  assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.type.EnumTypeHandler");
+		  assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-enum-type-handler");
+		  assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>");
 		}
 
 	}

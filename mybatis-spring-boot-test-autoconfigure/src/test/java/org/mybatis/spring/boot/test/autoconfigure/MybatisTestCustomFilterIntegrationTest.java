@@ -16,13 +16,13 @@
 package org.mybatis.spring.boot.test.autoconfigure;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Kazuki Shimizu
  * @since 1.2.1
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @MybatisTest(includeFilters = @ComponentScan.Filter(Component.class), excludeFilters = @ComponentScan.Filter(Service.class))
 @TestPropertySource(properties = {
   "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure"
