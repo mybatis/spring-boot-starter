@@ -35,7 +35,6 @@ import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -68,7 +67,6 @@ import static org.assertj.core.api.Assertions.fail;
  * @author Josh Long
  * @author Kazuki Shimizu
  */
-@Disabled
 public class MybatisAutoConfigurationTest {
 
 	private AnnotationConfigApplicationContext context;
