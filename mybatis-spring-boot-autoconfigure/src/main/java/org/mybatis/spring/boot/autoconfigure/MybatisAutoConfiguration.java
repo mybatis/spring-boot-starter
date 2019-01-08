@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2018 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -192,26 +192,26 @@ public class MybatisAutoConfiguration implements InitializingBean {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
+      if (!AutoConfigurationPackages.has(this.beanFactory)) {
+        logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.");
+        return;
+      }
+
       logger.debug("Searching for mappers annotated with @Mapper");
 
-      ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
-
-      try {
-        if (this.resourceLoader != null) {
-          scanner.setResourceLoader(this.resourceLoader);
-        }
-
-        List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
-        if (logger.isDebugEnabled()) {
-          packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
-        }
-
-        scanner.setAnnotationClass(Mapper.class);
-        scanner.registerFilters();
-        scanner.doScan(StringUtils.toStringArray(packages));
-      } catch (IllegalStateException ex) {
-        logger.debug("Could not determine auto-configuration package, automatic mapper scanning disabled.", ex);
+      List<String> packages = AutoConfigurationPackages.get(this.beanFactory);
+      if (logger.isDebugEnabled()) {
+        packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
       }
+
+      ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
+      if (this.resourceLoader != null) {
+        scanner.setResourceLoader(this.resourceLoader);
+      }
+      scanner.setAnnotationClass(Mapper.class);
+      scanner.registerFilters();
+      scanner.doScan(StringUtils.toStringArray(packages));
+
     }
 
     @Override
