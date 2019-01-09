@@ -4,7 +4,9 @@ jdk:
   - oraclejdk11
   - oraclejdk8
 
-script: ./mvnw clean verify -q -Dmaven.test.redirectTestOutputToFile=true
+script:
+  - ./mvnw clean verify
+  - ./mvnw clean verify -Dspring-boot.version=2.1.1.RELEASE
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
