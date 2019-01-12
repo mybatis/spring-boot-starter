@@ -6,7 +6,7 @@ jdk:
 
 script:
   - ./mvnw clean verify
-  - ./mvnw clean verify -Dspring-boot.version=2.1.1.RELEASE
+  - ./mvnw clean verify -Dspring-boot.version=2.1.2.RELEASE
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
