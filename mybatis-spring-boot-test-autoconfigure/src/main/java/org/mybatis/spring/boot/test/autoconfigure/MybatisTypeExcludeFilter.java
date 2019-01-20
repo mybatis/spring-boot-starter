@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -50,8 +50,9 @@ class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
         return this.annotation.includeFilters();
       case EXCLUDE:
         return this.annotation.excludeFilters();
+      default:
+        throw new IllegalStateException("Unsupported type " + type);
     }
-    throw new IllegalStateException("Unsupported type " + type);
   }
 
   @Override
