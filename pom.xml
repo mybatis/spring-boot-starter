@@ -68,7 +68,7 @@
 
   <properties>
     <mybatis.version>3.5.0</mybatis.version>
-    <mybatis-spring.version>2.0.0-SNAPSHOT</mybatis-spring.version>
+    <mybatis-spring.version>2.0.0</mybatis-spring.version>
     <spring-boot.version>2.0.8.RELEASE</spring-boot.version>
   </properties>
 
