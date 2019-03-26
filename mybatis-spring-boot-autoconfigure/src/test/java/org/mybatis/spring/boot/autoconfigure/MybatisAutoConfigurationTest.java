@@ -290,7 +290,7 @@ class MybatisAutoConfigurationTest {
 	void testMixedWithConfigurationFileAndTypeHandlersPackage() {
 		TestPropertyValues.of(
 				"mybatis.config-location:mybatis-config-settings-only.xml",
-				"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler")
+				"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler.")
 				.applyTo(this.context);
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class);

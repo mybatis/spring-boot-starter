@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -48,17 +48,18 @@ public class SpringBootVFS extends VFS {
 
   @Override
   protected List<String> list(URL url, String path) throws IOException {
-    Resource[] resources = resourceResolver.getResources("classpath*:" + path + "/**/*.class");
+    String urlString = url.toString();
+    String baseUrlString = urlString.endsWith("/") ? urlString : urlString.concat("/");
+    Resource[] resources = resourceResolver.getResources(baseUrlString + "**/*.class");
     return Stream.of(resources)
-        .map(resource -> preserveSubpackageName(resource, path))
+        .map(resource -> preserveSubpackageName(baseUrlString, resource, path))
         .collect(Collectors.toList());
   }
 
-  private static String preserveSubpackageName(final Resource resource, final String rootPath) {
+  private static String preserveSubpackageName(final String baseUrlString, final Resource resource, final String rootPath) {
     try {
-      final String uriStr = resource.getURI().toString();
-      final int start = uriStr.indexOf(rootPath);
-      return uriStr.substring(start);
+      return rootPath + (rootPath.endsWith("/") ? "" :  "/")
+          + resource.getURL().toString().substring(baseUrlString.length());
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
