@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2018 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -280,7 +280,7 @@ public class MybatisAutoConfigurationTest {
 		EnvironmentTestUtils
 				.addEnvironment(this.context,
 						"mybatis.config-location:mybatis-config-settings-only.xml",
-						"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler");
+						"mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler.");
 		this.context.register(EmbeddedDataSourceConfiguration.class,
 				MybatisBootMapperScanAutoConfiguration.class);
 		this.context.refresh();
