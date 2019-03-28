@@ -191,6 +191,28 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>jdk12</id>
+      <activation>
+        <jdk>12</jdk>
+      </activation>
+      <properties>
+        <animal.sniffer.skip>true</animal.sniffer.skip>
+        <enforcer.skip>true</enforcer.skip>
+        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.target>12</maven.compiler.target>
+        <maven.compiler.testTarget>12</maven.compiler.testTarget>
+        <maven.compiler.testSource>12</maven.compiler.testSource>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>javax.annotation</groupId>
+          <artifactId>javax.annotation-api</artifactId>
+          <version>1.3.2</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 
 </project>
