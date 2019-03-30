@@ -335,6 +335,30 @@ public class PingTests {
 
       </subsection>
 
+      <subsection name="Using @MybatisTest on JUnit 5">
+        <p>
+          The <code>@MybatisTest</code> can be used on JUnit 5.
+        </p>
+
+        <source><![CDATA[
+@ExtendWith(SpringExtension.class)
+@MybatisTest
+public class CityMapperTest {
+    // ...
+}]]></source>
+
+        <p>
+          Since 2.0.1, the <code>@ExtendWith(SpringExtension.class)</code> can omit as follow:
+        </p>
+
+        <source><![CDATA[
+@MybatisTest
+public class CityMapperTest {
+    // ...
+}]]></source>
+
+      </subsection>
+
       <subsection name="Appendix A. Imported auto-configuration">
 
         <p>
