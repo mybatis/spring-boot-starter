@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration;
@@ -34,17 +35,20 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Annotation that can be used in combination with {@code @RunWith(SpringRunner.class)}
- * for a typical mybatis test. Can be used when a test focuses <strong>only</strong> on
- * mybatis-based components.
+ * Annotation that can be used in combination with {@code @RunWith(SpringRunner.class)}(JUnit 4)
+ * and {@code @ExtendWith(SpringExtension.class)}(JUnit 5) for a typical mybatis test.
+ * Can be used when a test focuses <strong>only</strong> on mybatis-based components.
+ * Since 2.0.1, If you use this annotation on JUnit 5, {@code @ExtendWith(SpringExtension.class)} can omit
+ * on your test class.
  * <p>
  * Using this annotation will disable full auto-configuration and instead apply only
  * configuration relevant to mybatis tests.
  * <p>
- * By default, tests annotated with {@code @JdbcTest} will use an embedded in-memory
+ * By default, tests annotated with {@code @MybatisTest} will use an embedded in-memory
  * database (replacing any explicit or usually auto-configured DataSource). The
  * {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} annotation can be used to
  * override these settings.
@@ -63,6 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Documented
 @Inherited
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
+@ExtendWith(SpringExtension.class)
 @OverrideAutoConfiguration(enabled = false)
 @TypeExcludeFilters(MybatisTypeExcludeFilter.class)
 @Transactional
