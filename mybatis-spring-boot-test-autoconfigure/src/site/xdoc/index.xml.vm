@@ -286,6 +286,55 @@ class MapperTestApplication {
 }]]></source>
       </subsection>
 
+      <subsection name="Use together with other @***Test">
+        <p>
+          If you use the <code>@MybatisTest</code> together with other <code>@***Test</code>(e.g. <code>@WebMvcTest</code>),
+          Please consider to use the <code>@AutoConfigureMybatis</code> becuase <code>@***Test</code> annotation cannot specify two or more on same test.
+        </p>
+
+        <source><![CDATA[
+// Target classes for testing
+@RestController
+public class PingController {
+  PingMapper mapper;
+
+  PingController(PingMapper mapper) {
+    this.mapper = mapper;
+  }
+
+  @GetMapping("ping")
+  String ping() {
+    return mapper.ping();
+  }
+}
+
+@Mapper
+public interface PingMapper {
+@Select("SELECT 'OK'")
+  String ping();
+}]]></source>
+
+        <source><![CDATA[
+// Test class
+@RunWith(SpringRunner.class)
+@WebMvcTest
+@AutoConfigureMybatis // Specify instead of @MybatisTest
+public class PingTests {
+
+  @Autowired
+  private MockMvc mvc;
+
+  @Test
+  public void ping() throws Exception {
+    this.mvc.perform(get("/ping"))
+        .andExpect(status().isOk())
+        .andExpect(content().string("OK"));
+  }
+
+}]]></source>
+
+      </subsection>
+
       <subsection name="Appendix A. Imported auto-configuration">
 
         <p>
