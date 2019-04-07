@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/</link>
     <description>mybatis-spring-boot-sample-xml - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
     <item>
       <title>File: 7,
              Errors: 0,
-             Warnings: 188,
+             Warnings: 183,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml//checkstyle.html</link>
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   0
@@ -108,7 +108,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  68
+                  67
                 </td>
                 <td>
                   0
@@ -122,7 +122,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  67
+                  66
                 </td>
                 <td>
                   0
@@ -136,7 +136,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  17
+                  16
                 </td>
                 <td>
                   0
