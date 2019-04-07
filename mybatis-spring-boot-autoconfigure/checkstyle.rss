@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/</link>
     <description>mybatis-spring-boot-autoconfigure - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
     <item>
-      <title>File: 5,
+      <title>File: 6,
              Errors: 0,
-             Warnings: 18,
+             Warnings: 14,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure//checkstyle.html</link>
@@ -60,6 +60,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure//checkstyle.html#target.classes.META-INF.spring-autoconfigure-metadata.properties">target/classes/META-INF/spring-autoconfigure-metadata.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure//checkstyle.html#org.mybatis.spring.boot.autoconfigure.package-info.java">org/mybatis/spring/boot/autoconfigure/package-info.java</a>
                 </td>
                 <td>
@@ -80,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  7
                 </td>
                 <td>
                   0
@@ -94,7 +108,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -108,7 +122,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  11
+                  4
                 </td>
                 <td>
                   0
