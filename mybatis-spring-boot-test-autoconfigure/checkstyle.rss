@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure/</link>
     <description>mybatis-spring-boot-test-autoconfigure - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2018 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
     <item>
       <title>File: 3,
              Errors: 0,
-             Warnings: 7,
+             Warnings: 6,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html</link>
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
