@@ -69,7 +69,7 @@
   <properties>
     <mybatis.version>3.5.1</mybatis.version>
     <mybatis-spring.version>2.0.1</mybatis-spring.version>
-    <spring-boot.version>2.0.9.RELEASE</spring-boot.version>
+    <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
   </properties>
 
   <dependencyManagement>
@@ -146,5 +146,42 @@
         <scope>test</scope>
       </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>spring-milestone</id>
+      <name>Spring Milestone</name>
+      <url>https://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>spring-snapshot</id>
+      <name>Spring Snapshot</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-milestone</id>
+      <name>Spring Milestone</name>
+      <url>https://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-snapshot</id>
+      <name>Spring Snapshot</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
