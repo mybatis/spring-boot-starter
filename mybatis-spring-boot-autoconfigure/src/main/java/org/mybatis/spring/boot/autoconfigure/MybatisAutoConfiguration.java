@@ -25,6 +25,7 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.ClassPathMapperScanner;
@@ -84,6 +85,8 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
   private final Interceptor[] interceptors;
 
+  private final TypeHandler[] typeHandlers;
+
   private final ResourceLoader resourceLoader;
 
   private final DatabaseIdProvider databaseIdProvider;
@@ -92,11 +95,13 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
   public MybatisAutoConfiguration(MybatisProperties properties,
       ObjectProvider<Interceptor[]> interceptorsProvider,
+      ObjectProvider<TypeHandler[]> typeHandlersProvider,
       ResourceLoader resourceLoader,
       ObjectProvider<DatabaseIdProvider> databaseIdProvider,
       ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
     this.properties = properties;
     this.interceptors = interceptorsProvider.getIfAvailable();
+    this.typeHandlers = typeHandlersProvider.getIfAvailable();
     this.resourceLoader = resourceLoader;
     this.databaseIdProvider = databaseIdProvider.getIfAvailable();
     this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
@@ -142,6 +147,9 @@ public class MybatisAutoConfiguration implements InitializingBean {
     }
     if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
       factory.setTypeHandlersPackage(this.properties.getTypeHandlersPackage());
+    }
+    if (!ObjectUtils.isEmpty(this.typeHandlers)) {
+      factory.setTypeHandlers(this.typeHandlers);
     }
     if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
       factory.setMapperLocations(this.properties.resolveMapperLocations());

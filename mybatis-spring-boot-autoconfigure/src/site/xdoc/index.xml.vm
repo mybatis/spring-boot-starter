@@ -389,6 +389,7 @@ public SqlSessionFactory masterSqlSessionFactory() throws Exception {
 
         <ul>
           <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#plugins">Interceptor</a></li>
+          <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#typeHandlers">TypeHandler(Available since 2.1.0)</a></li>
           <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#databaseIdProvider">DatabaseIdProvider</a></li>
         </ul>
 
