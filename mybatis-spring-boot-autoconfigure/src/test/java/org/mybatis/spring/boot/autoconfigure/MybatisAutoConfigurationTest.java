@@ -16,8 +16,13 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import java.math.BigInteger;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -32,6 +37,8 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -235,6 +242,20 @@ class MybatisAutoConfigurationTest {
 		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
 		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors()).hasSize(1);
+		this.context.close();
+	}
+
+	@Test
+	void testWithTypeHandlers() {
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisTypeHandlerConfiguration.class,
+				MybatisAutoConfiguration.class,
+				PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getTypeHandlerRegistry()
+				.getTypeHandler(UUID.class)).isInstanceOf(MyTypeHandler.class);
 		this.context.close();
 	}
 
@@ -602,6 +623,17 @@ class MybatisAutoConfigurationTest {
 
 	@Configuration
 	@EnableAutoConfiguration
+	static class MybatisTypeHandlerConfiguration {
+
+		@Bean
+		public MyTypeHandler myTypeHandler() {
+			return new MyTypeHandler();
+		}
+
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
 	static class MybatisPropertiesConfigurationCustomizer {
 		@Autowired
 		void customize(MybatisProperties properties) {
@@ -717,6 +749,30 @@ class MybatisAutoConfigurationTest {
 		MySqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 			super(sqlSessionFactory);
 		}
+	}
+
+	static class MyTypeHandler extends BaseTypeHandler<UUID> {
+
+		@Override
+		public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType) throws SQLException {
+
+		}
+
+		@Override
+		public UUID getNullableResult(ResultSet rs, String columnName) throws SQLException {
+			return null;
+		}
+
+		@Override
+		public UUID getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+			return null;
+		}
+
+		@Override
+		public UUID getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+			return null;
+		}
+
 	}
 
 }
