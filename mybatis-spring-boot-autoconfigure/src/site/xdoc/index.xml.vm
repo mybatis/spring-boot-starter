@@ -299,6 +299,15 @@ public class CityDao {
       </tr>
       <tr>
         <td>
+          <code>lazy-initialization</code>
+        </td>
+        <td>
+          Whether enable lazy initialization of mapper bean. Set <code>true</code> to enable lazy initialization.
+          This feature requires to use together with mybatis-spring 2.0.2+. (Available since 2.1.0)
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>configuration</code>
         </td>
         <td>
