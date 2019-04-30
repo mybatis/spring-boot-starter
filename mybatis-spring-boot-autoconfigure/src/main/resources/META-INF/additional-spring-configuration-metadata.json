@@ -13,6 +13,12 @@
       "name": "mybatis.configuration.default-enum-type-handler",
       "description": "A default TypeHandler class for Enum.",
       "type": "java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"
+    },
+    {
+      "defaultValue": false,
+      "name": "mybatis.lazy-initialization",
+      "description": "Set whether enable lazy initialization for mapper bean.",
+      "type": "java.lang.Boolean"
     }
   ]
 }

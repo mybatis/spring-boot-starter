@@ -16,6 +16,7 @@
 package org.mybatis.spring.boot.autoconfigure;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -28,15 +29,18 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.mapper.ClassPathMapperScanner;
 import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -46,7 +50,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -190,11 +193,9 @@ public class MybatisAutoConfiguration implements InitializingBean {
    * repositories.
    */
   public static class AutoConfiguredMapperScannerRegistrar
-      implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
+      implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
 
     private BeanFactory beanFactory;
-
-    private ResourceLoader resourceLoader;
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
@@ -211,14 +212,16 @@ public class MybatisAutoConfiguration implements InitializingBean {
         packages.forEach(pkg -> logger.debug("Using auto-configuration base package '{}'", pkg));
       }
 
-      ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
-      if (this.resourceLoader != null) {
-        scanner.setResourceLoader(this.resourceLoader);
-      }
-      scanner.setAnnotationClass(Mapper.class);
-      scanner.registerFilters();
-      scanner.doScan(StringUtils.toStringArray(packages));
-
+      BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MapperScannerConfigurer.class);
+      builder.addPropertyValue("processPropertyPlaceHolders", true);
+      builder.addPropertyValue("annotationClass", Mapper.class);
+      builder.addPropertyValue("basePackage", StringUtils.collectionToCommaDelimitedString(packages));
+      BeanWrapper beanWrapper =  new BeanWrapperImpl(MapperScannerConfigurer.class);
+      Stream.of(beanWrapper.getPropertyDescriptors())
+          // Need to mybatis-spring 2.0.2+
+          .filter(x -> x.getName().equals("lazyInitialization")).findAny()
+          .ifPresent(x -> builder.addPropertyValue("lazyInitialization", "${mybatis.lazy-initialization:false}"));
+      registry.registerBeanDefinition(MapperScannerConfigurer.class.getName(), builder.getBeanDefinition());
     }
 
     @Override
@@ -226,10 +229,6 @@ public class MybatisAutoConfiguration implements InitializingBean {
       this.beanFactory = beanFactory;
     }
 
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-      this.resourceLoader = resourceLoader;
-    }
   }
 
   /**

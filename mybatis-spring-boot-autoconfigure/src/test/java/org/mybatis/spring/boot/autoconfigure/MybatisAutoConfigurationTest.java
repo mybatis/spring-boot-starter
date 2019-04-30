@@ -126,11 +126,49 @@ class MybatisAutoConfigurationTest {
 				MybatisScanMapperConfiguration.class, MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
 		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
 		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+	}
+
+	@Test
+	void testScanWithLazy() {
+		TestPropertyValues.of("mybatis.lazy-initialization:true").applyTo(this.context);
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisScanMapperConfiguration.class,
+				MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(0);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+		this.context.getBean(CityMapper.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+	}
+
+	@Test
+	void testAutoScanWithLazy() {
+		TestPropertyValues.of("mybatis.lazy-initialization:true").applyTo(this.context);
+		this.context.register(EmbeddedDataSourceConfiguration.class,
+				MybatisBootMapperScanAutoConfiguration.class,
+				MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(0);
+		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+		assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+		assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+		assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+		this.context.getBean(CityMapper.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
 	}
 
 	@Test
@@ -227,6 +265,8 @@ class MybatisAutoConfigurationTest {
 				MybatisAutoConfiguration.class,
 				PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
+		SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+		assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
 		assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
@@ -590,7 +630,7 @@ class MybatisAutoConfigurationTest {
 
 	@Configuration
 	@EnableAutoConfiguration
-	@MapperScan("org.mybatis.spring.boot.autoconfigure.mapper")
+	@MapperScan(basePackages = "org.mybatis.spring.boot.autoconfigure.mapper", lazyInitialization = "${mybatis.lazy-initialization:false}")
 	static class MybatisScanMapperConfiguration {
 	}
 
