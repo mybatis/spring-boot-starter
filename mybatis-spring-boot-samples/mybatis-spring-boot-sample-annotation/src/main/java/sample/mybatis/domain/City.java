@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2016 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,51 +22,51 @@ import java.io.Serializable;
  */
 public class City implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private Long id;
+  private Long id;
 
-	private String name;
+  private String name;
 
-	private String state;
+  private String state;
 
-	private String country;
+  private String country;
 
-	public Long getId() {
-		return this.id;
-	}
+  public Long getId() {
+    return this.id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public String getName() {
-		return this.name;
-	}
+  public String getName() {
+    return this.name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getState() {
-		return this.state;
-	}
+  public String getState() {
+    return this.state;
+  }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+  public void setState(String state) {
+    this.state = state;
+  }
 
-	public String getCountry() {
-		return this.country;
-	}
+  public String getCountry() {
+    return this.country;
+  }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-	@Override
-	public String toString() {
-		return getId() + "," + getName() + "," + getState() + "," + getCountry();
-	}
-	
+  @Override
+  public String toString() {
+    return getId() + "," + getName() + "," + getState() + "," + getCountry();
+  }
+
 }

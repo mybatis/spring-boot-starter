@@ -43,11 +43,9 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * @since 1.2.1
  */
 @MybatisTest
-@TestPropertySource(properties = {
-  "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
-  "logging.level.org.springframework.jdbc=debug",
-  "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql"
-})
+@TestPropertySource(properties = { "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
+    "logging.level.org.springframework.jdbc=debug",
+    "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql" })
 class MybatisTestIntegrationTest {
 
   @Autowired
@@ -95,9 +93,8 @@ class MybatisTestIntegrationTest {
 
   @Test
   void didNotInjectExampleComponent() {
-    Assertions.assertThrows(NoSuchBeanDefinitionException.class, () ->
-      this.applicationContext.getBean(ExampleComponent.class)
-    );
+    Assertions.assertThrows(NoSuchBeanDefinitionException.class,
+        () -> this.applicationContext.getBean(ExampleComponent.class));
   }
 
 }

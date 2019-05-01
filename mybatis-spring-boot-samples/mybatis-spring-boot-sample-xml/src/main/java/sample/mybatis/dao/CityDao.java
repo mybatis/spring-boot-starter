@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CityDao {
 
-	private final SqlSession sqlSession;
+  private final SqlSession sqlSession;
 
-	public CityDao(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+  public CityDao(SqlSession sqlSession) {
+    this.sqlSession = sqlSession;
+  }
 
-	public City selectCityById(long id) {
-		return this.sqlSession.selectOne("selectCityById", id);
-	}
+  public City selectCityById(long id) {
+    return this.sqlSession.selectOne("selectCityById", id);
+  }
 
 }

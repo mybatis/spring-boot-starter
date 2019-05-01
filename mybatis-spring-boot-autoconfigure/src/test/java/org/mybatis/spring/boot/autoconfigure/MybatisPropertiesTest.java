@@ -24,30 +24,28 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class MybatisPropertiesTest {
 
-    @Test
-    void emptyMapperLocations() {
-        MybatisProperties properties = new MybatisProperties();
-        assertThat(properties.resolveMapperLocations()).isEmpty();
-    }
+  @Test
+  void emptyMapperLocations() {
+    MybatisProperties properties = new MybatisProperties();
+    assertThat(properties.resolveMapperLocations()).isEmpty();
+  }
 
-    @Test
-    void twoLocations() {
-        MybatisProperties properties = new MybatisProperties();
-        properties
-                .setMapperLocations(new String[] {
-                        "classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
-                        "classpath:org/mybatis/spring/boot/autoconfigure/repository/*Mapper.xml" });
-        assertThat(properties.resolveMapperLocations()).hasSize(2);
-    }
+  @Test
+  void twoLocations() {
+    MybatisProperties properties = new MybatisProperties();
+    properties
+        .setMapperLocations(new String[] { "classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
+            "classpath:org/mybatis/spring/boot/autoconfigure/repository/*Mapper.xml" });
+    assertThat(properties.resolveMapperLocations()).hasSize(2);
+  }
 
-	@Test
-	void twoLocationsWithOneIncorrectLocation() {
-		MybatisProperties properties = new MybatisProperties();
-		properties
-				.setMapperLocations(new String[] {
-						"classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
-						"classpath:org/mybatis/spring/boot/autoconfigure/repositoy/*Mapper.xml" });
-		assertThat(properties.resolveMapperLocations()).hasSize(1);
-	}
+  @Test
+  void twoLocationsWithOneIncorrectLocation() {
+    MybatisProperties properties = new MybatisProperties();
+    properties
+        .setMapperLocations(new String[] { "classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
+            "classpath:org/mybatis/spring/boot/autoconfigure/repositoy/*Mapper.xml" });
+    assertThat(properties.resolveMapperLocations()).hasSize(1);
+  }
 
 }

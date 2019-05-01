@@ -24,20 +24,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SampleAnnotationApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleAnnotationApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SampleAnnotationApplication.class, args);
+  }
 
-	private final CityMapper cityMapper;
+  private final CityMapper cityMapper;
 
-	public SampleAnnotationApplication(CityMapper cityMapper) {
-		this.cityMapper = cityMapper;
-	}
+  public SampleAnnotationApplication(CityMapper cityMapper) {
+    this.cityMapper = cityMapper;
+  }
 
-	@Override
-	@SuppressWarnings("squid:S106")
-	public void run(String... args) {
-		System.out.println(this.cityMapper.findByState("CA"));
-	}
+  @Override
+  @SuppressWarnings("squid:S106")
+  public void run(String... args) {
+    System.out.println(this.cityMapper.findByState("CA"));
+  }
 
 }

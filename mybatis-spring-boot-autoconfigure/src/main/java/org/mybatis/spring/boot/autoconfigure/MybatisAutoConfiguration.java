@@ -62,13 +62,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a
- * {@link SqlSessionFactory} and a {@link SqlSessionTemplate}.
+ * {@link EnableAutoConfiguration Auto-Configuration} for Mybatis. Contributes a {@link SqlSessionFactory} and a
+ * {@link SqlSessionTemplate}.
  *
- * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a
- * configuration file is specified as a property, those will be considered,
- * otherwise this auto-configuration will attempt to register mappers based on
- * the interface definitions in or under the root auto-configuration package.
+ * If {@link org.mybatis.spring.annotation.MapperScan} is used, or a configuration file is specified as a property,
+ * those will be considered, otherwise this auto-configuration will attempt to register mappers based on the interface
+ * definitions in or under the root auto-configuration package.
  *
  * @author Eddú Meléndez
  * @author Josh Long
@@ -96,10 +95,8 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
   private final List<ConfigurationCustomizer> configurationCustomizers;
 
-  public MybatisAutoConfiguration(MybatisProperties properties,
-      ObjectProvider<Interceptor[]> interceptorsProvider,
-      ObjectProvider<TypeHandler[]> typeHandlersProvider,
-      ResourceLoader resourceLoader,
+  public MybatisAutoConfiguration(MybatisProperties properties, ObjectProvider<Interceptor[]> interceptorsProvider,
+      ObjectProvider<TypeHandler[]> typeHandlersProvider, ResourceLoader resourceLoader,
       ObjectProvider<DatabaseIdProvider> databaseIdProvider,
       ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
     this.properties = properties;
@@ -118,8 +115,8 @@ public class MybatisAutoConfiguration implements InitializingBean {
   private void checkConfigFileExists() {
     if (this.properties.isCheckConfigLocation() && StringUtils.hasText(this.properties.getConfigLocation())) {
       Resource resource = this.resourceLoader.getResource(this.properties.getConfigLocation());
-      Assert.state(resource.exists(), "Cannot find config location: " + resource
-          + " (please add config file or check your Mybatis configuration)");
+      Assert.state(resource.exists(),
+          "Cannot find config location: " + resource + " (please add config file or check your Mybatis configuration)");
     }
   }
 
@@ -186,14 +183,11 @@ public class MybatisAutoConfiguration implements InitializingBean {
   }
 
   /**
-   * This will just scan the same base package as Spring Boot does. If you want
-   * more power, you can explicitly use
-   * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed
-   * mappers working correctly, out-of-the-box, similar to using Spring Data JPA
-   * repositories.
+   * This will just scan the same base package as Spring Boot does. If you want more power, you can explicitly use
+   * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed mappers working correctly, out-of-the-box,
+   * similar to using Spring Data JPA repositories.
    */
-  public static class AutoConfiguredMapperScannerRegistrar
-      implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
+  public static class AutoConfiguredMapperScannerRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
 
     private BeanFactory beanFactory;
 
@@ -216,7 +210,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
       builder.addPropertyValue("processPropertyPlaceHolders", true);
       builder.addPropertyValue("annotationClass", Mapper.class);
       builder.addPropertyValue("basePackage", StringUtils.collectionToCommaDelimitedString(packages));
-      BeanWrapper beanWrapper =  new BeanWrapperImpl(MapperScannerConfigurer.class);
+      BeanWrapper beanWrapper = new BeanWrapperImpl(MapperScannerConfigurer.class);
       Stream.of(beanWrapper.getPropertyDescriptors())
           // Need to mybatis-spring 2.0.2+
           .filter(x -> x.getName().equals("lazyInitialization")).findAny()
@@ -232,12 +226,10 @@ public class MybatisAutoConfiguration implements InitializingBean {
   }
 
   /**
-   * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up
-   * creating instances of {@link MapperFactoryBean}. If
-   * {@link org.mybatis.spring.annotation.MapperScan} is used then this
-   * auto-configuration is not needed. If it is _not_ used, however, then this
-   * will bring in a bean registrar and automatically register components based
-   * on the same component-scanning path as Spring Boot itself.
+   * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up creating instances of
+   * {@link MapperFactoryBean}. If {@link org.mybatis.spring.annotation.MapperScan} is used then this auto-configuration
+   * is not needed. If it is _not_ used, however, then this will bring in a bean registrar and automatically register
+   * components based on the same component-scanning path as Spring Boot itself.
    */
   @org.springframework.context.annotation.Configuration
   @Import({ AutoConfiguredMapperScannerRegistrar.class })

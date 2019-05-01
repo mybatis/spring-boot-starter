@@ -34,11 +34,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class SampleMybatisApplicationTest {
 
-	@Test
-	void test(OutputCapture outputCapture) {
-		String output = outputCapture.toString();
-		assertThat(output).contains("1,San Francisco,CA,US");
-		assertThat(output).contains("1,Conrad Treasury Place,William & George Streets,4001");
-	}
-	
+  @Test
+  void test(OutputCapture outputCapture) {
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
+    assertThat(output).contains("1,Conrad Treasury Place,William & George Streets,4001");
+  }
+
 }

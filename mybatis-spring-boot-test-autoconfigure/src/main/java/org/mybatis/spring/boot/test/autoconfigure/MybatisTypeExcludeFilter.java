@@ -34,8 +34,7 @@ class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
   private final MybatisTest annotation;
 
   MybatisTypeExcludeFilter(Class<?> testClass) {
-    this.annotation = AnnotatedElementUtils.getMergedAnnotation(testClass,
-      MybatisTest.class);
+    this.annotation = AnnotatedElementUtils.getMergedAnnotation(testClass, MybatisTest.class);
   }
 
   @Override

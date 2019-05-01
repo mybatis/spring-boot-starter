@@ -33,9 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.2.1
  */
 @MybatisTest(includeFilters = @ComponentScan.Filter(Component.class), excludeFilters = @ComponentScan.Filter(Service.class))
-@TestPropertySource(properties = {
-  "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure"
-})
+@TestPropertySource(properties = { "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure" })
 class MybatisTestCustomFilterIntegrationTest {
 
   @Autowired

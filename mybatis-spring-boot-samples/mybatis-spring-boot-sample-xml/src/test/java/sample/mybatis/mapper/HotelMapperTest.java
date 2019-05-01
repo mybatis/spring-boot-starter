@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests for {@link HotelMapper}.
+ * 
  * @author wonwoo
  * @since 1.2.1
  */

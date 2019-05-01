@@ -26,7 +26,7 @@ import sample.mybatis.domain.City;
 @Mapper
 public interface CityMapper {
 
-	@Select("select id, name, state, country from city where state = #{state}")
-	City findByState(@Param("state") String state);
+  @Select("select id, name, state, country from city where state = #{state}")
+  City findByState(@Param("state") String state);
 
 }
