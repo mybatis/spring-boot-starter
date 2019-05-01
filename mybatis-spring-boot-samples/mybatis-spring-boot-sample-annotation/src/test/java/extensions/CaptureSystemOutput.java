@@ -92,16 +92,16 @@ public @interface CaptureSystemOutput {
   class Extension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
 
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext context) {
       getOutputCapture(context).captureOutput();
     }
 
-    public void afterAll(ExtensionContext context) throws Exception {
+    public void afterAll(ExtensionContext context) {
       getOutputCapture(context).releaseOutput();
     }
 
     @Override
-    public void afterEach(ExtensionContext context) throws Exception {
+    public void afterEach(ExtensionContext context) {
       OutputCapture outputCapture = getOutputCapture(context);
       try {
         if (!outputCapture.matchers.isEmpty()) {

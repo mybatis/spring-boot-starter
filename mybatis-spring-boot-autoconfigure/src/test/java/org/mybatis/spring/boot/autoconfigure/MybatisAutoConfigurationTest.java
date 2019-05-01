@@ -707,7 +707,7 @@ class MybatisAutoConfigurationTest {
   @Configuration
   static class MySqlSessionFactoryConfiguration {
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) {
       MySqlSessionFactory sqlSessionFactory = new MySqlSessionFactory(new org.apache.ibatis.session.Configuration());
       sqlSessionFactory.getConfiguration()
           .setEnvironment(new Environment("", new SpringManagedTransactionFactory(), dataSource));
@@ -746,23 +746,22 @@ class MybatisAutoConfigurationTest {
   static class MyTypeHandler extends BaseTypeHandler<UUID> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType)
-        throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType) {
 
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public UUID getNullableResult(ResultSet rs, String columnName) {
       return null;
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public UUID getNullableResult(ResultSet rs, int columnIndex) {
       return null;
     }
 
     @Override
-    public UUID getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public UUID getNullableResult(CallableStatement cs, int columnIndex) {
       return null;
     }
 
