@@ -25,24 +25,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SampleXmlApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleXmlApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SampleXmlApplication.class, args);
+  }
 
-	private final CityDao cityDao;
+  private final CityDao cityDao;
 
-	private final HotelMapper hotelMapper;
+  private final HotelMapper hotelMapper;
 
-	public SampleXmlApplication(CityDao cityDao, HotelMapper hotelMapper) {
-		this.cityDao = cityDao;
-		this.hotelMapper = hotelMapper;
-	}
+  public SampleXmlApplication(CityDao cityDao, HotelMapper hotelMapper) {
+    this.cityDao = cityDao;
+    this.hotelMapper = hotelMapper;
+  }
 
-	@Override
-	@SuppressWarnings("squid:S106")
-	public void run(String... args) {
-		System.out.println(this.cityDao.selectCityById(1));
-		System.out.println(this.hotelMapper.selectByCityId(1));
-	}
+  @Override
+  @SuppressWarnings("squid:S106")
+  public void run(String... args) {
+    System.out.println(this.cityDao.selectCityById(1));
+    System.out.println(this.hotelMapper.selectByCityId(1));
+  }
 
 }

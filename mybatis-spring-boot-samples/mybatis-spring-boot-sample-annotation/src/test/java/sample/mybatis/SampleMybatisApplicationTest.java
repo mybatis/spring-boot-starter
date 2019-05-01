@@ -34,10 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class SampleMybatisApplicationTest {
 
-	@Test
-	void test(OutputCapture outputCapture) {
-		String output = outputCapture.toString();
-		assertThat(output).contains("1,San Francisco,CA,US");
-	}
+  @Test
+  void test(OutputCapture outputCapture) {
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
+  }
 
 }

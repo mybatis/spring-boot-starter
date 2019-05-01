@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2018 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -58,8 +58,8 @@ public class MybatisProperties {
   private String typeAliasesPackage;
 
   /**
-   * The super class for filtering type alias.
-   * If this not specifies, the MyBatis deal as type alias all classes that searched from typeAliasesPackage.
+   * The super class for filtering type alias. If this not specifies, the MyBatis deal as type alias all classes that
+   * searched from typeAliasesPackage.
    */
   private Class<?> typeAliasesSuperType;
 
@@ -84,8 +84,8 @@ public class MybatisProperties {
   private Properties configurationProperties;
 
   /**
-   * A Configuration object for customize default settings. If {@link #configLocation}
-   * is specified, this property is not used.
+   * A Configuration object for customize default settings. If {@link #configLocation} is specified, this property is
+   * not used.
    */
   @NestedConfigurationProperty
   private Configuration configuration;
@@ -182,8 +182,7 @@ public class MybatisProperties {
 
   public Resource[] resolveMapperLocations() {
     return Stream.of(Optional.ofNullable(this.mapperLocations).orElse(new String[0]))
-        .flatMap(location -> Stream.of(getResources(location)))
-        .toArray(Resource[]::new);
+        .flatMap(location -> Stream.of(getResources(location))).toArray(Resource[]::new);
   }
 
   private Resource[] getResources(String location) {

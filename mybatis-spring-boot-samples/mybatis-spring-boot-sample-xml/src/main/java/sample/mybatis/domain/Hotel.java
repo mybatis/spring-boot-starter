@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2016 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,51 +22,51 @@ import java.io.Serializable;
 
 public class Hotel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private Long city;
+  private Long city;
 
-	private String name;
+  private String name;
 
-	private String address;
+  private String address;
 
-	private String zip;
+  private String zip;
 
-	public Long getCity() {
-		return city;
-	}
+  public Long getCity() {
+    return city;
+  }
 
-	public void setCity(Long city) {
-		this.city = city;
-	}
+  public void setCity(Long city) {
+    this.city = city;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	public String getZip() {
-		return zip;
-	}
+  public String getZip() {
+    return zip;
+  }
 
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+  public void setZip(String zip) {
+    this.zip = zip;
+  }
 
-	@Override
-	public String toString() {
-		return getCity() + "," + getName() + "," + getAddress() + "," + getZip();
-	}
-	
+  @Override
+  public String toString() {
+    return getCity() + "," + getName() + "," + getAddress() + "," + getZip();
+  }
+
 }

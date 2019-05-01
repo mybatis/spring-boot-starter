@@ -39,24 +39,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Annotation that can be used in combination with {@code @RunWith(SpringRunner.class)}(JUnit 4)
- * and {@code @ExtendWith(SpringExtension.class)}(JUnit 5) for a typical mybatis test.
- * Can be used when a test focuses <strong>only</strong> on mybatis-based components.
- * Since 2.0.1, If you use this annotation on JUnit 5, {@code @ExtendWith(SpringExtension.class)} can omit
- * on your test class.
+ * Annotation that can be used in combination with {@code @RunWith(SpringRunner.class)}(JUnit 4) and
+ * {@code @ExtendWith(SpringExtension.class)}(JUnit 5) for a typical mybatis test. Can be used when a test focuses
+ * <strong>only</strong> on mybatis-based components. Since 2.0.1, If you use this annotation on JUnit 5,
+ * {@code @ExtendWith(SpringExtension.class)} can omit on your test class.
  * <p>
- * Using this annotation will disable full auto-configuration and instead apply only
- * configuration relevant to mybatis tests.
+ * Using this annotation will disable full auto-configuration and instead apply only configuration relevant to mybatis
+ * tests.
  * <p>
- * By default, tests annotated with {@code @MybatisTest} will use an embedded in-memory
- * database (replacing any explicit or usually auto-configured DataSource). The
- * {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} annotation can be used to
- * override these settings.
+ * By default, tests annotated with {@code @MybatisTest} will use an embedded in-memory database (replacing any explicit
+ * or usually auto-configured DataSource). The {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} annotation
+ * can be used to override these settings.
  * <p>
- * If you are looking to load your full application configuration, but use an embedded
- * database, you should consider {@link SpringBootTest @SpringBootTest} combined with
- * {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase} rather than this
- * annotation.
+ * If you are looking to load your full application configuration, but use an embedded database, you should consider
+ * {@link SpringBootTest @SpringBootTest} combined with {@link AutoConfigureTestDatabase @AutoConfigureTestDatabase}
+ * rather than this annotation.
  *
  * @author wonwoo
  * @see AutoConfigureMybatis
@@ -78,9 +75,8 @@ import org.springframework.transaction.annotation.Transactional;
 public @interface MybatisTest {
 
   /**
-   * Determines if default filtering should be used with
-   * {@link SpringBootApplication @SpringBootApplication}. By default no beans are
-   * included.
+   * Determines if default filtering should be used with {@link SpringBootApplication @SpringBootApplication}. By
+   * default no beans are included.
    *
    * @return if default filters should be used
    * @see #includeFilters()
@@ -89,16 +85,15 @@ public @interface MybatisTest {
   boolean useDefaultFilters() default true;
 
   /**
-   * A set of include filters which can be used to add otherwise filtered beans to the
-   * application context.
+   * A set of include filters which can be used to add otherwise filtered beans to the application context.
    *
    * @return include filters to apply
    */
   Filter[] includeFilters() default {};
 
   /**
-   * A set of exclude filters which can be used to filter beans that would otherwise be
-   * added to the application context.
+   * A set of exclude filters which can be used to filter beans that would otherwise be added to the application
+   * context.
    *
    * @return exclude filters to apply
    */
@@ -106,6 +101,7 @@ public @interface MybatisTest {
 
   /**
    * Auto-configuration exclusions that should be applied for this test.
+   * 
    * @return auto-configuration exclusions to apply
    */
   @AliasFor(annotation = ImportAutoConfiguration.class, attribute = "exclude")

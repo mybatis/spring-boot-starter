@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2017 the original author or authors.
+ *    Copyright 2015-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
  * <p>
- * This class has role for prevent to run the {@link sample.mybatis.SampleAnnotationApplication}.
- * For more detail information, please refer <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
+ * This class has role for prevent to run the {@link sample.mybatis.SampleAnnotationApplication}. For more detail
+ * information, please refer
+ * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
  *
  * @author Kazuki Shimizu
  * @since 1.2.1

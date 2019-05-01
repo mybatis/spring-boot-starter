@@ -35,43 +35,44 @@ import org.springframework.core.io.FileSystemResource;
  */
 class AdditionalConfigurationMetadataTest {
 
-	@Test
-	void testProperties() throws IOException {
+  @Test
+  void testProperties() throws IOException {
 
-		DocumentContext documentContext = JsonPath
-				.parse(new FileSystemResource("src/main/resources/META-INF/additional-spring-configuration-metadata.json")
-						.getInputStream());
+    DocumentContext documentContext = JsonPath
+        .parse(new FileSystemResource("src/main/resources/META-INF/additional-spring-configuration-metadata.json")
+            .getInputStream());
 
-		List<Map<String, Object>> properties = documentContext.read("$.properties");
+    List<Map<String, Object>> properties = documentContext.read("$.properties");
 
-		assertThat(properties.size()).isEqualTo(3);
+    assertThat(properties.size()).isEqualTo(3);
 
-		// assert for default-scripting-language
-		{
-			Map<String, Object> element = properties.get(0);
-			assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
-			assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver");
-			assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-scripting-language");
-			assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>");
-		}
+    // assert for default-scripting-language
+    {
+      Map<String, Object> element = properties.get(0);
+      assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
+      assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver");
+      assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-scripting-language");
+      assertThat(element.get("type"))
+          .isEqualTo("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>");
+    }
 
-		// assert for default-enum-type-handler
-		{
-		  Map<String, Object> element = properties.get(1);
-		  assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
-		  assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.type.EnumTypeHandler");
-		  assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-enum-type-handler");
-		  assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>");
-		}
+    // assert for default-enum-type-handler
+    {
+      Map<String, Object> element = properties.get(1);
+      assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
+      assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.type.EnumTypeHandler");
+      assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-enum-type-handler");
+      assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>");
+    }
 
-		// assert for lazy-initialization
-		{
-			Map<String, Object> element = properties.get(2);
-			assertThat(element.get("defaultValue")).isEqualTo(false);
-			assertThat(element.get("name")).isEqualTo("mybatis.lazy-initialization");
-			assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
-		}
+    // assert for lazy-initialization
+    {
+      Map<String, Object> element = properties.get(2);
+      assertThat(element.get("defaultValue")).isEqualTo(false);
+      assertThat(element.get("name")).isEqualTo("mybatis.lazy-initialization");
+      assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
+    }
 
-	}
+  }
 
 }

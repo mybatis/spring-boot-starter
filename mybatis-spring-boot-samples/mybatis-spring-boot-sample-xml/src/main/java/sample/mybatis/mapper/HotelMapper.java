@@ -25,6 +25,6 @@ import sample.mybatis.domain.Hotel;
 @Mapper
 public interface HotelMapper {
 
-	Hotel selectByCityId(int cityId);
+  Hotel selectByCityId(int cityId);
 
 }
