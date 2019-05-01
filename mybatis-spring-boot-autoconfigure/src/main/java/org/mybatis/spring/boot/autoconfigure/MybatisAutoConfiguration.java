@@ -226,20 +226,20 @@ public class MybatisAutoConfiguration implements InitializingBean {
   }
 
   /**
-   * {@link org.mybatis.spring.annotation.MapperScan} ultimately ends up creating instances of
-   * {@link MapperFactoryBean}. If {@link org.mybatis.spring.annotation.MapperScan} is used then this auto-configuration
-   * is not needed. If it is _not_ used, however, then this will bring in a bean registrar and automatically register
-   * components based on the same component-scanning path as Spring Boot itself.
+   * If mapper registering configuration or mapper scanning configuration not present, this configuration allow to scan
+   * mappers based on the same component-scanning path as Spring Boot itself.
    */
   @org.springframework.context.annotation.Configuration
-  @Import({ AutoConfiguredMapperScannerRegistrar.class })
-  @ConditionalOnMissingBean(MapperFactoryBean.class)
+  @Import(AutoConfiguredMapperScannerRegistrar.class)
+  @ConditionalOnMissingBean({ MapperFactoryBean.class, MapperScannerConfigurer.class })
   public static class MapperScannerRegistrarNotFoundConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-      logger.debug("No {} found.", MapperFactoryBean.class.getName());
+      logger.debug(
+          "Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.");
     }
+
   }
 
 }
