@@ -19,13 +19,13 @@ import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import com.example.mapper.DateTimeMapper;
 import org.apache.ibatis.cache.impl.PerpetualCache;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
@@ -50,6 +50,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 
 import org.springframework.beans.factory.BeanCreationException;
@@ -128,7 +130,7 @@ class MybatisAutoConfigurationTest {
     assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
     assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
-    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
   }
@@ -143,10 +145,10 @@ class MybatisAutoConfigurationTest {
     assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(0);
     assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
-    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
-    this.context.getBean(CityMapper.class);
+    this.context.getBean(DateTimeMapper.class);
     assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
   }
 
@@ -554,6 +556,34 @@ class MybatisAutoConfigurationTest {
     assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).doesNotContainKey("name");
   }
 
+  @Test
+  void testMapperFactoryBean() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MapperFactoryBeanConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+  }
+
+  @Test
+  void testMapperScannerConfigurer() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MapperScannerConfigurerConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+  }
+
   @Configuration
   static class MultipleDataSourceConfiguration {
     @Bean
@@ -583,8 +613,30 @@ class MybatisAutoConfigurationTest {
 
   @Configuration
   @EnableAutoConfiguration
-  @MapperScan(basePackages = "org.mybatis.spring.boot.autoconfigure.mapper", lazyInitialization = "${mybatis.lazy-initialization:false}")
+  @MapperScan(basePackages = "com.example.mapper", lazyInitialization = "${mybatis.lazy-initialization:false}")
   static class MybatisScanMapperConfiguration {
+  }
+
+  @Configuration
+  @EnableAutoConfiguration
+  static class MapperFactoryBeanConfiguration {
+    @Bean
+    MapperFactoryBean<DateTimeMapper> dateTimeMapper(SqlSessionFactory sqlSessionFactory) {
+      MapperFactoryBean<DateTimeMapper> factoryBean = new MapperFactoryBean<>(DateTimeMapper.class);
+      factoryBean.setSqlSessionFactory(sqlSessionFactory);
+      return factoryBean;
+    }
+  }
+
+  @Configuration
+  @EnableAutoConfiguration
+  static class MapperScannerConfigurerConfiguration {
+    @Bean
+    static MapperScannerConfigurer mapperScannerConfigurer() {
+      MapperScannerConfigurer configurer = new MapperScannerConfigurer();
+      configurer.setBasePackage("com.example.mapper");
+      return configurer;
+    }
   }
 
   @Configuration
