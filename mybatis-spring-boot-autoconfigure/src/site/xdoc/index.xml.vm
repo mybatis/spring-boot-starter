@@ -58,7 +58,7 @@
           <tbody>
             <tr>
               <td><b>2.1</b></td>
-              <td>2.0 or higher</td>
+              <td>2.0 or higher (need 2.0.2+ for enable all features)</td>
               <td>2.1 or higher</td>
               <td>8 or higher</td>
             </tr>
@@ -290,6 +290,15 @@ public class CityDao {
       </tr>
       <tr>
         <td>
+          <code>default-scripting-language-driver</code>
+        </td>
+        <td>
+          The default scripting language driver class.
+          This feature requires to use together with mybatis-spring 2.0.2+.
+        </td>
+      </tr>
+      <tr>
+        <td>
           <code>configuration-properties</code>
         </td>
         <td>
@@ -303,7 +312,7 @@ public class CityDao {
         </td>
         <td>
           Whether enable lazy initialization of mapper bean. Set <code>true</code> to enable lazy initialization.
-          This feature requires to use together with mybatis-spring 2.0.2+. (Available since 2.1.0)
+          This feature requires to use together with mybatis-spring 2.0.2+.
         </td>
       </tr>
       <tr>
@@ -398,9 +407,60 @@ public SqlSessionFactory masterSqlSessionFactory() throws Exception {
 
         <ul>
           <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#plugins">Interceptor</a></li>
-          <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#typeHandlers">TypeHandler(Available since 2.1.0)</a></li>
+          <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#typeHandlers">TypeHandler</a></li>
+          <li><a href="http://www.mybatis.org/mybatis-3/dynamic-sql.html#Pluggable_Scripting_Languages_For_Dynamic_SQL">LanguageDriver</a>(Requires to use together with mybatis-spring 2.0.2+)</li>
           <li><a href="http://www.mybatis.org/mybatis-3/configuration.html#databaseIdProvider">DatabaseIdProvider</a></li>
         </ul>
+
+        <source><![CDATA[
+// @Configuration class
+@Bean
+MyInterceptor myInterceptor() {
+  return MyInterceptor();
+}
+@Bean
+MyTypeHandler myTypeHandler() {
+  return MyTypeHandler();
+}
+@Bean
+MyLanguageDriver myLanguageDriver() {
+  return MyLanguageDriver();
+}
+@Bean
+VendorDatabaseIdProvider databaseIdProvider() {
+  VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
+  Properties properties = new Properties();
+  properties.put("SQL Server", "sqlserver");
+  properties.put("DB2", "db2");
+  properties.put("H2", "h2");
+  databaseIdProvider.setProperties(properties);
+  return databaseIdProvider;
+}
+]]></source>
+
+        <p>
+          <span class="label important">NOTE</span> If detected <code>LangaugeDriver</code>'s count is one,
+          it set to default scripting language automatically.
+        </p>
+
+      </subsection>
+
+      <subsection name="Customization for ThymeleafLanguageDriver">
+
+        <p>
+          If you want to customize the ThymeleafLanguageDriver creating by auto-configure,
+          please register bean of <code>ThymeleafLanguageDriverConfig</code> as follow:
+        </p>
+
+        <source><![CDATA[
+// @Configuration class
+@Bean
+ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
+  return ThymeleafLanguageDriverConfig.newInstance(c -> {
+    // ... customization code
+  });
+}
+]]></source>
 
       </subsection>
 

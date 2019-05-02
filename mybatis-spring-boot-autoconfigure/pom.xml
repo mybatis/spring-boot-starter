@@ -64,6 +64,21 @@
       <artifactId>slf4j-api</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>org.mybatis.scripting</groupId>
+      <artifactId>mybatis-freemarker</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.scripting</groupId>
+      <artifactId>mybatis-velocity</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.scripting</groupId>
+      <artifactId>mybatis-thymeleaf</artifactId>
+      <optional>true</optional>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>

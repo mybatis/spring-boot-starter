@@ -69,6 +69,9 @@
   <properties>
     <mybatis.version>3.5.1</mybatis.version>
     <mybatis-spring.version>2.0.2-SNAPSHOT</mybatis-spring.version>
+    <mybatis-freemarker.version>1.1.2</mybatis-freemarker.version>
+    <mybatis-velocity.version>2.0</mybatis-velocity.version>
+    <mybatis-thymeleaf.version>1.0.0</mybatis-thymeleaf.version>
     <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
   </properties>
 
@@ -83,6 +86,21 @@
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis-spring</artifactId>
         <version>${mybatis-spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.scripting</groupId>
+        <artifactId>mybatis-freemarker</artifactId>
+        <version>${mybatis-freemarker.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.scripting</groupId>
+        <artifactId>mybatis-velocity</artifactId>
+        <version>${mybatis-velocity.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.scripting</groupId>
+        <artifactId>mybatis-thymeleaf</artifactId>
+        <version>${mybatis-thymeleaf.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
