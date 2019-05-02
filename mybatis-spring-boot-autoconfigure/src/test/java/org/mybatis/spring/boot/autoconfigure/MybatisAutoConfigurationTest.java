@@ -34,6 +34,10 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.scripting.LanguageDriver;
+import org.apache.ibatis.scripting.LanguageDriverRegistry;
+import org.apache.ibatis.scripting.defaults.RawLanguageDriver;
+import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
@@ -44,6 +48,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
+import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
+import org.mybatis.scripting.velocity.Driver;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -133,6 +140,20 @@ class MybatisAutoConfigurationTest {
     assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+    Map<String, LanguageDriver> languageDriverBeans = this.context.getBeansOfType(LanguageDriver.class);
+    assertThat(languageDriverBeans).hasSize(3).containsKeys("freeMarkerLanguageDriver", "velocityLanguageDriver",
+        "thymeleafLanguageDriver");
+    assertThat(languageDriverBeans.get("freeMarkerLanguageDriver")).isInstanceOf(FreeMarkerLanguageDriver.class);
+    assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(Driver.class);
+    assertThat(languageDriverBeans.get("thymeleafLanguageDriver")).isInstanceOf(ThymeleafLanguageDriver.class);
+    LanguageDriverRegistry languageDriverRegistry = sqlSessionFactory.getConfiguration().getLanguageRegistry();
+    assertThat(languageDriverRegistry.getDefaultDriverClass()).isEqualTo(XMLLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDefaultDriver()).isInstanceOf(XMLLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDriver(XMLLanguageDriver.class)).isNotNull();
+    assertThat(languageDriverRegistry.getDriver(RawLanguageDriver.class)).isNotNull();
+    assertThat(languageDriverRegistry.getDriver(FreeMarkerLanguageDriver.class)).isNotNull();
+    assertThat(languageDriverRegistry.getDriver(Driver.class)).isNotNull();
+    assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
   }
 
   @Test
@@ -584,6 +605,74 @@ class MybatisAutoConfigurationTest {
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
   }
 
+  @Test
+  void testDefaultScriptingLanguageIsSpecify() {
+    TestPropertyValues
+        .of("mybatis.default-scripting-language-driver:org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver")
+        .applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisScanMapperConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    LanguageDriverRegistry languageDriverRegistry = sqlSessionFactory.getConfiguration().getLanguageRegistry();
+    assertThat(languageDriverRegistry.getDefaultDriverClass()).isEqualTo(ThymeleafLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDefaultDriver()).isInstanceOf(ThymeleafLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
+  }
+
+  @Test
+  void testExcludeMybatisLanguageDriverAutoConfiguration() {
+    TestPropertyValues
+        .of("spring.autoconfigure.exclude:org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration")
+        .applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisScanMapperConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(DateTimeMapper.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+    assertThat(this.context.getBeanNamesForType(LanguageDriver.class)).hasSize(0);
+  }
+
+  @Test
+  void testMybatisLanguageDriverAutoConfigurationWithSingleCandidate() {
+    TestPropertyValues
+        .of("spring.autoconfigure.exclude:org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration")
+        .applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisScanMapperConfiguration.class,
+        SingleLanguageDriverConfiguration.class, MybatisAutoConfiguration.class,
+        PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    LanguageDriverRegistry languageDriverRegistry = sqlSessionFactory.getConfiguration().getLanguageRegistry();
+    assertThat(this.context.getBeanNamesForType(LanguageDriver.class)).hasSize(1);
+    assertThat(languageDriverRegistry.getDefaultDriverClass()).isEqualTo(ThymeleafLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDefaultDriver()).isInstanceOf(ThymeleafLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
+  }
+
+  @Test
+  void testMybatisLanguageDriverAutoConfigurationWithSingleCandidateWhenDefaultLanguageDriverIsSpecify() {
+    TestPropertyValues
+        .of("mybatis.default-scripting-language-driver:org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+            "spring.autoconfigure.exclude:org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration")
+        .applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisScanMapperConfiguration.class,
+        SingleLanguageDriverConfiguration.class, MybatisAutoConfiguration.class,
+        PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    LanguageDriverRegistry languageDriverRegistry = sqlSessionFactory.getConfiguration().getLanguageRegistry();
+    assertThat(this.context.getBeanNamesForType(LanguageDriver.class)).hasSize(1);
+    assertThat(languageDriverRegistry.getDefaultDriverClass()).isEqualTo(XMLLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDefaultDriver()).isInstanceOf(XMLLanguageDriver.class);
+    assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
+  }
+
   @Configuration
   static class MultipleDataSourceConfiguration {
     @Bean
@@ -697,6 +786,14 @@ class MybatisAutoConfigurationTest {
     @Bean
     ConfigurationCustomizer cacheConfigurationCustomizer() {
       return configuration -> configuration.addCache(new PerpetualCache("test"));
+    }
+  }
+
+  @Configuration
+  static class SingleLanguageDriverConfiguration {
+    @Bean
+    ThymeleafLanguageDriver myThymeleafLanguageDriver() {
+      return new ThymeleafLanguageDriver();
     }
   }
 

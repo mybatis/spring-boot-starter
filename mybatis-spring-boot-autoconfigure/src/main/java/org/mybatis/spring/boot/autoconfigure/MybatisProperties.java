@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 
@@ -77,6 +78,11 @@ public class MybatisProperties {
    * Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.
    */
   private ExecutorType executorType;
+
+  /**
+   * The default scripting language driver class. (Available when use together with mybatis-spring 2.0.2+)
+   */
+  private Class<? extends LanguageDriver> defaultScriptingLanguageDriver;
 
   /**
    * Externalized properties for MyBatis configuration.
@@ -156,6 +162,20 @@ public class MybatisProperties {
 
   public void setExecutorType(ExecutorType executorType) {
     this.executorType = executorType;
+  }
+
+  /**
+   * @since 2.1.0
+   */
+  public Class<? extends LanguageDriver> getDefaultScriptingLanguageDriver() {
+    return defaultScriptingLanguageDriver;
+  }
+
+  /**
+   * @since 2.1.0
+   */
+  public void setDefaultScriptingLanguageDriver(Class<? extends LanguageDriver> defaultScriptingLanguageDriver) {
+    this.defaultScriptingLanguageDriver = defaultScriptingLanguageDriver;
   }
 
   /**
