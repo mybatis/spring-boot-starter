@@ -15,6 +15,8 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.apache.ibatis.mapping.BoundSql;
@@ -25,6 +27,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
+import org.mybatis.scripting.thymeleaf.TemplateEngineCustomizer;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
 import org.mybatis.scripting.velocity.Driver;
@@ -32,6 +35,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.thymeleaf.TemplateEngine;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,6 +70,17 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(languageDriverBeans.get("freeMarkerLanguageDriver")).isInstanceOf(FreeMarkerLanguageDriver.class);
     assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(Driver.class);
     assertThat(languageDriverBeans.get("thymeleafLanguageDriver")).isInstanceOf(ThymeleafLanguageDriver.class);
+    ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
+    assertThat(config.isUse2way()).isEqualTo(true);
+    assertThat(config.getDialect().getPrefix()).isEqualTo("mb");
+    assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
+    assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
+    assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
+    assertThat(config.getTemplateFile().getBaseDir()).isEqualTo("");
+    assertThat(config.getTemplateFile().getCacheTtl()).isNull();
+    assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
+    assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
+    assertThat(config.getCustomizer()).isNull();
   }
 
   @Test
@@ -89,6 +104,54 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(boundSql.getParameterObject()).isEqualTo(10);
     assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
     assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+    ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
+    assertThat(config.isUse2way()).isEqualTo(true);
+    assertThat(config.getDialect().getPrefix()).isEqualTo("m");
+    assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
+    assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
+    assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
+    assertThat(config.getTemplateFile().getBaseDir()).isEqualTo("");
+    assertThat(config.getTemplateFile().getCacheTtl()).isNull();
+    assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
+    assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
+    assertThat(config.getCustomizer()).isNull();
+  }
+
+  @Test
+  void testCustomThymeleafConfigUsingConfigurationProperty() {
+    TestPropertyValues.of("mybatis.scripting-language-driver.thymeleaf.use2way=false",
+        "mybatis.scripting-language-driver.thymeleaf.dialect.like-additional-escape-target-chars=*,?",
+        "mybatis.scripting-language-driver.thymeleaf.dialect.like-escape-char=~",
+        "mybatis.scripting-language-driver.thymeleaf.dialect.like-escape-clause-format=escape '%s'",
+        "mybatis.scripting-language-driver.thymeleaf.dialect.prefix=mybatis",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.base-dir=sqls",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.cache-enabled=false",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.cache-ttl=1234",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.encoding=Windows-31J",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.patterns=*.sql,*.sqlf",
+        "mybatis.scripting-language-driver.thymeleaf.customizer=org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfigurationTest$MyTemplateEngineCustomizer")
+        .applyTo(this.context);
+    this.context.register(MyAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    ThymeleafLanguageDriver driver = this.context.getBean(ThymeleafLanguageDriver.class);
+    SqlSource sqlSource = driver.createSqlSource(new Configuration(),
+        "SELECT * FROM users WHERE id = [# mybatis:p='id' /]", Integer.class);
+    BoundSql boundSql = sqlSource.getBoundSql(10);
+    assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ?");
+    assertThat(boundSql.getParameterObject()).isEqualTo(10);
+    assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
+    assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+    ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
+    assertThat(config.isUse2way()).isEqualTo(false);
+    assertThat(config.getDialect().getPrefix()).isEqualTo("mybatis");
+    assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).hasSize(2).contains('*', '?');
+    assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('~');
+    assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("escape '%s'");
+    assertThat(config.getTemplateFile().getBaseDir()).isEqualTo("sqls");
+    assertThat(config.getTemplateFile().getCacheTtl()).isEqualTo(1234);
+    assertThat(config.getTemplateFile().getEncoding()).isEqualTo(Charset.forName("Windows-31J"));
+    assertThat(config.getTemplateFile().getPatterns()).hasSize(2).contains("*.sql", "*.sqlf");
+    assertThat(config.getCustomizer()).isEqualTo(MyTemplateEngineCustomizer.class);
   }
 
   @Test
@@ -126,6 +189,12 @@ class MybatisLanguageDriverAutoConfigurationTest {
     @Bean
     ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
       return ThymeleafLanguageDriverConfig.newInstance(c -> c.getDialect().setPrefix("m"));
+    }
+  }
+
+  public static class MyTemplateEngineCustomizer implements TemplateEngineCustomizer {
+    @Override
+    public void customize(TemplateEngine defaultTemplateEngine) {
     }
   }
 

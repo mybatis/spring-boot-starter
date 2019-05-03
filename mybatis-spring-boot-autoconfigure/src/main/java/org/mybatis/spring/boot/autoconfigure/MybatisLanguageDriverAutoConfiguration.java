@@ -20,10 +20,10 @@ import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
 import org.mybatis.scripting.velocity.Driver;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,9 +37,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(LanguageDriver.class)
 public class MybatisLanguageDriverAutoConfiguration {
 
+  private static final String CONFIGURATION_PROPERTY_PREFIX = "mybatis.scripting-language-driver";
+
   @Configuration
   @ConditionalOnClass(FreeMarkerLanguageDriver.class)
-  static class FreeMarkerConfiguration {
+  public static class FreeMarkerConfiguration {
     @Bean
     @ConditionalOnMissingBean
     FreeMarkerLanguageDriver freeMarkerLanguageDriver() {
@@ -49,7 +51,7 @@ public class MybatisLanguageDriverAutoConfiguration {
 
   @Configuration
   @ConditionalOnClass(Driver.class)
-  static class VelocityConfiguration {
+  public static class VelocityConfiguration {
     @Bean
     @ConditionalOnMissingBean
     Driver velocityLanguageDriver() {
@@ -59,11 +61,18 @@ public class MybatisLanguageDriverAutoConfiguration {
 
   @Configuration
   @ConditionalOnClass(ThymeleafLanguageDriver.class)
-  static class ThymeleafConfiguration {
+  public static class ThymeleafConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    ThymeleafLanguageDriver thymeleafLanguageDriver(ObjectProvider<ThymeleafLanguageDriverConfig> configProvider) {
-      return new ThymeleafLanguageDriver(configProvider.getIfAvailable(ThymeleafLanguageDriverConfig::newInstance));
+    ThymeleafLanguageDriver thymeleafLanguageDriver(ThymeleafLanguageDriverConfig config) {
+      return new ThymeleafLanguageDriver(config);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationProperties(CONFIGURATION_PROPERTY_PREFIX + ".thymeleaf")
+    public ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
+      return ThymeleafLanguageDriverConfig.newInstance();
     }
   }
 
