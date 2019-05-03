@@ -317,11 +317,19 @@ public class CityDao {
       </tr>
       <tr>
         <td>
-          <code>configuration</code>
+          <code>configuration.*</code>
         </td>
         <td>
-          A MyBatis <code>Configuration</code> bean. About available properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
+          A MyBatis <code>Configuration</code> bean. About available nested properties see the <a href="http://www.mybatis.org/mybatis-3/configuration.html#settings">MyBatis reference page</a>.
           <span class="label important">NOTE</span> This property cannot be used at the same time with the <code>config-location</code>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>scripting-language-driver.thymeleaf.*</code>
+        </td>
+        <td>
+          A MyBatis Thymeleaf <code>Configuration</code> bean. About available nested properties see the <a href="http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties">MyBatis Thymeleaf reference page</a>.
         </td>
       </tr>
     </tbody>
