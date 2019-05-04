@@ -15,6 +15,8 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -23,6 +25,13 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.Configuration;
+import org.apache.velocity.context.InternalContextAdapter;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.directive.Directive;
+import org.apache.velocity.runtime.parser.node.Node;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +41,8 @@ import org.mybatis.scripting.thymeleaf.TemplateEngineCustomizer;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
 import org.mybatis.scripting.velocity.Driver;
+import org.mybatis.scripting.velocity.VelocityFacade;
+import org.mybatis.scripting.velocity.VelocityLanguageDriverConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -51,6 +62,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   @BeforeEach
   void init() {
+    VelocityFacade.destroy();
     this.context = new AnnotationConfigApplicationContext();
   }
 
@@ -59,6 +71,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
     if (this.context != null) {
       this.context.close();
     }
+    VelocityFacade.destroy();
   }
 
   @Test
@@ -91,6 +104,17 @@ class MybatisLanguageDriverAutoConfigurationTest {
       assertThat(config.getIncompatibleImprovementsVersion())
           .isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
       assertThat(config.getFreemarkerSettings()).isEmpty();
+    }
+    {
+      VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
+      assertThat(config.getUserdirective()).hasSize(0);
+      assertThat(config.getAdditionalContextAttributes()).hasSize(0);
+      assertThat(config.getVelocitySettings()).hasSize(2);
+      assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADERS)).isEqualTo("class");
+      assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADER + ".class.class"))
+          .isEqualTo("org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+      assertThat(config.generateCustomDirectivesString()).isEqualTo(
+          "org.mybatis.scripting.velocity.TrimDirective,org.mybatis.scripting.velocity.WhereDirective,org.mybatis.scripting.velocity.SetDirective,org.mybatis.scripting.velocity.InDirective,org.mybatis.scripting.velocity.RepeatDirective");
     }
   }
 
@@ -155,6 +179,33 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(config.getIncompatibleImprovementsVersion()).isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
     assertThat(config.getFreemarkerSettings()).hasSize(1);
     assertThat(config.getFreemarkerSettings().get("interpolation_syntax")).isEqualTo("dollar");
+  }
+
+  @Test
+  void testCustomVelocityConfig() {
+    this.context.register(VelocityMarkerCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    Driver driver = this.context.getBean(Driver.class);
+    @SuppressWarnings("unused")
+    class Param {
+      private Integer id;
+      private Integer version;
+    }
+    Param params = new Param();
+    params.id = 10;
+    params.version = 20;
+    SqlSource sqlSource = driver.createSqlSource(new Configuration(), "#now()", Param.class);
+    BoundSql boundSql = sqlSource.getBoundSql(params);
+    assertThat(boundSql.getSql()).isEqualTo("SELECT CURRENT_TIMESTAMP");
+    VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
+    assertThat(config.getUserdirective()).hasSize(0);
+    assertThat(config.getAdditionalContextAttributes()).hasSize(0);
+    assertThat(config.getVelocitySettings()).hasSize(3);
+    assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADERS)).isEqualTo("class");
+    assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADER + ".class.class"))
+        .isEqualTo("org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+    assertThat(config.generateCustomDirectivesString()).isEqualTo(NowDirective.class.getName()
+        + ",org.mybatis.scripting.velocity.TrimDirective,org.mybatis.scripting.velocity.WhereDirective,org.mybatis.scripting.velocity.SetDirective,org.mybatis.scripting.velocity.InDirective,org.mybatis.scripting.velocity.RepeatDirective");
   }
 
   @Test
@@ -232,6 +283,45 @@ class MybatisLanguageDriverAutoConfigurationTest {
   }
 
   @Test
+  void testCustomVelocityConfigUsingConfigurationProperty() {
+    TestPropertyValues
+        .of("mybatis.scripting-language-driver.velocity.userdirective=" + NowDirective.class.getName(),
+            "mybatis.scripting-language-driver.velocity.velocity-settings." + RuntimeConstants.INPUT_ENCODING + "="
+                + RuntimeConstants.ENCODING_DEFAULT,
+            "mybatis.scripting-language-driver.velocity.additional-context-attributes.attribute1=java.lang.String",
+            "mybatis.scripting-language-driver.velocity.additional-context-attributes.attribute2=java.util.HashMap")
+        .applyTo(this.context);
+    this.context.register(MyAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    Driver driver = this.context.getBean(Driver.class);
+    @SuppressWarnings("unused")
+    class Param {
+      private Integer id;
+      private Integer version;
+    }
+    Param params = new Param();
+    params.id = 10;
+    params.version = 20;
+    SqlSource sqlSource = driver.createSqlSource(new Configuration(), "#now()", Param.class);
+    BoundSql boundSql = sqlSource.getBoundSql(params);
+    assertThat(boundSql.getSql()).isEqualTo("SELECT CURRENT_TIMESTAMP");
+    VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
+    assertThat(config.getUserdirective()).hasSize(1).contains(NowDirective.class.getName());
+    assertThat(config.getAdditionalContextAttributes()).hasSize(2);
+    assertThat(config.getAdditionalContextAttributes().get("attribute1")).isEqualTo("java.lang.String");
+    assertThat(config.getAdditionalContextAttributes().get("attribute2")).isEqualTo("java.util.HashMap");
+    assertThat(config.getVelocitySettings()).hasSize(3);
+    assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADERS)).isEqualTo("class");
+    assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADER + ".class.class"))
+        .isEqualTo("org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+    assertThat(config.generateCustomDirectivesString()).isEqualTo(NowDirective.class.getName()
+        + ",org.mybatis.scripting.velocity.TrimDirective,org.mybatis.scripting.velocity.WhereDirective,org.mybatis.scripting.velocity.SetDirective,org.mybatis.scripting.velocity.InDirective,org.mybatis.scripting.velocity.RepeatDirective");
+    assertThat(config.getVelocitySettings().get(RuntimeConstants.INPUT_ENCODING))
+        .isEqualTo(RuntimeConstants.ENCODING_DEFAULT);
+
+  }
+
+  @Test
   void testExcludeMybatisLanguageDriverAutoConfiguration() {
     TestPropertyValues
         .of("spring.autoconfigure.exclude:org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration")
@@ -277,10 +367,38 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
   }
 
+  private static class VelocityMarkerCustomLanguageDriverConfig {
+    @Bean
+    VelocityLanguageDriverConfig velocityLanguageDriverConfig() {
+      return VelocityLanguageDriverConfig.newInstance(
+          c -> c.getVelocitySettings().put(RuntimeConstants.CUSTOM_DIRECTIVES, NowDirective.class.getName()));
+    }
+  }
+
   public static class MyTemplateEngineCustomizer implements TemplateEngineCustomizer {
     @Override
     public void customize(TemplateEngine defaultTemplateEngine) {
     }
   }
 
+  public static class NowDirective extends Directive {
+
+    @Override
+    public String getName() {
+      return "now";
+    }
+
+    @Override
+    public int getType() {
+      return LINE;
+    }
+
+    @Override
+    public boolean render(InternalContextAdapter context, Writer writer, Node node)
+        throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
+      writer.append("SELECT CURRENT_TIMESTAMP");
+      return true;
+    }
+
+  }
 }

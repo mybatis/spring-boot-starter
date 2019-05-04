@@ -44,9 +44,9 @@ class AdditionalConfigurationMetadataTest {
 
     List<Map<String, Object>> properties = documentContext.read("$.properties");
 
-    assertThat(properties.size()).isEqualTo(3);
+    assertThat(properties.size()).isEqualTo(4);
 
-    // assert for default-scripting-language
+    // assert for mybatis.configuration.default-scripting-language
     {
       Map<String, Object> element = properties.get(0);
       assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
@@ -54,9 +54,14 @@ class AdditionalConfigurationMetadataTest {
       assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-scripting-language");
       assertThat(element.get("type"))
           .isEqualTo("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>");
+      @SuppressWarnings("unchecked")
+      Map<String, Object> deprecation = (Map<String, Object>) element.get("deprecation");
+      assertThat(deprecation.get("reason")).isEqualTo(
+          "Because when this configuration property is used, there is case that custom language driver cannot be registered correctly.");
+      assertThat(deprecation.get("replacement")).isEqualTo("mybatis.default-scripting-language-driver");
     }
 
-    // assert for default-enum-type-handler
+    // assert for mybatis.configuration.default-enum-type-handler
     {
       Map<String, Object> element = properties.get(1);
       assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
@@ -65,12 +70,25 @@ class AdditionalConfigurationMetadataTest {
       assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>");
     }
 
-    // assert for lazy-initialization
+    // assert for mybatis.lazy-initialization
     {
       Map<String, Object> element = properties.get(2);
       assertThat(element.get("defaultValue")).isEqualTo(false);
       assertThat(element.get("name")).isEqualTo("mybatis.lazy-initialization");
       assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
+    }
+
+    // assert for mybatis.scripting-language-driver.velocity.userdirective
+    {
+      Map<String, Object> element = properties.get(3);
+      assertThat(element.get("name")).isEqualTo("mybatis.scripting-language-driver.velocity.userdirective");
+      @SuppressWarnings("unchecked")
+      Map<String, Object> deprecation = (Map<String, Object>) element.get("deprecation");
+      assertThat(deprecation.get("level")).isEqualTo("error");
+      assertThat(deprecation.get("reason")).isEqualTo(
+          "The 'userdirective' is deprecated since Velocity 2.x. This property defined for keeping backward compatibility with older velocity version.");
+      assertThat(deprecation.get("replacement"))
+          .isEqualTo("mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives");
     }
 
   }

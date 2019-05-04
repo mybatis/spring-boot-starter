@@ -21,6 +21,7 @@ import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriverConfig;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
 import org.mybatis.scripting.velocity.Driver;
+import org.mybatis.scripting.velocity.VelocityLanguageDriverConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -75,13 +76,37 @@ public class MybatisLanguageDriverAutoConfiguration {
     }
   }
 
+  /**
+   * Configuration class for mybatis-velocity 2.0 or under.
+   */
   @Configuration
   @ConditionalOnClass(Driver.class)
-  public static class VelocityConfiguration {
+  @ConditionalOnMissingClass("org.mybatis.scripting.velocity.VelocityLanguageDriverConfig")
+  public static class LegacyVelocityConfiguration {
     @Bean
     @ConditionalOnMissingBean
     Driver velocityLanguageDriver() {
       return new Driver();
+    }
+  }
+
+  /**
+   * Configuration class for mybatis-velocity 2.1.x or above.
+   */
+  @Configuration
+  @ConditionalOnClass({ Driver.class, VelocityLanguageDriverConfig.class })
+  public static class VelocityConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    Driver velocityLanguageDriver(VelocityLanguageDriverConfig config) {
+      return new Driver(config);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationProperties(CONFIGURATION_PROPERTY_PREFIX + ".velocity")
+    public VelocityLanguageDriverConfig velocityLanguageDriverConfig() {
+      return VelocityLanguageDriverConfig.newInstance();
     }
   }
 

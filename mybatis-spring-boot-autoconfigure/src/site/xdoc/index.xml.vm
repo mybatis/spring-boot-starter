@@ -329,7 +329,7 @@ public class CityDao {
           <code>scripting-language-driver.thymeleaf.*</code>
         </td>
         <td>
-          A MyBatis Thymeleaf <code>Configuration</code> bean. About available nested properties see the <a href="http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties">MyBatis Thymeleaf reference page</a>.
+          A MyBatis Thymeleaf <code>ThymeleafLanguageDriverConfig</code> bean. About available nested properties see the <a href="http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties">MyBatis Thymeleaf reference page</a>.
         </td>
       </tr>
       <tr>
@@ -337,8 +337,17 @@ public class CityDao {
           <code>scripting-language-driver.freemarker.*</code>
         </td>
         <td>
-          A MyBatis FreeMarker <code>Configuration</code> bean. About available nested properties see the <a href="http://www.mybatis.org/freemarker-scripting/#Configuring">MyBatis FreeMarker reference page</a>.
+          A MyBatis FreeMarker <code>FreeMarkerLanguageDriverConfig</code> bean. About available nested properties see the <a href="http://www.mybatis.org/freemarker-scripting/#Configuring">MyBatis FreeMarker reference page</a>.
           This feature requires to use together with mybatis-freemarker 1.2.0+.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>scripting-language-driver.velocity.*</code>
+        </td>
+        <td>
+          A MyBatis Velocity <code>VelocityLanguageDriverConfig</code> bean. About available nested properties see the <a href="http://www.mybatis.org/velocity-scripting/">MyBatis Velocity reference page</a>.
+          This feature requires to use together with mybatis-velocity 2.1.0+.
         </td>
       </tr>
     </tbody>
