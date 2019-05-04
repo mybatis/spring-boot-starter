@@ -50,7 +50,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
-import org.mybatis.scripting.velocity.Driver;
+import org.mybatis.scripting.velocity.VelocityLanguageDriver;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -144,7 +144,7 @@ class MybatisAutoConfigurationTest {
     assertThat(languageDriverBeans).hasSize(3).containsKeys("freeMarkerLanguageDriver", "velocityLanguageDriver",
         "thymeleafLanguageDriver");
     assertThat(languageDriverBeans.get("freeMarkerLanguageDriver")).isInstanceOf(FreeMarkerLanguageDriver.class);
-    assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(Driver.class);
+    assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(VelocityLanguageDriver.class);
     assertThat(languageDriverBeans.get("thymeleafLanguageDriver")).isInstanceOf(ThymeleafLanguageDriver.class);
     LanguageDriverRegistry languageDriverRegistry = sqlSessionFactory.getConfiguration().getLanguageRegistry();
     assertThat(languageDriverRegistry.getDefaultDriverClass()).isEqualTo(XMLLanguageDriver.class);
@@ -152,7 +152,7 @@ class MybatisAutoConfigurationTest {
     assertThat(languageDriverRegistry.getDriver(XMLLanguageDriver.class)).isNotNull();
     assertThat(languageDriverRegistry.getDriver(RawLanguageDriver.class)).isNotNull();
     assertThat(languageDriverRegistry.getDriver(FreeMarkerLanguageDriver.class)).isNotNull();
-    assertThat(languageDriverRegistry.getDriver(Driver.class)).isNotNull();
+    assertThat(languageDriverRegistry.getDriver(VelocityLanguageDriver.class)).isNotNull();
     assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
   }
 

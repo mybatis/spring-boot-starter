@@ -40,8 +40,8 @@ import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriverConfig;
 import org.mybatis.scripting.thymeleaf.TemplateEngineCustomizer;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
-import org.mybatis.scripting.velocity.Driver;
 import org.mybatis.scripting.velocity.VelocityFacade;
+import org.mybatis.scripting.velocity.VelocityLanguageDriver;
 import org.mybatis.scripting.velocity.VelocityLanguageDriverConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -82,7 +82,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(languageDriverBeans).hasSize(3).containsKeys("freeMarkerLanguageDriver", "velocityLanguageDriver",
         "thymeleafLanguageDriver");
     assertThat(languageDriverBeans.get("freeMarkerLanguageDriver")).isInstanceOf(FreeMarkerLanguageDriver.class);
-    assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(Driver.class);
+    assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(VelocityLanguageDriver.class);
     assertThat(languageDriverBeans.get("thymeleafLanguageDriver")).isInstanceOf(ThymeleafLanguageDriver.class);
     {
       ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
@@ -107,7 +107,9 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
     {
       VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
-      assertThat(config.getUserdirective()).hasSize(0);
+      @SuppressWarnings("deprecation")
+      String[] userDirective = config.getUserdirective();
+      assertThat(userDirective).hasSize(0);
       assertThat(config.getAdditionalContextAttributes()).hasSize(0);
       assertThat(config.getVelocitySettings()).hasSize(2);
       assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADERS)).isEqualTo("class");
@@ -185,7 +187,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
   void testCustomVelocityConfig() {
     this.context.register(VelocityMarkerCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
     this.context.refresh();
-    Driver driver = this.context.getBean(Driver.class);
+    VelocityLanguageDriver driver = this.context.getBean(VelocityLanguageDriver.class);
     @SuppressWarnings("unused")
     class Param {
       private Integer id;
@@ -198,7 +200,9 @@ class MybatisLanguageDriverAutoConfigurationTest {
     BoundSql boundSql = sqlSource.getBoundSql(params);
     assertThat(boundSql.getSql()).isEqualTo("SELECT CURRENT_TIMESTAMP");
     VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
-    assertThat(config.getUserdirective()).hasSize(0);
+    @SuppressWarnings("deprecation")
+    String[] userDirective = config.getUserdirective();
+    assertThat(userDirective).hasSize(0);
     assertThat(config.getAdditionalContextAttributes()).hasSize(0);
     assertThat(config.getVelocitySettings()).hasSize(3);
     assertThat(config.getVelocitySettings().get(RuntimeConstants.RESOURCE_LOADERS)).isEqualTo("class");
@@ -293,7 +297,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
         .applyTo(this.context);
     this.context.register(MyAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class);
     this.context.refresh();
-    Driver driver = this.context.getBean(Driver.class);
+    VelocityLanguageDriver driver = this.context.getBean(VelocityLanguageDriver.class);
     @SuppressWarnings("unused")
     class Param {
       private Integer id;
@@ -306,7 +310,9 @@ class MybatisLanguageDriverAutoConfigurationTest {
     BoundSql boundSql = sqlSource.getBoundSql(params);
     assertThat(boundSql.getSql()).isEqualTo("SELECT CURRENT_TIMESTAMP");
     VelocityLanguageDriverConfig config = this.context.getBean(VelocityLanguageDriverConfig.class);
-    assertThat(config.getUserdirective()).hasSize(1).contains(NowDirective.class.getName());
+    @SuppressWarnings("deprecation")
+    String[] userDirective = config.getUserdirective();
+    assertThat(userDirective).hasSize(1).contains(NowDirective.class.getName());
     assertThat(config.getAdditionalContextAttributes()).hasSize(2);
     assertThat(config.getAdditionalContextAttributes().get("attribute1")).isEqualTo("java.lang.String");
     assertThat(config.getAdditionalContextAttributes().get("attribute2")).isEqualTo("java.util.HashMap");
@@ -342,8 +348,8 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
 
     @Bean
-    Driver myVelocityLanguageDriver() {
-      return new Driver();
+    VelocityLanguageDriver myVelocityLanguageDriver() {
+      return new VelocityLanguageDriver();
     }
 
     @Bean
