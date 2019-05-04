@@ -27,6 +27,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
+import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriverConfig;
 import org.mybatis.scripting.thymeleaf.TemplateEngineCustomizer;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
@@ -70,17 +71,27 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(languageDriverBeans.get("freeMarkerLanguageDriver")).isInstanceOf(FreeMarkerLanguageDriver.class);
     assertThat(languageDriverBeans.get("velocityLanguageDriver")).isInstanceOf(Driver.class);
     assertThat(languageDriverBeans.get("thymeleafLanguageDriver")).isInstanceOf(ThymeleafLanguageDriver.class);
-    ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
-    assertThat(config.isUse2way()).isEqualTo(true);
-    assertThat(config.getDialect().getPrefix()).isEqualTo("mb");
-    assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
-    assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
-    assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
-    assertThat(config.getTemplateFile().getBaseDir()).isEqualTo("");
-    assertThat(config.getTemplateFile().getCacheTtl()).isNull();
-    assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
-    assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
-    assertThat(config.getCustomizer()).isNull();
+    {
+      ThymeleafLanguageDriverConfig config = this.context.getBean(ThymeleafLanguageDriverConfig.class);
+      assertThat(config.isUse2way()).isEqualTo(true);
+      assertThat(config.getDialect().getPrefix()).isEqualTo("mb");
+      assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
+      assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
+      assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
+      assertThat(config.getTemplateFile().getBaseDir()).isEqualTo("");
+      assertThat(config.getTemplateFile().getCacheTtl()).isNull();
+      assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
+      assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
+      assertThat(config.getCustomizer()).isNull();
+    }
+    {
+      FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
+      assertThat(config.getBasePackage()).isEqualTo("");
+      assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.UTF_8);
+      assertThat(config.getIncompatibleImprovementsVersion())
+          .isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
+      assertThat(config.getFreemarkerSettings()).isEmpty();
+    }
   }
 
   @Test
@@ -115,6 +126,35 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
     assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
     assertThat(config.getCustomizer()).isNull();
+  }
+
+  @Test
+  void testCustomFreeMarkerConfig() {
+    this.context.register(FreeMarkerCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    FreeMarkerLanguageDriver driver = this.context.getBean(FreeMarkerLanguageDriver.class);
+    @SuppressWarnings("unused")
+    class Param {
+      private Integer id;
+      private Integer version;
+    }
+    Param params = new Param();
+    params.id = 10;
+    params.version = 20;
+    SqlSource sqlSource = driver.createSqlSource(new Configuration(),
+        "SELECT * FROM users WHERE id = #{id} and version = <@p name='version'/>", Param.class);
+    BoundSql boundSql = sqlSource.getBoundSql(params);
+    assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ? and version = ?");
+    assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
+    assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+    assertThat(boundSql.getParameterMappings().get(1).getProperty()).isEqualTo("version");
+    assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
+    FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
+    assertThat(config.getBasePackage()).isEqualTo("");
+    assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.UTF_8);
+    assertThat(config.getIncompatibleImprovementsVersion()).isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
+    assertThat(config.getFreemarkerSettings()).hasSize(1);
+    assertThat(config.getFreemarkerSettings().get("interpolation_syntax")).isEqualTo("dollar");
   }
 
   @Test
@@ -155,6 +195,43 @@ class MybatisLanguageDriverAutoConfigurationTest {
   }
 
   @Test
+  void testCustomFreeMarkerConfigUsingConfigurationProperty() {
+    TestPropertyValues
+        .of("mybatis.scripting-language-driver.freemarker.base-package=sqls",
+            "mybatis.scripting-language-driver.freemarker.default-encoding=" + StandardCharsets.ISO_8859_1.name(),
+            "mybatis.scripting-language-driver.freemarker.incompatible-improvements-version=2.3.28",
+            "mybatis.scripting-language-driver.freemarker.freemarker-settings.interpolation_syntax=dollar",
+            "mybatis.scripting-language-driver.freemarker.freemarker-settings.whitespace_stripping=yes")
+        .applyTo(this.context);
+    this.context.register(MyAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    FreeMarkerLanguageDriver driver = this.context.getBean(FreeMarkerLanguageDriver.class);
+    @SuppressWarnings("unused")
+    class Param {
+      private Integer id;
+      private Integer version;
+    }
+    Param params = new Param();
+    params.id = 10;
+    params.version = 20;
+    SqlSource sqlSource = driver.createSqlSource(new Configuration(),
+        "SELECT * FROM users WHERE id = #{id} and version = <@p name='version'/>", Param.class);
+    BoundSql boundSql = sqlSource.getBoundSql(params);
+    assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ? and version = ?");
+    assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
+    assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+    assertThat(boundSql.getParameterMappings().get(1).getProperty()).isEqualTo("version");
+    assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
+    FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
+    assertThat(config.getBasePackage()).isEqualTo("sqls");
+    assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.ISO_8859_1);
+    assertThat(config.getIncompatibleImprovementsVersion()).isEqualTo(freemarker.template.Configuration.VERSION_2_3_28);
+    assertThat(config.getFreemarkerSettings()).hasSize(2);
+    assertThat(config.getFreemarkerSettings().get("interpolation_syntax")).isEqualTo("dollar");
+    assertThat(config.getFreemarkerSettings().get("whitespace_stripping")).isEqualTo("yes");
+  }
+
+  @Test
   void testExcludeMybatisLanguageDriverAutoConfiguration() {
     TestPropertyValues
         .of("spring.autoconfigure.exclude:org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration")
@@ -189,6 +266,14 @@ class MybatisLanguageDriverAutoConfigurationTest {
     @Bean
     ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
       return ThymeleafLanguageDriverConfig.newInstance(c -> c.getDialect().setPrefix("m"));
+    }
+  }
+
+  private static class FreeMarkerCustomLanguageDriverConfig {
+    @Bean
+    FreeMarkerLanguageDriverConfig freeMarkerLanguageDriverConfig() {
+      return FreeMarkerLanguageDriverConfig
+          .newInstance(c -> c.getFreemarkerSettings().put("interpolation_syntax", "dollar"));
     }
   }
 
