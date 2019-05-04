@@ -23,6 +23,15 @@
       "name": "mybatis.lazy-initialization",
       "description": "Set whether enable lazy initialization for mapper bean.",
       "type": "java.lang.Boolean"
+    },
+    {
+      "name": "mybatis.scripting-language-driver.velocity.userdirective",
+      "deprecation": {
+        "level": "error",
+        "reason": "The 'userdirective' is deprecated since Velocity 2.x. This property defined for keeping backward compatibility with older velocity version.",
+        "replacement": "mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives"
+      }
     }
+
   ]
 }
