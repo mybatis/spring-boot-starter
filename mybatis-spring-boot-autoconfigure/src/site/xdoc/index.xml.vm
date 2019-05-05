@@ -525,6 +525,36 @@ ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
           Shows how to use a Mapper that has its statements in an xml file and Dao that uses an <code>SqlSesionTemplate</code>.
         </td>
       </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf">
+            3rd Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use the language driver for Thymeleaf with mybatis-thymeleaf.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker">
+            4th Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use the language driver for FreeMarker with mybatis-freemarker.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity">
+            5th Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use the language driver for Velocity with mybatis-velocity.
+        </td>
+      </tr>
     </tbody>
     </table>
         
