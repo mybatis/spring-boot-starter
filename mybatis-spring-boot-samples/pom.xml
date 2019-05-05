@@ -29,5 +29,10 @@
   <modules>
     <module>mybatis-spring-boot-sample-annotation</module>
     <module>mybatis-spring-boot-sample-xml</module>
+    <module>mybatis-spring-boot-sample-thymeleaf</module>
+    <module>mybatis-spring-boot-sample-freemarker</module>
+    <module>mybatis-spring-boot-sample-freemarker-legacy</module>
+    <module>mybatis-spring-boot-sample-velocity</module>
+    <module>mybatis-spring-boot-sample-velocity-legacy</module>
   </modules>
 </project>
