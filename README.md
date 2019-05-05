@@ -9,6 +9,13 @@
 
 MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
 
+Requirements
+----------
+
+* master : 2.1.0-SNAPSHOT requires MyBatis 3.5+, MyBatis-Spring 2.0+(2.0.2+ recommended), Java 8+ and Spring Boot 2.1+
+* 2.0.x : 2.0.1 requires MyBatis 3.5+, MyBatis-Spring 2.0+, Java 8+ and Spring Boot 2.0/2.1.
+* 1.3.x : 1.3.4 requires MyBatis 3.4+, MyBatis-Spring 1.3+, Java 6+ and Spring Boot 1.5
+
 Essentials
 ----------
 
