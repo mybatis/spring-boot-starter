@@ -395,6 +395,9 @@ public class CityMapperTest {
             <code>org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration</code>
           </li>
           <li>
+            <code>org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration</code>
+          </li>
+          <li>
             <code>org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration</code>
           </li>
         </ul>
