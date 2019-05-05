@@ -16,10 +16,8 @@
 package sample.mybatis.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sample.mybatis.domain.Hotel;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author wonwoo
  * @since 1.2.1
  */
-@ExtendWith(SpringExtension.class)
 @MybatisTest
 class HotelMapperTest {
 
@@ -40,6 +37,7 @@ class HotelMapperTest {
   @Test
   void selectByCityIdTest() {
     Hotel hotel = hotelMapper.selectByCityId(1);
+    assertThat(hotel.getCity()).isEqualTo(1);
     assertThat(hotel.getName()).isEqualTo("Conrad Treasury Place");
     assertThat(hotel.getAddress()).isEqualTo("William & George Streets");
     assertThat(hotel.getZip()).isEqualTo("4001");
