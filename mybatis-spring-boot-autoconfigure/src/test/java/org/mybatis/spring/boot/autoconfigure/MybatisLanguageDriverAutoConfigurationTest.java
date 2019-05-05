@@ -118,12 +118,16 @@ class MybatisLanguageDriverAutoConfigurationTest {
   }
 
   @Test
-  void testCustomConfiguration() {
-    this.context.register(MyLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+  @SuppressWarnings("deprecation")
+  void testLegacyConfiguration() {
+    this.context.register(TestingLegacyFreeMarkerConfiguration.class, TestingLegacyVelocityConfiguration.class);
     this.context.refresh();
     Map<String, LanguageDriver> languageDriverBeans = this.context.getBeansOfType(LanguageDriver.class);
-    assertThat(languageDriverBeans).hasSize(3).containsKeys("myFreeMarkerLanguageDriver", "myVelocityLanguageDriver",
-        "myThymeleafLanguageDriver");
+    assertThat(languageDriverBeans).hasSize(2).containsKeys("freeMarkerLanguageDriver", "velocityLanguageDriver");
+    assertThat(this.context.getBean(org.mybatis.scripting.velocity.Driver.class)).isNotNull();
+    assertThat(this.context.getBean(FreeMarkerLanguageDriver.class)).isNotNull();
+    assertThat(this.context.getBeanNamesForType(VelocityLanguageDriverConfig.class)).hasSize(0);
+    assertThat(this.context.getBeanNamesForType(FreeMarkerLanguageDriverConfig.class)).hasSize(0);
   }
 
   @Test
@@ -149,6 +153,12 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
     assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
     assertThat(config.getCustomizer()).isNull();
+  }
+
+  @Test
+  void test() {
+    this.context.register(FreeMarkerCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
   }
 
   @Test
@@ -330,6 +340,16 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   @EnableAutoConfiguration
   private static class MyAutoConfiguration {
+  }
+
+  @org.springframework.context.annotation.Configuration
+  static class TestingLegacyFreeMarkerConfiguration
+      extends MybatisLanguageDriverAutoConfiguration.LegacyFreeMarkerConfiguration {
+  }
+
+  @org.springframework.context.annotation.Configuration
+  static class TestingLegacyVelocityConfiguration
+      extends MybatisLanguageDriverAutoConfiguration.LegacyVelocityConfiguration {
   }
 
   private static class MyLanguageDriverConfig {
