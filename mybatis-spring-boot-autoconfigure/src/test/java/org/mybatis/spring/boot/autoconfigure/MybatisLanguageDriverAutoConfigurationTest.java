@@ -100,9 +100,6 @@ class MybatisLanguageDriverAutoConfigurationTest {
     {
       FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
       assertThat(config.getBasePackage()).isEqualTo("");
-      assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.UTF_8);
-      assertThat(config.getIncompatibleImprovementsVersion())
-          .isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
       assertThat(config.getFreemarkerSettings()).isEmpty();
     }
     {
@@ -177,8 +174,6 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
     FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
     assertThat(config.getBasePackage()).isEqualTo("");
-    assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.UTF_8);
-    assertThat(config.getIncompatibleImprovementsVersion()).isEqualTo(freemarker.template.Configuration.VERSION_2_3_22);
     assertThat(config.getFreemarkerSettings()).hasSize(1);
     assertThat(config.getFreemarkerSettings().get("interpolation_syntax")).isEqualTo("dollar");
   }
@@ -253,8 +248,6 @@ class MybatisLanguageDriverAutoConfigurationTest {
   void testCustomFreeMarkerConfigUsingConfigurationProperty() {
     TestPropertyValues
         .of("mybatis.scripting-language-driver.freemarker.base-package=sqls",
-            "mybatis.scripting-language-driver.freemarker.default-encoding=" + StandardCharsets.ISO_8859_1.name(),
-            "mybatis.scripting-language-driver.freemarker.incompatible-improvements-version=2.3.28",
             "mybatis.scripting-language-driver.freemarker.freemarker-settings.interpolation_syntax=dollar",
             "mybatis.scripting-language-driver.freemarker.freemarker-settings.whitespace_stripping=yes")
         .applyTo(this.context);
@@ -279,8 +272,6 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
     FreeMarkerLanguageDriverConfig config = this.context.getBean(FreeMarkerLanguageDriverConfig.class);
     assertThat(config.getBasePackage()).isEqualTo("sqls");
-    assertThat(config.getDefaultEncoding()).isEqualTo(StandardCharsets.ISO_8859_1);
-    assertThat(config.getIncompatibleImprovementsVersion()).isEqualTo(freemarker.template.Configuration.VERSION_2_3_28);
     assertThat(config.getFreemarkerSettings()).hasSize(2);
     assertThat(config.getFreemarkerSettings().get("interpolation_syntax")).isEqualTo("dollar");
     assertThat(config.getFreemarkerSettings().get("whitespace_stripping")).isEqualTo("yes");
