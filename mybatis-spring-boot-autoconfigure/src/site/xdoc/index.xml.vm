@@ -555,6 +555,16 @@ ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
           Shows how to use the language driver for Velocity with mybatis-velocity.
         </td>
       </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin">
+            6th Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use with kotlin.
+        </td>
+      </tr>
     </tbody>
     </table>
         
