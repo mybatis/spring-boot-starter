@@ -34,5 +34,6 @@
     <module>mybatis-spring-boot-sample-freemarker-legacy</module>
     <module>mybatis-spring-boot-sample-velocity</module>
     <module>mybatis-spring-boot-sample-velocity-legacy</module>
+    <module>mybatis-spring-boot-sample-kotlin</module>
   </modules>
 </project>
