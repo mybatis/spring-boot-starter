@@ -565,6 +565,16 @@ ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
           Shows how to use with kotlin.
         </td>
       </tr>
+      <tr>
+        <td>
+          <a href="https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy">
+            7th Sample
+          </a>
+        </td>
+        <td>
+          Shows how to use with groovy.
+        </td>
+      </tr>
     </tbody>
     </table>
         
