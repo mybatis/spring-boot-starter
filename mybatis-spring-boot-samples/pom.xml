@@ -35,5 +35,6 @@
     <module>mybatis-spring-boot-sample-velocity</module>
     <module>mybatis-spring-boot-sample-velocity-legacy</module>
     <module>mybatis-spring-boot-sample-kotlin</module>
+    <module>mybatis-spring-boot-sample-groovy</module>
   </modules>
 </project>
