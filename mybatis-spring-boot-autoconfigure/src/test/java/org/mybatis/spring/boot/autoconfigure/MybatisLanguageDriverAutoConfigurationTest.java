@@ -117,6 +117,16 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
   }
 
+
+  @Test
+  void testCustomConfiguration() {
+    this.context.register(MyLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.refresh();
+    Map<String, LanguageDriver> languageDriverBeans = this.context.getBeansOfType(LanguageDriver.class);
+    assertThat(languageDriverBeans).hasSize(3).containsKeys("myFreeMarkerLanguageDriver", "myVelocityLanguageDriver",
+        "myThymeleafLanguageDriver");
+  }
+
   @Test
   @SuppressWarnings("deprecation")
   void testLegacyConfiguration() {
