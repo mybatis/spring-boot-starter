@@ -200,7 +200,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   @Test
   void testCustomVelocityConfig() {
-    this.context.register(VelocityMarkerCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
+    this.context.register(VelocityCustomLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
     this.context.refresh();
     VelocityLanguageDriver driver = this.context.getBean(VelocityLanguageDriver.class);
     @SuppressWarnings("unused")
@@ -394,7 +394,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
   }
 
-  private static class VelocityMarkerCustomLanguageDriverConfig {
+  private static class VelocityCustomLanguageDriverConfig {
     @Bean
     VelocityLanguageDriverConfig velocityLanguageDriverConfig() {
       return VelocityLanguageDriverConfig.newInstance(
