@@ -117,7 +117,6 @@ class MybatisLanguageDriverAutoConfigurationTest {
     }
   }
 
-
   @Test
   void testCustomConfiguration() {
     this.context.register(MyLanguageDriverConfig.class, MybatisLanguageDriverAutoConfiguration.class);
