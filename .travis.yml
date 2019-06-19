@@ -6,6 +6,10 @@ jdk:
   - oraclejdk11
   - oraclejdk8
 
+cache:
+  directories:
+    - $HOME/.m2
+
 script:
   - ./mvnw clean verify
   - ./mvnw clean verify -Dspring-boot.version=2.2.0.BUILD-SNAPSHOT -Denforcer.fail=false
