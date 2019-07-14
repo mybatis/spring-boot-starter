@@ -23,7 +23,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -32,8 +31,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 /**
@@ -42,8 +39,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * @author wonwoo
  * @since 1.2.1
  */
-@MybatisTest
-@TestPropertySource(properties = { "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
+@MybatisTest(properties = { "mybatis.type-aliases-package=org.mybatis.spring.boot.test.autoconfigure",
     "logging.level.org.springframework.jdbc=debug",
     "spring.datasource.schema=classpath:org/mybatis/spring/boot/test/autoconfigure/schema.sql" })
 class MybatisTestIntegrationTest {
