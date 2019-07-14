@@ -28,6 +28,7 @@
   <name>mybatis-spring-boot-sample-groovy</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
+    <maven.site.skip>true</maven.site.skip> <!-- Workaround for build error -->
   </properties>
   <dependencies>
     <dependency>
