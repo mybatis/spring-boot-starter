@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"AutoConfigureMybatis"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"MybatisTest"}]

@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
     <item>
-      <title>File: 3,
+      <title>File: 5,
              Errors: 0,
              Warnings: 6,
              Infos: 0
@@ -60,7 +60,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#org.mybatis.spring.boot.test.autoconfigure.MybatisTestContextBootstrapper.java">org/mybatis/spring/boot/test/autoconfigure/MybatisTestContextBootstrapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis.java">org/mybatis/spring/boot/test/autoconfigure/AutoConfigureMybatis.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#target.formatter-maven-cache.properties">target/formatter-maven-cache.properties</a>
                 </td>
                 <td>
                   0
