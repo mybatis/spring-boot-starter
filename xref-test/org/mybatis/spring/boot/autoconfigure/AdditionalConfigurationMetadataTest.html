@@ -43,38 +43,65 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">class</strong> <a name="AdditionalConfigurationMetadataTest" href="../../../../../org/mybatis/spring/boot/autoconfigure/AdditionalConfigurationMetadataTest.html#AdditionalConfigurationMetadataTest">AdditionalConfigurationMetadataTest</a> {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  	@Test
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  	<strong class="jxr_keyword">void</strong> testProperties() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    @Test
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <strong class="jxr_keyword">void</strong> testProperties() <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  		DocumentContext documentContext = JsonPath
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  				.parse(<strong class="jxr_keyword">new</strong> FileSystemResource(<span class="jxr_string">"src/main/resources/META-INF/additional-spring-configuration-metadata.json"</span>)
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  						.getInputStream());
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      DocumentContext documentContext = JsonPath
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          .parse(<strong class="jxr_keyword">new</strong> FileSystemResource(<span class="jxr_string">"src/main/resources/META-INF/additional-spring-configuration-metadata.json"</span>)
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              .getInputStream());
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  		List&lt;Map&lt;String, String&gt;&gt; properties = documentContext.read(<span class="jxr_string">"$.properties"</span>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      List&lt;Map&lt;String, Object&gt;&gt; properties = documentContext.read(<span class="jxr_string">"$.properties"</span>);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  		assertThat(properties.size()).isEqualTo(2);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      assertThat(properties.size()).isEqualTo(4);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		<em class="jxr_comment">// assert for default-scripting-language</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  		{
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  			Map&lt;String, String&gt; element = properties.get(0);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  			assertThat(element.get(<span class="jxr_string">"sourceType"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.session.Configuration"</span>);
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  			assertThat(element.get(<span class="jxr_string">"defaultValue"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"</span>);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  			assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.configuration.default-scripting-language"</span>);
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  			assertThat(element.get(<span class="jxr_string">"type"</span>)).isEqualTo(<span class="jxr_string">"java.lang.Class&lt;? extends org.apache.ibatis.scripting.LanguageDriver&gt;"</span>);
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		}
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  		<em class="jxr_comment">// assert for default-enum-type-handler</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		{
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		  Map&lt;String, String&gt; element = properties.get(1);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  		  assertThat(element.get(<span class="jxr_string">"sourceType"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.session.Configuration"</span>);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  		  assertThat(element.get(<span class="jxr_string">"defaultValue"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.type.EnumTypeHandler"</span>);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  		  assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.configuration.default-enum-type-handler"</span>);
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  		  assertThat(element.get(<span class="jxr_string">"type"</span>)).isEqualTo(<span class="jxr_string">"java.lang.Class&lt;? extends org.apache.ibatis.type.TypeHandler&gt;"</span>);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  		}
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  	}
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <em class="jxr_comment">// assert for mybatis.configuration.default-scripting-language</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>        Map&lt;String, Object&gt; element = properties.get(0);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>        assertThat(element.get(<span class="jxr_string">"sourceType"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.session.Configuration"</span>);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>        assertThat(element.get(<span class="jxr_string">"defaultValue"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"</span>);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>        assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.configuration.default-scripting-language"</span>);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>        assertThat(element.get(<span class="jxr_string">"type"</span>))
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>            .isEqualTo(<span class="jxr_string">"java.lang.Class&lt;? extends org.apache.ibatis.scripting.LanguageDriver&gt;"</span>);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>        @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>        Map&lt;String, Object&gt; deprecation = (Map&lt;String, Object&gt;) element.get(<span class="jxr_string">"deprecation"</span>);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>        assertThat(deprecation.get(<span class="jxr_string">"reason"</span>)).isEqualTo(
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>            <span class="jxr_string">"Because when this configuration property is used, there is case that custom language driver cannot be registered correctly."</span>);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>        assertThat(deprecation.get(<span class="jxr_string">"replacement"</span>)).isEqualTo(<span class="jxr_string">"mybatis.default-scripting-language-driver"</span>);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      }
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_comment">// assert for mybatis.configuration.default-enum-type-handler</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>        Map&lt;String, Object&gt; element = properties.get(1);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>        assertThat(element.get(<span class="jxr_string">"sourceType"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.session.Configuration"</span>);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>        assertThat(element.get(<span class="jxr_string">"defaultValue"</span>)).isEqualTo(<span class="jxr_string">"org.apache.ibatis.type.EnumTypeHandler"</span>);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>        assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.configuration.default-enum-type-handler"</span>);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>        assertThat(element.get(<span class="jxr_string">"type"</span>)).isEqualTo(<span class="jxr_string">"java.lang.Class&lt;? extends org.apache.ibatis.type.TypeHandler&gt;"</span>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <em class="jxr_comment">// assert for mybatis.lazy-initialization</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>        Map&lt;String, Object&gt; element = properties.get(2);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>        assertThat(element.get(<span class="jxr_string">"defaultValue"</span>)).isEqualTo(false);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>        assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.lazy-initialization"</span>);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>        assertThat(element.get(<span class="jxr_string">"type"</span>)).isEqualTo(<span class="jxr_string">"java.lang.Boolean"</span>);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <em class="jxr_comment">// assert for mybatis.scripting-language-driver.velocity.userdirective</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>        Map&lt;String, Object&gt; element = properties.get(3);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>        assertThat(element.get(<span class="jxr_string">"name"</span>)).isEqualTo(<span class="jxr_string">"mybatis.scripting-language-driver.velocity.userdirective"</span>);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>        @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>        Map&lt;String, Object&gt; deprecation = (Map&lt;String, Object&gt;) element.get(<span class="jxr_string">"deprecation"</span>);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>        assertThat(deprecation.get(<span class="jxr_string">"level"</span>)).isEqualTo(<span class="jxr_string">"error"</span>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>        assertThat(deprecation.get(<span class="jxr_string">"reason"</span>)).isEqualTo(
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>            <span class="jxr_string">"The 'userdirective' is deprecated since Velocity 2.x. This property defined for keeping backward compatibility with older velocity version."</span>);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>        assertThat(deprecation.get(<span class="jxr_string">"replacement"</span>))
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>            .isEqualTo(<span class="jxr_string">"mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives"</span>);
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>    }
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015&#x2013;2019 <a href="http://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
