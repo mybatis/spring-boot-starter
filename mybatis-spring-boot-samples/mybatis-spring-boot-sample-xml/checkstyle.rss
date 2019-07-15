@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 8,
              Errors: 0,
-             Warnings: 183,
+             Warnings: 7,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml//checkstyle.html</link>
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  1
                 </td>
                 <td>
                   0
@@ -94,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  31
+                  3
                 </td>
                 <td>
                   0
@@ -108,7 +108,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  67
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml//checkstyle.html#target.formatter-maven-cache.properties">target/formatter-maven-cache.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -122,7 +136,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  66
+                  0
                 </td>
                 <td>
                   0
@@ -136,7 +150,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  16
+                  2
                 </td>
                 <td>
                   0
