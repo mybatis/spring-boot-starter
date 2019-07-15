@@ -59,14 +59,14 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      String urlString = url.toString();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      String baseUrlString = urlString.endsWith(<span class="jxr_string">"/"</span>) ? urlString : urlString.concat(<span class="jxr_string">"/"</span>);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      Resource[] resources = resourceResolver.getResources(baseUrlString + <span class="jxr_string">"**/*.class"</span>);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">return</strong> Stream.of(resources)
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          .map(resource -&gt; preserveSubpackageName(baseUrlString, resource, path))
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          .collect(Collectors.toList());
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>    }
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String preserveSubpackageName(<strong class="jxr_keyword">final</strong> String baseUrlString, <strong class="jxr_keyword">final</strong> Resource resource, <strong class="jxr_keyword">final</strong> String rootPath) {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">return</strong> Stream.of(resources).map(resource -&gt; preserveSubpackageName(baseUrlString, resource, path))
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          .collect(Collectors.toList());
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>    }
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String preserveSubpackageName(<strong class="jxr_keyword">final</strong> String baseUrlString, <strong class="jxr_keyword">final</strong> Resource resource,
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>        <strong class="jxr_keyword">final</strong> String rootPath) {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>        <strong class="jxr_keyword">return</strong> rootPath + (rootPath.endsWith(<span class="jxr_string">"/"</span>) ? <span class="jxr_string">""</span> :  <span class="jxr_string">"/"</span>)
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>        <strong class="jxr_keyword">return</strong> rootPath + (rootPath.endsWith(<span class="jxr_string">"/"</span>) ? <span class="jxr_string">""</span> : <span class="jxr_string">"/"</span>)
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>            + resource.getURL().toString().substring(baseUrlString.length());
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      } <strong class="jxr_keyword">catch</strong> (IOException e) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UncheckedIOException(e);
