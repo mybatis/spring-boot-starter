@@ -71,7 +71,7 @@
     <mybatis-spring.version>2.0.2</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.0</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.0</mybatis-velocity.version>
-    <mybatis-thymeleaf.version>1.0.0</mybatis-thymeleaf.version>
+    <mybatis-thymeleaf.version>1.0.1</mybatis-thymeleaf.version>
     <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
   </properties>
 
