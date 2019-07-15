@@ -37,4 +37,7 @@
     <module>mybatis-spring-boot-sample-kotlin</module>
     <module>mybatis-spring-boot-sample-groovy</module>
   </modules>
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
 </project>
