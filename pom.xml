@@ -68,7 +68,7 @@
 
   <properties>
     <mybatis.version>3.5.2</mybatis.version>
-    <mybatis-spring.version>2.0.2-SNAPSHOT</mybatis-spring.version>
+    <mybatis-spring.version>2.0.2</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.0-SNAPSHOT</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.0-SNAPSHOT</mybatis-velocity.version>
     <mybatis-thymeleaf.version>1.0.0</mybatis-thymeleaf.version>
