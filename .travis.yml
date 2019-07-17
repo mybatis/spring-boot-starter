@@ -4,7 +4,6 @@ sudo: false
 jdk:
   - openjdk12
   - openjdk11
-  - oraclejdk8
   - openjdk8
 
 before_script:
