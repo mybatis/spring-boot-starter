@@ -33,7 +33,7 @@ echo "Current commit detected: ${commit_message}"
 
 if [ $TRAVIS_REPO_SLUG == "mybatis/spring-boot-starter" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "1.3.x" ] && [[ "$commit_message" != *"[maven-release-plugin]"* ]]; then
 
-  if [ $TRAVIS_JDK_VERSION == "oraclejdk8" ]; then
+  if [ $TRAVIS_JDK_VERSION == "openjdk8" ]; then
 
     # Deploy to sonatype
     ./mvnw clean deploy -q -Dmaven.test.redirectTestOutputToFile=true --settings ./travis/settings.xml
