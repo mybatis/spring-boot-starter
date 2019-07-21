@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.sql.DataSource;
 
@@ -54,6 +56,7 @@ import org.mybatis.scripting.velocity.VelocityLanguageDriver;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.handler.AtomicNumberTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
@@ -246,6 +249,8 @@ class MybatisAutoConfigurationTest {
     TypeHandlerRegistry typeHandlerRegistry = this.context.getBean(SqlSessionFactory.class).getConfiguration()
         .getTypeHandlerRegistry();
     assertThat(typeHandlerRegistry.hasTypeHandler(BigInteger.class)).isTrue();
+    assertThat(typeHandlerRegistry.hasTypeHandler(AtomicInteger.class)).isTrue();
+    assertThat(typeHandlerRegistry.hasTypeHandler(AtomicLong.class)).isTrue();
   }
 
   @Test
@@ -360,6 +365,12 @@ class MybatisAutoConfigurationTest {
     assertThat(configuration.getDefaultFetchSize()).isEqualTo(1000);
     assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(BigInteger.class))
         .isInstanceOf(DummyTypeHandler.class);
+    assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(AtomicInteger.class))
+        .isInstanceOf(AtomicNumberTypeHandler.class);
+    assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(AtomicLong.class))
+        .isInstanceOf(AtomicNumberTypeHandler.class);
+    assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(AtomicInteger.class).toString())
+        .isEqualTo("type=" + AtomicInteger.class);
   }
 
   @Test
@@ -388,7 +399,7 @@ class MybatisAutoConfigurationTest {
   @Test
   void testMixedWithFullConfigurations() {
     TestPropertyValues.of("mybatis.config-location:mybatis-config-settings-only.xml",
-        "mybatis.type-handlers-package:org.mybatis.spring.boot.autoconfigure.handler",
+        "mybatis.type-handlers-package:org.mybatis.spring.**.handler",
         "mybatis.type-aliases-package:org.mybatis.spring.boot.autoconfigure.domain",
         "mybatis.mapper-locations:classpath:org/mybatis/spring/boot/autoconfigure/repository/CityMapper.xml",
         "mybatis.executor-type=REUSE").applyTo(this.context);
@@ -404,6 +415,10 @@ class MybatisAutoConfigurationTest {
     assertThat(configuration.getDefaultFetchSize()).isEqualTo(1000);
     assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(BigInteger.class))
         .isInstanceOf(DummyTypeHandler.class);
+    assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(AtomicInteger.class))
+        .isInstanceOf(AtomicNumberTypeHandler.class);
+    assertThat(configuration.getTypeHandlerRegistry().getTypeHandler(AtomicLong.class))
+        .isInstanceOf(AtomicNumberTypeHandler.class);
     assertThat(configuration.getMappedStatementNames()).hasSize(4);
     assertThat(configuration.getMappedStatementNames()).contains("selectCityById");
     assertThat(configuration.getMappedStatementNames())
