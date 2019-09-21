@@ -31,3 +31,12 @@ MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
 ## Quick Start
 
 * [See the wiki page](https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start)
+
+## Bug report & Feature request
+
+* [GigHub Issue Tracker](https://github.com/mybatis/spring-boot-starter/issues)
+
+## Question
+
+* [Google Groups(Mailing list)](https://groups.google.com/forum/#!forum/mybatis-user)
+* [Stack Overflow](https://stackoverflow.com/questions/tagged/mybatis)
