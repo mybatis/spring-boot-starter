@@ -323,3 +323,5 @@ The project provides two samples so you play and experiment with them:
 |                | [5th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity) | Shows how to use the language driver for Velocity with mybatis-velocity. |
 | JVM Language | [6th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin) | Shows how to use with kotlin. |
 |              | [7th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy) | Shows how to use with groovy. |
+| Web | [8th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web) | Show how to use the web environment. |
+|     | [9th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war) | Show how to use the web environment with war(=deploy to the application server). |

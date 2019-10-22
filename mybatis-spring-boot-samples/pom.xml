@@ -36,6 +36,8 @@
     <module>mybatis-spring-boot-sample-velocity-legacy</module>
     <module>mybatis-spring-boot-sample-kotlin</module>
     <module>mybatis-spring-boot-sample-groovy</module>
+    <module>mybatis-spring-boot-sample-web</module>
+    <module>mybatis-spring-boot-sample-war</module>
   </modules>
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
