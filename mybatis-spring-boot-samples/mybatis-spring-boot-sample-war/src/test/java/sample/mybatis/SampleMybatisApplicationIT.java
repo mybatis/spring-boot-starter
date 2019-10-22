@@ -31,7 +31,8 @@ class SampleMybatisApplicationIT {
   void test() {
     RestTemplate restTemplate = new RestTemplate();
     @SuppressWarnings("unchecked")
-    Map<String, Object> body = restTemplate.getForObject("http://localhost:18080/mybatis-spring-boot-sample-war/cities/{state}", Map.class, "CA");
+    Map<String, Object> body = restTemplate
+        .getForObject("http://localhost:18080/mybatis-spring-boot-sample-war/cities/{state}", Map.class, "CA");
     assertThat(body).hasSize(4).containsEntry("id", 1).containsEntry("name", "San Francisco")
         .containsEntry("state", "CA").containsEntry("country", "US");
   }
