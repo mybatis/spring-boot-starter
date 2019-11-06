@@ -238,6 +238,11 @@ class MybatisLanguageDriverAutoConfigurationTest {
         "mybatis.scripting-language-driver.thymeleaf.template-file.cache-ttl=1234",
         "mybatis.scripting-language-driver.thymeleaf.template-file.encoding=Windows-31J",
         "mybatis.scripting-language-driver.thymeleaf.template-file.patterns=*.sql,*.sqlf",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.path-provider.prefix=sql/",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.path-provider.includes-package-path=false",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.path-provider.separate-directory-per-mapper=false",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.path-provider.includes-mapper-name-when-separate-directory=false",
+        "mybatis.scripting-language-driver.thymeleaf.template-file.path-provider.cache-enabled=false",
         "mybatis.scripting-language-driver.thymeleaf.customizer=org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfigurationTest$MyTemplateEngineCustomizer")
         .applyTo(this.context);
     this.context.register(MyAutoConfiguration.class, MybatisLanguageDriverAutoConfiguration.class);
@@ -260,6 +265,11 @@ class MybatisLanguageDriverAutoConfigurationTest {
     assertThat(config.getTemplateFile().getCacheTtl()).isEqualTo(1234);
     assertThat(config.getTemplateFile().getEncoding()).isEqualTo(Charset.forName("Windows-31J"));
     assertThat(config.getTemplateFile().getPatterns()).hasSize(2).contains("*.sql", "*.sqlf");
+    assertThat(config.getTemplateFile().getPathProvider().getPrefix()).isEqualTo("sql/");
+    assertThat(config.getTemplateFile().getPathProvider().isIncludesPackagePath()).isFalse();
+    assertThat(config.getTemplateFile().getPathProvider().isSeparateDirectoryPerMapper()).isFalse();
+    assertThat(config.getTemplateFile().getPathProvider().isIncludesMapperNameWhenSeparateDirectory()).isFalse();
+    assertThat(config.getTemplateFile().getPathProvider().isCacheEnabled()).isFalse();
     assertThat(config.getCustomizer()).isEqualTo(MyTemplateEngineCustomizer.class);
   }
 
