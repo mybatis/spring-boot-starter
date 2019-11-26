@@ -34,7 +34,7 @@ MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
 
 ## Bug report & Feature request
 
-* [GigHub Issue Tracker](https://github.com/mybatis/spring-boot-starter/issues)
+* [GitHub Issue Tracker](https://github.com/mybatis/spring-boot-starter/issues)
 
 ## Question
 
