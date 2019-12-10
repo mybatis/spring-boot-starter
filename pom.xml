@@ -72,7 +72,7 @@
     <mybatis-freemarker.version>1.2.0</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.0</mybatis-velocity.version>
     <mybatis-thymeleaf.version>1.0.1</mybatis-thymeleaf.version>
-    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+    <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
 
     <!-- Remove after parent 32 (support for jdk 13) -->
     <jacoco.version>0.8.5</jacoco.version>
