@@ -2,9 +2,14 @@ language: java
 
 jdk:
   - openjdk-ea
+  - openjdk14
   - openjdk13
   - openjdk11
   - openjdk8
+
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
 
 cache:
   directories:
