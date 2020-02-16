@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,13 +16,8 @@
 
 package org.mybatis.spring.boot.test.autoconfigure;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.springframework.boot.context.TypeExcludeFilter;
-import org.springframework.boot.test.autoconfigure.filter.AnnotationCustomizableTypeExcludeFilter;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.boot.test.autoconfigure.filter.StandardAnnotationCustomizableTypeExcludeFilter;
 
 /**
  * {@link TypeExcludeFilter} for {@link MybatisTest @MybatisTest}.
@@ -30,43 +25,9 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
  * @author wonwoo
  * @since 1.2.1
  */
-class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
-  private final MybatisTest annotation;
+public final class MybatisTypeExcludeFilter extends StandardAnnotationCustomizableTypeExcludeFilter<MybatisTest> {
 
   MybatisTypeExcludeFilter(Class<?> testClass) {
-    this.annotation = AnnotatedElementUtils.getMergedAnnotation(testClass, MybatisTest.class);
+    super(testClass);
   }
-
-  @Override
-  protected boolean hasAnnotation() {
-    return this.annotation != null;
-  }
-
-  @Override
-  protected ComponentScan.Filter[] getFilters(FilterType type) {
-    switch (type) {
-      case INCLUDE:
-        return this.annotation.includeFilters();
-      case EXCLUDE:
-        return this.annotation.excludeFilters();
-      default:
-        throw new IllegalStateException("Unsupported type " + type);
-    }
-  }
-
-  @Override
-  protected boolean isUseDefaultFilters() {
-    return this.annotation.useDefaultFilters();
-  }
-
-  @Override
-  protected Set<Class<?>> getDefaultIncludes() {
-    return Collections.emptySet();
-  }
-
-  @Override
-  protected Set<Class<?>> getComponentIncludes() {
-    return Collections.emptySet();
-  }
-
 }
