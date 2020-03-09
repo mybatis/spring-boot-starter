@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/</link>
     <description>mybatis-spring-boot - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2019 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2020 MyBatis.org</copyright>
     <item>
-      <title>File: 33,
+      <title>File: 41,
              Errors: 0,
-             Warnings: 63,
+             Warnings: 67,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter//checkstyle.html</link>
@@ -88,6 +88,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-web.src.main.java.sample.mybatis.SampleWebApplication.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/SampleWebApplication.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-freemarker-legacy.src.main.java.sample.mybatis.SampleFreeMarkerApplication.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker-legacy/src/main/java/sample/mybatis/SampleFreeMarkerApplication.java</a>
                 </td>
                 <td>
@@ -103,6 +117,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-velocity.src.main.java.sample.mybatis.mapper.CityMapper.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity/src/main/java/sample/mybatis/mapper/CityMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-war.src.main.java.sample.mybatis.domain.City.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/domain/City.java</a>
                 </td>
                 <td>
                   0
@@ -242,6 +270,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-war.src.main.java.sample.mybatis.controller.CityRestController.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/controller/CityRestController.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-annotation.src.main.java.sample.mybatis.SampleAnnotationApplication.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation/src/main/java/sample/mybatis/SampleAnnotationApplication.java</a>
                 </td>
                 <td>
@@ -257,6 +299,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-xml.src.main.java.sample.mybatis.mapper.HotelMapper.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml/src/main/java/sample/mybatis/mapper/HotelMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-web.src.main.java.sample.mybatis.domain.City.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/domain/City.java</a>
                 </td>
                 <td>
                   0
@@ -340,6 +396,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-war.src.main.java.sample.mybatis.mapper.CityMapper.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/mapper/CityMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-velocity-legacy.src.main.java.sample.mybatis.mapper.CityMapper.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity-legacy/src/main/java/sample/mybatis/mapper/CityMapper.java</a>
                 </td>
                 <td>
@@ -369,6 +439,34 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-test-autoconfigure.src.main.java.org.mybatis.spring.boot.test.autoconfigure.MybatisTestContextBootstrapper.java">mybatis-spring-boot-test-autoconfigure/src/main/java/org/mybatis/spring/boot/test/autoconfigure/MybatisTestContextBootstrapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-web.src.main.java.sample.mybatis.controller.CityRestController.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/controller/CityRestController.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-war.src.main.java.sample.mybatis.SampleWebApplication.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-war/src/main/java/sample/mybatis/SampleWebApplication.java</a>
                 </td>
                 <td>
                   0
@@ -481,6 +579,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-freemarker-legacy.src.main.java.sample.mybatis.domain.City.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker-legacy/src/main/java/sample/mybatis/domain/City.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter//checkstyle.html#mybatis-spring-boot-samples.mybatis-spring-boot-sample-web.src.main.java.sample.mybatis.mapper.CityMapper.java">mybatis-spring-boot-samples/mybatis-spring-boot-sample-web/src/main/java/sample/mybatis/mapper/CityMapper.java</a>
                 </td>
                 <td>
                   0
