@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"sample.mybatis"},{"l":"sample.mybatis.controller"},{"l":"sample.mybatis.domain"},{"l":"sample.mybatis.mapper"}]
