@@ -17,6 +17,7 @@ cache:
 
 script:
   - ./mvnw clean verify
+  - ./mvnw clean verify -Dspring-boot.version=2.2.7.RELEASE
   - ./mvnw clean verify -Dspring-boot.version=2.1.13.RELEASE -Dspring-boot.version.line=2.1.x
 
 after_success:
