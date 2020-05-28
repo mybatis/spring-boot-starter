@@ -17,8 +17,11 @@ cache:
 
 script:
   - ./mvnw clean verify
+  - ./mybatis-spring-boot-samples/run_fatjars.sh
   - ./mvnw clean verify -Dspring-boot.version=2.2.7.RELEASE
+  - ./mybatis-spring-boot-samples/run_fatjars.sh
   - ./mvnw clean verify -Dspring-boot.version=2.1.14.RELEASE -Dspring-boot.version.line=2.1.x
+  - ./mybatis-spring-boot-samples/run_fatjars.sh
 
 after_success:
   - chmod -R 777 ./travis/after_success.sh
