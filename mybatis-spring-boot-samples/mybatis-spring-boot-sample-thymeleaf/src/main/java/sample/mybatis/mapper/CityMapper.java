@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package sample.mybatis.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.mybatis.scripting.thymeleaf.support.TemplateFilePathProvider;
 import sample.mybatis.domain.City;
 
 /**
@@ -29,9 +31,12 @@ public interface CityMapper {
   @Select("select id, name, state, country from city where id = /*[# mb:p='id']*/ 1 /*[/]*/")
   City findById(@Param("id") Long id);
 
-  @Select("/mappers/CityMapper-findByState.sql")
+  @Select("CityMapper-findByState.sql")
   City findByState(@Param("state") String state);
 
   City findByName(@Param("name") String name);
+
+  @SelectProvider(TemplateFilePathProvider.class)
+  City findByCountry(@Param("country") String country);
 
 }

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ public class SampleThymeleafApplication implements CommandLineRunner {
   @SuppressWarnings("squid:S106")
   public void run(String... args) {
     System.out.println(this.cityMapper.findByState("CA"));
+    System.out.println(this.cityMapper.findByCountry("JP"));
   }
 
 }
