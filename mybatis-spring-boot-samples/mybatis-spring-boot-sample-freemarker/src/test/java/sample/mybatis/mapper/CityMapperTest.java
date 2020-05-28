@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -59,6 +59,15 @@ class CityMapperTest {
     assertThat(city.getName()).isEqualTo("San Francisco");
     assertThat(city.getState()).isEqualTo("CA");
     assertThat(city.getCountry()).isEqualTo("US");
+  }
+
+  @Test
+  void findByCountry() {
+    City city = cityMapper.findByCountry("JP");
+    assertThat(city.getId()).isEqualTo(2);
+    assertThat(city.getName()).isEqualTo("Tokyo");
+    assertThat(city.getState()).isEqualTo("13");
+    assertThat(city.getCountry()).isEqualTo("JP");
   }
 
 }

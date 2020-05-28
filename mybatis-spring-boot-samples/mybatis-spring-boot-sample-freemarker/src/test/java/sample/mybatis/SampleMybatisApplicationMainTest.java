@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ class SampleMybatisApplicationMainTest {
     SampleFreeMarkerApplication.main(new String[] {});
     String output = outputCapture.toString();
     assertThat(output).contains("1,San Francisco,CA,US");
+    assertThat(output).contains("2,Tokyo,13,JP");
   }
 
 }
