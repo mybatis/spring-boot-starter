@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -126,6 +126,25 @@ public class MybatisLanguageDriverAutoConfiguration {
     public ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
       return ThymeleafLanguageDriverConfig.newInstance();
     }
+
+    // This class provides to avoid the https://github.com/spring-projects/spring-boot/issues/21626 as workaround.
+    @SuppressWarnings("unused")
+    private static class MetadataThymeleafLanguageDriverConfig extends ThymeleafLanguageDriverConfig {
+
+      @ConfigurationProperties(CONFIGURATION_PROPERTY_PREFIX + ".thymeleaf.dialect")
+      @Override
+      public DialectConfig getDialect() {
+        return super.getDialect();
+      }
+
+      @ConfigurationProperties(CONFIGURATION_PROPERTY_PREFIX + ".thymeleaf.template-file")
+      @Override
+      public TemplateFileConfig getTemplateFile() {
+        return super.getTemplateFile();
+      }
+
+    }
+
   }
 
 }
