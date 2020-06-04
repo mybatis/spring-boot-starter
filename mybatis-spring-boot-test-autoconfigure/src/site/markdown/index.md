@@ -30,7 +30,7 @@ If you are using Maven just add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-starter-test</artifactId>
-    <version>2.1.1</version>
+    <version>2.1.3</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -41,7 +41,7 @@ If using gradle add this to your `build.gradle`:
 
 ```groovy
 dependencies {
-    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.1")
+    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.3")
 }
 ```
 
