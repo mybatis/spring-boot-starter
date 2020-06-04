@@ -67,7 +67,7 @@
   </distributionManagement>
 
   <properties>
-    <mybatis.version>3.5.5-SNAPSHOT</mybatis.version>
+    <mybatis.version>3.5.5</mybatis.version>
     <mybatis-spring.version>2.0.5-SNAPSHOT</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.2-SNAPSHOT</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.0</mybatis-velocity.version>
