@@ -25,6 +25,12 @@
       "type": "java.lang.Boolean"
     },
     {
+      "defaultValue": "",
+      "name": "mybatis.mapper-default-scope",
+      "description": "A default scope for mapper bean that scanned by auto-configure.",
+      "type": "java.lang.String"
+    },
+    {
       "name": "mybatis.scripting-language-driver.velocity.userdirective",
       "deprecation": {
         "level": "error",

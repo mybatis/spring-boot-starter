@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ class AdditionalConfigurationMetadataTest {
 
     List<Map<String, Object>> properties = documentContext.read("$.properties");
 
-    assertThat(properties.size()).isEqualTo(4);
+    assertThat(properties.size()).isEqualTo(5);
 
     // assert for mybatis.configuration.default-scripting-language
     {
@@ -78,9 +78,17 @@ class AdditionalConfigurationMetadataTest {
       assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
     }
 
-    // assert for mybatis.scripting-language-driver.velocity.userdirective
+    // assert for mybatis.mapper-default-scope
     {
       Map<String, Object> element = properties.get(3);
+      assertThat(element.get("defaultValue")).isEqualTo("");
+      assertThat(element.get("name")).isEqualTo("mybatis.mapper-default-scope");
+      assertThat(element.get("type")).isEqualTo("java.lang.String");
+    }
+
+    // assert for mybatis.scripting-language-driver.velocity.userdirective
+    {
+      Map<String, Object> element = properties.get(4);
       assertThat(element.get("name")).isEqualTo("mybatis.scripting-language-driver.velocity.userdirective");
       @SuppressWarnings("unchecked")
       Map<String, Object> deprecation = (Map<String, Object>) element.get("deprecation");

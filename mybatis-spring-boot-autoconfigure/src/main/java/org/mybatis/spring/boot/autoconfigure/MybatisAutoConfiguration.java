@@ -232,10 +232,16 @@ public class MybatisAutoConfiguration implements InitializingBean {
       builder.addPropertyValue("annotationClass", Mapper.class);
       builder.addPropertyValue("basePackage", StringUtils.collectionToCommaDelimitedString(packages));
       BeanWrapper beanWrapper = new BeanWrapperImpl(MapperScannerConfigurer.class);
-      Stream.of(beanWrapper.getPropertyDescriptors())
-          // Need to mybatis-spring 2.0.2+
-          .filter(x -> x.getName().equals("lazyInitialization")).findAny()
-          .ifPresent(x -> builder.addPropertyValue("lazyInitialization", "${mybatis.lazy-initialization:false}"));
+      Set<String> propertyNames = Stream.of(beanWrapper.getPropertyDescriptors()).map(PropertyDescriptor::getName)
+          .collect(Collectors.toSet());
+      if (propertyNames.contains("lazyInitialization")) {
+        // Need to mybatis-spring 2.0.2+
+        builder.addPropertyValue("lazyInitialization", "${mybatis.lazy-initialization:false}");
+      }
+      if (propertyNames.contains("defaultScope")) {
+        // Need to mybatis-spring 2.0.6+
+        builder.addPropertyValue("defaultScope", "${mybatis.mapper-default-scope:}");
+      }
       registry.registerBeanDefinition(MapperScannerConfigurer.class.getName(), builder.getBeanDefinition());
     }
 

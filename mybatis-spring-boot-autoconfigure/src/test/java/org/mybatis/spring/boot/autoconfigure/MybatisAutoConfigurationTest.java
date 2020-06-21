@@ -67,8 +67,13 @@ import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+import org.springframework.aop.scope.ScopedProxyFactoryBean;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
@@ -78,6 +83,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.SimpleThreadScope;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}
@@ -191,6 +197,35 @@ class MybatisAutoConfigurationTest {
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
     this.context.getBean(CityMapper.class);
     assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+  }
+
+  @Test
+  void testAutoScanWithDefaultScope() {
+    TestPropertyValues.of("mybatis.mapper-default-scope:thread").applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    {
+      this.context.getBean(CityMapper.class);
+      BeanDefinition bd = this.context.getBeanDefinition("cityMapper");
+      assertThat(bd.getBeanClassName()).isEqualTo(ScopedProxyFactoryBean.class.getName());
+      BeanDefinition spbd = this.context.getBeanDefinition("scopedTarget.cityMapper");
+      assertThat(spbd.getBeanClassName()).isEqualTo(MapperFactoryBean.class.getName());
+      assertThat(spbd.getScope()).isEqualTo("thread");
+    }
+  }
+
+  @Test
+  void testAutoScanWithoutDefaultScope() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    {
+      this.context.getBean(CityMapper.class);
+      BeanDefinition df = this.context.getBeanDefinition("cityMapper");
+      assertThat(df.getBeanClassName()).isEqualTo(MapperFactoryBean.class.getName());
+      assertThat(df.getScope()).isEqualTo("singleton");
+    }
   }
 
   @Test
@@ -745,7 +780,11 @@ class MybatisAutoConfigurationTest {
 
   @Configuration
   @EnableAutoConfiguration
-  static class MybatisBootMapperScanAutoConfiguration {
+  static class MybatisBootMapperScanAutoConfiguration implements BeanFactoryPostProcessor {
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+      beanFactory.registerScope("thread", new SimpleThreadScope());
+    }
   }
 
   @Configuration
