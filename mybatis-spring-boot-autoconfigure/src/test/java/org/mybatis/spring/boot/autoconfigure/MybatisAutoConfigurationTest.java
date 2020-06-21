@@ -1,5 +1,5 @@
 /**
- *    Copyright 2015-2019 the original author or authors.
+ *    Copyright 2015-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,6 +15,11 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+
+import com.example.mapper.DateTimeMapper;
+
 import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -27,7 +32,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.sql.DataSource;
 
-import com.example.mapper.DateTimeMapper;
 import org.apache.ibatis.cache.impl.PerpetualCache;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
@@ -63,7 +67,6 @@ import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
-
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -75,9 +78,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}

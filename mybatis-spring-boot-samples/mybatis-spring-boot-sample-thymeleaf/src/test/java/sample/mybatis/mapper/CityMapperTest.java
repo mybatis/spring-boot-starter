@@ -15,13 +15,13 @@
  */
 package sample.mybatis.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
-import sample.mybatis.domain.City;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import sample.mybatis.domain.City;
 
 /**
  * Tests for {@link CityMapper}.

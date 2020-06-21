@@ -110,7 +110,7 @@ public @interface MybatisTest {
 
   /**
    * Auto-configuration exclusions that should be applied for this test.
-   * 
+   *
    * @return auto-configuration exclusions to apply
    */
   @AliasFor(annotation = ImportAutoConfiguration.class, attribute = "exclude")

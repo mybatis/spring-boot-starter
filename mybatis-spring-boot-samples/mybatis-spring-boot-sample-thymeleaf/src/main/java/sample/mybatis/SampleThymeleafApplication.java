@@ -15,11 +15,11 @@
  */
 package sample.mybatis;
 
-import sample.mybatis.mapper.CityMapper;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import sample.mybatis.mapper.CityMapper;
 
 /**
  * @author Kazuki Shimizu
