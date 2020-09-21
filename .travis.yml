@@ -8,7 +8,7 @@ jdk:
 
 matrix:
   allow_failures:
-    - jdk: openjdk15
+    - jdk: openjdk16
 
 cache:
   directories:
