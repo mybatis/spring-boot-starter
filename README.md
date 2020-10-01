@@ -8,7 +8,7 @@
 
 ![mybatis-spring](http://mybatis.github.io/images/mybatis-logo.png)
 
-MyBatis Spring-Boot-Starter will help you use MyBatis with Spring Boot
+MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 
 ## Requirements
 
