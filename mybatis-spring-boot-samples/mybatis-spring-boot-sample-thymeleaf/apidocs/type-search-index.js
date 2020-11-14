@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleThymeleafApplication"}]
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleThymeleafApplication"}];updateSearchResults();
