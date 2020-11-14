@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"sample.mybatis"},{"l":"sample.mybatis.dao"},{"l":"sample.mybatis.domain"},{"l":"sample.mybatis.mapper"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sample.mybatis"},{"l":"sample.mybatis.dao"},{"l":"sample.mybatis.domain"},{"l":"sample.mybatis.mapper"}];updateSearchResults();
