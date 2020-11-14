@@ -17,6 +17,8 @@ cache:
 script:
   - ./mvnw clean verify
   - ./mybatis-spring-boot-samples/run_fatjars.sh
+  - ./mvnw clean verify -Dspring-boot.version=$(./travis/get_latest_version.sh 2.3)
+  - ./mybatis-spring-boot-samples/run_fatjars.sh
   - ./mvnw clean verify -Dspring-boot.version=$(./travis/get_latest_version.sh 2.2)
   - ./mybatis-spring-boot-samples/run_fatjars.sh
   - ./mvnw clean verify -Dspring-boot.version=$(./travis/get_latest_version.sh 2.1) -Dspring-boot.version.line=2.1.x
