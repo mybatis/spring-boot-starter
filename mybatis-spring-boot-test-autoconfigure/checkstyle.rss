@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 5,
              Errors: 0,
-             Warnings: 6,
+             Warnings: 21,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html</link>
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  10
                 </td>
                 <td>
                   0
@@ -66,7 +66,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
                   0
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   0
@@ -108,7 +108,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   0
