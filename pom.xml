@@ -75,6 +75,32 @@
     <spring-boot.version>2.4.0</spring-boot.version>
   </properties>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/site</directory>
+        <targetPath>${project.build.directory}/site-src</targetPath>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <configuration>
+            <!-- Build using files that replace a placeholder using project properties -->
+            <siteDirectory>${project.build.directory}/site-src</siteDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
   <dependencyManagement>
     <dependencies>
       <dependency>

@@ -35,7 +35,7 @@ If you are using Maven just add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-starter</artifactId>
-    <version>2.1.4</version>
+    <version>${project.version}</version>
 </dependency>
 ```
 
@@ -45,7 +45,7 @@ If using gradle add this to your `build.gradle`:
 
 ```groovy
 dependencies {
-  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4")
+  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
 }
 ```
 
