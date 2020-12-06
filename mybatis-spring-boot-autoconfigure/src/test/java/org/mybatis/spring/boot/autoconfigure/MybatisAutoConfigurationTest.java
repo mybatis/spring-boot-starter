@@ -726,12 +726,12 @@ class MybatisAutoConfigurationTest {
   @Configuration
   static class MultipleDataSourceConfiguration {
     @Bean
-    DataSource dataSourceMaster() {
+    DataSource dataSourcePrimary() {
       return Mockito.mock(DataSource.class);
     }
 
     @Bean
-    DataSource dataSourceSlave() {
+    DataSource dataSourceReplica() {
       return Mockito.mock(DataSource.class);
     }
   }
@@ -740,12 +740,12 @@ class MybatisAutoConfigurationTest {
   static class SingleCandidateDataSourceConfiguration {
     @Bean
     @Primary
-    DataSource dataSourceMaster() {
+    DataSource dataSourcePrimary() {
       return Mockito.mock(DataSource.class);
     }
 
     @Bean
-    DataSource dataSourceSlave() {
+    DataSource dataSourceReplica() {
       return Mockito.mock(DataSource.class);
     }
   }
