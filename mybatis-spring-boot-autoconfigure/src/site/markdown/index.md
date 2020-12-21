@@ -297,7 +297,7 @@ public class MyBatisConfig {
 }
 ```
 
-### ThymeleafLanguageDriver
+### VelocityLanguageDriver
 
 ```java
 @Configuration
