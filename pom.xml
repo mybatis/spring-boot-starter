@@ -160,6 +160,7 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <version>${spring-boot.version}</version>
         <exclusions>
+          <!-- Only matters for 2.3 and earlier code lines as removed in latest -->
           <exclusion>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
