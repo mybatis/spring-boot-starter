@@ -141,6 +141,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
       factory.setConfigurationProperties(this.properties.getConfigurationProperties());
     }
     if (!ObjectUtils.isEmpty(this.interceptors)) {
+      // sort interceptors by order
       AnnotationAwareOrderComparator.sort(this.interceptors);
       factory.setPlugins(this.interceptors);
     }
