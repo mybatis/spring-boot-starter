@@ -13,15 +13,15 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.annotation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import extensions.annotation.CaptureSystemOutput;
+import extensions.annotation.CaptureSystemOutput.OutputCapture;
 
 /**
  * @author Eddú Meléndez

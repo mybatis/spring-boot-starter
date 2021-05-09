@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.domain;
+package sample.mybatis.annotation.domain;
 
 import java.io.Serializable;
 

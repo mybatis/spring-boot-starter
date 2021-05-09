@@ -13,26 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.annotation.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-import org.junit.jupiter.api.Test;
-
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import sample.mybatis.annotation.domain.City;
 
 /**
- * @author Kazuki Shimizu
+ * @author Eddú Meléndez
  */
-@CaptureSystemOutput
-class SampleMybatisApplicationMainTest {
+@Mapper
+public interface CityMapper {
 
-  @Test
-  void test(OutputCapture outputCapture) {
-    SampleAnnotationApplication.main(new String[] {});
-    String output = outputCapture.toString();
-    assertThat(output).contains("1,San Francisco,CA,US");
-  }
+  @Select("select id, name, state, country from city where state = #{state}")
+  City findByState(@Param("state") String state);
 
 }

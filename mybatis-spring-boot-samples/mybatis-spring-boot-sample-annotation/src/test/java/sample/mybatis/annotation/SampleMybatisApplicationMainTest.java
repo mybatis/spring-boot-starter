@@ -13,35 +13,26 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.annotation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import sample.mybatis.domain.City;
+import extensions.annotation.CaptureSystemOutput;
+import extensions.annotation.CaptureSystemOutput.OutputCapture;
 
 /**
- * Tests for {@link CityMapper}.
- *
- * @author wonwoo
- * @since 1.2.1
+ * @author Kazuki Shimizu
  */
-@MybatisTest
-class CityMapperTest {
-
-  @Autowired
-  private CityMapper cityMapper;
+@CaptureSystemOutput
+class SampleMybatisApplicationMainTest {
 
   @Test
-  void findByStateTest() {
-    City city = cityMapper.findByState("CA");
-    assertThat(city.getId()).isEqualTo(1);
-    assertThat(city.getName()).isEqualTo("San Francisco");
-    assertThat(city.getState()).isEqualTo("CA");
-    assertThat(city.getCountry()).isEqualTo("US");
+  void test(OutputCapture outputCapture) {
+    SampleAnnotationApplication.main(new String[] {});
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
   }
 
 }

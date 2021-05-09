@@ -13,13 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.annotation;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import sample.mybatis.mapper.CityMapper;
+import sample.mybatis.annotation.mapper.CityMapper;
 
 @SpringBootApplication
 public class SampleAnnotationApplication implements CommandLineRunner {
