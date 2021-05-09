@@ -28,16 +28,16 @@
   <name>mybatis-spring-boot-samples</name>
   <modules>
     <module>mybatis-spring-boot-sample-annotation</module>
-    <module>mybatis-spring-boot-sample-xml</module>
-    <module>mybatis-spring-boot-sample-thymeleaf</module>
     <module>mybatis-spring-boot-sample-freemarker</module>
     <module>mybatis-spring-boot-sample-freemarker-legacy</module>
+    <module>mybatis-spring-boot-sample-groovy</module>
+    <module>mybatis-spring-boot-sample-kotlin</module>
+    <module>mybatis-spring-boot-sample-thymeleaf</module>
     <module>mybatis-spring-boot-sample-velocity</module>
     <module>mybatis-spring-boot-sample-velocity-legacy</module>
-    <module>mybatis-spring-boot-sample-kotlin</module>
-    <module>mybatis-spring-boot-sample-groovy</module>
-    <module>mybatis-spring-boot-sample-web</module>
     <module>mybatis-spring-boot-sample-war</module>
+    <module>mybatis-spring-boot-sample-web</module>
+    <module>mybatis-spring-boot-sample-xml</module>
   </modules>
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
