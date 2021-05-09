@@ -1,0 +1,55 @@
+#
+# Copyright 2010-2020 the original author or authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Spring Boot Support Samples
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+        java: [8]
+        distribution: ['adopt']
+      fail-fast: false
+      max-parallel: 4
+    name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: ${{ matrix.distribution }}
+      - name: Test with Spring Boot Latest
+        run: |
+          ./mvnw test
+          ./mybatis-spring-boot-samples/run_fatjars.sh
+      - name: Test with Spring Boot 2.3
+        run: |
+          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.3)
+          ./mybatis-spring-boot-samples/run_fatjars.sh
+      - name: Test with Spring Boot 2.2
+        run: |
+          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.2)
+          ./mybatis-spring-boot-samples/run_fatjars.sh
+      - name: Test with Spring Boot 2.1
+        run: |
+          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.1) -Dspring-boot.version.line=2.1.x
+          ./mybatis-spring-boot-samples/run_fatjars.sh

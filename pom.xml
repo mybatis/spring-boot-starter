@@ -160,6 +160,7 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <version>${spring-boot.version}</version>
         <exclusions>
+          <!-- Only matters for 2.3 and earlier code lines as removed in latest -->
           <exclusion>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
@@ -224,6 +225,12 @@
         <dependency>
           <groupId>org.junit.jupiter</groupId>
           <artifactId>junit-jupiter-engine</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.assertj</groupId>
+          <artifactId>assertj-core</artifactId>
+          <version>3.19.0</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
