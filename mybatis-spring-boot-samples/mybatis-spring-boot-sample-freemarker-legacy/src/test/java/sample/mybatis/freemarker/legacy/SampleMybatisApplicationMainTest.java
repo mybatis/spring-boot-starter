@@ -13,14 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.freemarker.legacy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import extensions.freemarker.legacy.CaptureSystemOutput;
+import extensions.freemarker.legacy.CaptureSystemOutput.OutputCapture;
 
 /**
  * @author Kazuki Shimizu
