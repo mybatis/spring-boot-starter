@@ -13,24 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.freemarker;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import extensions.freemarker.CaptureSystemOutput;
+import extensions.freemarker.CaptureSystemOutput.OutputCapture;
 
 /**
  * @author Kazuki Shimizu
  */
 @CaptureSystemOutput
-class SampleMybatisApplicationMainTest {
+@SpringBootTest
+class SampleMybatisApplicationTest {
 
   @Test
   void test(OutputCapture outputCapture) {
-    SampleFreeMarkerApplication.main(new String[] {});
     String output = outputCapture.toString();
     assertThat(output).contains("1,San Francisco,CA,US");
     assertThat(output).contains("2,Tokyo,13,JP");
