@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis
+package sample.mybatis.groovy
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.transaction.annotation.Transactional
-import sample.mybatis.mapper.CityMapper
+
+import sample.mybatis.groovy.mapper.CityMapper
 
 @SpringBootApplication
 class SampleGroovyApplication implements CommandLineRunner {

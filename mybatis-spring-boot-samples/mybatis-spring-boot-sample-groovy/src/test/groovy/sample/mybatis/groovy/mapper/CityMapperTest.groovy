@@ -13,10 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper
+package sample.mybatis.groovy.mapper
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.junit.jupiter.api.Test
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest
+import org.springframework.beans.factory.annotation.Autowired
 
-@SpringBootApplication
-class MapperTestApplication {
+@MybatisTest
+class CityMapperTest {
+  
+  @Autowired
+  CityMapper cityMapper
+  
+  @Test
+  void findByState() {
+    def city = cityMapper.findByState("CA");
+    assert city.id == 1
+    assert city.name == "San Francisco"
+    assert city.state == "CA"
+    assert city.country == "US"
+  }
+  
 }

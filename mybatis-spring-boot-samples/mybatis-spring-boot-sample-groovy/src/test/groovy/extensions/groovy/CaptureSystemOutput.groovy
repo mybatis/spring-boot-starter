@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package extensions
+package extensions.groovy
 
 import java.lang.annotation.Retention
 import java.lang.annotation.Target
@@ -80,7 +80,7 @@ import static org.hamcrest.Matchers.allOf
  */
 @Target([ TYPE, METHOD])
 @Retention(RUNTIME)
-@ExtendWith(Extension.class)
+@ExtendWith(CaptureSystemOutput.Extension.class)
 @interface CaptureSystemOutput {
   
   class Extension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {

@@ -13,19 +13,18 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis
+package sample.mybatis.groovy.domain
 
-import extensions.CaptureSystemOutput
-import org.junit.jupiter.api.Test
+class City {
 
-@CaptureSystemOutput
-class SampleMybatisApplicationMainTest {
-
-	@Test
-	void test(CaptureSystemOutput.OutputCapture outputCapture) {
-		SampleGroovyApplication.main()
-		def output = outputCapture.toString()
-		assert output.contains("1,San Francisco,CA,US")
-	}
+  Long id
+  String name
+  String state
+  String country
+  
+  @Override
+  String toString() {
+    return "${id},${name},${state},${country}"
+  }
 
 }

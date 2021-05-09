@@ -13,18 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.domain
+package sample.mybatis.groovy
 
-class City {
+import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 
-  Long id
-  String name
-  String state
-  String country
-  
-  @Override
-  String toString() {
-    return "${id},${name},${state},${country}"
-  }
+import extensions.groovy.CaptureSystemOutput
+
+@CaptureSystemOutput
+@SpringBootTest
+class SampleMybatisApplicationTest {
+
+	@Test
+	void test(CaptureSystemOutput.OutputCapture outputCapture) {
+		def output = outputCapture.toString()
+		assert output.contains("1,San Francisco,CA,US")
+	}
 
 }

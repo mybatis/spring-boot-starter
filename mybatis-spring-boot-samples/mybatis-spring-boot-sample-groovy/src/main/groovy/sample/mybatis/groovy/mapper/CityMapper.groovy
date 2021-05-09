@@ -13,20 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis
+package sample.mybatis.groovy.mapper
 
-import extensions.CaptureSystemOutput
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
+import org.apache.ibatis.annotations.Mapper
+import org.apache.ibatis.annotations.Param
+import org.apache.ibatis.annotations.Select
 
-@CaptureSystemOutput
-@SpringBootTest
-class SampleMybatisApplicationTest {
+import sample.mybatis.groovy.domain.City
 
-	@Test
-	void test(CaptureSystemOutput.OutputCapture outputCapture) {
-		def output = outputCapture.toString()
-		assert output.contains("1,San Francisco,CA,US")
-	}
+@Mapper
+interface CityMapper {
 
+  @Select('''
+    select
+      id, name, state, country
+    from
+      city
+    where
+      state = #{state}
+  ''')
+  City findByState(@Param("state") String state)
+  
 }
