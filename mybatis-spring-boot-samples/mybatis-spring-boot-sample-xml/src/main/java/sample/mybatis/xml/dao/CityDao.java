@@ -13,18 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.xml.dao;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Component;
 
-import sample.mybatis.domain.Hotel;
+import sample.mybatis.xml.domain.City;
 
 /**
- * @author Eduardo Macarron
+ * @author Eddú Meléndez
  */
-@Mapper
-public interface HotelMapper {
+@Component
+public class CityDao {
 
-  Hotel selectByCityId(int cityId);
+  private final SqlSession sqlSession;
+
+  public CityDao(SqlSession sqlSession) {
+    this.sqlSession = sqlSession;
+  }
+
+  public City selectCityById(long id) {
+    return this.sqlSession.selectOne("selectCityById", id);
+  }
 
 }

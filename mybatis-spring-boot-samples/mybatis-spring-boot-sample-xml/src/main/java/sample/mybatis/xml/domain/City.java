@@ -13,60 +13,60 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-/**
- * @author Eduardo Macarron
- */
-package sample.mybatis.domain;
+package sample.mybatis.xml.domain;
 
 import java.io.Serializable;
 
-public class Hotel implements Serializable {
+/**
+ * @author Eddú Meléndez
+ */
+public class City implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private Long city;
+  private Long id;
 
   private String name;
 
-  private String address;
+  private String state;
 
-  private String zip;
+  private String country;
 
-  public Long getCity() {
-    return city;
+  public Long getId() {
+    return this.id;
   }
 
-  public void setCity(Long city) {
-    this.city = city;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public void setName(String name) {
     this.name = name;
   }
 
-  public String getAddress() {
-    return address;
+  public String getState() {
+    return this.state;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setState(String state) {
+    this.state = state;
   }
 
-  public String getZip() {
-    return zip;
+  public String getCountry() {
+    return this.country;
   }
 
-  public void setZip(String zip) {
-    this.zip = zip;
+  public void setCountry(String country) {
+    this.country = country;
   }
 
   @Override
   public String toString() {
-    return getCity() + "," + getName() + "," + getAddress() + "," + getZip();
+    return getId() + "," + getName() + "," + getState() + "," + getCountry();
   }
 
 }

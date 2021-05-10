@@ -13,35 +13,37 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.xml.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 
-import sample.mybatis.domain.Hotel;
+import sample.mybatis.xml.domain.City;
 
 /**
- * Tests for {@link HotelMapper}.
+ * Tests for {@link CityDao}.
  *
  * @author wonwoo
  * @since 1.2.1
  */
 @MybatisTest
-class HotelMapperTest {
+@Import(CityDao.class)
+class CityDaoTest {
 
   @Autowired
-  private HotelMapper hotelMapper;
+  private CityDao cityDao;
 
   @Test
-  void selectByCityIdTest() {
-    Hotel hotel = hotelMapper.selectByCityId(1);
-    assertThat(hotel.getCity()).isEqualTo(1);
-    assertThat(hotel.getName()).isEqualTo("Conrad Treasury Place");
-    assertThat(hotel.getAddress()).isEqualTo("William & George Streets");
-    assertThat(hotel.getZip()).isEqualTo("4001");
+  void selectCityByIdTest() {
+    City city = cityDao.selectCityById(1);
+    assertThat(city.getId()).isEqualTo(1);
+    assertThat(city.getName()).isEqualTo("San Francisco");
+    assertThat(city.getState()).isEqualTo("CA");
+    assertThat(city.getCountry()).isEqualTo("US");
   }
 
 }

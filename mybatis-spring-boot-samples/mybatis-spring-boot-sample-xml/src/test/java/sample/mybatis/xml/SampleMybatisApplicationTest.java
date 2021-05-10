@@ -13,27 +13,29 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.dao;
+package sample.mybatis.xml;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import sample.mybatis.domain.City;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import extensions.xml.CaptureSystemOutput;
+import extensions.xml.CaptureSystemOutput.OutputCapture;
 
 /**
  * @author Eddú Meléndez
+ * @author Kazuki Shimizu
  */
-@Component
-public class CityDao {
+@CaptureSystemOutput
+@SpringBootTest
+class SampleMybatisApplicationTest {
 
-  private final SqlSession sqlSession;
-
-  public CityDao(SqlSession sqlSession) {
-    this.sqlSession = sqlSession;
-  }
-
-  public City selectCityById(long id) {
-    return this.sqlSession.selectOne("selectCityById", id);
+  @Test
+  void test(OutputCapture outputCapture) {
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
+    assertThat(output).contains("1,Conrad Treasury Place,William & George Streets,4001");
   }
 
 }

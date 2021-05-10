@@ -13,26 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.xml.dao;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
-
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
+ * <p>
+ * This class has role for prevent to run the {@link sample.mybatis.xml.SampleXmlApplication}. For more detail
+ * information, please refer
+ * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
+ *
  * @author Kazuki Shimizu
+ * @since 1.2.1
  */
-@CaptureSystemOutput
-class SampleMybatisApplicationMainTest {
-
-  @Test
-  void test(OutputCapture outputCapture) {
-    SampleXmlApplication.main(new String[] {});
-    String output = outputCapture.toString();
-    assertThat(output).contains("1,San Francisco,CA,US");
-  }
+@SpringBootApplication
+public class DaoTestApplication {
 
 }

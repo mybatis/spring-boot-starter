@@ -13,14 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.xml;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import sample.mybatis.dao.CityDao;
-import sample.mybatis.mapper.HotelMapper;
+import sample.mybatis.xml.dao.CityDao;
+import sample.mybatis.xml.mapper.HotelMapper;
 
 @SpringBootApplication
 public class SampleXmlApplication implements CommandLineRunner {

@@ -13,29 +13,26 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.xml;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import extensions.xml.CaptureSystemOutput;
+import extensions.xml.CaptureSystemOutput.OutputCapture;
 
 /**
- * @author Eddú Meléndez
  * @author Kazuki Shimizu
  */
 @CaptureSystemOutput
-@SpringBootTest
-class SampleMybatisApplicationTest {
+class SampleMybatisApplicationMainTest {
 
   @Test
   void test(OutputCapture outputCapture) {
+    SampleXmlApplication.main(new String[] {});
     String output = outputCapture.toString();
     assertThat(output).contains("1,San Francisco,CA,US");
-    assertThat(output).contains("1,Conrad Treasury Place,William & George Streets,4001");
   }
 
 }
