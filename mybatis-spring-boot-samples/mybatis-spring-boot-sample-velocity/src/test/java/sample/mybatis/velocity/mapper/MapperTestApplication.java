@@ -13,34 +13,20 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.velocity.mapper;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import sample.mybatis.mapper.CityMapper;
-
 /**
+ * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
+ * <p>
+ * This class has role for prevent to run the {@link sample.mybatis.velocity.SampleVelocityApplication}. For more detail
+ * information, please refer
+ * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
+ *
  * @author Kazuki Shimizu
  */
 @SpringBootApplication
-public class SampleVelocityApplication implements CommandLineRunner {
-
-  public static void main(String[] args) {
-    SpringApplication.run(SampleVelocityApplication.class, args);
-  }
-
-  private final CityMapper cityMapper;
-
-  public SampleVelocityApplication(CityMapper cityMapper) {
-    this.cityMapper = cityMapper;
-  }
-
-  @Override
-  @SuppressWarnings("squid:S106")
-  public void run(String... args) {
-    System.out.println(this.cityMapper.findById(1L));
-  }
+public class MapperTestApplication {
 
 }

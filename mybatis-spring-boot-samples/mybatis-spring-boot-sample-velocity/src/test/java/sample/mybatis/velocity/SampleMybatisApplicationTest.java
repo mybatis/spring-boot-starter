@@ -13,20 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.velocity;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import extensions.velocity.CaptureSystemOutput;
+import extensions.velocity.CaptureSystemOutput.OutputCapture;
 
 /**
- * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
- * <p>
- * This class has role for prevent to run the {@link sample.mybatis.SampleVelocityApplication}. For more detail
- * information, please refer
- * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
- *
  * @author Kazuki Shimizu
  */
-@SpringBootApplication
-public class MapperTestApplication {
+@CaptureSystemOutput
+@SpringBootTest
+class SampleMybatisApplicationTest {
+
+  @Test
+  void test(OutputCapture outputCapture) {
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
+  }
 
 }
