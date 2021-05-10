@@ -13,24 +13,11 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis
+package sample.mybatis.kotlin.domain
 
-import org.springframework.boot.CommandLineRunner
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-import org.springframework.transaction.annotation.Transactional
-import sample.mybatis.mapper.CityMapper
-
-@SpringBootApplication
-class SampleKotlinApplication (private val cityMapper: CityMapper) : CommandLineRunner {
-
-  @Transactional
-  override fun run(vararg args: String?) {
-    println(this.cityMapper.findByState("CA"))
-  }
-
-}
-
-fun main(args: Array<String>) {
-  runApplication<SampleKotlinApplication>(*args)
-}
+data class City(
+  var id: Long? = null,
+  var name: String? = null,
+  var state: String? = null,
+  var country: String? = null
+)

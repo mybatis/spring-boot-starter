@@ -13,28 +13,24 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper
+package sample.mybatis.kotlin
 
-import org.junit.jupiter.api.Test
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest
+import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import org.springframework.transaction.annotation.Transactional
+import sample.mybatis.kotlin.mapper.CityMapper
 
-import org.springframework.beans.factory.annotation.Autowired
+@SpringBootApplication
+class SampleKotlinApplication (private val cityMapper: CityMapper) : CommandLineRunner {
 
-import org.assertj.core.api.Assertions.assertThat
-
-@MybatisTest
-class CityMapperTest {
-
-  @Autowired
-  lateinit var cityMapper: CityMapper
-
-  @Test
-  fun findByState() {
-    val city = cityMapper.findByState("CA")
-    assertThat(city.id).isEqualTo(1)
-    assertThat(city.name).isEqualTo("San Francisco")
-    assertThat(city.state).isEqualTo("CA")
-    assertThat(city.country).isEqualTo("US")
+  @Transactional
+  override fun run(vararg args: String?) {
+    println(this.cityMapper.findByState("CA"))
   }
 
+}
+
+fun main(args: Array<String>) {
+  runApplication<SampleKotlinApplication>(*args)
 }

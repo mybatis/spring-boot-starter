@@ -13,20 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis
+package sample.mybatis.kotlin.mapper
 
-import extensions.CaptureSystemOutput
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest
 
-@CaptureSystemOutput
-class SampleMybatisApplicationMainTest {
+import org.springframework.beans.factory.annotation.Autowired
+
+import org.assertj.core.api.Assertions.assertThat
+
+@MybatisTest
+class CityMapperTest {
+
+  @Autowired
+  lateinit var cityMapper: CityMapper
 
   @Test
-  fun test(outputCapture: CaptureSystemOutput.OutputCapture) {
-    main(arrayOf())
-    val output = outputCapture.toString()
-    assertThat(output).contains("City(id=1, name=San Francisco, state=CA, country=US)")
+  fun findByState() {
+    val city = cityMapper.findByState("CA")
+    assertThat(city.id).isEqualTo(1)
+    assertThat(city.name).isEqualTo("San Francisco")
+    assertThat(city.state).isEqualTo("CA")
+    assertThat(city.country).isEqualTo("US")
   }
 
 }
