@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.velocity.legacy.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import sample.mybatis.domain.City;
+import sample.mybatis.velocity.legacy.domain.City;
 
 /**
  * Tests for {@link CityMapper}.

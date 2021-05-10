@@ -13,27 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.velocity.legacy.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import extensions.CaptureSystemOutput;
-import extensions.CaptureSystemOutput.OutputCapture;
+import sample.mybatis.velocity.legacy.domain.City;
 
 /**
  * @author Kazuki Shimizu
  */
-@CaptureSystemOutput
-@SpringBootTest
-class SampleMybatisApplicationTest {
+@Mapper
+public interface CityMapper {
 
-  @Test
-  void test(OutputCapture outputCapture) {
-    String output = outputCapture.toString();
-    assertThat(output).contains("1,San Francisco,CA,US");
-  }
+  @Select("select id, name, state, country from city where id = @{id}")
+  City findById(@Param("id") Long id);
+
+  // TODO Does not support template file yet
+  // @Select("/mappers/CityMapper-findByState.vm")
+  // @Select("#parse('/mappers/CityMapper-findByState.vm')")
+  City findByState(@Param("state") String state);
+
+  City findByName(@Param("name") String name);
 
 }
