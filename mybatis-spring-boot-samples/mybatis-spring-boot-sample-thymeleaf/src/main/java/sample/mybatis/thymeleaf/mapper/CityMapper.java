@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.thymeleaf.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,7 +21,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.mybatis.scripting.thymeleaf.support.TemplateFilePathProvider;
 
-import sample.mybatis.domain.City;
+import sample.mybatis.thymeleaf.domain.City;
 
 /**
  * @author Kazuki Shimizu

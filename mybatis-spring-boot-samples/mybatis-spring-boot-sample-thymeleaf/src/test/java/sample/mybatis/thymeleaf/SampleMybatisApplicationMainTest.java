@@ -13,20 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.thymeleaf;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+
+import extensions.thymeleaf.CaptureSystemOutput;
+import extensions.thymeleaf.CaptureSystemOutput.OutputCapture;
 
 /**
- * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
- * <p>
- * This class has role for prevent to run the {@link sample.mybatis.SampleThymeleafApplication}. For more detail
- * information, please refer
- * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
- *
  * @author Kazuki Shimizu
  */
-@SpringBootApplication
-public class MapperTestApplication {
+@CaptureSystemOutput
+class SampleMybatisApplicationMainTest {
+
+  @Test
+  void test(OutputCapture outputCapture) {
+    SampleThymeleafApplication.main(new String[] {});
+    String output = outputCapture.toString();
+    assertThat(output).contains("1,San Francisco,CA,US");
+    assertThat(output).contains("2,Tokyo,13,JP");
+  }
 
 }
