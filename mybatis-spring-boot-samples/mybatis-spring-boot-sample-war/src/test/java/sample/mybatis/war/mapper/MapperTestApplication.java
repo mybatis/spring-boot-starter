@@ -13,28 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis;
+package sample.mybatis.war.mapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
+ * <p>
+ * This class has role for prevent to run the {@link sample.mybatis.war.SampleWebApplication}. For more detail
+ * information, please refer
+ * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
+ *
  * @author Kazuki Shimizu
+ * @since 1.2.1
  */
-class SampleMybatisApplicationIT {
-
-  @Test
-  void test() {
-    RestTemplate restTemplate = new RestTemplate();
-    @SuppressWarnings("unchecked")
-    Map<String, Object> body = restTemplate
-        .getForObject("http://localhost:18080/mybatis-spring-boot-sample-war/cities/{state}", Map.class, "CA");
-    assertThat(body).hasSize(4).containsEntry("id", 1).containsEntry("name", "San Francisco")
-        .containsEntry("state", "CA").containsEntry("country", "US");
-  }
+@SpringBootApplication
+public class MapperTestApplication {
 
 }
