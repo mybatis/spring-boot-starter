@@ -13,21 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.mapper;
+package sample.mybatis.web.mapper;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import sample.mybatis.web.domain.City;
 
 /**
- * The Spring Boot Application for testing {@link org.mybatis.spring.boot.test.autoconfigure.MybatisTest @MybatisTest}.
- * <p>
- * This class has role for prevent to run the {@link sample.mybatis.SampleWebApplication}. For more detail information,
- * please refer
- * <a href="http://stackoverflow.com/questions/42722480/jdbctest-detect-class-annotated-springbootapplication">Here</a>.
- *
- * @author Kazuki Shimizu
- * @since 1.2.1
+ * @author Eddú Meléndez
  */
-@SpringBootApplication
-public class MapperTestApplication {
+@Mapper
+public interface CityMapper {
+
+  @Select("select id, name, state, country from city where state = #{state}")
+  City findByState(@Param("state") String state);
 
 }

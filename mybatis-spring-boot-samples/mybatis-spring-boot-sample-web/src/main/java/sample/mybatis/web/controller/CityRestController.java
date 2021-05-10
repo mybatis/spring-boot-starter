@@ -13,15 +13,15 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package sample.mybatis.controller;
+package sample.mybatis.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sample.mybatis.domain.City;
-import sample.mybatis.mapper.CityMapper;
+import sample.mybatis.web.domain.City;
+import sample.mybatis.web.mapper.CityMapper;
 
 @RequestMapping("/cities")
 @RestController
