@@ -41,15 +41,3 @@ jobs:
         run: |
           ./mvnw test
           ./mybatis-spring-boot-samples/run_fatjars.sh
-      - name: Test with Spring Boot 2.3
-        run: |
-          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.3)
-          ./mybatis-spring-boot-samples/run_fatjars.sh
-      - name: Test with Spring Boot 2.2
-        run: |
-          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.2)
-          ./mybatis-spring-boot-samples/run_fatjars.sh
-      - name: Test with Spring Boot 2.1
-        run: |
-          ./mvnw test -Dspring-boot.version=$(./scripts/get_latest_version.sh 2.1) -Dspring-boot.version.line=2.1.x
-          ./mybatis-spring-boot-samples/run_fatjars.sh
