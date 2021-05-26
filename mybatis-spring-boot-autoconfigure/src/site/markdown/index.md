@@ -16,7 +16,8 @@ The MyBatis-Spring-Boot-Starter requires following versions:
 
 | MyBatis-Spring-Boot-Starter | MyBatis-Spring | Spring Boot | Java |
 | --- | --- | --- | --- |
-| **2.1** | 2.0 (need 2.0.2+ for enable all features) | 2.1 or higher | 8 or higher |
+| **2.2** | 2.0 (need 2.0.6+ for enable all features) | 2.5 or higher | 8 or higher |
+| **2.1** | 2.0 (need 2.0.6+ for enable all features) | 2.1 - 2.4 | 8 or higher |
 | **~~2.0 (EOL)~~** | ~~2.0~~ | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
 | **1.3** | 1.3 | 1.5 | 6 or higher |
 | **~~1.2 (EOL)~~** | ~~1.3~~ | ~~1.4~~ | ~~6 or higher~~ |

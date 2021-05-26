@@ -15,7 +15,8 @@ The MyBatis-Spring-Boot-Starter-Test requires following versions:
 
 | MyBatis-Spring-Boot-Starter-Test | Spring Boot | Java |
 | --- | --- | --- |
-| **2.1** | 2.1 or higher | 8 or higher |
+| **2.2** | 2.5 or higher | 8 or higher |
+| **2.1** | 2.1 - 2.4 | 8 or higher |
 | **~~2.0 (EOL)~~** | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
 | **1.3** | 1.5 | 6 or higher |
 | **~~1.2 (EOL)~~** | ~~1.4~~ | ~~6 or higher~~ |
@@ -294,6 +295,7 @@ The `@MybatisTest` will import following auto-configuration classes.
 * `org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration`
 * `org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration`
 * `org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration`
+* `org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration`
 * `org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration`
 * `org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration`
 
