@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker/</link>
     <description>mybatis-spring-boot-sample-freemarker - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2020 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2021 MyBatis.org</copyright>
     <item>
-      <title>File: 6,
+      <title>File: 4,
              Errors: 0,
-             Warnings: 14,
+             Warnings: 5,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html</link>
@@ -60,27 +60,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#target.classes.application.properties">target/classes/application.properties</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.freemarker.domain.City.java">sample/mybatis/freemarker/domain/City.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.SampleFreeMarkerApplication.java">sample/mybatis/SampleFreeMarkerApplication.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
+                  1
                 </td>
                 <td>
                   0
@@ -88,27 +74,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.domain.City.java">sample/mybatis/domain/City.java</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.freemarker.SampleFreeMarkerApplication.java">sample/mybatis/freemarker/SampleFreeMarkerApplication.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#target.formatter-maven-cache.properties">target/formatter-maven-cache.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -116,13 +88,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.mapper.CityMapper.java">sample/mybatis/mapper/CityMapper.java</a>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker//checkstyle.html#sample.mybatis.freemarker.mapper.CityMapper.java">sample/mybatis/freemarker/mapper/CityMapper.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  5
+                  2
                 </td>
                 <td>
                   0
