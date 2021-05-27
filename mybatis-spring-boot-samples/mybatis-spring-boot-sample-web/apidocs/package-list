@@ -1,4 +1,4 @@
-sample.mybatis
-sample.mybatis.controller
-sample.mybatis.domain
-sample.mybatis.mapper
+sample.mybatis.web
+sample.mybatis.web.controller
+sample.mybatis.web.domain
+sample.mybatis.web.mapper
