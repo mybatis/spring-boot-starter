@@ -23,11 +23,11 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure/</link>
     <description>mybatis-spring-boot-test-autoconfigure - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2020 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2021 MyBatis.org</copyright>
     <item>
-      <title>File: 5,
+      <title>File: 4,
              Errors: 0,
-             Warnings: 21,
+             Warnings: 9,
              Infos: 0
       </title>
             <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html</link>
@@ -52,7 +52,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  10
+                  7
                 </td>
                 <td>
                   0
@@ -66,7 +66,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   0
@@ -80,21 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-test-autoconfigure//checkstyle.html#target.formatter-maven-cache.properties">target/formatter-maven-cache.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
@@ -108,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  1
                 </td>
                 <td>
                   0
