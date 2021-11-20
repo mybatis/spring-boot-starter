@@ -23,3 +23,7 @@ updates:
   open-pull-requests-limit: 10
   labels:
   - dependencies
+  ignore:
+  - dependency-name: org.apache.tomcat:tomcat
+    versions:
+    - "> 9.1.0"
