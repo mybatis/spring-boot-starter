@@ -27,8 +27,20 @@
   <packaging>war</packaging>
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
+    <tomcat.version>9.0.54</tomcat.version>
+
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat</artifactId>
+        <version>${tomcat.version}</version>
+        <type>zip</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -74,15 +86,15 @@
         </plugin>
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
-          <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.8.5</version>
+          <artifactId>cargo-maven3-plugin</artifactId>
+          <version>1.9.8</version>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
+        <artifactId>cargo-maven3-plugin</artifactId>
         <executions>
           <execution>
             <id>start-container</id>
@@ -110,7 +122,7 @@
           <container>
             <containerId>tomcat9x</containerId>
             <zipUrlInstaller>
-              <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.55/bin/apache-tomcat-9.0.55.zip</url>
+              <url>https://archive.apache.org/dist/tomcat/tomcat-9/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</url>
             </zipUrlInstaller>
           </container>
         </configuration>
