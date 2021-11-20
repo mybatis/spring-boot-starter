@@ -110,7 +110,7 @@
           <container>
             <containerId>tomcat9x</containerId>
             <zipUrlInstaller>
-              <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.27/bin/apache-tomcat-9.0.27.zip</url>
+              <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.55/bin/apache-tomcat-9.0.55.zip</url>
             </zipUrlInstaller>
           </container>
         </configuration>
