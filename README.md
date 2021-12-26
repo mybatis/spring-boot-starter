@@ -1,6 +1,6 @@
 # MyBatis integration with Spring Boot
 
-[![Build Status](https://travis-ci.org/mybatis/spring-boot-starter.svg)](https://travis-ci.org/mybatis/spring-boot-starter)
+[![Java CI](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mybatis/spring-boot-starter/badge.svg?branch=master)](https://coveralls.io/github/mybatis/spring-boot-starter?branch=master)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot)
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.spring.boot/mybatis-spring-boot.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot/)
