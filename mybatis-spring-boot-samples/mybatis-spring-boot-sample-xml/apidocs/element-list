@@ -1,4 +1,4 @@
-sample.mybatis
-sample.mybatis.dao
-sample.mybatis.domain
-sample.mybatis.mapper
+sample.mybatis.xml
+sample.mybatis.xml.dao
+sample.mybatis.xml.domain
+sample.mybatis.xml.mapper
