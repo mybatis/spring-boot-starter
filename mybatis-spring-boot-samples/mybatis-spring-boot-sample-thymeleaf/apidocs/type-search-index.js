@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleThymeleafApplication"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.thymeleaf.domain","l":"City"},{"p":"sample.mybatis.thymeleaf.mapper","l":"CityMapper"},{"p":"sample.mybatis.thymeleaf","l":"SampleThymeleafApplication"}];updateSearchResults();
