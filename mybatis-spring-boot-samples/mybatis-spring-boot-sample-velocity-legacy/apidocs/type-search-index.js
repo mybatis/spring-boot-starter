@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleVelocityApplication"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.velocity.legacy.domain","l":"City"},{"p":"sample.mybatis.velocity.legacy.mapper","l":"CityMapper"},{"p":"sample.mybatis.velocity.legacy","l":"SampleVelocityApplication"}];updateSearchResults();
