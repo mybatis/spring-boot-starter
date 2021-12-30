@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleFreeMarkerApplication"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.freemarker.domain","l":"City"},{"p":"sample.mybatis.freemarker.mapper","l":"CityMapper"},{"p":"sample.mybatis.freemarker","l":"SampleFreeMarkerApplication"}];updateSearchResults();
