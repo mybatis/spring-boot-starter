@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.domain","l":"City"},{"p":"sample.mybatis.mapper","l":"CityMapper"},{"p":"sample.mybatis","l":"SampleAnnotationApplication"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"sample.mybatis.annotation.domain","l":"City"},{"p":"sample.mybatis.annotation.mapper","l":"CityMapper"},{"p":"sample.mybatis.annotation","l":"SampleAnnotationApplication"}];updateSearchResults();
