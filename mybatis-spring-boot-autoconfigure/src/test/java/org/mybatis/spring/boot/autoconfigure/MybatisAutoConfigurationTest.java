@@ -84,6 +84,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.SimpleThreadScope;
+import org.springframework.core.annotation.Order;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}
@@ -323,13 +324,34 @@ class MybatisAutoConfigurationTest {
   }
 
   @Test
-  void testWithInterceptors() {
+  void testWithInterceptorsOrder1() {
     this.context.register(EmbeddedDataSourceConfiguration.class, MybatisInterceptorConfiguration.class,
         MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
     this.context.refresh();
     assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
-    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors()).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors()).hasSize(2);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().get(0))
+        .isInstanceOf(MyInterceptor2.class);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().get(1))
+        .isInstanceOf(MyInterceptor.class);
+
+    this.context.close();
+  }
+
+  @Test
+  void testWithInterceptorsOrder2() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisInterceptorConfiguration2.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors()).hasSize(2);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().get(0))
+        .isInstanceOf(MyInterceptor.class);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getInterceptors().get(1))
+        .isInstanceOf(MyInterceptor2.class);
+
     this.context.close();
   }
 
@@ -365,8 +387,9 @@ class MybatisAutoConfigurationTest {
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
     assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
     assertThat(configuration.getDefaultFetchSize()).isEqualTo(1000);
-    assertThat(configuration.getInterceptors()).hasSize(1);
-    assertThat(configuration.getInterceptors().get(0)).isInstanceOf(MyInterceptor.class);
+    assertThat(configuration.getInterceptors()).hasSize(2);
+    assertThat(configuration.getInterceptors().get(0)).isInstanceOf(MyInterceptor2.class);
+    assertThat(configuration.getInterceptors().get(1)).isInstanceOf(MyInterceptor.class);
   }
 
   @Test
@@ -462,8 +485,9 @@ class MybatisAutoConfigurationTest {
     assertThat(configuration.getMappedStatementNames())
         .contains("org.mybatis.spring.boot.autoconfigure.mapper.CityMapper.findById");
     assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.REUSE);
-    assertThat(configuration.getInterceptors()).hasSize(1);
-    assertThat(configuration.getInterceptors().get(0)).isInstanceOf(MyInterceptor.class);
+    assertThat(configuration.getInterceptors()).hasSize(2);
+    assertThat(configuration.getInterceptors().get(0)).isInstanceOf(MyInterceptor2.class);
+    assertThat(configuration.getInterceptors().get(1)).isInstanceOf(MyInterceptor.class);
     assertThat(configuration.getDatabaseId()).isEqualTo("h2");
   }
 
@@ -803,8 +827,33 @@ class MybatisAutoConfigurationTest {
   static class MybatisInterceptorConfiguration {
 
     @Bean
+    @Order(2)
     public MyInterceptor myInterceptor() {
       return new MyInterceptor();
+    }
+
+    @Bean
+    @Order(1)
+    public MyInterceptor2 myInterceptor2() {
+      return new MyInterceptor2();
+    }
+
+  }
+
+  @Configuration
+  @EnableAutoConfiguration
+  static class MybatisInterceptorConfiguration2 {
+
+    @Bean
+    @Order(1)
+    public MyInterceptor myInterceptor() {
+      return new MyInterceptor();
+    }
+
+    @Bean
+    @Order(2)
+    public MyInterceptor2 myInterceptor2() {
+      return new MyInterceptor2();
     }
 
   }
@@ -857,6 +906,25 @@ class MybatisAutoConfigurationTest {
     @Override
     public Object intercept(Invocation invocation) {
       return "Test";
+    }
+
+    @Override
+    public Object plugin(Object target) {
+      return Plugin.wrap(target, this);
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+
+    }
+  }
+
+  @Intercepts(@Signature(type = Map.class, method = "get", args = { Object.class }))
+  static class MyInterceptor2 implements Interceptor {
+
+    @Override
+    public Object intercept(Invocation invocation) {
+      return "Test2";
     }
 
     @Override
