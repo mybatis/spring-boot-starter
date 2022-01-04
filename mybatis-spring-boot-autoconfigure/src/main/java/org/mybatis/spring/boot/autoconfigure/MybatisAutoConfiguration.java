@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2021 the original author or authors.
+ *    Copyright 2015-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import java.beans.PropertyDescriptor;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,7 +43,9 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
@@ -53,9 +56,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
@@ -208,9 +213,11 @@ public class MybatisAutoConfiguration implements InitializingBean {
    * {@link org.mybatis.spring.annotation.MapperScan} but this will get typed mappers working correctly, out-of-the-box,
    * similar to using Spring Data JPA repositories.
    */
-  public static class AutoConfiguredMapperScannerRegistrar implements BeanFactoryAware, ImportBeanDefinitionRegistrar {
+  public static class AutoConfiguredMapperScannerRegistrar
+      implements BeanFactoryAware, EnvironmentAware, ImportBeanDefinitionRegistrar {
 
     private BeanFactory beanFactory;
+    private Environment environment;
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
@@ -242,12 +249,41 @@ public class MybatisAutoConfiguration implements InitializingBean {
         // Need to mybatis-spring 2.0.6+
         builder.addPropertyValue("defaultScope", "${mybatis.mapper-default-scope:}");
       }
+
+      // for spring-native
+      boolean injectSqlSession = environment.getProperty("mybatis.inject-sql-session-on-mapper-scan", Boolean.class,
+          Boolean.TRUE);
+      if (injectSqlSession && this.beanFactory instanceof ListableBeanFactory) {
+        ListableBeanFactory listableBeanFactory = (ListableBeanFactory) this.beanFactory;
+        Optional<String> sqlSessionTemplateBeanName = Optional
+            .ofNullable(getBeanNameForType(SqlSessionTemplate.class, listableBeanFactory));
+        Optional<String> sqlSessionFactoryBeanName = Optional
+            .ofNullable(getBeanNameForType(SqlSessionFactory.class, listableBeanFactory));
+        if (sqlSessionTemplateBeanName.isPresent() || !sqlSessionFactoryBeanName.isPresent()) {
+          builder.addPropertyValue("sqlSessionTemplateBeanName",
+              sqlSessionTemplateBeanName.orElse("sqlSessionTemplate"));
+        } else {
+          builder.addPropertyValue("sqlSessionFactoryBeanName", sqlSessionFactoryBeanName.get());
+        }
+      }
+      builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+
       registry.registerBeanDefinition(MapperScannerConfigurer.class.getName(), builder.getBeanDefinition());
     }
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) {
       this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+      this.environment = environment;
+    }
+
+    private String getBeanNameForType(Class<?> type, ListableBeanFactory factory) {
+      String[] beanNames = factory.getBeanNamesForType(type);
+      return beanNames.length > 0 ? beanNames[0] : null;
     }
 
   }
