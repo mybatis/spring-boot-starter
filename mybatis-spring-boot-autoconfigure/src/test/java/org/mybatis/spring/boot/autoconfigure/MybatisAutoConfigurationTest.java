@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2021 the original author or authors.
+ *    Copyright 2015-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -75,6 +75,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
@@ -181,6 +182,46 @@ class MybatisAutoConfigurationTest {
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
     this.context.getBean(DateTimeMapper.class);
     assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+  }
+
+  @Test
+  void testAutoScanWithDefault() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+    this.context.getBean(CityMapper.class);
+    assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+    assertThat(((RuntimeBeanReference) this.context.getBeanDefinition("cityMapper").getPropertyValues()
+        .getPropertyValue("sqlSessionTemplate").getValue()).getBeanName()).isEqualTo("sqlSessionTemplate");
+    assertThat(
+        this.context.getBeanDefinition(this.context.getBeanNamesForType(MapperScannerConfigurer.class)[0]).getRole())
+            .isEqualTo(BeanDefinition.ROLE_INFRASTRUCTURE);
+  }
+
+  @Test
+  void testAutoScanWithInjectSqlSessionOnMapperScanIsFalse() {
+    TestPropertyValues.of("mybatis.inject-sql-session-on-mapper-scan:false").applyTo(this.context);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        MybatisAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.SIMPLE);
+    assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().isMapUnderscoreToCamelCase()).isFalse();
+    this.context.getBean(CityMapper.class);
+    assertThat(sqlSessionFactory.getConfiguration().getMapperRegistry().getMappers()).hasSize(1);
+    assertThat(this.context.getBeanDefinition("cityMapper").getPropertyValues().getPropertyValue("sqlSessionTemplate"))
+        .isNull();
+    assertThat(this.context.getBeanDefinition("cityMapper").getPropertyValues().getPropertyValue("sqlSessionFactory"))
+        .isNull();
   }
 
   @Test
@@ -601,12 +642,15 @@ class MybatisAutoConfigurationTest {
 
   @Test
   void testCustomSqlSessionFactory() {
-    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisAutoConfiguration.class,
-        CustomSqlSessionFactoryConfiguration.class);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        CustomSqlSessionFactoryConfiguration.class, MybatisAutoConfiguration.class);
     this.context.refresh();
     assertThat(this.context.getBeanNamesForType(SqlSessionFactory.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionFactory.class).getConfiguration().getVariables().getProperty("key"))
         .isEqualTo("value");
+    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(((RuntimeBeanReference) this.context.getBeanDefinition("cityMapper").getPropertyValues()
+        .getPropertyValue("sqlSessionFactory").getValue()).getBeanName()).isEqualTo("customSqlSessionFactory");
   }
 
   @Test
@@ -620,11 +664,14 @@ class MybatisAutoConfigurationTest {
 
   @Test
   void testCustomSqlSessionTemplate() {
-    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisAutoConfiguration.class,
-        CustomSqlSessionTemplateConfiguration.class);
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        CustomSqlSessionTemplateConfiguration.class, MybatisAutoConfiguration.class);
     this.context.refresh();
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.BATCH);
+    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(((RuntimeBeanReference) this.context.getBeanDefinition("cityMapper").getPropertyValues()
+        .getPropertyValue("sqlSessionTemplate").getValue()).getBeanName()).isEqualTo("customSqlSessionTemplate");
   }
 
   @Test
@@ -634,6 +681,19 @@ class MybatisAutoConfigurationTest {
     this.context.refresh();
     assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
     assertThat(this.context.getBean(SqlSessionTemplate.class)).isInstanceOf(MySqlSessionTemplate.class);
+  }
+
+  @Test
+  void testCustomSqlSessionTemplateAndSqlSessionFactory() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class,
+        CustomSqlSessionFactoryConfiguration.class, CustomSqlSessionTemplateConfiguration.class,
+        MybatisAutoConfiguration.class);
+    this.context.refresh();
+    assertThat(this.context.getBeanNamesForType(SqlSessionTemplate.class)).hasSize(1);
+    assertThat(this.context.getBean(SqlSessionTemplate.class).getExecutorType()).isEqualTo(ExecutorType.BATCH);
+    assertThat(this.context.getBeanNamesForType(CityMapper.class)).hasSize(1);
+    assertThat(((RuntimeBeanReference) this.context.getBeanDefinition("cityMapper").getPropertyValues()
+        .getPropertyValue("sqlSessionTemplate").getValue()).getBeanName()).isEqualTo("customSqlSessionTemplate");
   }
 
   @Test
@@ -965,7 +1025,7 @@ class MybatisAutoConfigurationTest {
   @Configuration
   static class CustomSqlSessionFactoryConfiguration {
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    public SqlSessionFactory customSqlSessionFactory(DataSource dataSource) throws Exception {
       SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
       sqlSessionFactoryBean.setDataSource(dataSource);
       Properties props = new Properties();
@@ -989,7 +1049,7 @@ class MybatisAutoConfigurationTest {
   @Configuration
   static class CustomSqlSessionTemplateConfiguration {
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+    public SqlSessionTemplate customSqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
       return new SqlSessionTemplate(sqlSessionFactory, ExecutorType.BATCH);
     }
   }
