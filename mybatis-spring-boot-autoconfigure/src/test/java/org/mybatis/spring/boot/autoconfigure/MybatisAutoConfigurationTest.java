@@ -564,6 +564,17 @@ class MybatisAutoConfigurationTest {
   }
 
   @Test
+  void testWithSqlSessionFactoryBeanCustomizer() {
+    this.context.register(EmbeddedDataSourceConfiguration.class, MybatisAutoConfiguration.class,
+        SqlSessionFactoryBeanCustomizerConfiguration.class);
+    this.context.refresh();
+    SqlSessionFactory sqlSessionFactory = this.context.getBean(SqlSessionFactory.class);
+    assertThat(sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().getTypeHandler(BigInteger.class))
+        .isInstanceOf(DummyTypeHandler.class);
+    assertThat(sqlSessionFactory.getConfiguration().getCache("test")).isNotNull();
+  }
+
+  @Test
   void testConfigFileAndConfigurationWithTogether() {
     TestPropertyValues
         .of("mybatis.config-location:mybatis-config.xml", "mybatis.configuration.default-statement-timeout:30")
@@ -949,6 +960,20 @@ class MybatisAutoConfigurationTest {
     @Bean
     ConfigurationCustomizer cacheConfigurationCustomizer() {
       return configuration -> configuration.addCache(new PerpetualCache("test"));
+    }
+  }
+
+  @Configuration
+  @EnableAutoConfiguration
+  static class SqlSessionFactoryBeanCustomizerConfiguration {
+    @Bean
+    SqlSessionFactoryBeanCustomizer typeHandlerSqlSessionFactoryBeanCustomizer() {
+      return factoryBean -> factoryBean.setTypeHandlers(new DummyTypeHandler());
+    }
+
+    @Bean
+    SqlSessionFactoryBeanCustomizer cacheSqlSessionFactoryBeanCustomizer() {
+      return factoryBean -> factoryBean.setCache(new PerpetualCache("test"));
     }
   }
 

@@ -105,10 +105,13 @@ public class MybatisAutoConfiguration implements InitializingBean {
 
   private final List<ConfigurationCustomizer> configurationCustomizers;
 
+  private final List<SqlSessionFactoryBeanCustomizer> sqlSessionFactoryBeanCustomizers;
+
   public MybatisAutoConfiguration(MybatisProperties properties, ObjectProvider<Interceptor[]> interceptorsProvider,
       ObjectProvider<TypeHandler[]> typeHandlersProvider, ObjectProvider<LanguageDriver[]> languageDriversProvider,
       ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-      ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
+      ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+      ObjectProvider<List<SqlSessionFactoryBeanCustomizer>> sqlSessionFactoryBeanCustomizers) {
     this.properties = properties;
     this.interceptors = interceptorsProvider.getIfAvailable();
     this.typeHandlers = typeHandlersProvider.getIfAvailable();
@@ -116,6 +119,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
     this.resourceLoader = resourceLoader;
     this.databaseIdProvider = databaseIdProvider.getIfAvailable();
     this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
+    this.sqlSessionFactoryBeanCustomizers = sqlSessionFactoryBeanCustomizers.getIfAvailable();
   }
 
   @Override
@@ -180,7 +184,7 @@ public class MybatisAutoConfiguration implements InitializingBean {
       // Need to mybatis-spring 2.0.2+
       factory.setDefaultScriptingLanguageDriver(defaultLanguageDriver);
     }
-
+    applySqlSessionFactoryBeanCustomizers(factory);
     return factory.getObject();
   }
 
@@ -195,6 +199,14 @@ public class MybatisAutoConfiguration implements InitializingBean {
       }
     }
     factory.setConfiguration(configuration);
+  }
+
+  private void applySqlSessionFactoryBeanCustomizers(SqlSessionFactoryBean factory) {
+    if (!CollectionUtils.isEmpty(this.sqlSessionFactoryBeanCustomizers)) {
+      for (SqlSessionFactoryBeanCustomizer customizer : this.sqlSessionFactoryBeanCustomizers) {
+        customizer.customize(factory);
+      }
+    }
   }
 
   @Bean
