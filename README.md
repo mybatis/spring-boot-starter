@@ -19,7 +19,7 @@ MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 
 ## Compatibility Check
 
-* Compatibility with Spring Boot 2.2 - 2.6 latest version [here](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker)
+* Compatibility with Spring Boot 2.3 - 2.6 latest version [here](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker)
 
 ## Essentials
 
