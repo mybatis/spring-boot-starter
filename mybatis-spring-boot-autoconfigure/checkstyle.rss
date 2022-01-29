@@ -23,9 +23,9 @@ under the License.
     <link>http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/</link>
     <description>mybatis-spring-boot-autoconfigure - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2021 MyBatis.org</copyright>
+    <copyright>&#169;2015 - 2022 MyBatis.org</copyright>
     <item>
-      <title>File: 6,
+      <title>File: 7,
              Errors: 0,
              Warnings: 21,
              Infos: 0
@@ -53,6 +53,20 @@ under the License.
                 </td>
                 <td>
                   3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure//checkstyle.html#org.mybatis.spring.boot.autoconfigure.SqlSessionFactoryBeanCustomizer.java">org/mybatis/spring/boot/autoconfigure/SqlSessionFactoryBeanCustomizer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
