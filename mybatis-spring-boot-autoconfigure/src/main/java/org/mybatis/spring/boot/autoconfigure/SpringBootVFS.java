@@ -18,6 +18,8 @@ package org.mybatis.spring.boot.autoconfigure;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,6 +50,7 @@ public class SpringBootVFS extends VFS {
   @Override
   protected List<String> list(URL url, String path) throws IOException {
     String urlString = url.toString();
+    urlString = URLDecoder.decode(urlString, Charset.defaultCharset().name());
     String baseUrlString = urlString.endsWith("/") ? urlString : urlString.concat("/");
     Resource[] resources = resourceResolver.getResources(baseUrlString + "**/*.class");
     return Stream.of(resources).map(resource -> preserveSubpackageName(baseUrlString, resource, path))
