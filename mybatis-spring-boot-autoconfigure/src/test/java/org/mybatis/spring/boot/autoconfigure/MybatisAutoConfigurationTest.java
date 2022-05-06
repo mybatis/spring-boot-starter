@@ -50,6 +50,7 @@ import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,16 +77,24 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.SimpleThreadScope;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+
+import liquibase.integration.spring.SpringLiquibase;
 
 /**
  * Tests for {@link MybatisAutoConfiguration}
@@ -818,6 +827,58 @@ class MybatisAutoConfigurationTest {
     assertThat(languageDriverRegistry.getDriver(ThymeleafLanguageDriver.class)).isNotNull();
   }
 
+  @Test
+  void whenFlywayIsAutoConfiguredThenMybatisSqlSessionTemplateDependsOnFlywayBeans() {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+        .withConfiguration(AutoConfigurations.of(FlywayAutoConfiguration.class, MybatisAutoConfiguration.class));
+    contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class).run((context) -> {
+      BeanDefinition beanDefinition = context.getBeanFactory().getBeanDefinition("sqlSessionTemplate");
+      assertThat(beanDefinition.getDependsOn()).containsExactlyInAnyOrder("flywayInitializer", "flyway");
+    });
+  }
+
+  @Test
+  void whenCustomMigrationInitializerIsDefinedThenMybatisSqlSessionTemplateDependsOnIt() {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+        .withConfiguration(AutoConfigurations.of(FlywayAutoConfiguration.class, MybatisAutoConfiguration.class));
+    contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, CustomFlywayMigrationInitializer.class)
+        .run((context) -> {
+          BeanDefinition beanDefinition = context.getBeanFactory().getBeanDefinition("sqlSessionTemplate");
+          assertThat(beanDefinition.getDependsOn()).containsExactlyInAnyOrder("flywayMigrationInitializer", "flyway");
+        });
+  }
+
+  @Test
+  void whenCustomFlywayIsDefinedThenMybatisSqlSessionTemplateDependsOnIt() {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+        .withConfiguration(AutoConfigurations.of(FlywayAutoConfiguration.class, MybatisAutoConfiguration.class));
+    contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, CustomFlyway.class).run((context) -> {
+      BeanDefinition beanDefinition = context.getBeanFactory().getBeanDefinition("sqlSessionTemplate");
+      assertThat(beanDefinition.getDependsOn()).containsExactlyInAnyOrder("customFlyway");
+    });
+  }
+
+  @Test
+  void whenLiquibaseIsAutoConfiguredThenMybatisSqlSessionTemplateDependsOnSpringLiquibaseBeans() {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+        .withConfiguration(AutoConfigurations.of(LiquibaseAutoConfiguration.class, MybatisAutoConfiguration.class));
+    contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class).run((context) -> {
+      BeanDefinition beanDefinition = context.getBeanFactory().getBeanDefinition("sqlSessionTemplate");
+      assertThat(beanDefinition.getDependsOn()).containsExactly("liquibase");
+    });
+  }
+
+  @Test
+  void whenCustomSpringLiquibaseIsDefinedThenMybatisSqlSessionTemplateDependsOnSpringLiquibaseBeans() {
+    ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+        .withConfiguration(AutoConfigurations.of(LiquibaseAutoConfiguration.class, MybatisAutoConfiguration.class));
+    contextRunner.withUserConfiguration(LiquibaseUserConfiguration.class, EmbeddedDataSourceConfiguration.class)
+        .run((context) -> {
+          BeanDefinition beanDefinition = context.getBeanFactory().getBeanDefinition("sqlSessionTemplate");
+          assertThat(beanDefinition.getDependsOn()).containsExactly("springLiquibase");
+        });
+  }
+
   @Configuration
   static class MultipleDataSourceConfiguration {
     @Bean
@@ -1119,6 +1180,42 @@ class MybatisAutoConfigurationTest {
     @Override
     public UUID getNullableResult(CallableStatement cs, int columnIndex) {
       return null;
+    }
+
+  }
+
+  @Configuration(proxyBeanMethods = false)
+  static class CustomFlywayMigrationInitializer {
+
+    @Bean
+    FlywayMigrationInitializer flywayMigrationInitializer(Flyway flyway) {
+      FlywayMigrationInitializer initializer = new FlywayMigrationInitializer(flyway);
+      initializer.setOrder(Ordered.HIGHEST_PRECEDENCE);
+      return initializer;
+    }
+
+  }
+
+  @Configuration(proxyBeanMethods = false)
+  static class CustomFlyway {
+
+    @Bean
+    Flyway customFlyway() {
+      return Flyway.configure().load();
+    }
+
+  }
+
+  @Configuration(proxyBeanMethods = false)
+  static class LiquibaseUserConfiguration {
+
+    @Bean
+    SpringLiquibase springLiquibase(DataSource dataSource) {
+      SpringLiquibase liquibase = new SpringLiquibase();
+      liquibase.setChangeLog("classpath:/db/changelog/db.changelog-master.yaml");
+      liquibase.setShouldRun(true);
+      liquibase.setDataSource(dataSource);
+      return liquibase;
     }
 
   }
