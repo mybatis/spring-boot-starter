@@ -15,24 +15,22 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
-import java.util.Collections;
-import java.util.Set;
+import java.lang.annotation.*;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.boot.sql.init.dependency.AbstractBeansOfTypeDependsOnDatabaseInitializationDetector;
-import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitializationDetector;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
+import org.springframework.context.annotation.Import;
 
 /**
- * {@link DependsOnDatabaseInitializationDetector} for Mybatis.
+ * Test annotation to configure the {@link AutoConfigurationPackages} to an arbitrary value.
  *
- * @author Eddú Meléndez
+ * @author Phillip Webb
  */
-class MybatisDependsOnDatabaseInitializationDetector
-    extends AbstractBeansOfTypeDependsOnDatabaseInitializationDetector {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Import(TestAutoConfigurationPackageRegistrar.class)
+public @interface TestAutoConfigurationPackage {
 
-  @Override
-  protected Set<Class<?>> getDependsOnDatabaseInitializationBeanTypes() {
-    return Collections.singleton(SqlSessionTemplate.class);
-  }
+  Class<?> value();
 
 }
