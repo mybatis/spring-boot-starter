@@ -34,15 +34,19 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver;
 import org.mybatis.scripting.freemarker.FreeMarkerLanguageDriverConfig;
 import org.mybatis.scripting.thymeleaf.TemplateEngineCustomizer;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriver;
 import org.mybatis.scripting.thymeleaf.ThymeleafLanguageDriverConfig;
+import org.mybatis.scripting.velocity.VelocityFacade;
 import org.mybatis.scripting.velocity.VelocityLanguageDriver;
 import org.mybatis.scripting.velocity.VelocityLanguageDriverConfig;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.thymeleaf.TemplateEngine;
@@ -57,6 +61,12 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   private ApplicationContextRunner contextRunner = new ApplicationContextRunner()
       .withConfiguration(AutoConfigurations.of(MybatisLanguageDriverAutoConfiguration.class));
+
+  @BeforeEach
+  @AfterEach
+  void initializeVelocity() {
+    VelocityFacade.destroy();
+  }
 
   @Test
   void testDefaultConfiguration() {
@@ -104,12 +114,11 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   @Test
   void testCustomConfiguration() {
-    this.contextRunner.withUserConfiguration(MyLanguageDriverConfig.class)
-        .run(context -> {
-          Map<String, LanguageDriver> languageDriverBeans = context.getBeansOfType(LanguageDriver.class);
-          assertThat(languageDriverBeans).hasSize(3).containsKeys("myFreeMarkerLanguageDriver",
-              "myVelocityLanguageDriver", "myThymeleafLanguageDriver");
-        });
+    this.contextRunner.withUserConfiguration(MyLanguageDriverConfig.class).run(context -> {
+      Map<String, LanguageDriver> languageDriverBeans = context.getBeansOfType(LanguageDriver.class);
+      assertThat(languageDriverBeans).hasSize(3).containsKeys("myFreeMarkerLanguageDriver", "myVelocityLanguageDriver",
+          "myThymeleafLanguageDriver");
+    });
   }
 
   @Test
@@ -129,58 +138,54 @@ class MybatisLanguageDriverAutoConfigurationTest {
 
   @Test
   void testCustomThymeleafConfig() {
-    this.contextRunner
-        .withUserConfiguration(ThymeleafCustomLanguageDriverConfig.class)
-        .run(context -> {
-          ThymeleafLanguageDriver driver = context.getBean(ThymeleafLanguageDriver.class);
-          SqlSource sqlSource = driver.createSqlSource(new Configuration(),
-              "SELECT * FROM users WHERE id = /*[# m:p='id']*/ 1 /*[/]*/", Integer.class);
-          BoundSql boundSql = sqlSource.getBoundSql(10);
-          assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ?");
-          assertThat(boundSql.getParameterObject()).isEqualTo(10);
-          assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
-          assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
-          ThymeleafLanguageDriverConfig config = context.getBean(ThymeleafLanguageDriverConfig.class);
-          assertThat(config.isUse2way()).isTrue();
-          assertThat(config.getDialect().getPrefix()).isEqualTo("m");
-          assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
-          assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
-          assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
-          assertThat(config.getTemplateFile().getBaseDir()).isEmpty();
-          assertThat(config.getTemplateFile().getCacheTtl()).isNull();
-          assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
-          assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
-          assertThat(config.getCustomizer()).isNull();
-        });
+    this.contextRunner.withUserConfiguration(ThymeleafCustomLanguageDriverConfig.class).run(context -> {
+      ThymeleafLanguageDriver driver = context.getBean(ThymeleafLanguageDriver.class);
+      SqlSource sqlSource = driver.createSqlSource(new Configuration(),
+          "SELECT * FROM users WHERE id = /*[# m:p='id']*/ 1 /*[/]*/", Integer.class);
+      BoundSql boundSql = sqlSource.getBoundSql(10);
+      assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ?");
+      assertThat(boundSql.getParameterObject()).isEqualTo(10);
+      assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
+      assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+      ThymeleafLanguageDriverConfig config = context.getBean(ThymeleafLanguageDriverConfig.class);
+      assertThat(config.isUse2way()).isTrue();
+      assertThat(config.getDialect().getPrefix()).isEqualTo("m");
+      assertThat(config.getDialect().getLikeAdditionalEscapeTargetChars()).isNull();
+      assertThat(config.getDialect().getLikeEscapeChar()).isEqualTo('\\');
+      assertThat(config.getDialect().getLikeEscapeClauseFormat()).isEqualTo("ESCAPE '%s'");
+      assertThat(config.getTemplateFile().getBaseDir()).isEmpty();
+      assertThat(config.getTemplateFile().getCacheTtl()).isNull();
+      assertThat(config.getTemplateFile().getEncoding()).isEqualTo(StandardCharsets.UTF_8);
+      assertThat(config.getTemplateFile().getPatterns()).hasSize(1).contains("*.sql");
+      assertThat(config.getCustomizer()).isNull();
+    });
   }
 
   @Test
   void testCustomFreeMarkerConfig() {
-    this.contextRunner
-        .withUserConfiguration(FreeMarkerCustomLanguageDriverConfig.class)
-        .run(context -> {
-          FreeMarkerLanguageDriver driver = context.getBean(FreeMarkerLanguageDriver.class);
-          @SuppressWarnings("unused")
-          class Param {
-            private Integer id;
-            private Integer version;
-          }
-          Param params = new Param();
-          params.id = 10;
-          params.version = 20;
-          SqlSource sqlSource = driver.createSqlSource(new Configuration(),
-              "SELECT * FROM users WHERE id = #{id} and version = <@p name='version'/>", Param.class);
-          BoundSql boundSql = sqlSource.getBoundSql(params);
-          assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ? and version = ?");
-          assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
-          assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
-          assertThat(boundSql.getParameterMappings().get(1).getProperty()).isEqualTo("version");
-          assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
-          FreeMarkerLanguageDriverConfig config = context.getBean(FreeMarkerLanguageDriverConfig.class);
-          assertThat(config.getBasePackage()).isEmpty();
-          assertThat(config.getFreemarkerSettings()).hasSize(1);
-          assertThat(config.getFreemarkerSettings()).containsEntry("interpolation_syntax", "dollar");
-        });
+    this.contextRunner.withUserConfiguration(FreeMarkerCustomLanguageDriverConfig.class).run(context -> {
+      FreeMarkerLanguageDriver driver = context.getBean(FreeMarkerLanguageDriver.class);
+      @SuppressWarnings("unused")
+      class Param {
+        private Integer id;
+        private Integer version;
+      }
+      Param params = new Param();
+      params.id = 10;
+      params.version = 20;
+      SqlSource sqlSource = driver.createSqlSource(new Configuration(),
+          "SELECT * FROM users WHERE id = #{id} and version = <@p name='version'/>", Param.class);
+      BoundSql boundSql = sqlSource.getBoundSql(params);
+      assertThat(boundSql.getSql()).isEqualTo("SELECT * FROM users WHERE id = ? and version = ?");
+      assertThat(boundSql.getParameterMappings().get(0).getProperty()).isEqualTo("id");
+      assertThat(boundSql.getParameterMappings().get(0).getJavaType()).isEqualTo(Integer.class);
+      assertThat(boundSql.getParameterMappings().get(1).getProperty()).isEqualTo("version");
+      assertThat(boundSql.getParameterMappings().get(1).getJavaType()).isEqualTo(Integer.class);
+      FreeMarkerLanguageDriverConfig config = context.getBean(FreeMarkerLanguageDriverConfig.class);
+      assertThat(config.getBasePackage()).isEmpty();
+      assertThat(config.getFreemarkerSettings()).hasSize(1);
+      assertThat(config.getFreemarkerSettings()).containsEntry("interpolation_syntax", "dollar");
+    });
   }
 
   @Test
@@ -336,7 +341,7 @@ class MybatisLanguageDriverAutoConfigurationTest {
         .run(context -> assertThat(context.getBeanNamesForType(LanguageDriver.class)).isEmpty());
   }
 
-  @org.springframework.context.annotation.Configuration
+  @EnableConfigurationProperties
   static class MyAutoConfiguration {
   }
 
