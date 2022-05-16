@@ -1,36 +1,36 @@
-# Introduction
+# 简介
 
-## What is MyBatis-Spring-Boot-Starter?
+## 什么是 MyBatis-Spring-Boot-Starter?
 
-The MyBatis-Spring-Boot-Starter help you build quickly MyBatis applications on top of the [Spring Boot](https://spring.io/projects/spring-boot).
+MyBatis-Spring-Boot-Starter 可以帮助你更快地在 [Spring Boot](https://spring.io/projects/spring-boot) 之上构建 MyBatis 应用。
 
-By using this module you will achieve:
+你将通过使用这个模块实现以下目的：
 
-* Build standalone applications
-* Reduce the boilerplate to almost zero
-* Less XML configuration
+* 构建单体应用程序
+* 将几乎不需要样板配置
+* 更少的 XML 配置
 
-## Requirements
+## 要求
 
-The MyBatis-Spring-Boot-Starter requires following versions:
+MyBatis-Spring-Boot-Starter 要求以下版本:
 
-| MyBatis-Spring-Boot-Starter | MyBatis-Spring | Spring Boot | Java |
-| --- | --- | --- | --- |
-| **2.2** | 2.0 (need 2.0.6+ for enable all features) | 2.5 or higher | 8 or higher |
-| **2.1** | 2.0 (need 2.0.6+ for enable all features) | 2.1 - 2.4 | 8 or higher |
-| **~~2.0 (EOL)~~** | ~~2.0~~ | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
-| **~~1.3 (EOL)~~** | ~~1.3~~ | ~~1.5~~ | ~~6 or higher~~ |
-| **~~1.2 (EOL)~~** | ~~1.3~~ | ~~1.4~~ | ~~6 or higher~~ |
-| **~~1.1 (EOL)~~** | ~~1.3~~ | ~~1.3~~ | ~~6 or higher~~ |
-| **~~1.0 (EOL)~~** | ~~1.2~~ | ~~1.3~~ | ~~6 or higher~~ |
+| MyBatis-Spring-Boot-Starter | MyBatis-Spring       | Spring Boot   | Java      |
+| --------------------------- | -------------------- | ------------- | --------- |
+| **2.2**                     | 2.0 （2.0.6以上可开启所有特性） | 2.5 或更高       | 8 或更高     |
+| **2.1**                     | 2.0 （2.0.6以上可开启所有特性） | 2.1 - 2.4     | 8 或更高     |
+| **~~2.0 (EOL)~~**           | ~~2.0~~              | ~~2.0 或 2.1~~ | ~~8 或更高~~ |
+| **~~1.3 (EOL)~~**           | ~~1.3~~              | ~~1.5~~       | ~~6 或更高~~ |
+| **~~1.2 (EOL)~~**           | ~~1.3~~              | ~~1.4~~       | ~~6 或更高~~ |
+| **~~1.1 (EOL)~~**           | ~~1.3~~              | ~~1.3~~       | ~~6 或更高~~ |
+| **~~1.0 (EOL)~~**           | ~~1.2~~              | ~~1.3~~       | ~~6 或更高~~ |
 
-## Installation
+## 安装
 
-To use the MyBatis-Spring-Boot-Starter module, you just need to include the `mybatis-spring-boot-autoconfigure.jar` file and its dependencies(`mybatis.jar`, `mybatis-spring.jar` and etc ...) in the classpath.
+要使用 MyBatis-Spring-Boot-Starter 模块，你只需要将 `mybatis-spring-boot-autoconfigure.jar` 文件以及它的依赖（ `mybatis.jar`, `mybatis-spring.jar` 等） 放在类路径下。
 
 ### Maven
 
-If you are using Maven just add the following dependency to your `pom.xml`:
+如果你使用 Maven，只需要在你的 `pom.xml` 添加以下依赖：
 
 ```xml
 <dependency>
@@ -42,7 +42,7 @@ If you are using Maven just add the following dependency to your `pom.xml`:
 
 ### Gradle
 
-If using gradle add this to your `build.gradle`:
+如果使用 gradle，请在你的 `build.gradle` 中加入以下内容：
 
 ```groovy
 dependencies {
@@ -50,18 +50,18 @@ dependencies {
 }
 ```
 
-## Quick Setup
+## 快速开始
 
-As you may already know, to use MyBatis with Spring you need at least an `SqlSessionFactory` and at least one mapper interface.
+正如你已经知道的， 要与 Spring 一起使用 MyBatis，你至少需要一个 `SqlSessionFactory`         和一个 mapper 接口。
 
-MyBatis-Spring-Boot-Starter will:
+MyBatis-Spring-Boot-Starter 将会：
 
-* Autodetect an existing `DataSource`
-* Will create and register an instance of a `SqlSessionFactory` passing that `DataSource` as an input using the `SqlSessionFactoryBean`
-* Will create and register an instance of a `SqlSessionTemplate` got out of the `SqlSessionFactory`
-* Auto-scan your mappers, link them to the `SqlSessionTemplate` and register them to Spring context so they can be injected into your beans
+* 自动探测存在的 `DataSource`
+* 将使用 `SqlSessionFactoryBean` 创建并注册一个 `SqlSessionFactory` 的实例，并将探测到的 `DataSource` 作为数据源
+* 将创建并注册一个从 `SqlSessionFactory` 中得到的 `SqlSessionTemplate` 的实例。
+* 自动扫描你的 mapper，将它们与 `SqlSessionTemplate` 相关联，并将它们注册到Spring 的环境（context）中去，这样它们就可以被注入到你的 bean 中
 
-Suppose we have the following mapper:
+假设我们有下面的 mapper ：
 
 ```java
 @Mapper
@@ -73,7 +73,7 @@ public interface CityMapper {
 }
 ```
 
-You just need to create a normal Spring boot application and let the mapper be injected like follows(available on Spring 4.3+):
+你只需要创建一个 Spring boot 应用，像下面这样，将 mapper 注入进去（ Spring 4.3 以上可用）。
 
 ```java
 @SpringBootApplication
@@ -97,20 +97,19 @@ public class SampleMybatisApplication implements CommandLineRunner {
 }
 ```
 
-This is all you have to do. You application can now be run as a normal Spring Boot application.
+这就是你需要做的所有事情了。 你的 Spring boot 应用可以正常运行了。
 
-## Advanced scanning
+## “扫描”的进阶用法
 
-The MyBatis-Spring-Boot-Starter will search, by default, for mappers marked with the `@Mapper` annotation.
+ MyBatis-Spring-Boot-Starter 将默认搜寻带有 `@Mapper` 注解的 mapper 接口。
 
-You may want to specify a custom annotation or a marker interface for scanning. If so, you must use the `@MapperScan` annotation. See more about it in the [MyBatis-Spring reference page](http://www.mybatis.org/spring/mappers.html#scan).
+你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](http://www.mybatis.org/spring/mappers.html#scan) 中查看更多信息。
 
-The MyBatis-Spring-Boot-Starter will not start the scanning process if it finds at least one `MapperFactoryBean` in the Spring's context so if you want to stop the scanning at all you should register your mappers explicitly with `@Bean` methods.
+如果 MyBatis-Spring-Boot-Starter 发现至少有一个 `SqlSessionFactoryBean` ，它将不会开始扫描。 所以如果你想停止扫描，你应该用 `@Bean` 方法明确注册你的 mapper。
 
+## 使用 SqlSession
 
-## Using an SqlSession
-
-An instance of a `SqlSessionTemplate` is created and added to the Spring context, so you can use the MyBatis API letting it be injected into your beans like follows(available on Spring 4.3+):
+一个 `SqlSessionTemplate` 的实例被创建并添加到 Spring 的环境中，因此你可以使用 MyBatis API，让它像下面一样被注入到你的 bean 中（Spring 4.3 以上可用）。
 
 ```java
 @Component
@@ -129,34 +128,34 @@ public class CityDao {
 }
 ```
 
-## Configuration
+## 配置
 
-As any other Spring Boot application a MyBatis-Spring-Boot-Application configuration parameters are stored inside the `application.properties`(or `application.yml`).
+像其他的 Spring Boot 应用一样，配置参数在 `application.properties` （或 `application.yml` )。
 
-MyBatis uses the prefix `mybatis` for its properties.
+MyBatis 在它的配置项中，使用 `mybatis` 作为前缀。
 
-Available properties are:
+可用的配置项如下：
 
-| Property | Description |
-| :--- | :--- |
-| `config-location` | Location of MyBatis xml config file. |
-| `check-config-location` | Indicates whether perform presence check of the MyBatis xml config file. |
-| `mapper-locations` | Locations of Mapper xml config file. |
-| `type-aliases-package` | Packages to search for type aliases. (Package delimiters are "`,; \t\n`") |
-| `type-aliases-super-type` | The super class for filtering type alias. If this not specifies, the MyBatis deal as type alias all classes that searched from `type-aliases-package`. |
-| `type-handlers-package` | Packages to search for type handlers. (Package delimiters are "`,; \t\n`") |
-| `executor-type` | Executor type: `SIMPLE`, `REUSE`, `BATCH` |
-| `default-scripting-language-driver` | The default scripting language driver class. This feature requires to use together with mybatis-spring 2.0.2+. |
-| `configuration-properties` | Externalized properties for MyBatis configuration. Specified properties can be used as placeholder on MyBatis config file and Mapper file. For detail see the [MyBatis reference page](http://www.mybatis.org/mybatis-3/configuration.html#properties). |
-| `lazy-initialization` | Whether enable lazy initialization of mapper bean. Set `true` to enable lazy initialization. This feature requires to use together with mybatis-spring 2.0.2+. |
-| `mapper-default-scope` | Default scope for mapper bean that scanned by auto-configure. This feature requires to use together with mybatis-spring 2.0.6+. |
-| `inject-sql-session-on-mapper-scan` | Set whether inject a `SqlSessionTemplate` or `SqlSessionFactory` bean (If you want to back to the behavior of 2.2.1 or before, specify `false`). If you use together with spring-native, should be set `true`(default). |
-| `configuration.*` | Property keys for `Configuration` bean provided by MyBatis Core. About available nested properties see the [MyBatis reference page](http://www.mybatis.org/mybatis-3/configuration.html#settings). <span class="label important">NOTE</span>: This property cannot be used at the same time with the `config-location`. |
-| `scripting-language-driver.thymeleaf.*` | Property keys for `ThymeleafLanguageDriverConfig` bean provided by MyBatis Thymeleaf. About available nested properties see the [MyBatis Thymeleaf reference page](http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties). |
-| `scripting-language-driver.freemarker.*` | Properties keys for `FreeMarkerLanguageDriverConfig` bean provided by MyBatis FreeMarker. About available nested properties see the [MyBatis FreeMarker reference page](http://www.mybatis.org/freemarker-scripting/#Configuration). This feature requires to use together with mybatis-freemarker 1.2.0+. |
-| `scripting-language-driver.velocity.*` | Properties keys for `VelocityLanguageDriverConfig` bean provided by MyBatis Velocity. About available nested properties see the [MyBatis Velocity reference page](http://www.mybatis.org/velocity-scripting/#Configuration). This feature requires to use together with mybatis-velocity 2.1.0+. |
+| 配置项                                      | 描述                                                                                                                                                                                                           |
+|:---------------------------------------- |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `config-location`                        | MyBatis XML 配置文件的路径。                                                                                                                                                                                         |
+| `check-config-location`                  | 指定是否对 MyBatis XML 配置文件的存在进行检查。                                                                                                                                                                               |
+| `mapper-locations`                       | XML 映射文件的路径。                                                                                                                                                                                                 |
+| `type-aliases-package`                   | 搜索类型别名的包名。（包使用的分隔符是 "`,; \t\n`"）                                                                                                                                                                             |
+| `type-aliases-super-type`                | 用于过滤类型别名的父类。如果没有指定，MyBatis会将所有从 `type-aliases-package` 搜索到的类作为类型别名处理。                                                                                                                                        |
+| `type-handlers-package`                  | 搜索类型处理器的包名。（包使用的分隔符是 "`,; \t\n`"）                                                                                                                                                                            |
+| `executor-type`                          | SQL 执行器类型： `SIMPLE`, `REUSE`, `BATCH`                                                                                                                                                                        |
+| `default-scripting-language-driver`      | 默认的脚本语言驱动（模板引擎），此功能需要与 mybatis-spring 2.0.2 以上版本一起使用。                                                                                                                                                        |
+| `configuration-properties`               | 可在外部配置的 MyBatis 配置项。指定的配置项可以被用作 MyBatis 配置文件和 Mapper 文件的占位符。更多细节 见 [MyBatis 参考页面](https://mybatis.org/mybatis-3/zh/configuration.html#properties)。                                                           |
+| `lazy-initialization`                    | 是否启用 mapper bean 的延迟初始化。设置 `true` 以启用延迟初始化。此功能需要与 mybatis-spring 2.0.2 以上版本一起使用。                                                                                                                             |
+| `mapper-default-scope`                   | 通过自动配置扫描的 mapper 组件的默认作用域。该功能需要与 mybatis-spring 2.0.6 以上版本一起使用。                                                                                                                                              |
+| `inject-sql-session-on-mapper-scan`      | 设置是否注入 `SqlSessionTemplate` 或  `SqlSessionFactory` 组件 （如果你想回到 2.2.1 或之前的行为，请指定 `false` ）。如果你和 spring-native 一起使用，应该设置为 `true` （默认）。                                                                          |
+| `configuration.*`                        | MyBatis Core 提供的`Configuration` 组件的 properties key。有关可用的内部配置项，请参阅[MyBatis 参考页面](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)。注：此属性不能与 `config-location` 同时使用。                            |
+| `scripting-language-driver.thymeleaf.*`  | MyBatis `ThymeleafLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis Thymeleaf 参考页面](http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties)。                   |
+| `scripting-language-driver.freemarker.*` | MyBatis `FreemarkerLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis FreeMarker 参考页面](http://www.mybatis.org/freemarker-scripting/#Configuration)。这个特性需要与 mybatis-freemarker 1.2.0 以上版本一起使用。 |
+| `scripting-language-driver.velocity.*`   | MyBatis `VelocityLanguageDriverConfig` 组件的  properties keys。有关可用的内部属性，请参阅 [MyBatis Velocity 参考页面](http://www.mybatis.org/velocity-scripting/#Configuration)。这个特性需要与 mybatis-velocity 2.1.0 以上版本一起使用。         |
 
-For example:
+例如：
 
 ```properties
 # application.properties
@@ -180,13 +179,13 @@ mybatis:
 ...
 ```
 
-## Using a ConfigurationCustomizer
+## 使用 ConfigurationCustomizer
 
-The MyBatis-Spring-Boot-Starter provide opportunity to customize a MyBatis configuration generated by auto-configuration using Java Config.
-The MyBatis-Spring-Boot-Starter will search beans that implement the `ConfigurationCustomizer` interface by automatically,
-and call a method that customize a MyBatis configuration. (Available since 1.2.1 or above)
+MyBatis-Spring-Boot-Starter 提供了使用 Java Config 来自定义 MyBatis 配置的可能。
 
-For example:
+MyBatis-Spring-Boot-Starter 将自动寻找实现了 `ConfigurationCustomizer` 接口的组件，调用自定义 MyBatis 配置的方法。( 1.2.1 及以上的版本可用）
+
+例如：
 
 ```java
 @Configuration
@@ -203,11 +202,11 @@ public class MyBatisConfig {
 }
 ```
 
-## Using a SqlSessionFactoryBeanCustomizer
+## 使用 SqlSessionFactoryBeanCustomizer
 
-The MyBatis-Spring-Boot-Starter provide opportunity to customize a `SqlSessionFactoryBean` generated by auto-configuration using Java Config.
-The MyBatis-Spring-Boot-Starter will search beans that implement the `SqlSessionFactoryBeanCustomizer` interface by automatically,
-and call a method that customize a `SqlSessionFactoryBean`. (Available since 2.2.2 or above)
+MyBatis-Spring-Boot-Starter 提供了使用 Java Config 来自定义自动配置生成的 `SqlSessionFactoryBean` 。
+
+MyBatis-Spring-Boot-Starter 将自动寻找实现了 `SqlSessionFactoryBeanCustomizer` 接口的组件，调用自定义 `SqlSessionFactoryBean` 的方法。( 2.2.2 及以上的版本可用）
 
 For example:
 
@@ -226,15 +225,15 @@ public class MyBatisConfig {
 }
 ```
 
-## Using the SpringBootVFS
+## 使用 SpringBootVFS
 
-The MyBatis-Spring-Boot-Starter provides the `SpringBootVFS` as an implementation class of `VFS`.
-The `VFS` is used for searching classes (e.g. target class of type alias, type handler class) from an application (or application server).
-If you run a Spring Boot application using the executable jar, you need to use the `SpringBootVFS`.
-The auto-configuration feature provided by the MyBatis-Spring-Boot-Starter used it automatically,
-but it does not use automatically by a manual configuration (e.g. when uses multiple `DataSource`).
+MyBatis-Spring-Boot-Starter 提供了 `SpringBootVFS` 作为 `VFS` 的实现类。
+ `VFS` 用于从应用或应用服务器中寻找类 （例如： 类型别名的目标类，类型处理器类） 。
+如果你使用可执行的 jar 文件来运行 Spring boot 应用，你需要使用 `SpringBootVFS` 。
+由于拥有自动配置的特性，MyBatis-Spring-Boot-Starter 会自动启用它。
+但在你手动配置（MyBatis-Spring-Boot-Starter）的时候 (例如： 当你使用多个 `DataSource` 的时候）。
 
-How to use the `SpringBootVFS` on manual configuration:
+在手动配置（MyBatis-Spring-Boot-Starter）的时候，这样使用 `SpringBootVFS` ：
 
 ```java
 @Configuration
@@ -250,14 +249,14 @@ public class MyBatisConfig {
 }
 ```
 
-## Detecting MyBatis components
+## 探测 MyBatis 组件
 
-The MyBatis-Spring-Boot-Starter will detects beans that implements following interface provided by MyBatis.
+The MyBatis-Spring-Boot-Starter 将检测实现以下由 MyBatis 提供的接口的组件。
 
-* [`Interceptor`](http://www.mybatis.org/mybatis-3/configuration.html#plugins)
-* [`TypeHandler`](http://www.mybatis.org/mybatis-3/configuration.html#typeHandlers)
-* [`LanguageDriver`](http://www.mybatis.org/mybatis-3/dynamic-sql.html#Pluggable_Scripting_Languages_For_Dynamic_SQL) (Requires to use together with mybatis-spring 2.0.2+)
-* [`DatabaseIdProvider`](http://www.mybatis.org/mybatis-3/configuration.html#databaseIdProvider)
+* [`Interceptor`](http://www.mybatis.org/mybatis-3/zh/configuration.html#plugins) (拦截器)
+* [`TypeHandler`](http://www.mybatis.org/mybatis-3/zh/configuration.html#typeHandlers) (类型处理器)
+* [`LanguageDriver`](http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html#Pluggable_Scripting_Languages_For_Dynamic_SQL) （插入脚本语言）(需要 mybatis-spring 2.0.2 以上配合使用)
+* [`DatabaseIdProvider`](http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider)
 
 ```java
 @Configuration
@@ -287,12 +286,9 @@ public class MyBatisConfig {
 }
 ```
 
-<span class="label important">NOTE</span>: If detected `LangaugeDriver`'s count is one, it set to default scripting language automatically.
+<span class="label important">注意</span>: 如果只有一个 `LangaugeDriver` ，它将自动地将其作为默认的脚本语言。
 
-## Customization for LanguageDriver
-
-If you want to customize the `LanguageDriver` that creating by auto-configure,
-please register user defined bean.
+如果你想自定义 `LangaugeDriver` 的配置，请注册用户定义的组件。
 
 ### ThymeleafLanguageDriver
 
@@ -302,7 +298,7 @@ public class MyBatisConfig {
   @Bean
   ThymeleafLanguageDriverConfig thymeleafLanguageDriverConfig() {
     return ThymeleafLanguageDriverConfig.newInstance(c -> {
-      // ... customization code
+      // ... 自定义代码
     });
   }
 }
@@ -316,7 +312,7 @@ public class MyBatisConfig {
   @Bean
   FreeMarkerLanguageDriverConfig freeMarkerLanguageDriverConfig() {
     return FreeMarkerLanguageDriverConfig.newInstance(c -> {
-      // ... customization code
+      // ... 自定义代码
     });
   }
 }
@@ -336,18 +332,18 @@ public class MyBatisConfig {
 }
 ```
 
-### Running Samples
+### 可以运行的样例
 
-The project provides two samples so you play and experiment with them:
+项目（为每个分类）提供了至少两个样例，可以为你所用。
 
-| Category | Sample | Description |
-| :--- | :--- | :--- |
-| Core | [1st Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation) | Show the simplest scenario with just a mapper and a bean where the mapper is injected into. This is the sample we saw in the Quick Setup section. |
-|      | [2nd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml) | Shows how to use a Mapper that has its statements in an xml file and Dao that uses an `SqlSessionTemplate`. |
-| LanguageDriver | [3rd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf) | Shows how to use the language driver for Thymeleaf with mybatis-thymeleaf. |
-|                | [4th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker) | Shows how to use the language driver for FreeMarker with mybatis-freemarker. |
-|                | [5th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity) | Shows how to use the language driver for Velocity with mybatis-velocity. |
-| JVM Language | [6th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin) | Shows how to use with kotlin. |
-|              | [7th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy) | Shows how to use with groovy. |
-| Web | [8th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web) | Show how to use the web environment. |
-|     | [9th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war) | Show how to use the web environment with war(=deploy to the application server). |
+| 分类             | 样例                                                                                                                                         | 描述                                                                    |
+|:-------------- |:------------------------------------------------------------------------------------------------------------------------------------------ |:--------------------------------------------------------------------- |
+| 核心组件           | [1st Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation) | 展示了最简单的场景，只有一个 mapper 和一个注入 mapper 的组件。这就是我们在“快速入门”部分看到的例子。           |
+|                | [2nd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml)        | 展示了如何在 XML 文件中使用一个带有语句的 Mapper，并且也有使用 `SqlSessionTemplate` 的 DAO 的示例。 |
+| LangaugeDriver | [3rd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf)  | 展示了如何在 mybatis-thymeleaf 的帮助下，使用 Thymeleaf。                           |
+|                | [4th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker) | 展示了如何在 mybatis-freemarker 的帮助下，使用 Freemarker。                         |
+|                | [5th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity)   | 展示了如何在 mybatis-velocity 的帮助下，使用 Velocity。                             |
+| JVM 语言         | [6th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin)     | 展示了如何和 kotlin 一同使用。                                                   |
+|                | [7th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy)     | 展示了如何和 groovy 一同使用。                                                   |
+| Web            | [8th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web)        | 展示了如何在 web 环境中使用。                                                     |
+|                | [9th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war)        | 展示了如何在 web 环境中使用并且让 war 文件部署在应用程序服务器上。                                |
