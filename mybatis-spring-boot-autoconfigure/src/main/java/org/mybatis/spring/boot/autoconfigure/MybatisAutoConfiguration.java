@@ -166,8 +166,9 @@ public class MybatisAutoConfiguration implements InitializingBean {
     if (!ObjectUtils.isEmpty(this.typeHandlers)) {
       factory.setTypeHandlers(this.typeHandlers);
     }
-    if (!ObjectUtils.isEmpty(this.properties.resolveMapperLocations())) {
-      factory.setMapperLocations(this.properties.resolveMapperLocations());
+    Resource[] mapperLocations = this.properties.resolveMapperLocations();
+    if (!ObjectUtils.isEmpty(mapperLocations)) {
+      factory.setMapperLocations(mapperLocations);
     }
     Set<String> factoryPropertyNames = Stream
         .of(new BeanWrapperImpl(SqlSessionFactoryBean.class).getPropertyDescriptors()).map(PropertyDescriptor::getName)
