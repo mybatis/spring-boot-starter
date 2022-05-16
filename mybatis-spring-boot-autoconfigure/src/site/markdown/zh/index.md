@@ -336,14 +336,15 @@ public class MyBatisConfig {
 
 项目（为每个分类）提供了至少两个样例，可以为你所用。
 
-| 分类             | 样例                                                                                                                                         | 描述                                                                    |
+
+| 分类             | 样例                                                                                                                                        | 描述                                                                    |
 |:-------------- |:------------------------------------------------------------------------------------------------------------------------------------------ |:--------------------------------------------------------------------- |
-| 核心组件           | [1st Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation) | 展示了最简单的场景，只有一个 mapper 和一个注入 mapper 的组件。这就是我们在“快速入门”部分看到的例子。           |
-|                | [2nd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml)        | 展示了如何在 XML 文件中使用一个带有语句的 Mapper，并且也有使用 `SqlSessionTemplate` 的 DAO 的示例。 |
-| LangaugeDriver | [3rd Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf)  | 展示了如何在 mybatis-thymeleaf 的帮助下，使用 Thymeleaf。                           |
-|                | [4th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker) | 展示了如何在 mybatis-freemarker 的帮助下，使用 Freemarker。                         |
-|                | [5th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity)   | 展示了如何在 mybatis-velocity 的帮助下，使用 Velocity。                             |
-| JVM 语言         | [6th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin)     | 展示了如何和 kotlin 一同使用。                                                   |
-|                | [7th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy)     | 展示了如何和 groovy 一同使用。                                                   |
-| Web            | [8th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web)        | 展示了如何在 web 环境中使用。                                                     |
-|                | [9th Sample](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war)        | 展示了如何在 web 环境中使用并且让 war 文件部署在应用程序服务器上。                                |
+| 核心组件           | [样例1](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation) | 展示了最简单的场景，只有一个 mapper 和一个注入 mapper 的组件。这就是我们在“快速入门”部分看到的例子。           |
+|                | [样例2](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml)        | 展示了如何在 XML 文件中使用一个带有语句的 Mapper，并且也有使用 `SqlSessionTemplate` 的 DAO 的示例。 |
+| LangaugeDriver | [样例3](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf)  | 展示了如何在 mybatis-thymeleaf 的帮助下，使用 Thymeleaf。                           |
+|                | [样例6](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-freemarker) | 展示了如何在 mybatis-freemarker 的帮助下，使用 Freemarker。                         |
+|                | [样例4](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-velocity)   | 展示了如何在 mybatis-velocity 的帮助下，使用 Velocity。                             |
+| JVM 语言         | [样例5](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-kotlin)     | 展示了如何和 kotlin 一同使用。                                                   |
+|                | [样例6](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-groovy)     | 展示了如何和 groovy 一同使用。                                                   |
+| Web            | [样例7](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-web)        | 展示了如何在 web 环境中使用。                                                     |
+|                | [样例8](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-war)        | 展示了如何在 web 环境中使用并且让 war 文件部署在应用程序服务器上。                                |
