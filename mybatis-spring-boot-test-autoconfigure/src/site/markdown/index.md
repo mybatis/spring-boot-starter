@@ -13,13 +13,14 @@ By using this module you will can be:
 
 The MyBatis-Spring-Boot-Starter-Test requires following versions:
 
-| MyBatis-Spring-Boot-Starter-Test | Spring Boot | Java |
-| --- | --- | --- |
-| **2.2** | 2.5 or higher | 8 or higher |
-| **2.1** | 2.1 - 2.4 | 8 or higher |
-| **~~2.0 (EOL)~~** | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
-| **~~1.3 (EOL)~~** | ~~1.5~~ | ~~6 or higher~~ |
-| **~~1.2 (EOL)~~** | ~~1.4~~ | ~~6 or higher~~ |
+| MyBatis-Spring-Boot-Starter-Test | Spring Boot    | Java |
+|----------------------------------|----------------| --- |
+| **2.3**                          | 2.5 or higher  | 8 or higher |
+| **2.2**                          | 2.5 - 2.7      | 8 or higher |
+| **2.1**                          | 2.1 - 2.4      | 8 or higher |
+| **~~2.0 (EOL)~~**                | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
+| **~~1.3 (EOL)~~**                | ~~1.5~~        | ~~6 or higher~~ |
+| **~~1.2 (EOL)~~**                | ~~1.4~~        | ~~6 or higher~~ |
 
 ## Installation
 
