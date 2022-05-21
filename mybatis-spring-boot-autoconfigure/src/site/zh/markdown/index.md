@@ -1,5 +1,14 @@
 # 简介
 
+## 文档的翻译版本
+
+可以阅读以下 MyBatis-Spring-Boot-Starter 文档的翻译版本：
+
+<ul class="i18n">
+  <li class="en"><a href="./../index.html">English</a></li>
+  <li class="zh"><a href="./../zh/index.html">简体中文</a></li>
+</ul>
+
 ## 什么是 MyBatis-Spring-Boot-Starter?
 
 MyBatis-Spring-Boot-Starter 可以帮助你更快地在 [Spring Boot](https://spring.io/projects/spring-boot) 之上构建 MyBatis 应用。

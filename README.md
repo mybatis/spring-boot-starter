@@ -34,6 +34,11 @@ MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 * [See the docs](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-autoconfigure/src/site/markdown/index.md)
 * [See the docs for testing](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-test-autoconfigure/src/site/markdown/index.md)
 
+Translations:
+
+* [See the docs(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-autoconfigure/src/site/zh/markdown/index.md)
+
+
 ## Quick Start
 
 * [See the wiki page](https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start)
