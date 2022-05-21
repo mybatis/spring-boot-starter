@@ -8,7 +8,7 @@ MyBatis-Spring-Boot-Starter 可以帮助你更快地在 [Spring Boot](https://sp
 
 * 构建单体应用程序
 * 将几乎不需要样板配置
-* 更少的 XML 配置
+* 使用更少的 XML 配置
 
 ## 要求
 
@@ -16,8 +16,9 @@ MyBatis-Spring-Boot-Starter 要求以下版本:
 
 | MyBatis-Spring-Boot-Starter | MyBatis-Spring       | Spring Boot   | Java      |
 | --------------------------- | -------------------- | ------------- | --------- |
-| **2.2**                     | 2.0 （2.0.6以上可开启所有特性） | 2.5 或更高       | 8 或更高     |
-| **2.1**                     | 2.0 （2.0.6以上可开启所有特性） | 2.1 - 2.4     | 8 或更高     |
+| **2.3**                     | 2.1                  | 2.5 或更高       | 8 或更高     |
+| **2.2**                     | 2.0（2.0.6 以上可开启所有特性） | 2.5 - 2.7     | 8 或更高     |
+| **2.1**                     | 2.0（2.0.6 以上可开启所有特性） | 2.1 - 2.4     | 8 或更高     |
 | **~~2.0 (EOL)~~**           | ~~2.0~~              | ~~2.0 或 2.1~~ | ~~8 或更高~~ |
 | **~~1.3 (EOL)~~**           | ~~1.3~~              | ~~1.5~~       | ~~6 或更高~~ |
 | **~~1.2 (EOL)~~**           | ~~1.3~~              | ~~1.4~~       | ~~6 或更高~~ |
@@ -136,7 +137,7 @@ MyBatis 在它的配置项中，使用 `mybatis` 作为前缀。
 
 可用的配置项如下：
 
-| 配置项                                      | 描述                                                                                                                                                                                                           |
+| 配置项（properties）                          | 描述                                                                                                                                                                                                           |
 |:---------------------------------------- |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `config-location`                        | MyBatis XML 配置文件的路径。                                                                                                                                                                                         |
 | `check-config-location`                  | 指定是否对 MyBatis XML 配置文件的存在进行检查。                                                                                                                                                                               |
@@ -150,7 +151,7 @@ MyBatis 在它的配置项中，使用 `mybatis` 作为前缀。
 | `lazy-initialization`                    | 是否启用 mapper bean 的延迟初始化。设置 `true` 以启用延迟初始化。此功能需要与 mybatis-spring 2.0.2 以上版本一起使用。                                                                                                                             |
 | `mapper-default-scope`                   | 通过自动配置扫描的 mapper 组件的默认作用域。该功能需要与 mybatis-spring 2.0.6 以上版本一起使用。                                                                                                                                              |
 | `inject-sql-session-on-mapper-scan`      | 设置是否注入 `SqlSessionTemplate` 或  `SqlSessionFactory` 组件 （如果你想回到 2.2.1 或之前的行为，请指定 `false` ）。如果你和 spring-native 一起使用，应该设置为 `true` （默认）。                                                                          |
-| `configuration.*`                        | MyBatis Core 提供的`Configuration` 组件的 properties key。有关可用的内部配置项，请参阅[MyBatis 参考页面](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)。注：此属性不能与 `config-location` 同时使用。                            |
+| `configuration.*`                        | MyBatis Core 提供的`Configuration` 组件的配置项。有关可用的内部配置项，请参阅[MyBatis 参考页面](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)。注：此属性不能与 `config-location` 同时使用。                                        |
 | `scripting-language-driver.thymeleaf.*`  | MyBatis `ThymeleafLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis Thymeleaf 参考页面](http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties)。                   |
 | `scripting-language-driver.freemarker.*` | MyBatis `FreemarkerLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis FreeMarker 参考页面](http://www.mybatis.org/freemarker-scripting/#Configuration)。这个特性需要与 mybatis-freemarker 1.2.0 以上版本一起使用。 |
 | `scripting-language-driver.velocity.*`   | MyBatis `VelocityLanguageDriverConfig` 组件的  properties keys。有关可用的内部属性，请参阅 [MyBatis Velocity 参考页面](http://www.mybatis.org/velocity-scripting/#Configuration)。这个特性需要与 mybatis-velocity 2.1.0 以上版本一起使用。         |
@@ -336,9 +337,8 @@ public class MyBatisConfig {
 
 项目（为每个分类）提供了至少两个样例，可以为你所用。
 
-
-| 分类             | 样例                                                                                                                                        | 描述                                                                    |
-|:-------------- |:------------------------------------------------------------------------------------------------------------------------------------------ |:--------------------------------------------------------------------- |
+| 分类             | 样例                                                                                                                                  | 描述                                                                    |
+|:-------------- |:----------------------------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------------------------- |
 | 核心组件           | [样例1](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-annotation) | 展示了最简单的场景，只有一个 mapper 和一个注入 mapper 的组件。这就是我们在“快速入门”部分看到的例子。           |
 |                | [样例2](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-xml)        | 展示了如何在 XML 文件中使用一个带有语句的 Mapper，并且也有使用 `SqlSessionTemplate` 的 DAO 的示例。 |
 | LangaugeDriver | [样例3](https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples/mybatis-spring-boot-sample-thymeleaf)  | 展示了如何在 mybatis-thymeleaf 的帮助下，使用 Thymeleaf。                           |
