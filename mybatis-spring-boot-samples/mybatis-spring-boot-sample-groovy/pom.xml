@@ -28,6 +28,7 @@
   <name>mybatis-spring-boot-sample-groovy</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
+    <groovy.version>4.0.2</groovy.version>
     <maven.site.skip>true</maven.site.skip> <!-- Workaround for build error -->
   </properties>
   <dependencies>
@@ -43,7 +44,7 @@
     <dependency>
       <groupId>org.apache.groovy</groupId>
       <artifactId>groovy</artifactId>
-      <version>4.0.2</version>
+      <version>${groovy.version}</version>
     </dependency>
     <!-- test dependencies -->
     <dependency>
