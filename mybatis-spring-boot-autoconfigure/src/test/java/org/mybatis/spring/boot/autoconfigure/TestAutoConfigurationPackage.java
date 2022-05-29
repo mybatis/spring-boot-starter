@@ -15,7 +15,11 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.annotation.RetentionPolicy;
 
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.annotation.Import;
@@ -23,7 +27,7 @@ import org.springframework.context.annotation.Import;
 /**
  * Test annotation to configure the {@link AutoConfigurationPackages} to an arbitrary value.
  *
- * @author Phillip Webb
+ * @author Eddú Meléndez
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

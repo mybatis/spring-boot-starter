@@ -26,6 +26,7 @@ import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitializat
  * {@link DependsOnDatabaseInitializationDetector} for Mybatis.
  *
  * @author Eddú Meléndez
+ * @since 2.3.0
  */
 class MybatisDependsOnDatabaseInitializationDetector
     extends AbstractBeansOfTypeDependsOnDatabaseInitializationDetector {
