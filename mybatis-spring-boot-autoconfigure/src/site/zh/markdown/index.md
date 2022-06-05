@@ -68,7 +68,7 @@ MyBatis-Spring-Boot-Starter 将会：
 
 * 自动探测存在的 `DataSource`
 * 将使用 `SqlSessionFactoryBean` 创建并注册一个 `SqlSessionFactory` 的实例，并将探测到的 `DataSource` 作为数据源
-* 将创建并注册一个从 `SqlSessionFactory` 中得到的 `SqlSessionTemplate` 的实例。
+* 将创建并注册一个从 `SqlSessionFactory` 中得到的 `SqlSessionTemplate` 的实例
 * 自动扫描你的 mapper，将它们与 `SqlSessionTemplate` 相关联，并将它们注册到Spring 的环境（context）中去，这样它们就可以被注入到你的 bean 中
 
 假设我们有下面的 mapper ：
