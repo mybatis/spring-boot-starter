@@ -68,7 +68,7 @@ MyBatis-Spring-Boot-Starter 将会：
 
 * 自动探测存在的 `DataSource`
 * 将使用 `SqlSessionFactoryBean` 创建并注册一个 `SqlSessionFactory` 的实例，并将探测到的 `DataSource` 作为数据源
-* 将创建并注册一个从 `SqlSessionFactory` 中得到的 `SqlSessionTemplate` 的实例。
+* 将创建并注册一个从 `SqlSessionFactory` 中得到的 `SqlSessionTemplate` 的实例
 * 自动扫描你的 mapper，将它们与 `SqlSessionTemplate` 相关联，并将它们注册到Spring 的环境（context）中去，这样它们就可以被注入到你的 bean 中
 
 假设我们有下面的 mapper ：
@@ -113,7 +113,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
  MyBatis-Spring-Boot-Starter 将默认搜寻带有 `@Mapper` 注解的 mapper 接口。
 
-你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](http://www.mybatis.org/spring/mappers.html#scan) 中查看更多信息。
+你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](https://mybatis.org/spring/zh/mappers.html#scan) 中查看更多信息。
 
 如果 MyBatis-Spring-Boot-Starter 发现至少有一个 `SqlSessionFactoryBean` ，它将不会开始扫描。 所以如果你想停止扫描，你应该用 `@Bean` 方法明确注册你的 mapper。
 
