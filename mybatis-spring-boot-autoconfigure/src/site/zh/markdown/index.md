@@ -113,7 +113,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
  MyBatis-Spring-Boot-Starter 将默认搜寻带有 `@Mapper` 注解的 mapper 接口。
 
-你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](http://www.mybatis.org/spring/mappers.html#scan) 中查看更多信息。
+你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](https://mybatis.org/spring/zh/mappers.html#scan) 中查看更多信息。
 
 如果 MyBatis-Spring-Boot-Starter 发现至少有一个 `SqlSessionFactoryBean` ，它将不会开始扫描。 所以如果你想停止扫描，你应该用 `@Bean` 方法明确注册你的 mapper。
 
