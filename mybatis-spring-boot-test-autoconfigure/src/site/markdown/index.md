@@ -1,5 +1,14 @@
 # Introduction
 
+## Translations
+
+Users can read about MyBatis-Spring-Boot-Starter-Test in the following translations:
+
+<ul class="i18n">
+  <li class="en"><a href="./index.html">English</a></li>
+  <li class="zh"><a href="./zh/index.html">简体中文</a></li>
+</ul>
+
 ## What is MyBatis-Spring-Boot-Starter-Test?
 
 The MyBatis-Spring-Boot-Starter-Test help creating a test cases for MyBatis component using the [MyBatis-Spring-Boot-Starter](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/).
