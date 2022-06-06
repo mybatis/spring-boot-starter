@@ -2,7 +2,7 @@
 
 ## 文档的翻译版本
 
-可以阅读以下 MyBatis-Spring-Boot-Starter 文档的翻译版本：
+可以阅读 MyBatis-Spring-Boot-Starter 文档的以下翻译版本：
 
 <ul class="i18n">
   <li class="en"><a href="./../index.html">English</a></li>
