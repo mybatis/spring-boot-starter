@@ -2,3 +2,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration,\
 org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
+
+# Depends On Database Initialization Detectors
+org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitializationDetector=\
+org.mybatis.spring.boot.autoconfigure.MybatisDependsOnDatabaseInitializationDetector
