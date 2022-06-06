@@ -1,5 +1,14 @@
 # 简介
 
+## 文档的翻译版本
+
+可以阅读 MyBatis-Spring-Boot-Starter-Test 文档的以下翻译版本：
+
+<ul class="i18n">
+  <li class="en"><a href="./../index.html">English</a></li>
+  <li class="zh"><a href="./../zh/index.html">简体中文</a></li>
+</ul>
+
 ## 什么是 MyBatis-Spring-Boot-Starter-Test?
 
 MyBatis-Spring-Boot-Starter-Test 为 [MyBatis-Spring-Boot-Starter](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/) 中的 MyBatis 组件提供测试用例。
