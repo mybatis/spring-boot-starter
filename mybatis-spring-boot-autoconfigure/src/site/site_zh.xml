@@ -20,8 +20,8 @@
     xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
 
   <body>
-    <menu name="参考文件">
-      <item name="介绍" href="index.html"/>
+    <menu name="参考文档">
+      <item name="简介" href="index.html"/>
     </menu>
 
     <menu ref="reports"/>
