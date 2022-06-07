@@ -37,6 +37,7 @@ MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 Translations:
 
 * [See the docs(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-autoconfigure/src/site/zh/markdown/index.md)
+* [See the docs for testing(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-test-autoconfigure/src/site/zh/markdown/index.md)
 
 
 ## Quick Start
