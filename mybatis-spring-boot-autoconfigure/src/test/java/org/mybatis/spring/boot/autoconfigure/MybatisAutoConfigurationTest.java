@@ -873,6 +873,17 @@ class MybatisAutoConfigurationTest {
         });
   }
 
+  @Test
+  void testTypeAliasesWithMultiByteCharacterInPackageName() {
+    this.contextRunner
+        .withUserConfiguration(EmbeddedDataSourceConfiguration.class, MybatisBootMapperScanAutoConfiguration.class)
+        .withPropertyValues("mybatis.config-location:mybatis-config2.xml").run(context -> {
+          org.apache.ibatis.session.Configuration configuration = context.getBean(SqlSessionFactory.class)
+              .getConfiguration();
+          assertThat(configuration.getTypeAliasRegistry().getTypeAliases()).containsKey("シティー");
+        });
+  }
+
   @Configuration
   static class MultipleDataSourceConfiguration {
     @Bean
