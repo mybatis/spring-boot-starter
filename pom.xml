@@ -98,6 +98,14 @@
             <siteDirectory>${project.build.directory}/site-src</siteDirectory>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <!-- Add setting 'file.encoding' for Windows environment -->
+            <argLine>${argLine} -Djdk.attach.allowAttachSelf -Dfile.encoding=UTF-8</argLine>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
