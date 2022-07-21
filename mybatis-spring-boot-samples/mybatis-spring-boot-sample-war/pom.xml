@@ -28,7 +28,7 @@
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
     <tomcat.major.version>9</tomcat.major.version>
-    <tomcat.version>9.0.64</tomcat.version>
+    <tomcat.version>9.0.65</tomcat.version>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
