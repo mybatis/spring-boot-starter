@@ -33,7 +33,7 @@
 
   <name>mybatis-spring-boot</name>
   <description>Spring Boot Support for MyBatis</description>
-  <url>http://www.mybatis.org/spring-boot-starter/</url>
+  <url>https://www.mybatis.org/spring-boot-starter/</url>
   <inceptionYear>2015</inceptionYear>
 
   <modules>
