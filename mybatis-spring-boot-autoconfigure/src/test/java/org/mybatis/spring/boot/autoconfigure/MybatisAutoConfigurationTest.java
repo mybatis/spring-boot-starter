@@ -307,8 +307,9 @@ class MybatisAutoConfigurationTest {
   void testWithCheckConfigLocationFileDoesNotExists() {
     this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
         .withPropertyValues("mybatis.config-location:foo.xml", "mybatis.check-config-location=true")
-        .run(context -> assertThat(context).getFailure().isInstanceOf(BeanCreationException.class).hasMessageContaining(
-            "Error creating bean with name 'mybatisAutoConfiguration': Invocation of init method failed; nested exception is java.lang.IllegalStateException: Cannot find config location: class path resource [foo.xml] (please add config file or check your Mybatis configuration)"));
+        .run(context -> assertThat(context).getFailure().isInstanceOf(BeanCreationException.class)
+            .hasMessageContainingAll("Error creating bean with name 'mybatisAutoConfiguration':",
+                "Cannot find config location: class path resource [foo.xml] (please add config file or check your Mybatis configuration)"));
   }
 
   @Test
