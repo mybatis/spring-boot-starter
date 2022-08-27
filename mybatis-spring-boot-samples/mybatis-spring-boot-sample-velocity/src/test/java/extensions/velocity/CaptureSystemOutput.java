@@ -1,11 +1,11 @@
 /*
- *    Copyright 2015-2021 the original author or authors.
+ *    Copyright 2015-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *       https://www.apache.org/licenses/LICENSE-2.0
  *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
@@ -46,7 +46,6 @@ import org.junit.platform.commons.support.ReflectionSupport;
 /**
  * {@code @CaptureSystemOutput} is a JUnit JUpiter extension for capturing output to {@code System.out} and
  * {@code System.err} with expectations supported via Hamcrest matchers.
- *
  * <h4>Example Usage</h4>
  *
  * <pre style="code">
@@ -66,16 +65,13 @@ import org.junit.platform.commons.support.ReflectionSupport;
  *     System.err.println("Printed to System.err!");
  * }
  * </pre>
- *
  * <p>
  * Based on code from Spring Boot's <a href=
  * "https://github.com/spring-projects/spring-boot/blob/d3c34ee3d1bfd3db4a98678c524e145ef9bca51c/spring-boot-project/spring-boot-tools/spring-boot-test-support/src/main/java/org/springframework/boot/testsupport/rule/OutputCapture.java">OutputCapture</a>
  * rule for JUnit 4 by Phillip Webb and Andy Wilkinson.
- *
  * <p>
  * Borrowing source from Sam Brannen as listed online at spring and stackoverflow from here <a href=
  * "https://github.com/sbrannen/junit5-demo/blob/master/src/test/java/extensions/CaptureSystemOutput.java">CaptureSystemOutput</a>
- *
  * <p>
  * Additional changes to Sam Brannen logic supplied by kazuki43zoo from here <a href=
  * "https://github.com/kazuki43zoo/mybatis-spring-boot/commit/317c9809326baba1f6ee0a0f8c2c471cd75993b3">enhancement
@@ -142,14 +138,11 @@ public @interface CaptureSystemOutput {
 
   /**
    * {@code OutputCapture} captures output to {@code System.out} and {@code System.err}.
-   *
    * <p>
    * To obtain an instance of {@code OutputCapture}, declare a parameter of type {@code OutputCapture} in a JUnit
    * Jupiter {@code @Test}, {@code @BeforeEach}, or {@code @AfterEach} method.
-   *
    * <p>
    * {@linkplain #expect Expectations} are supported via Hamcrest matchers.
-   *
    * <p>
    * To obtain all output to {@code System.out} and {@code System.err}, simply invoke {@link #toString()}.
    *
@@ -192,7 +185,6 @@ public @interface CaptureSystemOutput {
 
     /**
      * Verify that the captured output is matched by the supplied {@code matcher}.
-     *
      * <p>
      * Verification is performed after the test method has executed.
      *
