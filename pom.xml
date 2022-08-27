@@ -55,8 +55,8 @@
     <url>https://github.com/mybatis/spring-boot-starter/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/spring-boot-starter</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/mybatis/spring-boot-starter/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
