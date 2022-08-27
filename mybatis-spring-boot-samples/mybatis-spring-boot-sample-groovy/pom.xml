@@ -27,6 +27,7 @@
   <packaging>jar</packaging>
   <name>mybatis-spring-boot-sample-groovy</name>
   <properties>
+    <java.version>1.8</java.version>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
     <groovy.version>4.0.4</groovy.version>
     <maven.site.skip>true</maven.site.skip> <!-- Workaround for build error -->
