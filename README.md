@@ -6,7 +6,7 @@
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.spring.boot/mybatis-spring-boot.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-![mybatis-spring](http://mybatis.github.io/images/mybatis-logo.png)
+![mybatis-spring](https://mybatis.org/images/mybatis-logo.png)
 
 MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 
