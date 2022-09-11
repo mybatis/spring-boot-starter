@@ -19,7 +19,7 @@ name: SonarCloud
 on:
   push:
     branches:
-      - master
+      - 3.x
 
 jobs:
   build:
