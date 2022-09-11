@@ -67,12 +67,14 @@
   </distributionManagement>
 
   <properties>
+    <java.version>17</java.version>
+
     <mybatis.version>3.5.10</mybatis.version>
-    <mybatis-spring.version>2.1.0-SNAPSHOT</mybatis-spring.version>
+    <mybatis-spring.version>3.0.0-SNAPSHOT</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.3</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.1</mybatis-velocity.version>
     <mybatis-thymeleaf.version>1.0.3</mybatis-thymeleaf.version>
-    <spring-boot.version>2.7.3</spring-boot.version>
+    <spring-boot.version>3.0.0-SNAPSHOT</spring-boot.version>
 
     <argLine>-Djdk.attach.allowAttachSelf --add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
   </properties>

@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        java: [11, 17, 18, 19-ea]
+        java: [17, 18, 19-ea]
         distribution: ['zulu']
       fail-fast: false
       max-parallel: 5
@@ -38,4 +38,4 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: ${{ matrix.distribution }}
       - name: Test with Maven
-        run: ./mvnw test -B -D"license.skip=true"
+        run: ./mvnw test -B -D"license.skip=true" -D"enforcer.skip=true"
