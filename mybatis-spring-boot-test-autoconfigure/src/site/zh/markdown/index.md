@@ -21,8 +21,9 @@ MyBatis-Spring-Boot-Starter-Test 为 [MyBatis-Spring-Boot-Starter](http://www.my
 TheMyBatis-Spring-Boot-Starter-Test 要求以下版本：
 
 | MyBatis-Spring-Boot-Starter-Test | Spring Boot   | Java      |
-| -------------------------------- | ------------- | --------- |
-| **2.3**                          | 2.5 或更高       | 8 或更高     |
+|----------------------------------|---------------|-----------|
+| **3.0**                          | 3.0           | 17 或更高    |
+| **2.3**                          | 2.5 - 2.7     | 8 或更高     |
 | **2.2**                          | 2.5 - 2.7     | 8 或更高     |
 | **2.1**                          | 2.1 - 2.4     | 8 或更高     |
 | **~~2.0 (EOL)~~**                | ~~2.0 或 2.1~~ | ~~8 或更高~~ |

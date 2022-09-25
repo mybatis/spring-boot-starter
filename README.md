@@ -6,13 +6,14 @@
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.spring.boot/mybatis-spring-boot.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-![mybatis-spring](http://mybatis.github.io/images/mybatis-logo.png)
+![mybatis-spring](https://mybatis.org/images/mybatis-logo.png)
 
 MyBatis Spring-Boot-Starter will help you to use MyBatis with Spring Boot
 
 ## Requirements
 
-* master(2.3.x) : MyBatis 3.5+, MyBatis-Spring 2.1, Java 8+ and Spring Boot 2.5+ (First version for supporting Spring Boot 3), **not release yet**
+* 3.x : MyBatis 3.5+, MyBatis-Spring 3.0, Java 17+ and Spring Boot 3.0 **not release yet**
+* master(2.3.x) : MyBatis 3.5+, MyBatis-Spring 2.1, Java 8+ and Spring Boot 2.5-2.7 **not release yet**
 * 2.2.x : MyBatis 3.5+, MyBatis-Spring 2.0+(2.0.6+ recommended), Java 8+ and Spring Boot 2.5-2.7
 * 2.1.x : MyBatis 3.5+, MyBatis-Spring 2.0+(2.0.6+ recommended), Java 8+ and Spring Boot ~~2.1-2.4~~ 2.4
 * ~~2.0.x : (EOL) MyBatis 3.5+, MyBatis-Spring 2.0+, Java 8+ and Spring Boot 2.0/2.1.~~
