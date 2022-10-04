@@ -20,6 +20,7 @@ import java.io.UncheckedIOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -79,8 +80,9 @@ public class SpringBootVFS extends VFS {
   private static String preserveSubpackageName(final String baseUrlString, final Resource resource,
       final String rootPath) {
     try {
-      return rootPath + (rootPath.endsWith("/") ? "" : "/")
-          + resource.getURL().toString().substring(baseUrlString.length());
+      return rootPath + (rootPath.endsWith("/") ? "" : "/") + Normalizer
+          .normalize(URLDecoder.decode(resource.getURL().toString(), urlDecodingCharset.name()), Normalizer.Form.NFC)
+          .substring(baseUrlString.length());
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
