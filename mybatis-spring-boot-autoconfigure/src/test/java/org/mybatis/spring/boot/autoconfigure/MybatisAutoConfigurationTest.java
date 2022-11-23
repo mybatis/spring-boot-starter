@@ -69,6 +69,7 @@ import org.springframework.aop.scope.ScopedProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -1095,7 +1096,8 @@ class MybatisAutoConfigurationTest {
     }
 
     @Bean
-    public VendorDatabaseIdProvider vendorDatabaseIdProvider(Properties vendorProperties) {
+    public VendorDatabaseIdProvider vendorDatabaseIdProvider(
+        @Qualifier("vendorProperties") Properties vendorProperties) {
       VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
       databaseIdProvider.setProperties(vendorProperties);
       return databaseIdProvider;
