@@ -1,24 +1,6 @@
 {
   "properties": [
     {
-      "sourceType": "org.apache.ibatis.session.Configuration",
-      "defaultValue": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
-      "name": "mybatis.configuration.default-scripting-language",
-      "description": "A default LanguageDriver class.",
-      "type": "java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>",
-      "deprecation": {
-        "reason": "Because when this configuration property is used, there is case that custom language driver cannot be registered correctly.",
-        "replacement": "mybatis.default-scripting-language-driver"
-      }
-    },
-    {
-      "sourceType": "org.apache.ibatis.session.Configuration",
-      "defaultValue": "org.apache.ibatis.type.EnumTypeHandler",
-      "name": "mybatis.configuration.default-enum-type-handler",
-      "description": "A default TypeHandler class for Enum.",
-      "type": "java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>"
-    },
-    {
       "defaultValue": false,
       "name": "mybatis.lazy-initialization",
       "description": "Set whether enable lazy initialization for mapper bean.",
@@ -44,6 +26,5 @@
         "replacement": "mybatis.scripting-language-driver.velocity.velocity-settings.runtime.custom_directives"
       }
     }
-
   ]
 }

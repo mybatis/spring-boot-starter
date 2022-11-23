@@ -46,47 +46,27 @@ class AdditionalConfigurationMetadataTest {
 
     List<Map<String, Object>> properties = documentContext.read("$.properties");
 
-    assertAll(() -> assertThat(properties.size()).isEqualTo(6), () -> {
-      // assert for mybatis.configuration.default-scripting-language
-      Map<String, Object> element = properties.get(0);
-      assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
-      assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.scripting.xmltags.XMLLanguageDriver");
-      assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-scripting-language");
-      assertThat(element.get("type"))
-          .isEqualTo("java.lang.Class<? extends org.apache.ibatis.scripting.LanguageDriver>");
-      @SuppressWarnings("unchecked")
-      Map<String, Object> deprecation = (Map<String, Object>) element.get("deprecation");
-      assertThat(deprecation.get("reason")).isEqualTo(
-          "Because when this configuration property is used, there is case that custom language driver cannot be registered correctly.");
-      assertThat(deprecation.get("replacement")).isEqualTo("mybatis.default-scripting-language-driver");
-    }, () -> {
-      // assert for mybatis.configuration.default-enum-type-handler
-      Map<String, Object> element = properties.get(1);
-      assertThat(element.get("sourceType")).isEqualTo("org.apache.ibatis.session.Configuration");
-      assertThat(element.get("defaultValue")).isEqualTo("org.apache.ibatis.type.EnumTypeHandler");
-      assertThat(element.get("name")).isEqualTo("mybatis.configuration.default-enum-type-handler");
-      assertThat(element.get("type")).isEqualTo("java.lang.Class<? extends org.apache.ibatis.type.TypeHandler>");
-    }, () -> {
+    assertAll(() -> assertThat(properties.size()).isEqualTo(4), () -> {
       // assert for mybatis.lazy-initialization
-      Map<String, Object> element = properties.get(2);
+      Map<String, Object> element = properties.get(0);
       assertThat(element.get("defaultValue")).isEqualTo(false);
       assertThat(element.get("name")).isEqualTo("mybatis.lazy-initialization");
       assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
     }, () -> {
       // assert for mybatis.mapper-default-scope
-      Map<String, Object> element = properties.get(3);
+      Map<String, Object> element = properties.get(1);
       assertThat(element.get("defaultValue")).isEqualTo("");
       assertThat(element.get("name")).isEqualTo("mybatis.mapper-default-scope");
       assertThat(element.get("type")).isEqualTo("java.lang.String");
     }, () -> {
       // assert for mybatis.inject-sql-session-on-mapper-scan
-      Map<String, Object> element = properties.get(4);
+      Map<String, Object> element = properties.get(2);
       assertThat(element.get("defaultValue")).isEqualTo(true);
       assertThat(element.get("name")).isEqualTo("mybatis.inject-sql-session-on-mapper-scan");
       assertThat(element.get("type")).isEqualTo("java.lang.Boolean");
     }, () -> {
       // assert for mybatis.scripting-language-driver.velocity.userdirective
-      Map<String, Object> element = properties.get(5);
+      Map<String, Object> element = properties.get(3);
       assertThat(element.get("name")).isEqualTo("mybatis.scripting-language-driver.velocity.userdirective");
       @SuppressWarnings("unchecked")
       Map<String, Object> deprecation = (Map<String, Object>) element.get("deprecation");

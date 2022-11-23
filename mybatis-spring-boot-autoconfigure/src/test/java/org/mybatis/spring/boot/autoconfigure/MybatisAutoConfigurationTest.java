@@ -68,7 +68,6 @@ import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.aop.scope.ScopedProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -539,18 +538,6 @@ class MybatisAutoConfigurationTest {
   }
 
   @Test
-  void testWithMyBatisConfigurationCustomizeByJavaConfig() {
-    this.contextRunner
-        .withUserConfiguration(EmbeddedDataSourceConfiguration.class, MybatisPropertiesConfigurationCustomizer.class)
-        .withPropertyValues("mybatis.configuration.default-fetch-size:100").run(context -> {
-          SqlSessionFactory sqlSessionFactory = context.getBean(SqlSessionFactory.class);
-          assertThat(sqlSessionFactory.getConfiguration().getDefaultFetchSize()).isEqualTo(100);
-          assertThat(sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().getTypeHandler(BigInteger.class))
-              .isInstanceOf(DummyTypeHandler.class);
-        });
-  }
-
-  @Test
   void testWithMyBatisConfigurationCustomizer() {
     this.contextRunner
         .withUserConfiguration(EmbeddedDataSourceConfiguration.class, MyBatisConfigurationCustomizerConfiguration.class)
@@ -998,14 +985,6 @@ class MybatisAutoConfigurationTest {
       return new MyTypeHandler();
     }
 
-  }
-
-  @Configuration
-  static class MybatisPropertiesConfigurationCustomizer {
-    @Autowired
-    void customize(MybatisProperties properties) {
-      properties.getConfiguration().getTypeHandlerRegistry().register(new DummyTypeHandler());
-    }
   }
 
   @Configuration
