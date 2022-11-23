@@ -125,6 +125,8 @@
             <zipUrlInstaller>
               <url>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major.version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</url>
             </zipUrlInstaller>
+            <log>${project.build.directory}/cargo/cargo.log</log>
+            <output>${project.build.directory}/cargo/container.log</output>
           </container>
         </configuration>
       </plugin>
