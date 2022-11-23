@@ -138,7 +138,9 @@ public class MybatisAutoConfiguration implements InitializingBean {
   public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
     SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
     factory.setDataSource(dataSource);
-    factory.setVfs(SpringBootVFS.class);
+    if (properties.getConfiguration() == null || properties.getConfiguration().getVfsImpl() == null) {
+      factory.setVfs(SpringBootVFS.class);
+    }
     if (StringUtils.hasText(this.properties.getConfigLocation())) {
       factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
     }
@@ -188,9 +190,13 @@ public class MybatisAutoConfiguration implements InitializingBean {
   }
 
   private void applyConfiguration(SqlSessionFactoryBean factory) {
-    Configuration configuration = this.properties.getConfiguration();
-    if (configuration == null && !StringUtils.hasText(this.properties.getConfigLocation())) {
+    MybatisProperties.CoreConfiguration coreConfiguration = this.properties.getConfiguration();
+    Configuration configuration = null;
+    if (coreConfiguration != null || !StringUtils.hasText(this.properties.getConfigLocation())) {
       configuration = new Configuration();
+    }
+    if (configuration != null && coreConfiguration != null) {
+      coreConfiguration.applyTo(configuration);
     }
     if (configuration != null && !CollectionUtils.isEmpty(this.configurationCustomizers)) {
       for (ConfigurationCustomizer customizer : this.configurationCustomizers) {
