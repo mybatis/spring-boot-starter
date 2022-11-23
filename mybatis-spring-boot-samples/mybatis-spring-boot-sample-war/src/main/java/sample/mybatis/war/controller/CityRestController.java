@@ -34,7 +34,7 @@ public class CityRestController {
   }
 
   @GetMapping("{state}")
-  City getCity(@PathVariable String state) {
+  City getCity(@PathVariable("state") String state) {
     return cityMapper.findByState(state);
   }
 
