@@ -39,5 +39,5 @@ jobs:
           distribution: ${{ matrix.distribution }}
       - name: Test with Spring Boot Latest
         run: |
-          ./mvnw package -Denforcer.skip=true
+          ./mvnw package
           ./mybatis-spring-boot-samples/run_fatjars.sh
