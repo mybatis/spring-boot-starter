@@ -21,14 +21,14 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-samples</artifactId>
-    <version>2.3.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>mybatis-spring-boot-sample-war</artifactId>
   <packaging>war</packaging>
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
-    <tomcat.major.version>9</tomcat.major.version>
-    <tomcat.version>9.0.69</tomcat.version>
+    <tomcat.major.version>10</tomcat.major.version>
+    <tomcat.version>10.0.22</tomcat.version>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
@@ -125,6 +125,8 @@
             <zipUrlInstaller>
               <url>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major.version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</url>
             </zipUrlInstaller>
+            <log>${project.build.directory}/cargo/cargo.log</log>
+            <output>${project.build.directory}/cargo/container.log</output>
           </container>
         </configuration>
       </plugin>

@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        java: [11, 17, 19, 20-ea]
+        java: [17, 19, 20-ea]
         distribution: ['zulu']
       fail-fast: false
       max-parallel: 5
@@ -39,5 +39,5 @@ jobs:
           distribution: ${{ matrix.distribution }}
       - name: Test with Spring Boot Latest
         run: |
-          ./mvnw test
+          ./mvnw package
           ./mybatis-spring-boot-samples/run_fatjars.sh
