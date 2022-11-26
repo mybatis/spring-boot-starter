@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sample.mybatis.velocity.legacy"},{"l":"sample.mybatis.velocity.legacy.domain"},{"l":"sample.mybatis.velocity.legacy.mapper"}];updateSearchResults();
