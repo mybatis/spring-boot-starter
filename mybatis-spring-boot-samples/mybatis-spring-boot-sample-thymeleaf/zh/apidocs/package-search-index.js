@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sample.mybatis.thymeleaf"},{"l":"sample.mybatis.thymeleaf.domain"},{"l":"sample.mybatis.thymeleaf.mapper"}];updateSearchResults();
