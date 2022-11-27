@@ -70,7 +70,7 @@
     <java.version>17</java.version>
 
     <mybatis.version>3.5.11</mybatis.version>
-    <mybatis-spring.version>3.0.0</mybatis-spring.version>
+    <mybatis-spring.version>3.0.1-SNAPSHOT</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.3</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.1</mybatis-velocity.version>
     <mybatis-thymeleaf.version>1.0.4</mybatis-thymeleaf.version>
