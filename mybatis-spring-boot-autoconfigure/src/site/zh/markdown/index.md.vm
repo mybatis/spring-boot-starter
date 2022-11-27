@@ -1,6 +1,6 @@
 # 简介
 
-## 文档的翻译版本
+#[[##]]# 文档的翻译版本
 
 可以阅读 MyBatis-Spring-Boot-Starter 文档的以下翻译版本：
 
@@ -9,7 +9,7 @@
   <li class="zh"><a href="./../zh/index.html">简体中文</a></li>
 </ul>
 
-## 什么是 MyBatis-Spring-Boot-Starter?
+#[[##]]# 什么是 MyBatis-Spring-Boot-Starter?
 
 MyBatis-Spring-Boot-Starter 可以帮助你更快地在 [Spring Boot](https://spring.io/projects/spring-boot) 之上构建 MyBatis 应用。
 
@@ -19,7 +19,7 @@ MyBatis-Spring-Boot-Starter 可以帮助你更快地在 [Spring Boot](https://sp
 * 将几乎不需要样板配置
 * 使用更少的 XML 配置
 
-## 要求
+#[[##]]# 要求
 
 MyBatis-Spring-Boot-Starter 要求以下版本:
 
@@ -35,11 +35,11 @@ MyBatis-Spring-Boot-Starter 要求以下版本:
 | **~~1.1 (EOL)~~**           | ~~1.3~~              | ~~1.3~~       | ~~6 或更高~~ |
 | **~~1.0 (EOL)~~**           | ~~1.2~~              | ~~1.3~~       | ~~6 或更高~~ |
 
-## 安装
+#[[##]]# 安装
 
 要使用 MyBatis-Spring-Boot-Starter 模块，你只需要将 `mybatis-spring-boot-autoconfigure.jar` 文件以及它的依赖（ `mybatis.jar`, `mybatis-spring.jar` 等） 放在类路径下。
 
-### Maven
+#[[###]]# Maven
 
 如果你使用 Maven，只需要在你的 `pom.xml` 添加以下依赖：
 
@@ -51,7 +51,7 @@ MyBatis-Spring-Boot-Starter 要求以下版本:
 </dependency>
 ```
 
-### Gradle
+#[[###]]# Gradle
 
 如果使用 gradle，请在你的 `build.gradle` 中加入以下内容：
 
@@ -61,7 +61,7 @@ dependencies {
 }
 ```
 
-## 快速开始
+#[[##]]# 快速开始
 
 正如你已经知道的， 要与 Spring 一起使用 MyBatis，你至少需要一个 `SqlSessionFactory`         和一个 mapper 接口。
 
@@ -110,7 +110,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
 这就是你需要做的所有事情了。 你的 Spring boot 应用可以正常运行了。
 
-## “扫描”的进阶用法
+#[[##]]# “扫描”的进阶用法
 
  MyBatis-Spring-Boot-Starter 将默认搜寻带有 `@Mapper` 注解的 mapper 接口。
 
@@ -118,7 +118,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
 如果 MyBatis-Spring-Boot-Starter 发现至少有一个 `SqlSessionFactoryBean` ，它将不会开始扫描。 所以如果你想停止扫描，你应该用 `@Bean` 方法明确注册你的 mapper。
 
-## 使用 SqlSession
+#[[##]]# 使用 SqlSession
 
 一个 `SqlSessionTemplate` 的实例被创建并添加到 Spring 的环境中，因此你可以使用 MyBatis API，让它像下面一样被注入到你的 bean 中（Spring 4.3 以上可用）。
 
@@ -139,7 +139,7 @@ public class CityDao {
 }
 ```
 
-## 配置
+#[[##]]# 配置
 
 像其他的 Spring Boot 应用一样，配置参数在 `application.properties` （或 `application.yml` )。
 
@@ -190,7 +190,7 @@ mybatis:
 ...
 ```
 
-## 使用 ConfigurationCustomizer
+#[[##]]# 使用 ConfigurationCustomizer
 
 MyBatis-Spring-Boot-Starter 提供了使用 Java Config 来自定义 MyBatis 配置的可能。
 
@@ -213,7 +213,7 @@ public class MyBatisConfig {
 }
 ```
 
-## 使用 SqlSessionFactoryBeanCustomizer
+#[[##]]# 使用 SqlSessionFactoryBeanCustomizer
 
 MyBatis-Spring-Boot-Starter 提供了使用 Java Config 来自定义自动配置生成的 `SqlSessionFactoryBean` 。
 
@@ -236,7 +236,7 @@ public class MyBatisConfig {
 }
 ```
 
-## 使用 SpringBootVFS
+#[[##]]# 使用 SpringBootVFS
 
 MyBatis-Spring-Boot-Starter 提供了 `SpringBootVFS` 作为 `VFS` 的实现类。
  `VFS` 用于从应用或应用服务器中寻找类 （例如： 类型别名的目标类，类型处理器类） 。
@@ -260,7 +260,7 @@ public class MyBatisConfig {
 }
 ```
 
-## 探测 MyBatis 组件
+#[[##]]# 探测 MyBatis 组件
 
 The MyBatis-Spring-Boot-Starter 将检测实现以下由 MyBatis 提供的接口的组件。
 
@@ -301,7 +301,7 @@ public class MyBatisConfig {
 
 如果你想自定义 `LangaugeDriver` 的配置，请注册用户定义的组件。
 
-### ThymeleafLanguageDriver
+#[[###]]# ThymeleafLanguageDriver
 
 ```java
 @Configuration
@@ -315,7 +315,7 @@ public class MyBatisConfig {
 }
 ```
 
-### FreeMarkerLanguageDriverConfig
+#[[###]]# FreeMarkerLanguageDriverConfig
 
 ```java
 @Configuration
@@ -329,7 +329,7 @@ public class MyBatisConfig {
 }
 ```
 
-### VelocityLanguageDriver
+#[[###]]# VelocityLanguageDriver
 
 ```java
 @Configuration
@@ -343,7 +343,7 @@ public class MyBatisConfig {
 }
 ```
 
-### 可以运行的样例
+#[[###]]# 可以运行的样例
 
 项目（为每个分类）提供了至少两个样例，可以为你所用。
 

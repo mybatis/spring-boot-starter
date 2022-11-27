@@ -91,11 +91,6 @@
         <directory>${project.basedir}/src/main/resources</directory>
         <filtering>true</filtering>
       </resource>
-      <resource>
-        <directory>${project.basedir}/src/site</directory>
-        <targetPath>${project.build.directory}/site-src</targetPath>
-        <filtering>true</filtering>
-      </resource>
     </resources>
     <pluginManagement>
       <plugins>
@@ -104,8 +99,6 @@
           <artifactId>maven-site-plugin</artifactId>
           <configuration>
             <locales>en,zh_CN</locales>
-            <!-- Build using files that replace a placeholder using project properties -->
-            <siteDirectory>${project.build.directory}/site-src</siteDirectory>
           </configuration>
         </plugin>
         <plugin>
