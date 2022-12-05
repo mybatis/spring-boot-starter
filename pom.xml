@@ -67,7 +67,9 @@
   </distributionManagement>
 
   <properties>
+    <!-- Maven compiler options -->
     <java.version>17</java.version>
+    <java.release.version>17</java.release.version>
 
     <mybatis.version>3.5.11</mybatis.version>
     <mybatis-spring.version>3.0.1-SNAPSHOT</mybatis-spring.version>
