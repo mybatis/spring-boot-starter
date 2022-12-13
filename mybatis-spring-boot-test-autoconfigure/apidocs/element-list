@@ -1,1 +1,2 @@
+module:org.mybatis.spring.boot.test.autoconfigure
 org.mybatis.spring.boot.test.autoconfigure
