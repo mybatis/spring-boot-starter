@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment"> * @author Kazuki Shimizu</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment"> * @author Eduardo Macarrón</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  @org.springframework.context.annotation.Configuration
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  @org.springframework.context.annotation.Configuration(proxyBeanMethods = false)
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  @ConditionalOnClass({ SqlSessionFactory.<strong class="jxr_keyword">class</strong>, SqlSessionFactoryBean.<strong class="jxr_keyword">class</strong> })
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  @ConditionalOnSingleCandidate(DataSource.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  @EnableConfigurationProperties(MybatisProperties.<strong class="jxr_keyword">class</strong>)
@@ -317,7 +317,7 @@
 <a class="jxr_linenumber" name="L309" href="#L309">309</a> <em class="jxr_javadoccomment">   * If mapper registering configuration or mapper scanning configuration not present, this configuration allow to scan</em>
 <a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">   * mappers based on the same component-scanning path as Spring Boot itself.</em>
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>   @org.springframework.context.annotation.Configuration
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>   @org.springframework.context.annotation.Configuration(proxyBeanMethods = false)
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>   @Import(AutoConfiguredMapperScannerRegistrar.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>   @ConditionalOnMissingBean({ MapperFactoryBean.<strong class="jxr_keyword">class</strong>, MapperScannerConfigurer.<strong class="jxr_keyword">class</strong> })
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> MapperScannerRegistrarNotFoundConfiguration <strong class="jxr_keyword">implements</strong> InitializingBean {

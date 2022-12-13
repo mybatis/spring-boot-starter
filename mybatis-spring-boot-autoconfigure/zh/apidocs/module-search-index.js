@@ -1,1 +1,1 @@
-moduleSearchIndex = [];updateSearchResults();
+moduleSearchIndex = [{"l":"org.mybatis.spring.boot.autoconfigure"}];updateSearchResults();
