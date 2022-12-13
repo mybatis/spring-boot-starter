@@ -21,7 +21,7 @@
   <parent>
     <artifactId>mybatis-spring-boot</artifactId>
     <groupId>org.mybatis.spring.boot</groupId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.1</version>
   </parent>
   <artifactId>mybatis-spring-boot-starter-test</artifactId>
   <name>mybatis-spring-boot-starter-test</name>
