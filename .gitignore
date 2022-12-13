@@ -9,3 +9,5 @@ target/
 
 .factorypath
 .mvn/wrapper/maven-wrapper.jar
+*.releaseBackup
+release.properties
