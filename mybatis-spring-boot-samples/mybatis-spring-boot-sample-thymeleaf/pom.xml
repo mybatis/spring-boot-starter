@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-samples</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.1</version>
   </parent>
   <artifactId>mybatis-spring-boot-sample-thymeleaf</artifactId>
   <packaging>jar</packaging>
