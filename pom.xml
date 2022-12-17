@@ -85,6 +85,8 @@
 
     <!-- Reproducible Builds -->
     <project.build.outputTimestamp>1670892957</project.build.outputTimestamp>
+
+    <module.name>org.mybatis.spring.boot</module.name>
   </properties>
 
   <build>
