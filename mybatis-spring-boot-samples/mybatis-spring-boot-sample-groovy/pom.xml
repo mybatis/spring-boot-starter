@@ -29,7 +29,6 @@
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
     <groovy.version>4.0.6</groovy.version>
-    <maven.site.skip>true</maven.site.skip> <!-- Workaround for build error -->
   </properties>
   <dependencies>
     <dependency>
@@ -61,6 +60,19 @@
   <build>
     <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
     <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs.plugin}</version>
+          <configuration>
+            <!-- Skip Spotbugs as there is a bug in its bug count that breaks the reporting on groovy project City Class -->
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
