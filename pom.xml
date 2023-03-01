@@ -71,7 +71,7 @@
     <java.version>17</java.version>
     <java.release.version>17</java.release.version>
 
-    <mybatis.version>3.5.11</mybatis.version>
+    <mybatis.version>3.5.12</mybatis.version>
     <mybatis-spring.version>3.0.1</mybatis-spring.version>
     <mybatis-freemarker.version>1.2.4</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.2</mybatis-velocity.version>
