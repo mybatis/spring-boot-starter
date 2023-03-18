@@ -86,13 +86,19 @@
       <optional>true</optional>
     </dependency>
 
+    <!-- Listen for directory changes-->
+    <dependency>
+      <groupId>io.methvin</groupId>
+      <artifactId>directory-watcher</artifactId>
+    </dependency>
+
     <!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
-    
+
     <!-- Test dependencies -->
     <dependency>
       <groupId>com.h2database</groupId>
