@@ -657,7 +657,7 @@ public class MybatisProperties {
       this.defaultEnumTypeHandler = defaultEnumTypeHandler;
     }
 
-    void applyTo(Configuration target) {
+    public void applyTo(Configuration target) {
       PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
       mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
       mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
