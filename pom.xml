@@ -80,9 +80,6 @@
 
     <argLine>-Djdk.attach.allowAttachSelf --add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
 
-    <!-- Keep this setting until mybatis-parent 37 official released -->
-    <maven.compiler.parameters>true</maven.compiler.parameters>
-
     <!-- Reproducible Builds -->
     <project.build.outputTimestamp>1671303963</project.build.outputTimestamp>
 
