@@ -27,7 +27,7 @@ The MyBatis-Spring-Boot-Starter requires following versions:
 |-----------------------------|-------------------------------------------|----------------|-----------------|
 | **3.0**                     | 3.0                                       | 3.0 - 3.1      | 17 or higher    |
 | **2.3**                     | 2.1                                       | 2.5 - 2.7      | 8 or higher     |
-| **2.2**                     | 2.0 (need 2.0.6+ for enable all features) | 2.5 - 2.7      | 8 or higher     |
+| **~~2.2~~**                 | ~~2.0 (need 2.0.6+ for enable all features)~~ | ~~2.5 - 2.7~~  | ~~8 or higher~~     |
 | **~~2.1~~**                 | ~~2.0 (need 2.0.6+ for enable all features)~~ | ~~2.1 - 2.4~~  | ~~8 or higher~~     |
 | **~~2.0 (EOL)~~**           | ~~2.0~~                                   | ~~2.0 or 2.1~~ | ~~8 or higher~~ |
 | **~~1.3 (EOL)~~**           | ~~1.3~~                                   | ~~1.5~~        | ~~6 or higher~~ |
