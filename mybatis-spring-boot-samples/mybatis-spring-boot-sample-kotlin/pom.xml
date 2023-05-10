@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2015-2022 the original author or authors.
+       Copyright 2015-2023 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
   <name>mybatis-spring-boot-sample-kotlin</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.kotlin</module.name>
-    <kotlin.version>1.7.22</kotlin.version>
+    <kotlin.version>1.8.21</kotlin.version>
     <java.version>1.8</java.version>
   </properties>
   <dependencies>
