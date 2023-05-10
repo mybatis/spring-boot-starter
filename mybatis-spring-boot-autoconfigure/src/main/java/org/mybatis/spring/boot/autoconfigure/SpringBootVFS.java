@@ -89,7 +89,7 @@ public class SpringBootVFS extends VFS {
    * @param supplier
    *          the supplier for providing {@link ClassLoader} to used
    *
-   * @since 3.0.2
+   * @since 2.3.1
    */
   public static void setClassLoaderSupplier(Supplier<ClassLoader> supplier) {
     classLoaderSupplier = supplier;
