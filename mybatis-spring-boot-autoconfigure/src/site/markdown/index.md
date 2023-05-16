@@ -57,7 +57,7 @@ If using gradle add this to your `build.gradle`:
 
 ```groovy
 dependencies {
-  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
+  implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
 }
 ```
 

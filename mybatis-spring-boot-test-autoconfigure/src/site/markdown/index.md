@@ -53,7 +53,7 @@ If using gradle add this to your `build.gradle`:
 
 ```groovy
 dependencies {
-    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
+    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${project.version}")
 }
 ```
 
