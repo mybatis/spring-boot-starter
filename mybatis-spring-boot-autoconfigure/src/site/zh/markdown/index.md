@@ -57,7 +57,7 @@ MyBatis-Spring-Boot-Starter 要求以下版本:
 
 ```groovy
 dependencies {
-  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
+  implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${project.version}")
 }
 ```
 
