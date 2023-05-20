@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"org.mybatis.spring.boot.test.autoconfigure","l":"org.mybatis.spring.boot.test.autoconfigure"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.mybatis.spring.boot.test.autoconfigure"}];updateSearchResults();
