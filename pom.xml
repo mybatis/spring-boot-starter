@@ -28,7 +28,7 @@
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>2.3.1-SNAPSHOT</version>
+  <version>2.3.1</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -48,7 +48,7 @@
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
     <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
-    <tag>HEAD</tag>
+    <tag>mybatis-spring-boot-2.3.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -77,7 +77,7 @@
     <argLine>-Djdk.attach.allowAttachSelf --add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1669431006</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1684564501</project.build.outputTimestamp>
   </properties>
 
   <build>
