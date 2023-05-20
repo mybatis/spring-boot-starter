@@ -12,7 +12,7 @@ MyBatis Spring-Boot-Starter will help you to use [MyBatis](https://github.com/my
 
 ## Requirements
 
-* master : MyBatis 3.5+, MyBatis-Spring 3.0, Java 17+ and Spring Boot 3.0-3.1(Not release yet)
+* master : MyBatis 3.5+, MyBatis-Spring 3.0, Java 17+ and Spring Boot 3.0-3.1
 * 2.3.x : MyBatis 3.5+, MyBatis-Spring 2.1, Java 8+ and Spring Boot 2.5-2.7
 
 ## Compatibility Check
