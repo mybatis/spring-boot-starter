@@ -19,6 +19,10 @@ MyBatis Spring-Boot-Starter will help you to use [MyBatis](https://github.com/my
 
 * Compatibility with Spring Boot 2.5 - 3.1 [here](https://github.com/kazuki43zoo/mybatis-spring-boot-dev-compatibility-checker)
 
+## Creating new project via Spring Initializr
+
+* https://start.spring.io/#!dependencies=mybatis
+
 ## Essentials
 
 ### Published documentations
