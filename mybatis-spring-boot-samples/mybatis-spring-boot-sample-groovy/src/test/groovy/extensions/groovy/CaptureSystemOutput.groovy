@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2022 the original author or authors.
+ *    Copyright 2015-2023 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -82,18 +82,18 @@ import static org.hamcrest.Matchers.allOf
 @Retention(RUNTIME)
 @ExtendWith(CaptureSystemOutput.Extension.class)
 @interface CaptureSystemOutput {
-  
+
   class Extension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
-    
+
     @Override
     void beforeAll(ExtensionContext context) {
       getOutputCapture(context).captureOutput()
     }
-    
+
     void afterAll(ExtensionContext context) {
       getOutputCapture(context).releaseOutput()
     }
-    
+
     @Override
     void afterEach(ExtensionContext context) {
       OutputCapture outputCapture = getOutputCapture(context)
@@ -106,33 +106,33 @@ import static org.hamcrest.Matchers.allOf
         outputCapture.reset()
       }
     }
-    
+
     @Override
     boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
       boolean isTestMethodLevel = extensionContext.getTestMethod().isPresent()
       boolean isOutputCapture = parameterContext.getParameter().getType() == OutputCapture.class
       return isTestMethodLevel && isOutputCapture
     }
-    
+
     @Override
     Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
       return getOutputCapture(extensionContext)
     }
-    
+
     private OutputCapture getOutputCapture(ExtensionContext context) {
       return getOrComputeIfAbsent(getStore(context), OutputCapture.class)
     }
-    
+
     private <V> V getOrComputeIfAbsent(Store store, Class<V> type) {
       return store.getOrComputeIfAbsent(type, {x -> ReflectionSupport.newInstance(x)}, type)
     }
-    
+
     private Store getStore(ExtensionContext context) {
       return context.getStore(Namespace.create(getClass()))
     }
-    
+
   }
-  
+
   /**
    * {@code OutputCapture} captures output to {@code System.out} and {@code System.err}.
    *
@@ -151,15 +151,15 @@ import static org.hamcrest.Matchers.allOf
    * @author Sam Brannen
    */
   static class OutputCapture {
-    
+
     private final List<Matcher<? super String>> matchers = new ArrayList<>()
-    
+
     private CaptureOutputStream captureOut
-    
+
     private CaptureOutputStream captureErr
-    
+
     private ByteArrayOutputStream copy
-    
+
     void captureOutput() {
       this.copy = new ByteArrayOutputStream()
       this.captureOut = new CaptureOutputStream(System.out, this.copy)
@@ -167,7 +167,7 @@ import static org.hamcrest.Matchers.allOf
       System.setOut(new PrintStream(this.captureOut))
       System.setErr(new PrintStream(this.captureErr))
     }
-    
+
     void releaseOutput() {
       System.setOut(this.captureOut.getOriginal())
       System.setErr(this.captureErr.getOriginal())
@@ -182,7 +182,7 @@ import static org.hamcrest.Matchers.allOf
         // ignore
       }
     }
-    
+
     /**
      * Verify that the captured output is matched by the supplied {@code matcher}.
      *
@@ -195,7 +195,7 @@ import static org.hamcrest.Matchers.allOf
     void expect(Matcher<? super String> matcher) {
       this.matchers.add(matcher)
     }
-    
+
     /**
      * Return all captured output to {@code System.out} and {@code System.err} as a single string.
      */
@@ -204,53 +204,53 @@ import static org.hamcrest.Matchers.allOf
       flush()
       return this.copy.toString()
     }
-    
+
     void reset() {
       this.matchers.clear()
       this.copy.reset()
     }
-    
+
     private static class CaptureOutputStream extends OutputStream {
-      
+
       private final PrintStream original
-      
+
       private final OutputStream copy
-      
+
       CaptureOutputStream(PrintStream original, OutputStream copy) {
         this.original = original
         this.copy = copy
       }
-      
+
       PrintStream getOriginal() {
         return this.original
       }
-      
+
       @Override
       void write(int b) throws IOException {
         this.copy.write(b)
         this.original.write(b)
         this.original.flush()
       }
-      
+
       @Override
       void write(byte[] b) throws IOException {
         write(b, 0, b.length)
       }
-      
+
       @Override
       void write(byte[] b, int off, int len) throws IOException {
         this.copy.write(b, off, len)
         this.original.write(b, off, len)
       }
-      
+
       @Override
       void flush() throws IOException {
         this.copy.flush()
         this.original.flush()
       }
-      
+
     }
-    
+
   }
-  
+
 }
