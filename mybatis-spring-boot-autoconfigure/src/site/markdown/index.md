@@ -294,7 +294,7 @@ public class MyBatisConfig {
     properties.put("H2", "h2");
     databaseIdProvider.setProperties(properties);
     return databaseIdProvider;
-  }  
+  }
 }
 ```
 
