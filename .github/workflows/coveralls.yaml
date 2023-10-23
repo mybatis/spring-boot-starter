@@ -1,5 +1,5 @@
 #
-#    Copyright 2015-2020 the original author or authors.
+#    Copyright 2015-2023 the original author or authors.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ jobs:
     if: github.repository_owner == 'mybatis'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
