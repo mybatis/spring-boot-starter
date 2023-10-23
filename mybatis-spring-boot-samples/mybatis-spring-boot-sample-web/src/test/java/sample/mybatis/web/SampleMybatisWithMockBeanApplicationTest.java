@@ -15,6 +15,10 @@
  */
 package sample.mybatis.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,12 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+
 import sample.mybatis.web.domain.City;
 import sample.mybatis.web.mapper.CityMapper;
-
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Kazuki Shimizu
@@ -40,7 +41,7 @@ class SampleMybatisWithMockBeanApplicationTest {
 
   @MockBean
   CityMapper cityMapper;
-  
+
   @BeforeEach
   void setup() {
     City city = new City();
