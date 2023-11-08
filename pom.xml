@@ -60,9 +60,9 @@
   </ciManagement>
   <distributionManagement>
     <site>
-      <id>gh-pages</id>
+      <id>gh-pages-scm</id>
       <name>Mybatis GitHub Pages</name>
-      <url>git:ssh://git@github.com/mybatis/spring-boot-starter.git?gh-pages#</url>
+      <url>scm:git:git@github.com:mybatis/spring-boot-starter.git</url>
     </site>
   </distributionManagement>
 
