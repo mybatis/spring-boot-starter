@@ -92,7 +92,7 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
-    
+
     <!-- Test dependencies -->
     <dependency>
       <groupId>com.h2database</groupId>
