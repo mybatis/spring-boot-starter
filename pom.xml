@@ -23,7 +23,7 @@
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
     <version>40</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>org.mybatis.spring.boot</groupId>
@@ -47,8 +47,8 @@
   <scm>
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
-    <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
     <tag>HEAD</tag>
+    <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -85,57 +85,6 @@
 
     <module.name>org.mybatis.spring.boot</module.name>
   </properties>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <executions>
-            <!-- prepare site content by filtering ${project.*} values-->
-            <execution>
-              <id>filter-site</id>
-              <phase>pre-site</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${project.build.directory}/site-src</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>src/site</directory>
-                    <filtering>true</filtering>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <configuration>
-            <locales>en,zh_CN</locales>
-            <siteDirectory>${project.build.directory}/site-src</siteDirectory>
-          </configuration>
-        </plugin>
-        <!-- We are not modular yet but use automatic module names, javadoc plugin has well known incorrect determination of modular, patch it -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-            <additionalOptions combine.children="append">
-              <option>--add-modules</option>
-              <option>java.desktop</option>
-              <option>--add-modules</option>
-              <option>java.sql</option>
-            </additionalOptions>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
   <dependencyManagement>
     <dependencies>
@@ -206,39 +155,90 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
     <repository>
-      <id>spring-milestone</id>
-      <name>Spring Milestone</name>
-      <url>https://repo.spring.io/milestone</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+      <id>spring-milestone</id>
+      <name>Spring Milestone</name>
+      <url>https://repo.spring.io/milestone</url>
     </repository>
     <repository>
-      <id>spring-snapshot</id>
-      <name>Spring Snapshot</name>
-      <url>https://repo.spring.io/snapshot</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <id>spring-snapshot</id>
+      <name>Spring Snapshot</name>
+      <url>https://repo.spring.io/snapshot</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>spring-milestone</id>
-      <name>Spring Milestone</name>
-      <url>https://repo.spring.io/milestone</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+      <id>spring-milestone</id>
+      <name>Spring Milestone</name>
+      <url>https://repo.spring.io/milestone</url>
     </pluginRepository>
     <pluginRepository>
-      <id>spring-snapshot</id>
-      <name>Spring Snapshot</name>
-      <url>https://repo.spring.io/snapshot</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <id>spring-snapshot</id>
+      <name>Spring Snapshot</name>
+      <url>https://repo.spring.io/snapshot</url>
     </pluginRepository>
   </pluginRepositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <executions>
+            <!-- prepare site content by filtering ${project.*} values-->
+            <execution>
+              <id>filter-site</id>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <phase>pre-site</phase>
+              <configuration>
+                <outputDirectory>${project.build.directory}/site-src</outputDirectory>
+                <resources>
+                  <resource>
+                    <directory>src/site</directory>
+                    <filtering>true</filtering>
+                  </resource>
+                </resources>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <configuration>
+            <locales>en,zh_CN</locales>
+            <siteDirectory>${project.build.directory}/site-src</siteDirectory>
+          </configuration>
+        </plugin>
+        <!-- We are not modular yet but use automatic module names, javadoc plugin has well known incorrect determination of modular, patch it -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <additionalOptions combine.children="append">
+              <option>--add-modules</option>
+              <option>java.desktop</option>
+              <option>--add-modules</option>
+              <option>java.sql</option>
+            </additionalOptions>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>

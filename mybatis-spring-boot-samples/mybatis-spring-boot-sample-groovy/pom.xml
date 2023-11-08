@@ -58,8 +58,6 @@
     </dependency>
   </dependencies>
   <build>
-    <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -106,5 +104,7 @@
         </executions>
       </plugin>
     </plugins>
+    <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
   </build>
 </project>
