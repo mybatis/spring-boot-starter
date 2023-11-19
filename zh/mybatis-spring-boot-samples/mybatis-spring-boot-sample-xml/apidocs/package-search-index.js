@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sample.mybatis.xml"},{"l":"sample.mybatis.xml.dao"},{"l":"sample.mybatis.xml.domain"},{"l":"sample.mybatis.xml.mapper"}];updateSearchResults();

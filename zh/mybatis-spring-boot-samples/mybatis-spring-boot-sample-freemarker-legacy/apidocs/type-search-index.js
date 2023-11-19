@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"sample.mybatis.freemarker.legacy.domain","l":"City"},{"p":"sample.mybatis.freemarker.legacy.mapper","l":"CityMapper"},{"p":"sample.mybatis.freemarker.legacy","l":"SampleFreeMarkerApplication"}];updateSearchResults();

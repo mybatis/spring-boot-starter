@@ -1,6 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-mybatis-spring-boot-starter/mybatis-spring-boot-autoconfigure,org.mybatis.spring.boot.autoconfigure,SpringBootVFS,0,67,0,2,0,12,0,5,0,4
-mybatis-spring-boot-starter/mybatis-spring-boot-autoconfigure,org.mybatis.spring.boot.autoconfigure,MybatisAutoConfiguration.AutoConfiguredMapperScannerRegistrar,0,65,2,4,0,21,2,5,0,4
-mybatis-spring-boot-starter/mybatis-spring-boot-autoconfigure,org.mybatis.spring.boot.autoconfigure,MybatisAutoConfiguration.MapperScannerRegistrarNotFoundConfiguration,0,9,0,0,0,3,0,2,0,2
-mybatis-spring-boot-starter/mybatis-spring-boot-autoconfigure,org.mybatis.spring.boot.autoconfigure,MybatisAutoConfiguration,0,194,0,30,0,42,0,20,0,5
-mybatis-spring-boot-starter/mybatis-spring-boot-autoconfigure,org.mybatis.spring.boot.autoconfigure,MybatisProperties,0,115,0,4,0,38,0,22,0,20
