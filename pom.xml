@@ -220,7 +220,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <configuration>
-            <locales>en,zh_CN</locales>
+            <locales>default,zh_CN</locales>
             <siteDirectory>${project.build.directory}/site-src</siteDirectory>
           </configuration>
         </plugin>
