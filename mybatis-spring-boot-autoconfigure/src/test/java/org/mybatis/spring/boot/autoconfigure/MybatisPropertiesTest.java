@@ -116,6 +116,7 @@ class MybatisPropertiesTest {
           .getTypeHandler(JdbcType.class).getClass()).isEqualTo(EnumTypeHandler.class);
       assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getConfigurationFactory()).isNull();
       assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getVariables()).hasToString("{}");
+      assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId()).isNull();
     });
   }
 
@@ -196,7 +197,7 @@ class MybatisPropertiesTest {
             "mybatis.configuration.default-sql-provider-type:org.mybatis.spring.boot.autoconfigure.MybatisPropertiesTest$MySqlProvider",
             "mybatis.configuration.defaultEnumTypeHandler:org.apache.ibatis.type.EnumOrdinalTypeHandler",
             "mybatis.configuration.configuration-factory:org.mybatis.spring.boot.autoconfigure.MybatisPropertiesTest$MyConfigurationFactory",
-            "mybatis.configuration.variables.key1:value1", "mybatis.configuration.variables.key2:value2")
+            "mybatis.configuration.variables.key1:value1", "mybatis.configuration.variables.key2:value2", "mybatis.configuration.database-id:mysql")
             .run(context -> {
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDefaultStatementTimeout())
                   .isEqualTo(2000);
@@ -230,6 +231,8 @@ class MybatisPropertiesTest {
                   .isEqualTo(MyConfigurationFactory.class);
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getVariables())
                   .hasToString("{key1=value1, key2=value2}");
+              assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId())
+                      .hasToString("mysql");
             }));
   }
 
@@ -246,7 +249,7 @@ class MybatisPropertiesTest {
         "sqlFragments", "typeHandlerRegistry", "mapperRegistry", "interceptors", "cacheNames", "incompleteResultMaps",
         "typeAliasRegistry", "incompleteMethods", "proxyFactory", "resultMaps", "defaultScriptingLanguageInstance",
         "parameterMaps", "keyGenerators", "parameterMapNames", "caches", "mappedStatementNames", "objectWrapperFactory",
-        "objectFactory", "databaseId", "incompleteStatements", "resultMapNames", "defaultScriptingLanuageInstance",
+        "objectFactory", "incompleteStatements", "resultMapNames", "defaultScriptingLanuageInstance",
         "keyGeneratorNames", "environment", "mappedStatements", "languageRegistry", "incompleteCacheRefs"));
     assertThat(mybatisCoreConfigurationProperties).isEmpty();
   }

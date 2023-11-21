@@ -409,6 +409,11 @@ public class MybatisProperties {
      */
     private Properties variables;
 
+    /**
+     * Specifies the database identify value for switching query to use.
+     */
+    private String databaseId;
+
     public Boolean getSafeRowBoundsEnabled() {
       return safeRowBoundsEnabled;
     }
@@ -657,6 +662,14 @@ public class MybatisProperties {
       this.defaultEnumTypeHandler = defaultEnumTypeHandler;
     }
 
+    public String getDatabaseId() {
+      return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+      this.databaseId = databaseId;
+    }
+
     public void applyTo(Configuration target) {
       PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
       mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
@@ -690,6 +703,7 @@ public class MybatisProperties {
       mapper.from(getDefaultSqlProviderType()).to(target::setDefaultSqlProviderType);
       mapper.from(getConfigurationFactory()).to(target::setConfigurationFactory);
       mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
+      mapper.from(getDatabaseId()).to(target::setDatabaseId);
     }
 
   }
