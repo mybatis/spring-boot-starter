@@ -23,12 +23,12 @@
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
     <version>40</version>
-    <relativePath/>
+    <relativePath />
   </parent>
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>3.0.3-SNAPSHOT</version>
+  <version>3.0.3</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -47,7 +47,7 @@
   <scm>
     <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>mybatis-spring-boot-3.0.3</tag>
     <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
   </scm>
   <issueManagement>
@@ -81,7 +81,7 @@
     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1684572441</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1700807357</project.build.outputTimestamp>
 
     <module.name>org.mybatis.spring.boot</module.name>
   </properties>

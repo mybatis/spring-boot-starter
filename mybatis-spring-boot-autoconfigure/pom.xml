@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.3</version>
   </parent>
   <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
   <name>mybatis-spring-boot-autoconfigure</name>
