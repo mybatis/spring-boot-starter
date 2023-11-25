@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sample.mybatis.web"},{"l":"sample.mybatis.web.controller"},{"l":"sample.mybatis.web.domain"},{"l":"sample.mybatis.web.mapper"}];updateSearchResults();

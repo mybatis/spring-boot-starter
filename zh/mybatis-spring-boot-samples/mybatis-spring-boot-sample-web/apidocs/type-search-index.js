@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"sample.mybatis.web.domain","l":"City"},{"p":"sample.mybatis.web.mapper","l":"CityMapper"},{"p":"sample.mybatis.web.controller","l":"CityRestController"},{"p":"sample.mybatis.web","l":"SampleWebApplication"}];updateSearchResults();
