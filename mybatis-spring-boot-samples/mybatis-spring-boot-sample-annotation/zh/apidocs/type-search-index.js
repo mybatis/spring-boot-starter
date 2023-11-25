@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"sample.mybatis.annotation.domain","l":"City"},{"p":"sample.mybatis.annotation.mapper","l":"CityMapper"},{"p":"sample.mybatis.annotation","l":"SampleAnnotationApplication"}];updateSearchResults();
