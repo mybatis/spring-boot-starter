@@ -197,8 +197,8 @@ class MybatisPropertiesTest {
             "mybatis.configuration.default-sql-provider-type:org.mybatis.spring.boot.autoconfigure.MybatisPropertiesTest$MySqlProvider",
             "mybatis.configuration.defaultEnumTypeHandler:org.apache.ibatis.type.EnumOrdinalTypeHandler",
             "mybatis.configuration.configuration-factory:org.mybatis.spring.boot.autoconfigure.MybatisPropertiesTest$MyConfigurationFactory",
-            "mybatis.configuration.variables.key1:value1", "mybatis.configuration.variables.key2:value2", "mybatis.configuration.database-id:mysql")
-            .run(context -> {
+            "mybatis.configuration.variables.key1:value1", "mybatis.configuration.variables.key2:value2",
+            "mybatis.configuration.database-id:mysql").run(context -> {
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDefaultStatementTimeout())
                   .isEqualTo(2000);
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDefaultFetchSize())
@@ -232,7 +232,7 @@ class MybatisPropertiesTest {
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getVariables())
                   .hasToString("{key1=value1, key2=value2}");
               assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().getDatabaseId())
-                      .hasToString("mysql");
+                  .hasToString("mysql");
             }));
   }
 
