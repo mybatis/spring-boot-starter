@@ -6,7 +6,7 @@
 
 <ul class="i18n">
   <li class="en"><a href="./../index.html">English</a></li>
-  <li class="zh"><a href="./../zh/index.html">简体中文</a></li>
+  <li class="zh"><a href="./../zh_CN/index.html">简体中文</a></li>
 </ul>
 
 ## 什么是 MyBatis-Spring-Boot-Starter-Test?
