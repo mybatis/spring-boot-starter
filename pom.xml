@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2015-2023 the original author or authors.
+       Copyright 2015-2024 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 
   <name>mybatis-spring-boot</name>
   <description>Spring Boot Support for MyBatis</description>
-  <url>https://www.mybatis.org/spring-boot-starter/</url>
+  <url>https://github.com/mybatis/spring-boot-starter/</url>
   <inceptionYear>2015</inceptionYear>
 
   <modules>
@@ -45,10 +45,10 @@
   </modules>
 
   <scm>
-    <connection>scm:git:git@github.com:mybatis/spring-boot-starter.git</connection>
-    <developerConnection>scm:git:git@github.com:mybatis/spring-boot-starter.git</developerConnection>
+    <connection>scm:git:ssh://git@github.com/mybatis/spring-boot-starter.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/mybatis/spring-boot-starter.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
+    <url>https://github.com/mybatis/spring-boot-starter/</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -62,7 +62,7 @@
     <site>
       <id>gh-pages-scm</id>
       <name>Mybatis GitHub Pages</name>
-      <url>scm:git:git@github.com:mybatis/spring-boot-starter.git</url>
+      <url>scm:git:ssh://git@github.com/mybatis/spring-boot-starter.git</url>
     </site>
   </distributionManagement>
 
