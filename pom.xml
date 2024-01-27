@@ -33,7 +33,7 @@
 
   <name>mybatis-spring-boot</name>
   <description>Spring Boot Support for MyBatis</description>
-  <url>https://www.mybatis.org/spring-boot-starter/</url>
+  <url>https://github.com/mybatis/spring-boot-starter/</url>
   <inceptionYear>2015</inceptionYear>
 
   <modules>
@@ -48,7 +48,7 @@
     <connection>scm:git:ssh://git@github.com/mybatis/spring-boot-starter.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/spring-boot-starter.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://github.com/mybatis/spring-boot-starter/tree/master</url>
+    <url>https://github.com/mybatis/spring-boot-starter/</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
