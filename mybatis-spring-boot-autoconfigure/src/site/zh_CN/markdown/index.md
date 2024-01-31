@@ -114,7 +114,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
  MyBatis-Spring-Boot-Starter 将默认搜寻带有 `@Mapper` 注解的 mapper 接口。
 
-你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](https://mybatis.org/spring/zh/mappers.html#scan) 中查看更多信息。
+你可能想指定一个自定义的注解或接口来扫描，如果那样的话，你就必须使用 `@MapperScan` 注解了。在 [MyBatis-Spring 参考页面](https://mybatis.org/spring/zh_CN/mappers.html#scan) 中查看更多信息。
 
 如果 MyBatis-Spring-Boot-Starter 发现至少有一个 `SqlSessionFactoryBean` ，它将不会开始扫描。 所以如果你想停止扫描，你应该用 `@Bean` 方法明确注册你的 mapper。
 
@@ -157,11 +157,11 @@ MyBatis 在它的配置项中，使用 `mybatis` 作为前缀。
 | `type-handlers-package`                  | 搜索类型处理器的包名。（包使用的分隔符是 "`,; \t\n`"）                                                                                                                                                                            |
 | `executor-type`                          | SQL 执行器类型： `SIMPLE`, `REUSE`, `BATCH`                                                                                                                                                                        |
 | `default-scripting-language-driver`      | 默认的脚本语言驱动（模板引擎），此功能需要与 mybatis-spring 2.0.2 以上版本一起使用。                                                                                                                                                        |
-| `configuration-properties`               | 可在外部配置的 MyBatis 配置项。指定的配置项可以被用作 MyBatis 配置文件和 Mapper 文件的占位符。更多细节 见 [MyBatis 参考页面](https://mybatis.org/mybatis-3/zh/configuration.html#properties)。                                                           |
+| `configuration-properties`               | 可在外部配置的 MyBatis 配置项。指定的配置项可以被用作 MyBatis 配置文件和 Mapper 文件的占位符。更多细节 见 [MyBatis 参考页面](https://mybatis.org/mybatis-3/zh_CN/configuration.html#properties)。                                                           |
 | `lazy-initialization`                    | 是否启用 mapper bean 的延迟初始化。设置 `true` 以启用延迟初始化。此功能需要与 mybatis-spring 2.0.2 以上版本一起使用。                                                                                                                             |
 | `mapper-default-scope`                   | 通过自动配置扫描的 mapper 组件的默认作用域。该功能需要与 mybatis-spring 2.0.6 以上版本一起使用。                                                                                                                                              |
 | `inject-sql-session-on-mapper-scan`      | 设置是否注入 `SqlSessionTemplate` 或  `SqlSessionFactory` 组件 （如果你想回到 2.2.1 或之前的行为，请指定 `false` ）。如果你和 spring-native 一起使用，应该设置为 `true` （默认）。                                                                          |
-| `configuration.*`                        | MyBatis Core 提供的`Configuration` 组件的配置项。有关可用的内部配置项，请参阅[MyBatis 参考页面](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)。注：此属性不能与 `config-location` 同时使用。                                        |
+| `configuration.*`                        | MyBatis Core 提供的`Configuration` 组件的配置项。有关可用的内部配置项，请参阅[MyBatis 参考页面](http://www.mybatis.org/mybatis-3/zh_CN/configuration.html#settings)。注：此属性不能与 `config-location` 同时使用。                                        |
 | `scripting-language-driver.thymeleaf.*`  | MyBatis `ThymeleafLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis Thymeleaf 参考页面](http://www.mybatis.org/thymeleaf-scripting/user-guide.html#_configuration_properties)。                   |
 | `scripting-language-driver.freemarker.*` | MyBatis `FreemarkerLanguageDriverConfig` 组件的 properties keys。有关可用的内部配置项，请参阅 [MyBatis FreeMarker 参考页面](http://www.mybatis.org/freemarker-scripting/#Configuration)。这个特性需要与 mybatis-freemarker 1.2.0 以上版本一起使用。 |
 | `scripting-language-driver.velocity.*`   | MyBatis `VelocityLanguageDriverConfig` 组件的  properties keys。有关可用的内部属性，请参阅 [MyBatis Velocity 参考页面](http://www.mybatis.org/velocity-scripting/#Configuration)。这个特性需要与 mybatis-velocity 2.1.0 以上版本一起使用。         |
@@ -264,10 +264,10 @@ public class MyBatisConfig {
 
 The MyBatis-Spring-Boot-Starter 将检测实现以下由 MyBatis 提供的接口的组件。
 
-* [`Interceptor`](http://www.mybatis.org/mybatis-3/zh/configuration.html#plugins) (拦截器)
-* [`TypeHandler`](http://www.mybatis.org/mybatis-3/zh/configuration.html#typeHandlers) (类型处理器)
-* [`LanguageDriver`](http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html#Pluggable_Scripting_Languages_For_Dynamic_SQL) （插入脚本语言）(需要 mybatis-spring 2.0.2 以上配合使用)
-* [`DatabaseIdProvider`](http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider)
+* [`Interceptor`](http://www.mybatis.org/mybatis-3/zh_CN/configuration.html#plugins) (拦截器)
+* [`TypeHandler`](http://www.mybatis.org/mybatis-3/zh_CN/configuration.html#typeHandlers) (类型处理器)
+* [`LanguageDriver`](http://www.mybatis.org/mybatis-3/zh_CN/dynamic-sql.html#Pluggable_Scripting_Languages_For_Dynamic_SQL) （插入脚本语言）(需要 mybatis-spring 2.0.2 以上配合使用)
+* [`DatabaseIdProvider`](http://www.mybatis.org/mybatis-3/zh_CN/configuration.html#databaseIdProvider)
 
 ```java
 @Configuration
