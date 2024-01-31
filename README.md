@@ -37,8 +37,8 @@ MyBatis Spring-Boot-Starter will help you to use [MyBatis](https://github.com/my
 
 Translations:
 
-* [See the docs(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-autoconfigure/src/site/zh/markdown/index.md)
-* [See the docs for testing(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-test-autoconfigure/src/site/zh/markdown/index.md)
+* [See the docs(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-autoconfigure/src/site/zh_CN/markdown/index.md)
+* [See the docs for testing(简体中文)](https://github.com/mybatis/spring-boot-starter/blob/master/mybatis-spring-boot-test-autoconfigure/src/site/zh_CN/markdown/index.md)
 
 
 ## Quick Start
