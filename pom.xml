@@ -17,6 +17,7 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -33,7 +34,7 @@
 
   <name>mybatis-spring-boot</name>
   <description>Spring Boot Support for MyBatis</description>
-  <url>https://github.com/mybatis/spring-boot-starter/</url>
+  <url>https://www.mybatis.org/spring-boot-starter/</url>
   <inceptionYear>2015</inceptionYear>
 
   <modules>
