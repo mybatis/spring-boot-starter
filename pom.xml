@@ -85,6 +85,9 @@
     <project.build.outputTimestamp>1700807562</project.build.outputTimestamp>
 
     <module.name>org.mybatis.spring.boot</module.name>
+
+    <!-- Disable topSiteURL -->
+    <topSiteURL />
   </properties>
 
   <dependencyManagement>
