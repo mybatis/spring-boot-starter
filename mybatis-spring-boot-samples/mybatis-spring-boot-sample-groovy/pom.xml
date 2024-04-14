@@ -28,7 +28,7 @@
   <name>mybatis-spring-boot-sample-groovy</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
-    <groovy.version>4.0.20</groovy.version>
+    <groovy.version>4.0.21</groovy.version>
   </properties>
   <dependencies>
     <dependency>
