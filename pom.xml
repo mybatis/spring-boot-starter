@@ -250,6 +250,7 @@
                 <excludes>
                   <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
                   <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                  <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
                 </excludes>
               </enforceBytecodeVersion>
             </rules>
