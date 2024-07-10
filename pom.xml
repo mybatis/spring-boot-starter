@@ -241,6 +241,20 @@
             </additionalOptions>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <configuration>
+            <rules>
+              <enforceBytecodeVersion>
+                <excludes>
+                  <!-- Openssl contains panama for jdk 22 or higher if enabled via listener 'org.apache.catalina.core.OpenSSLLifecycleListener' -->
+                  <exclude>org.apache.tomcat:tomcat-coyote</exclude>
+                </excludes>
+              </enforceBytecodeVersion>
+            </rules>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
