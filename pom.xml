@@ -77,7 +77,7 @@
     <mybatis-freemarker.version>1.2.4</mybatis-freemarker.version>
     <mybatis-velocity.version>2.1.2</mybatis-velocity.version>
     <mybatis-thymeleaf.version>1.0.4</mybatis-thymeleaf.version>
-    <spring-boot.version>3.3.1</spring-boot.version>
+    <spring-boot.version>3.3.2</spring-boot.version>
 
     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
 
