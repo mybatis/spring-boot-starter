@@ -1,2 +1,3 @@
 org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration
 org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
+org.mybatis.spring.boot.autoconfigure.MyBatisMapperFactoryBeanPostProcessor
