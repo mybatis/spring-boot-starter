@@ -1,0 +1,14 @@
+[
+  { "name": "org.apache.ibatis.logging.slf4j.Slf4jImpl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.logging.log4j2.Log4j2Impl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.logging.log4j.Log4jImpl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.logging.jdk14.Jdk14LoggingImpl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.logging.nologging.NoLoggingImpl", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.plugin.Interceptor", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.javassist.util.proxy.ProxyFactory", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "org.apache.ibatis.scripting.defaults.RawLanguageDriver", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "org.mybatis.spring.SqlSessionFactoryBean", "allDeclaredConstructors": true, "allDeclaredMethods": true },
+  { "name": "java.util.ArrayList", "methods": [{ "name": "<init>", "parameterTypes": [] }] }
+]
