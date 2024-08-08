@@ -27,6 +27,8 @@ import java.util.stream.Stream;
 import org.apache.ibatis.reflection.TypeParameterResolver;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.beans.PropertyValue;
@@ -36,13 +38,25 @@ import org.springframework.beans.factory.aot.BeanRegistrationExcludeFilter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.RegisteredBean;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * @since 3.0.4
  */
 class MyBatisBeanFactoryInitializationAotProcessor
     implements BeanFactoryInitializationAotProcessor, BeanRegistrationExcludeFilter {
+
+  private static final Logger logger = LoggerFactory.getLogger(MyBatisBeanFactoryInitializationAotProcessor.class);
+
+  private static final ResourceLoader RESOURCE_RESOLVER = new PathMatchingResourcePatternResolver();
+
+  private static final String CONFIG_LOCATION = MybatisProperties.MYBATIS_PREFIX + ".config-location";
 
   private static final Set<Class<?>> EXCLUDE_CLASSES = new HashSet<>();
 
@@ -58,6 +72,10 @@ class MyBatisBeanFactoryInitializationAotProcessor
     }
     return (context, code) -> {
       RuntimeHints hints = context.getRuntimeHints();
+
+      Environment environment = beanFactory.getBean(Environment.class);
+      configLocation(environment, hints);
+
       for (String beanName : beanNames) {
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName.substring(1));
         PropertyValue mapperInterface = beanDefinition.getPropertyValues().getPropertyValue("mapperInterface");
@@ -76,6 +94,19 @@ class MyBatisBeanFactoryInitializationAotProcessor
   @Override
   public boolean isExcludedFromAotProcessing(RegisteredBean registeredBean) {
     return EXCLUDE_CLASSES.contains(registeredBean.getBeanClass());
+  }
+
+  private void configLocation(Environment environment, RuntimeHints hints) {
+    String configLocation = environment.getProperty(CONFIG_LOCATION);
+    if (StringUtils.hasText(configLocation)) {
+      Resource resource = RESOURCE_RESOLVER.getResource(configLocation);
+      if (resource.exists()) {
+        Stream.of(configLocation.replace(ResourceUtils.CLASSPATH_URL_PREFIX, ""))
+            .forEach(hints.resources()::registerPattern);
+      } else {
+        logger.error("{}: {} does not exist", CONFIG_LOCATION, configLocation);
+      }
+    }
   }
 
   private void registerMapperRelationships(Class<?> mapperInterfaceType, RuntimeHints hints) {
