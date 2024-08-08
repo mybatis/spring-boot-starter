@@ -15,15 +15,15 @@
  */
 package sample.mybatis.graalvm.xml.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import sample.mybatis.graalvm.xml.domain.City;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import sample.mybatis.graalvm.xml.domain.City;
 
 /**
  * @author Eddú Meléndez
@@ -31,16 +31,16 @@ import java.util.TreeSet;
 @Mapper
 public interface CityMapper {
 
-    City findByState(@Param("state") String state);
+  City findByState(@Param("state") String state);
 
-    List<City> listByState(@Param("state") String state);
+  List<City> listByState(@Param("state") String state);
 
-    Map<String, Object> mapByState(@Param("state") String state);
+  Map<String, Object> mapByState(@Param("state") String state);
 
-    List<Map<String, Object>> listMapByState(@Param("state") String state);
+  List<Map<String, Object>> listMapByState(@Param("state") String state);
 
-    TreeSet<String> treeSetStateByState(@Param("country") String country);
+  TreeSet<String> treeSetStateByState(@Param("country") String country);
 
-    HashSet<String> hashSetStateByState(@Param("country") String country);
+  HashSet<String> hashSetStateByState(@Param("country") String country);
 
 }
