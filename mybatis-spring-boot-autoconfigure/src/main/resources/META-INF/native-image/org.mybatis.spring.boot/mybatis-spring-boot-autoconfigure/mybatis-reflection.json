@@ -13,5 +13,7 @@
   { "name": "java.util.ArrayList", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
   { "name": "java.util.HashMap", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
   { "name": "java.util.TreeSet", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
-  { "name": "java.util.HashSet", "methods": [{ "name": "<init>", "parameterTypes": [] }] }
+  { "name": "java.util.HashSet", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "org.apache.ibatis.session.Configuration", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "org.mybatis.spring.boot.autoconfigure.SpringBootVFS", "methods": [{ "name": "<init>", "parameterTypes": [] }] }
 ]
