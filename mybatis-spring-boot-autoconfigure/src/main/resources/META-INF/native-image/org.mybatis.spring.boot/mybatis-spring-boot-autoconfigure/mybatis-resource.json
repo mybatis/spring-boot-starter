@@ -1,0 +1,10 @@
+{
+  "resources": {
+    "includes": [
+      { "pattern": "org/apache/ibatis/builder/xml/mybatis-3-config.dtd" },
+      { "pattern": "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd" },
+      { "pattern": "org/apache/ibatis/builder/xml/mybatis-config.xsd" },
+      { "pattern": "org/apache/ibatis/builder/xml/mybatis-mapper.xsd" }
+    ]
+  }
+}
