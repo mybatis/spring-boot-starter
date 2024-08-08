@@ -67,7 +67,9 @@ jobs:
       #  run: xcode-select --install
 
       - name: Test with Spring Boot Native Latest
-        run: ./mvnw -V compile -Pnative native:compile -am -pl mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation
+        run: ./mvnw -V compile -Pnative native:compile -am -pl mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation,mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-xml
 
       - name: Run Native Latest
-        run: mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation/target/mybatis-spring-boot-sample-graalvm-annotation
+        run: |
+          mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation/target/mybatis-spring-boot-sample-graalvm-annotation
+          mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-xml/target/mybatis-spring-boot-sample-graalvm-xml
