@@ -29,7 +29,7 @@ import org.springframework.core.ResolvableType;
 import org.springframework.util.ClassUtils;
 
 /**
- * The {@code BeanDefinitionPostProcessor} for customizing a {@code MapperFactoryBean}.
+ * The {@link MergedBeanDefinitionPostProcessor} for customizing a {@link MapperFactoryBean}.
  *
  * @author Stéphane Nicoll
  * @author Kazuki Shimizu
