@@ -15,3 +15,5 @@
 --
 
 insert into city (name, state, country) values ('San Francisco', 'CA', 'US');
+insert into city (name, state, country) values ('Jinan', 'ShanDong', 'CN');
+insert into city (name, state, country) values ('Tsingtao', 'ShanDong', 'CN');

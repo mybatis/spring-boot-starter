@@ -10,5 +10,8 @@
   { "name": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
   { "name": "org.apache.ibatis.scripting.defaults.RawLanguageDriver", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
   { "name": "org.mybatis.spring.SqlSessionFactoryBean", "allDeclaredConstructors": true, "allDeclaredMethods": true },
-  { "name": "java.util.ArrayList", "methods": [{ "name": "<init>", "parameterTypes": [] }] }
+  { "name": "java.util.ArrayList", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "java.util.HashMap", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "java.util.TreeSet", "methods": [{ "name": "<init>", "parameterTypes": [] }] },
+  { "name": "java.util.HashSet", "methods": [{ "name": "<init>", "parameterTypes": [] }] }
 ]
