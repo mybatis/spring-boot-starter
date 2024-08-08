@@ -58,6 +58,13 @@ jobs:
           ls -lh $JAVA_HOME
           mvn -v
 
+      - name: Cache modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+          key: ${{ runner.os }}-${{ matrix.java }}
+
       - name: Ubuntu Prerequisites
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo apt-get install build-essential zlib1g-dev
