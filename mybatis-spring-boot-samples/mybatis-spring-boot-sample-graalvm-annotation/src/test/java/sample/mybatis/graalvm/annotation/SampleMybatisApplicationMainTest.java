@@ -33,6 +33,10 @@ class SampleMybatisApplicationMainTest {
     SampleAnnotationApplication.main(new String[] {});
     String output = outputCapture.toString();
     assertThat(output).contains("1,San Francisco,CA,US");
+    assertThat(output).contains("2,Jinan,ShanDong,CN");
+    assertThat(output).contains("3,Tsingtao,ShanDong,CN");
+    assertThat(output).contains("{COUNTRY=CN, STATE=ShanDong, ID=2, NAME=Jinan}");
+    assertThat(output).contains("{COUNTRY=CN, STATE=ShanDong, ID=3, NAME=Tsingtao}");
   }
 
 }

@@ -38,6 +38,11 @@ public class SampleAnnotationApplication implements CommandLineRunner {
   @SuppressWarnings("squid:S106")
   public void run(String... args) {
     System.out.println(this.cityMapper.findByState("CA"));
+    System.out.println(this.cityMapper.listByState("ShanDong"));
+    System.out.println(this.cityMapper.mapByState("CA"));
+    System.out.println(this.cityMapper.listMapByState("ShanDong"));
+    System.out.println(this.cityMapper.treeSetStateByState("CN"));
+    System.out.println(this.cityMapper.hashSetStateByState("CN"));
   }
 
 }

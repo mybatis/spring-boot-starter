@@ -15,6 +15,11 @@
  */
 package sample.mybatis.graalvm.annotation.mapper;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -29,5 +34,20 @@ public interface CityMapper {
 
   @Select("select id, name, state, country from city where state = #{state}")
   City findByState(@Param("state") String state);
+
+  @Select("select id, name, state, country from city where state = #{state}")
+  List<City> listByState(@Param("state") String state);
+
+  @Select("select id, name, state, country from city where state = #{state}")
+  Map<String, Object> mapByState(@Param("state") String state);
+
+  @Select("select id, name, state, country from city where state = #{state}")
+  List<Map<String, Object>> listMapByState(@Param("state") String state);
+
+  @Select("select state from city where country = #{country}")
+  TreeSet<String> treeSetStateByState(@Param("country") String country);
+
+  @Select("select state from city where country = #{country}")
+  HashSet<String> hashSetStateByState(@Param("country") String country);
 
 }
