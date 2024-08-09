@@ -58,6 +58,8 @@ class MyBatisBeanFactoryInitializationAotProcessor
 
   private static final String CONFIG_LOCATION = MybatisProperties.MYBATIS_PREFIX + ".config-location";
 
+  private static final String MAPPER_LOCATIONS = MybatisProperties.MYBATIS_PREFIX + ".mapper-locations";
+
   private static final Set<Class<?>> EXCLUDE_CLASSES = new HashSet<>();
 
   static {
@@ -75,6 +77,7 @@ class MyBatisBeanFactoryInitializationAotProcessor
 
       Environment environment = beanFactory.getBean(Environment.class);
       configLocation(environment, hints);
+      mapperLocations(environment, hints);
 
       for (String beanName : beanNames) {
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName.substring(1));
@@ -101,10 +104,19 @@ class MyBatisBeanFactoryInitializationAotProcessor
     if (StringUtils.hasText(configLocation)) {
       Resource resource = RESOURCE_RESOLVER.getResource(configLocation);
       if (resource.exists()) {
-        Stream.of(configLocation.replace(ResourceUtils.CLASSPATH_URL_PREFIX, ""))
-            .forEach(hints.resources()::registerPattern);
+        Stream.of(resource).forEach(hints.resources()::registerResource);
       } else {
         logger.error("{}: {} does not exist", CONFIG_LOCATION, configLocation);
+      }
+    }
+  }
+
+  private void mapperLocations(Environment environment, RuntimeHints hints) {
+    String[] mapperLocations = environment.getProperty(MAPPER_LOCATIONS, String[].class);
+    if (mapperLocations != null) {
+      for (String mapperLocation : mapperLocations) {
+        Stream.of(mapperLocation.replace(ResourceUtils.CLASSPATH_URL_PREFIX, ""))
+            .forEach(hints.resources()::registerPattern);
       }
     }
   }
