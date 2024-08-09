@@ -25,6 +25,5 @@
     </typeAliases>
     <mappers>
         <mapper resource="sample/mybatis/graalvm/xml/mapper/CityMapper.xml"/>
-        <mapper resource="sample/mybatis/graalvm/xml/mapper/HotelMapper.xml"/>
     </mappers>
 </configuration>

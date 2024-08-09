@@ -1,8 +1,7 @@
 {
   "resources": {
     "includes": [
-      { "pattern": "sample/mybatis/graalvm/xml/mapper/CityMapper.xml" },
-      { "pattern": "sample/mybatis/graalvm/xml/mapper/HotelMapper.xml" }
+      { "pattern": "sample/mybatis/graalvm/xml/mapper/CityMapper.xml" }
     ]
   }
 }
