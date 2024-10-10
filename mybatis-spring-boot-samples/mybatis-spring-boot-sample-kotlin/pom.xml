@@ -28,7 +28,7 @@
   <name>mybatis-spring-boot-sample-kotlin</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.kotlin</module.name>
-    <kotlin.version>2.0.20</kotlin.version>
+    <kotlin.version>2.0.21</kotlin.version>
   </properties>
   <dependencies>
     <dependency>
