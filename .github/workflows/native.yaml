@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macOS-latest ]
-        java: [ 17.0.9, 21.0.2, 22.0.2 ]
+        java: [ '17.0.12', '21', '22' ]
       fail-fast: false
       max-parallel: 5
     name: Test GraalVM JDK ${{ matrix.java }}, ${{ matrix.os }}
@@ -32,31 +32,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Ubuntu Set up JDK
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          JAVA_HOME=$RUNNER_WORKSPACE/.graalvm
-          echo $JAVA_HOME
-          mkdir -p $JAVA_HOME
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-          curl -L -o graalvm.tar.gz https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${{ matrix.java }}/graalvm-community-jdk-${{ matrix.java }}_linux-x64_bin.tar.gz
-          tar -zxvf graalvm.tar.gz -C $JAVA_HOME --strip-components=1
-          ls -lh $JAVA_HOME
-          mvn -v
-
-      - name: MacOS Set up JDK
-        if: ${{ matrix.os == 'macOS-latest' }}
-        run: |
-          JAVA_HOME=$RUNNER_WORKSPACE/.graalvm
-          echo $JAVA_HOME
-          mkdir -p $JAVA_HOME
-          curl -L -o graalvm.tar.gz https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${{ matrix.java }}/graalvm-community-jdk-${{ matrix.java }}_macos-x64_bin.tar.gz
-          tar -zxvf graalvm.tar.gz -C $JAVA_HOME --strip-components=1
-          JAVA_HOME=$RUNNER_WORKSPACE/.graalvm/Contents/Home
-          echo $JAVA_HOME
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-          ls -lh $JAVA_HOME
-          mvn -v
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'graalvm'
+          java-version: ${{ matrix.java }}
 
       - name: Cache modules
         uses: actions/cache@v4
