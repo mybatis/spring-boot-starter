@@ -28,7 +28,7 @@
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
     <tomcat.major.version>10</tomcat.major.version>
-    <tomcat.version>10.1.28</tomcat.version>
+    <tomcat.version>11.0.0</tomcat.version>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
@@ -91,12 +91,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.4.0</version>
+          <version>3.5.1</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven3-plugin</artifactId>
-          <version>1.10.14</version>
+          <version>1.10.15</version>
         </plugin>
       </plugins>
     </pluginManagement>
