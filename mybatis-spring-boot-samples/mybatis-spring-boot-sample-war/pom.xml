@@ -27,7 +27,7 @@
   <packaging>war</packaging>
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
-    <tomcat.major.version>10</tomcat.major.version>
+    <tomcat.major.version>11</tomcat.major.version>
     <tomcat.version>11.0.0</tomcat.version>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
