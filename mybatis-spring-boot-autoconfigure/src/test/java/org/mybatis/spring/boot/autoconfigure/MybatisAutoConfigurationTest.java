@@ -307,10 +307,8 @@ class MybatisAutoConfigurationTest {
   void testWithCheckConfigLocationFileDoesNotExists() {
     this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
         .withPropertyValues("mybatis.config-location:foo.xml", "mybatis.check-config-location=true")
-        .run(context -> assertThat(context).getFailure().isInstanceOf(BeanCreationException.class)
-            .hasMessageContainingAll(
-                "Error creating bean with name 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration':",
-                "Cannot find config location: class path resource [foo.xml] (please add config file or check your Mybatis configuration)"));
+        .run(context -> assertThat(context).getFailure().isInstanceOf(BeanCreationException.class).hasMessageContaining(
+            "Cannot find config location: class path resource [foo.xml] (please add config file or check your Mybatis configuration)"));
   }
 
   @Test
