@@ -139,10 +139,12 @@ class MybatisPropertiesTest {
             .withPropertyValues("mybatis.configuration.aggressive-lazy-loading:true")
             .run(context -> assertThat(
                 context.getBean(SqlSessionFactory.class).getConfiguration().isAggressiveLazyLoading()).isTrue()),
+        // Since MyBatis 3.5.17, the return value of isMultipleResultSetsEnabled() is always true
+        // See https://github.com/mybatis/mybatis-3/pull/3238
         () -> this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
             .withPropertyValues("mybatis.configuration.multiple-result-sets-enabled:false")
             .run(context -> assertThat(
-                context.getBean(SqlSessionFactory.class).getConfiguration().isMultipleResultSetsEnabled()).isFalse()),
+                context.getBean(SqlSessionFactory.class).getConfiguration().isMultipleResultSetsEnabled()).isTrue()),
         () -> this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
             .withPropertyValues("mybatis.configuration.use-generated-keys:true")
             .run(context -> assertThat(context.getBean(SqlSessionFactory.class).getConfiguration().isUseGeneratedKeys())

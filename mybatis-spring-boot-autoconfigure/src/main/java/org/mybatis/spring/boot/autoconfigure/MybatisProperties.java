@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2023 the original author or authors.
+ *    Copyright 2015-2024 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -446,6 +447,7 @@ public class MybatisProperties {
       this.aggressiveLazyLoading = aggressiveLazyLoading;
     }
 
+    @DeprecatedConfigurationProperty(since = "3.0.4", reason = "The option is not used at MyBatis core module. It will be removed in the future. See https://github.com/mybatis/mybatis-3/pull/3238")
     public Boolean getMultipleResultSetsEnabled() {
       return multipleResultSetsEnabled;
     }
