@@ -29,7 +29,7 @@
 
   <groupId>org.mybatis.spring.boot</groupId>
   <artifactId>mybatis-spring-boot</artifactId>
-  <version>3.0.4</version>
+  <version>3.0.5-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>mybatis-spring-boot</name>
@@ -82,7 +82,7 @@
     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1732720003</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1732720620</project.build.outputTimestamp>
 
     <module.name>org.mybatis.spring.boot</module.name>
 
