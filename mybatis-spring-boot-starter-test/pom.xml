@@ -27,6 +27,7 @@
   <name>mybatis-spring-boot-starter-test</name>
   <properties>
     <module.name>org.mybatis.spring.boot.starter.test</module.name>
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError> <!-- This setting added for generating javadoc jar file. -->
   </properties>
   <dependencies>
     <dependency>
