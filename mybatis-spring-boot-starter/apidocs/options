@@ -1,0 +1,33 @@
+-classpath
+'/Users/ave/repo/m2_repo/org/springframework/boot/spring-boot-starter/3.4.0/spring-boot-starter-3.4.0.jar:/Users/ave/repo/m2_repo/org/springframework/boot/spring-boot/3.4.0/spring-boot-3.4.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-context/6.2.0/spring-context-6.2.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-aop/6.2.0/spring-aop-6.2.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-expression/6.2.0/spring-expression-6.2.0.jar:/Users/ave/repo/m2_repo/io/micrometer/micrometer-observation/1.14.1/micrometer-observation-1.14.1.jar:/Users/ave/repo/m2_repo/io/micrometer/micrometer-commons/1.14.1/micrometer-commons-1.14.1.jar:/Users/ave/repo/m2_repo/org/springframework/boot/spring-boot-autoconfigure/3.4.0/spring-boot-autoconfigure-3.4.0.jar:/Users/ave/repo/m2_repo/org/springframework/boot/spring-boot-starter-logging/3.4.0/spring-boot-starter-logging-3.4.0.jar:/Users/ave/repo/m2_repo/ch/qos/logback/logback-classic/1.5.12/logback-classic-1.5.12.jar:/Users/ave/repo/m2_repo/ch/qos/logback/logback-core/1.5.12/logback-core-1.5.12.jar:/Users/ave/repo/m2_repo/org/apache/logging/log4j/log4j-to-slf4j/2.24.1/log4j-to-slf4j-2.24.1.jar:/Users/ave/repo/m2_repo/org/apache/logging/log4j/log4j-api/2.24.1/log4j-api-2.24.1.jar:/Users/ave/repo/m2_repo/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/Users/ave/repo/m2_repo/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/ave/repo/m2_repo/org/springframework/spring-core/6.2.0/spring-core-6.2.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-jcl/6.2.0/spring-jcl-6.2.0.jar:/Users/ave/repo/m2_repo/org/yaml/snakeyaml/2.3/snakeyaml-2.3.jar:/Users/ave/repo/m2_repo/org/springframework/boot/spring-boot-starter-jdbc/3.4.0/spring-boot-starter-jdbc-3.4.0.jar:/Users/ave/repo/m2_repo/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/ave/repo/m2_repo/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/ave/repo/m2_repo/org/springframework/spring-jdbc/6.2.0/spring-jdbc-6.2.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-beans/6.2.0/spring-beans-6.2.0.jar:/Users/ave/repo/m2_repo/org/springframework/spring-tx/6.2.0/spring-tx-6.2.0.jar:/Users/ave/repo/mybatis-spring-boot/mybatis-spring-boot-autoconfigure/target/classes:/Users/ave/repo/m2_repo/org/mybatis/mybatis/3.5.17/mybatis-3.5.17.jar:/Users/ave/repo/m2_repo/org/mybatis/mybatis-spring/3.0.4/mybatis-spring-3.0.4.jar'
+-encoding
+'UTF-8'
+-protected
+-quiet
+--release
+17
+-sourcepath
+'/Users/ave/repo/mybatis-spring-boot/mybatis-spring-boot-starter/src/main/java:/Users/ave/repo/mybatis-spring-boot/mybatis-spring-boot-starter/target/generated-sources/annotations'
+-html5
+--add-modules
+java.desktop
+--add-modules
+java.sql
+-author
+-bottom
+'Copyright &#169; 2015&#x2013;2024 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/ave/repo/mybatis-spring-boot/mybatis-spring-boot-starter/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'mybatis-spring-boot-starter 3.0.4 API'
+-linkoffline
+'https://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/apidocs' '/Users/ave/repo/mybatis-spring-boot/mybatis-spring-boot-autoconfigure/target/site/apidocs'
+-notimestamp
+-use
+-version
+-windowtitle
+'mybatis-spring-boot-starter 3.0.4 API'
