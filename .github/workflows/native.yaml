@@ -1,0 +1,61 @@
+#
+# Copyright 2015-2024 the original author or authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Spring Boot Native Support Samples
+
+on: [ push, pull_request ]
+
+jobs:
+  test-ubuntu:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macOS-latest ]
+        java: [ '17.0.12', '21', '22' ]
+      fail-fast: false
+      max-parallel: 5
+    name: Test GraalVM JDK ${{ matrix.java }}, ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'graalvm'
+          java-version: ${{ matrix.java }}
+
+      - name: Cache modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+          key: ${{ runner.os }}-${{ matrix.java }}
+
+      - name: Ubuntu Prerequisites
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: sudo apt-get install build-essential zlib1g-dev
+
+      #- name: MacOS Prerequisites
+      #  if: ${{ matrix.os == 'macOS-latest' }}
+      #  run: xcode-select --install
+
+      - name: Test with Spring Boot Native Latest
+        run: ./mvnw -V clean compile -Pnative native:compile -am -pl mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation,mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-xml
+
+      - name: Run Native Latest
+        run: |
+          mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-annotation/target/mybatis-spring-boot-sample-graalvm-annotation
+          mybatis-spring-boot-samples/mybatis-spring-boot-sample-graalvm-xml/target/mybatis-spring-boot-sample-graalvm-xml
