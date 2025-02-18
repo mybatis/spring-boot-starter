@@ -62,7 +62,7 @@
           <bnd><![CDATA[
               Bundle-DocURL: ${project.url}
               Bundle-SymbolicName: ${osgi.symbolicName}
-              Export-Package: org.mybatis.spring.boot.starter
+              Export-Package: org.mybatis.spring.boot.starter;version=${project.version}
             ]]></bnd>
         </configuration>
       </plugin>
