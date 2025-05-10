@@ -3,7 +3,7 @@
 [![Java CI](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mybatis/spring-boot-starter/badge.svg?branch=master)](https://coveralls.io/github/mybatis/spring-boot-starter?branch=master)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.spring.boot/mybatis-spring-boot)
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.spring.boot/mybatis-spring-boot.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/spring/boot/mybatis-spring-boot/)
+[![Maven Central (Snapshots)](https://img.shields.io/maven-metadata/v.svg?label=maven-central&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/org/mybatis/spring/boot/mybatis-spring-boot/maven-metadata.xml)](https://central.sonatype.com/service/rest/repository/browse/maven-snapshots/org/mybatis/spring/boot/mybatis-spring-boot/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![mybatis-spring](https://mybatis.org/images/mybatis-logo.png)
