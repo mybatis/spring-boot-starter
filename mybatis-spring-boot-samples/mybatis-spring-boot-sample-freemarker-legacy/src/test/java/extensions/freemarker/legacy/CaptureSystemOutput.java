@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2022 the original author or authors.
+ *    Copyright 2015-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.platform.commons.support.ReflectionSupport;
 
 /**
- * {@code @CaptureSystemOutput} is a JUnit JUpiter extension for capturing output to {@code System.out} and
+ * {@code @CaptureSystemOutput} is a JUnit Jupiter extension for capturing output to {@code System.out} and
  * {@code System.err} with expectations supported via Hamcrest matchers.
  * <h4>Example Usage</h4>
  *
