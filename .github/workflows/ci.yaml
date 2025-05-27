@@ -2,6 +2,8 @@ name: Java CI
 
 on: [workflow_dispatch, push, pull_request]
 
+permissions: read-all
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
