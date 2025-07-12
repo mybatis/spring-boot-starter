@@ -29,7 +29,23 @@
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
     <groovy.version>4.0.27</groovy.version>
+    <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Ensure we use latest version regardless of spotbugs version -->
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-bom</artifactId>
+        <version>${groovy.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
@@ -43,7 +59,16 @@
     <dependency>
       <groupId>org.apache.groovy</groupId>
       <artifactId>groovy</artifactId>
-      <version>${groovy.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-groovydoc</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-docgenerator</artifactId>
+      <optional>true</optional>
     </dependency>
     <!-- test dependencies -->
     <dependency>
@@ -88,6 +113,13 @@
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
         <version>4.2.1</version>
+        <configuration>
+          <attachGroovyDocAnnotation>true</attachGroovyDocAnnotation>
+          <docTitle>${project.name} Groovy Documentation</docTitle>
+          <groovyDocOutputDirectory>${project.reporting.outputDirectory}/gapidocs</groovyDocOutputDirectory>
+          <footer>${project.name} Groovy Documentation</footer>
+          <header>${project.name} Groovy Documentation</header>
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -104,7 +136,47 @@
         </executions>
       </plugin>
     </plugins>
-    <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.gmavenplus</groupId>
+            <artifactId>gmavenplus-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>groovydocs</id>
+                <goals>
+                  <goal>generateStubs</goal>
+                  <goal>generateTestStubs</goal>
+                  <goal>groovydoc</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>groovydoc-jar</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+                  <classifier>javadoc</classifier>
+                  <classesDirectory>${project.reporting.outputDirectory}/gapidocs</classesDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
