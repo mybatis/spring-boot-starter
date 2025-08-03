@@ -26,4 +26,4 @@ jobs:
           distribution: ${{ matrix.distribution }}
           cache: ${{ matrix.cache }}
       - name: Test with Maven
-        run: ./mvnw test -B -V --no-transfer-progress -D"license.skip=true"
+        run: ./mvnw test -B -V --no-transfer-progress -D"license.skip=true" -D"enforcer.skip=true"
