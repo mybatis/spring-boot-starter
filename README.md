@@ -49,7 +49,7 @@ Translations:
 
 * [See the wiki page](https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start-for-building-native-image)
 
-## Bug report & Feature request
+## Bug report & feature request
 
 * [GitHub Issue Tracker](https://github.com/mybatis/spring-boot-starter/issues)
 
