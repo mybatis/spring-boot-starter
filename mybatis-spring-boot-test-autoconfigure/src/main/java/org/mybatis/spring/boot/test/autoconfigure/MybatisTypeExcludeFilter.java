@@ -1,5 +1,5 @@
 /*
- *    Copyright 2015-2022 the original author or authors.
+ *    Copyright 2015-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.boot.context.TypeExcludeFilter;
-import org.springframework.boot.test.autoconfigure.filter.AnnotationCustomizableTypeExcludeFilter;
+import org.springframework.boot.test.context.filter.annotation.AnnotationCustomizableTypeExcludeFilter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 

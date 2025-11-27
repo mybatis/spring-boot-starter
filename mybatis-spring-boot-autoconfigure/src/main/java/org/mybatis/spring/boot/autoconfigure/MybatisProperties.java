@@ -673,7 +673,7 @@ public class MybatisProperties {
     }
 
     public void applyTo(Configuration target) {
-      PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
+      PropertyMapper mapper = PropertyMapper.get();
       mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
       mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
       mapper.from(getMapUnderscoreToCamelCase()).to(target::setMapUnderscoreToCamelCase);

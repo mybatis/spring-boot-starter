@@ -23,8 +23,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.test.client.TestRestTemplate;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import sample.mybatis.web.domain.City;
@@ -33,6 +34,7 @@ import sample.mybatis.web.mapper.CityMapper;
 /**
  * @author Kazuki Shimizu
  */
+@AutoConfigureTestRestTemplate
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SampleMybatisWithMockBeanApplicationTest {
 
