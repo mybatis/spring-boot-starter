@@ -29,6 +29,7 @@
   <properties>
     <tomcat.major.version>11</tomcat.major.version>
     <tomcat.version>11.0.14</tomcat.version>
+    <bnd.skip>true</bnd.skip>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
