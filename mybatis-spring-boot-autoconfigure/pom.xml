@@ -110,12 +110,12 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-flyway</artifactId>
+      <artifactId>spring-boot-flyway</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-liquibase</artifactId>
+      <artifactId>spring-boot-liquibase</artifactId>
       <scope>test</scope>
     </dependency>
 
