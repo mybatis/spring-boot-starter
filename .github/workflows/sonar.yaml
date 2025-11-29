@@ -21,7 +21,7 @@ jobs:
         with:
           cache: maven
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Analyze with SonarCloud
         run: ./mvnw verify jacoco:report sonar:sonar -B -V -Dsonar.projectKey=mybatis_spring-boot-starter -Dsonar.organization=mybatis -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$SONAR_TOKEN -Dlicense.skip=true --no-transfer-progress
         env:

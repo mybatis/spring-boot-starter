@@ -11,7 +11,7 @@ jobs:
       matrix:
         cache: [maven]
         distribution: [temurin]
-        java: [17, 21, 24, 25-ea]
+        java: [17, 21, 25, 26-ea]
         os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
       max-parallel: 4
