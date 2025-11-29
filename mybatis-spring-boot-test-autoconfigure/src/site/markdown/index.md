@@ -24,7 +24,8 @@ The MyBatis-Spring-Boot-Starter-Test requires following versions:
 
 | MyBatis-Spring-Boot-Starter-Test | Spring Boot    | Java            |
 |----------------------------------|----------------|-----------------|
-| **3.0**                          | 3.0 - 3.5      | 17 or higher    |
+| **4.0**                          | 4.0+           | 17 or higher    |
+| **3.0**                          | 3.2 - 3.5      | 17 or higher    |
 | **2.3**                          | 2.7            | 8 or higher     |
 | **~~2.2 (EOL)~~**                | ~~2.5 - 2.7~~  | ~~8 or higher~~ |
 | **~~2.1 (EOL)~~**                | ~~2.1 - 2.4~~  | ~~8 or higher~~ |
