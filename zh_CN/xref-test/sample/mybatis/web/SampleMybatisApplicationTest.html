@@ -5,9 +5,9 @@
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../testapidocs/sample/mybatis/web/SampleMybatisApplicationTest.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../testapidocs/sample/mybatis/web/SampleMybatisApplicationTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> *    Copyright 2015-2022 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> *    Copyright 2015-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *    you may not use this file except in compliance with the License.</em>
@@ -29,29 +29,31 @@
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.test.context.SpringBootTest;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.test.web.client.TestRestTemplate;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * @author Kazuki Shimizu</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">class</strong> <a name="SampleMybatisApplicationTest" href="../../../sample/mybatis/web/SampleMybatisApplicationTest.html#SampleMybatisApplicationTest">SampleMybatisApplicationTest</a> {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    @Autowired
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> TestRestTemplate restTemplate;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>    @Test
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>    <strong class="jxr_keyword">void</strong> test() {
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      Map&lt;String, Object&gt; body = <strong class="jxr_keyword">this</strong>.restTemplate.getForObject(<span class="jxr_string">"/cities/{state}"</span>, Map.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"CA"</span>);
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      assertThat(body).hasSize(4).containsEntry(<span class="jxr_string">"id"</span>, 1).containsEntry(<span class="jxr_string">"name"</span>, <span class="jxr_string">"San Francisco"</span>)
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          .containsEntry(<span class="jxr_string">"state"</span>, <span class="jxr_string">"CA"</span>).containsEntry(<span class="jxr_string">"country"</span>, <span class="jxr_string">"US"</span>);
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>    }
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  }
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.resttestclient.TestRestTemplate;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.test.context.SpringBootTest;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * @author Kazuki Shimizu</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  @AutoConfigureTestRestTemplate
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">class</strong> <a name="SampleMybatisApplicationTest" href="../../../sample/mybatis/web/SampleMybatisApplicationTest.html#SampleMybatisApplicationTest">SampleMybatisApplicationTest</a> {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>    @Autowired
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">private</strong> TestRestTemplate restTemplate;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    @Test
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>    <strong class="jxr_keyword">void</strong> test() {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      Map&lt;String, Object&gt; body = <strong class="jxr_keyword">this</strong>.restTemplate.getForObject(<span class="jxr_string">"/cities/{state}"</span>, Map.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"CA"</span>);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      assertThat(body).hasSize(4).containsEntry(<span class="jxr_string">"id"</span>, 1).containsEntry(<span class="jxr_string">"name"</span>, <span class="jxr_string">"San Francisco"</span>)
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          .containsEntry(<span class="jxr_string">"state"</span>, <span class="jxr_string">"CA"</span>).containsEntry(<span class="jxr_string">"country"</span>, <span class="jxr_string">"US"</span>);
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>    }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015&#x2013;2024 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">© 2015–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>
 </body>
 </html>

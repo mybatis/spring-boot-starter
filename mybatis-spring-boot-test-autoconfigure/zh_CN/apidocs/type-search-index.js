@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"AutoConfigureMybatis"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"MybatisTest"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"AutoConfigureMybatis","k":"8"},{"p":"org.mybatis.spring.boot.test.autoconfigure","l":"MybatisTest","k":"8"}];updateSearchResults();

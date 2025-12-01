@@ -5,9 +5,9 @@
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../../../apidocs/org/mybatis/spring/boot/autoconfigure/MybatisProperties.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../../../apidocs/org/mybatis/spring/boot/autoconfigure/MybatisProperties.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> *    Copyright 2015-2024 the original author or authors.</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> *    Copyright 2015-2025 the original author or authors.</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> *    Licensed under the Apache License, Version 2.0 (the "License");</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *    you may not use this file except in compliance with the License.</em>
@@ -296,7 +296,7 @@
 <a class="jxr_linenumber" name="L288" href="#L288">288</a> 
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     * MyBatis, by default, returns null when all the columns of a returned row are NULL. When this setting is enabled,</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * MyBatis returns an empty instance instead. Note that it is also applied to nested results (i.e. collectioin and</em>
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * MyBatis returns an empty instance instead. Note that it is also applied to nested results (i.e. collection and</em>
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">     * association). Default is false.</em>
 <a class="jxr_linenumber" name="L293" href="#L293">293</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>     <strong class="jxr_keyword">private</strong> Boolean returnInstanceForEmptyRow;
@@ -681,7 +681,7 @@
 <a class="jxr_linenumber" name="L673" href="#L673">673</a>     }
 <a class="jxr_linenumber" name="L674" href="#L674">674</a> 
 <a class="jxr_linenumber" name="L675" href="#L675">675</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> applyTo(Configuration target) {
-<a class="jxr_linenumber" name="L676" href="#L676">676</a>       PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
+<a class="jxr_linenumber" name="L676" href="#L676">676</a>       PropertyMapper mapper = PropertyMapper.get();
 <a class="jxr_linenumber" name="L677" href="#L677">677</a>       mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
 <a class="jxr_linenumber" name="L678" href="#L678">678</a>       mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
 <a class="jxr_linenumber" name="L679" href="#L679">679</a>       mapper.from(getMapUnderscoreToCamelCase()).to(target::setMapUnderscoreToCamelCase);
@@ -721,6 +721,6 @@
 <a class="jxr_linenumber" name="L713" href="#L713">713</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015&#x2013;2024 <a href="https://www.mybatis.org/">MyBatis.org</a>. All rights reserved.</div>
+<div id="footer">© 2015–2025 <a href="https://www.mybatis.org/">MyBatis.org</a></div>
 </body>
 </html>
