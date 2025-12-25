@@ -25,20 +25,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-        java: [17, 21, 25]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        java: [21, 25]
         distribution: ['zulu']
       fail-fast: false
       max-parallel: 5
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v6
-      - name: Set up JDK
-        uses: actions/setup-java@v5
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+      - name:  Setup Java ${{ matrix.java }} ${{ matrix.distribution }}
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5
         with:
-          java-version: ${{ matrix.java }}
+          cache: ${{ matrix.cache }}
           distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.java }}
       - name: Test with Spring Boot Latest
         run: |
           ./mvnw package
