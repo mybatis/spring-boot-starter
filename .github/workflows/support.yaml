@@ -25,9 +25,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        java: [21, 25]
+        cache: [maven]
         distribution: ['zulu']
+        java: [21, 25]
+        os: [macos-latest, ubuntu-latest, windows-latest]
       fail-fast: false
       max-parallel: 5
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
