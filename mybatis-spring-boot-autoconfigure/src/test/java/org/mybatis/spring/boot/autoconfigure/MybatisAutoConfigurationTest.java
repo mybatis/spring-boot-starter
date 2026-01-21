@@ -17,8 +17,6 @@ package org.mybatis.spring.boot.autoconfigure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.mapper.DateTimeMapper;
-
 import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -61,6 +59,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.handler.AtomicNumberTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.handler.DummyTypeHandler;
 import org.mybatis.spring.boot.autoconfigure.mapper.CityMapper;
+import org.mybatis.spring.boot.autoconfigure.mapper.first.DateTimeMapper;
 import org.mybatis.spring.boot.autoconfigure.repository.CityMapperImpl;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
@@ -105,13 +104,13 @@ class MybatisAutoConfigurationTest {
         contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, CustomBeanNameGeneratorConfiguration.class)
                 .withPropertyValues("mybatis.beanNameGenerator:org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator")
                 .run((context) -> {
-                    assertThat(context.containsBean(com.example.mapper.two.DateTimeMapper.class.getName())).isTrue();
-                    assertThat(context.containsBean(com.example.mapper.one.DateTimeMapper.class.getName())).isTrue();
+                    assertThat(context.containsBean(org.mybatis.spring.boot.autoconfigure.mapper.second.DateTimeMapper.class.getName())).isTrue();
+                    assertThat(context.containsBean(org.mybatis.spring.boot.autoconfigure.mapper.first.DateTimeMapper.class.getName())).isTrue();
                 });
     }
 
     @Configuration
-    @TestAutoConfigurationPackage(DateTimeMapper.class)
+    @TestAutoConfigurationPackage(CityMapper.class)
     static class CustomBeanNameGeneratorConfiguration {
 
     }

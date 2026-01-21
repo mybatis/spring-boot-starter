@@ -13,12 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.example.mapper;
+package org.mybatis.spring.boot.autoconfigure.mapper.first;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 
-import org.apache.ibatis.annotations.Select;
-
+@Mapper
 public interface DateTimeMapper {
 
   @Select("SELECT current_timestamp")
