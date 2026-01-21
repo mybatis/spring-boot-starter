@@ -21,14 +21,14 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-samples</artifactId>
-    <version>3.0.6-SNAPSHOT</version>
+    <version>4.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>mybatis-spring-boot-sample-groovy</artifactId>
   <packaging>jar</packaging>
   <name>mybatis-spring-boot-sample-groovy</name>
   <properties>
     <module.name>org.mybatis.spring.boot.sample.groovy</module.name>
-    <groovy.version>4.0.28</groovy.version>
+    <groovy.version>5.0.3</groovy.version>
     <sourceDirectory>${project.basedir}/src/main/groovy</sourceDirectory>
     <testSourceDirectory>${project.basedir}/src/test/groovy</testSourceDirectory>
   </properties>

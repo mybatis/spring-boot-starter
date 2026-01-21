@@ -21,14 +21,15 @@
   <parent>
     <groupId>org.mybatis.spring.boot</groupId>
     <artifactId>mybatis-spring-boot-samples</artifactId>
-    <version>3.0.6-SNAPSHOT</version>
+    <version>4.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>mybatis-spring-boot-sample-war</artifactId>
   <packaging>war</packaging>
   <name>mybatis-spring-boot-sample-war</name>
   <properties>
     <tomcat.major.version>11</tomcat.major.version>
-    <tomcat.version>11.0.9</tomcat.version>
+    <tomcat.version>11.0.15</tomcat.version>
+    <bnd.skip>true</bnd.skip>
 
     <module.name>org.mybatis.spring.boot.sample.war</module.name>
   </properties>
@@ -74,6 +75,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-resttestclient</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-restclient</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter-test</artifactId>
       <scope>test</scope>
@@ -86,17 +97,17 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>3.4.0</version>
+          <version>3.5.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.5.3</version>
+          <version>3.5.4</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven3-plugin</artifactId>
-          <version>1.10.20</version>
+          <version>1.10.26</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -115,7 +126,7 @@
           <container>
             <containerId>tomcat${tomcat.major.version}x</containerId>
             <zipUrlInstaller>
-              <url>https://archive.apache.org/dist/tomcat/tomcat-${tomcat.major.version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</url>
+              <url>https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/${tomcat.version}/tomcat-${tomcat.version}.zip</url>
             </zipUrlInstaller>
             <log>${project.build.directory}/cargo/cargo.log</log>
             <output>${project.build.directory}/cargo/container.log</output>

@@ -687,42 +687,40 @@ public class MybatisProperties {
             this.databaseId = databaseId;
         }
 
-        public void applyTo(Configuration target) {
-            PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
-            mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
-            mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
-            mapper.from(getMapUnderscoreToCamelCase()).to(target::setMapUnderscoreToCamelCase);
-            mapper.from(getAggressiveLazyLoading()).to(target::setAggressiveLazyLoading);
-            mapper.from(getMultipleResultSetsEnabled()).to(target::setMultipleResultSetsEnabled);
-            mapper.from(getUseGeneratedKeys()).to(target::setUseGeneratedKeys);
-            mapper.from(getUseColumnLabel()).to(target::setUseColumnLabel);
-            mapper.from(getCacheEnabled()).to(target::setCacheEnabled);
-            mapper.from(getCallSettersOnNulls()).to(target::setCallSettersOnNulls);
-            mapper.from(getUseActualParamName()).to(target::setUseActualParamName);
-            mapper.from(getReturnInstanceForEmptyRow()).to(target::setReturnInstanceForEmptyRow);
-            mapper.from(getShrinkWhitespacesInSql()).to(target::setShrinkWhitespacesInSql);
-            mapper.from(getNullableOnForEach()).to(target::setNullableOnForEach);
-            mapper.from(getArgNameBasedConstructorAutoMapping()).to(target::setArgNameBasedConstructorAutoMapping);
-            mapper.from(getLazyLoadingEnabled()).to(target::setLazyLoadingEnabled);
-            mapper.from(getLogPrefix()).to(target::setLogPrefix);
-            mapper.from(getLazyLoadTriggerMethods()).to(target::setLazyLoadTriggerMethods);
-            mapper.from(getDefaultStatementTimeout()).to(target::setDefaultStatementTimeout);
-            mapper.from(getDefaultFetchSize()).to(target::setDefaultFetchSize);
-            mapper.from(getLocalCacheScope()).to(target::setLocalCacheScope);
-            mapper.from(getJdbcTypeForNull()).to(target::setJdbcTypeForNull);
-            mapper.from(getDefaultResultSetType()).to(target::setDefaultResultSetType);
-            mapper.from(getDefaultExecutorType()).to(target::setDefaultExecutorType);
-            mapper.from(getAutoMappingBehavior()).to(target::setAutoMappingBehavior);
-            mapper.from(getAutoMappingUnknownColumnBehavior()).to(target::setAutoMappingUnknownColumnBehavior);
-            mapper.from(getVariables()).to(target::setVariables);
-            mapper.from(getLogImpl()).to(target::setLogImpl);
-            mapper.from(getVfsImpl()).to(target::setVfsImpl);
-            mapper.from(getDefaultSqlProviderType()).to(target::setDefaultSqlProviderType);
-            mapper.from(getConfigurationFactory()).to(target::setConfigurationFactory);
-            mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
-            mapper.from(getDatabaseId()).to(target::setDatabaseId);
-        }
-
+    public void applyTo(Configuration target) {
+      PropertyMapper mapper = PropertyMapper.get();
+      mapper.from(getSafeRowBoundsEnabled()).to(target::setSafeRowBoundsEnabled);
+      mapper.from(getSafeResultHandlerEnabled()).to(target::setSafeResultHandlerEnabled);
+      mapper.from(getMapUnderscoreToCamelCase()).to(target::setMapUnderscoreToCamelCase);
+      mapper.from(getAggressiveLazyLoading()).to(target::setAggressiveLazyLoading);
+      mapper.from(getMultipleResultSetsEnabled()).to(target::setMultipleResultSetsEnabled);
+      mapper.from(getUseGeneratedKeys()).to(target::setUseGeneratedKeys);
+      mapper.from(getUseColumnLabel()).to(target::setUseColumnLabel);
+      mapper.from(getCacheEnabled()).to(target::setCacheEnabled);
+      mapper.from(getCallSettersOnNulls()).to(target::setCallSettersOnNulls);
+      mapper.from(getUseActualParamName()).to(target::setUseActualParamName);
+      mapper.from(getReturnInstanceForEmptyRow()).to(target::setReturnInstanceForEmptyRow);
+      mapper.from(getShrinkWhitespacesInSql()).to(target::setShrinkWhitespacesInSql);
+      mapper.from(getNullableOnForEach()).to(target::setNullableOnForEach);
+      mapper.from(getArgNameBasedConstructorAutoMapping()).to(target::setArgNameBasedConstructorAutoMapping);
+      mapper.from(getLazyLoadingEnabled()).to(target::setLazyLoadingEnabled);
+      mapper.from(getLogPrefix()).to(target::setLogPrefix);
+      mapper.from(getLazyLoadTriggerMethods()).to(target::setLazyLoadTriggerMethods);
+      mapper.from(getDefaultStatementTimeout()).to(target::setDefaultStatementTimeout);
+      mapper.from(getDefaultFetchSize()).to(target::setDefaultFetchSize);
+      mapper.from(getLocalCacheScope()).to(target::setLocalCacheScope);
+      mapper.from(getJdbcTypeForNull()).to(target::setJdbcTypeForNull);
+      mapper.from(getDefaultResultSetType()).to(target::setDefaultResultSetType);
+      mapper.from(getDefaultExecutorType()).to(target::setDefaultExecutorType);
+      mapper.from(getAutoMappingBehavior()).to(target::setAutoMappingBehavior);
+      mapper.from(getAutoMappingUnknownColumnBehavior()).to(target::setAutoMappingUnknownColumnBehavior);
+      mapper.from(getVariables()).to(target::setVariables);
+      mapper.from(getLogImpl()).to(target::setLogImpl);
+      mapper.from(getVfsImpl()).to(target::setVfsImpl);
+      mapper.from(getDefaultSqlProviderType()).to(target::setDefaultSqlProviderType);
+      mapper.from(getConfigurationFactory()).to(target::setConfigurationFactory);
+      mapper.from(getDefaultEnumTypeHandler()).to(target::setDefaultEnumTypeHandler);
+      mapper.from(getDatabaseId()).to(target::setDatabaseId);
     }
 
 }
