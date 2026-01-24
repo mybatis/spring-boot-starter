@@ -112,7 +112,7 @@
       <plugin>
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
-        <version>4.2.1</version>
+        <version>4.3.0</version>
         <configuration>
           <attachGroovyDocAnnotation>true</attachGroovyDocAnnotation>
           <docTitle>${project.name} Groovy Documentation</docTitle>
