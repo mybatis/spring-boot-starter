@@ -567,7 +567,7 @@ class MybatisAutoConfigurationTest {
         .run(context -> {
           assertThat(context).hasFailed();
           assertThat(context).getFailure().isInstanceOf(BeanCreationException.class)
-              .hasMessageContaining("Property 'configuration' and 'configLocation' can not specified with together");
+              .hasMessageContaining("Only one of 'configuration' or 'configLocation' may be specified");
         });
   }
 
