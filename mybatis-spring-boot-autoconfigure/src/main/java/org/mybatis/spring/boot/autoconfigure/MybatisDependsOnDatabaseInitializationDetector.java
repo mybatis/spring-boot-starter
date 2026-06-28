@@ -15,7 +15,6 @@
  */
 package org.mybatis.spring.boot.autoconfigure;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,7 +33,7 @@ class MybatisDependsOnDatabaseInitializationDetector
 
   @Override
   protected Set<Class<?>> getDependsOnDatabaseInitializationBeanTypes() {
-    return Collections.singleton(SqlSessionTemplate.class);
+    return Set.of(SqlSessionTemplate.class);
   }
 
 }

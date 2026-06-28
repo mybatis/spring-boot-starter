@@ -15,7 +15,6 @@
  */
 package org.mybatis.spring.boot.test.autoconfigure;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.boot.context.TypeExcludeFilter;
@@ -61,12 +60,12 @@ class MybatisTypeExcludeFilter extends AnnotationCustomizableTypeExcludeFilter {
 
   @Override
   protected Set<Class<?>> getDefaultIncludes() {
-    return Collections.emptySet();
+    return Set.of();
   }
 
   @Override
   protected Set<Class<?>> getComponentIncludes() {
-    return Collections.emptySet();
+    return Set.of();
   }
 
 }
