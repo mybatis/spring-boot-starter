@@ -3,6 +3,7 @@
 [![Java CI](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/spring-boot-starter/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/mybatis/spring-boot-starter/badge.svg?branch=master)](https://coveralls.io/github/mybatis/spring-boot-starter?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/org.mybatis.spring.boot/mybatis-spring-boot?label=maven%20central)](https://central.sonatype.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot)
+[![Docs](https://img.shields.io/badge/docs-mybatis.org-blue?logo=github)](https://mybatis.org/spring-boot-starter/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![mybatis-spring](https://mybatis.org/images/mybatis-logo.png)
