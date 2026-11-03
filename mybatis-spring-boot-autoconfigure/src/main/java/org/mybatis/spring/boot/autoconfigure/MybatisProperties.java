@@ -99,7 +99,7 @@ public class MybatisProperties {
   private Properties configurationProperties;
 
   /**
-   * A Configuration object for customize default settings. If {@link #configLocation} is specified, this property is
+   * A Configuration object to customize default settings. If {@link #configLocation} is specified, this property is
    * not used.
    */
   private CoreConfiguration configuration;
